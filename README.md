@@ -8,6 +8,8 @@ This application was generated using JHipster 7.9.4, you can find documentation 
 
 - Rakshita Yadav (rxy297@student.bham.ac.uk)
 
+- Toluwalope Segun-Ololade (tos008@student.bham.ac.uk)
+
 - (insert the list of team mates)
 
 
