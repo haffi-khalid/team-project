@@ -13,7 +13,7 @@ This application was generated using JHipster 7.9.4, you can find documentation 
 
 - Kieran Patel (kxp253@student.bham.ac.uk)
 
-- Shivamkumar Patel (smp237@student.bham.ac.uk)
+- Shivamkumar Patel (smp237@student.bham.ac.uk) 
 
 - (insert the list of team mates)
 
