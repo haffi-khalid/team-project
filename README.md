@@ -16,7 +16,7 @@ This application was generated using JHipster 7.9.4, you can find documentation 
 
 - Shivamkumar Patel (smp237@student.bham.ac.uk) 
 
-- (insert the list of team mates)
+- Shikhar Pandey (sxp426@student.bham.ac.uk)
 
 
 ## changes for Teamproject
