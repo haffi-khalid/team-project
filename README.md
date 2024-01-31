@@ -3,9 +3,6 @@
 This application was generated using JHipster 7.9.4, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.9.4](https://www.jhipster.tech/documentation-archive/v7.9.4).
 
 ## This repository belongs to team x
-- Muhammad Haffi Khalid (mxk419@student.bham.ac.uk)
-
-- Mousa Mohiburrahman (mxm1454@student.bham.ac.uk)
 
 - Rakshita Yadav (rxy297@student.bham.ac.uk)
 
