@@ -1,0 +1,52 @@
+entity Volunteers{
+    Name String required,
+    Email String required,
+    Password String required,
+    TotalVolunteeringHours Integer required
+}
+entity VolunteerApplication{
+    VolunteerStatus ApplicationCategory,
+}
+entity Societies{
+    SocietyName String required unique,
+    SocietyEmail String required unique,
+    SocietyLogo ImageBlob required,
+    SocietyPassword String required
+}
+entity SocietiesActivities{
+    ActivityTitle String required,
+    ActivityDescription TextBlob required,
+    ActivityStartDate LocalDate required,
+    ActivityLogo ImageBlob,
+    ActivityDuration Integer required,
+    ActivityLocation LocationCategory required
+}
+entity SocietiesVolunteers{
+    Name String required,
+    Email String required,
+    VolunteerStatus ApplicationCategory required,
+    VolunteeringHoursCompleted Integer required
+
+}
+enum LocationCategory{
+    HOME,
+    INPERSON
+}
+enum ApplicationCategory{
+    PENDING(pending),
+    REJECTED(rejected),
+    ACCEPTED(accepted)
+}
+
+
+relationship OneToMany{
+    Volunteers{VolunteerApplication} to VolunteerApplication,
+    Societies to SocietiesActivities,
+    Volunteers to SocietiesVolunteers
+    Societies{VolunteerApplication} to VolunteerApplication,
+    Societies to SocietiesVolunteers
+
+}
+relationship ManyToMany{
+    SocietiesActivities to SocietiesVolunteers
+}
