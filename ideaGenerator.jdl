@@ -1,0 +1,34 @@
+entity Charity {
+    charityId Integer required
+    charityName String required
+}
+
+
+entity previousFundraiserEvent{
+    eventId Integer required
+    charityId Integer required
+    eventName String required
+    eventDescription String
+    numberOfVolunteers Integer
+    location String required
+    amountRaised Double required
+    cost Double
+}
+
+entity fundraiserEventIdea {
+    ideaId Integer required
+    eventName String required
+    eventDescription String
+    numberOfVolunteers Integer
+    location Boolean required
+    cost Double
+    expectedAttendance Integer required
+}
+
+relationship OneToMany {
+    fundraiserEventIdea{group} to Charity
+    previousFundraiserEvent{group} to Charity
+
+}
+
+
