@@ -1,11 +1,11 @@
 entity Volunteers{
-    Name String required,
+    Name String required pattern(/^[A-Za-z]+\s[A-Za-z]+$/),
     Email String required,
     Password String required,
-    TotalVolunteeringHours Integer required
+    WeeklyVolunteerHoursCompleted Integer required max(100)
 }
 entity VolunteerApplication{
-    VolunteerStatus ApplicationCategory,
+    VolunteerStatus ApplicationCategory
 }
 entity Societies{
     SocietyName String required unique,
@@ -22,31 +22,25 @@ entity SocietiesActivities{
     ActivityLocation LocationCategory required
 }
 entity SocietiesVolunteers{
-    Name String required,
-    Email String required,
     VolunteerStatus ApplicationCategory required,
-    VolunteeringHoursCompleted Integer required
+    VolunteerHoursCompletedInSociety Integer required
 
 }
 enum LocationCategory{
-    HOME,
-    INPERSON
+    REMOTE(Remote),
+    PERSON(Person)
 }
 enum ApplicationCategory{
-    PENDING(pending),
-    REJECTED(rejected),
-    ACCEPTED(accepted)
+    PENDING(Pending),
+    REJECTED(Rejected),
+    ACCEPTED(Accepted)
 }
-
-
 relationship OneToMany{
-    Volunteers{VolunteerApplication} to VolunteerApplication,
-    Societies to SocietiesActivities,
+    Volunteers to VolunteerApplication
+    Societies to SocietiesActivities{society(SocietyName)},
     Volunteers to SocietiesVolunteers
-    Societies{VolunteerApplication} to VolunteerApplication,
     Societies to SocietiesVolunteers
-
-}
-relationship ManyToMany{
+    SocietiesActivities to VolunteerApplication
     SocietiesActivities to SocietiesVolunteers
+
 }
