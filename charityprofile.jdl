@@ -1,0 +1,51 @@
+entity CharityProfile {
+    charityName String required
+    purpose String
+    aim String
+    emailAddress String required
+    logo ImageBlob
+}
+
+entity UserProfile{
+    username String,
+    userID Integer,
+    totalVolunteeringHours Integer,
+}
+
+
+entity Certificate{
+    totalHours Integer
+}
+
+entity Statistics {
+    totalVolunteers Integer
+    totalHours Integer
+    successRate Float
+}
+entity Member{
+
+}
+entity VolunteeringApplication {
+    status ApplicationStatus
+    hoursVolunteered Integer
+    timestamp Instant
+    taskCompleted Boolean
+}
+
+enum ApplicationStatus {
+    Open
+    Pending
+    Accepted
+    Rejected
+}
+
+relationship ManyToOne {
+    VolunteeringApplication{userProfile} to UserProfile
+    VolunteeringApplication{charityProfile} to CharityProfile
+}
+
+relationship OneToMany {
+    UserProfile{members} to Member
+}
+
+
