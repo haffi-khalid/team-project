@@ -1,0 +1,63 @@
+entity CharityEvent {
+    eventId Long
+    eventName String required
+    eventDate Instant required
+    eventTime Instant required
+
+}
+
+entity EventType{
+    EventTypeName String
+}
+
+entity CharityProfile {
+    CharityName String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Location {
+    streetAddress String
+    postalCode String
+    city String
+    stateProvince String
+}
+
+entity Description {
+    content String required
+}
+entity Image{
+    imageUrl String required
+}
+
+/**
+ * Task entity.
+ * @author The JHipster team.
+ */
+entity UserProfile {
+    UserType UserType
+}
+
+enum UserType {
+    NORMAL_USER, STAFF
+}
+
+
+/**
+ * The Employee entity.
+ */
+
+relationship ManyToOne {
+    CharityEvent{CharityEvent} to EventType
+    CharityEvent{CharityEvent} to CharityProfile
+    CharityEvent{CharityEvent} to Location
+    CharityEvent{CharityEvent} to UserProfile
+
+}
+
+// defining multiple oneToOne relationships
+relationship OneToOne {
+    CharityEvent{CharityEvent} to Description
+    CharityEvent{CharityEvent} to Image
+}
+
