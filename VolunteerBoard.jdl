@@ -39,7 +39,7 @@ enum ApplicationCategory{
 }
 relationship OneToMany{
     Volunteers to VolunteerApplication
-    Charity to ChairtyActivities{charity(CharityName)},
+    Charity to CharityActivities{charity(CharityName)},
     Volunteers to CharityVolunteers
     Charity to CharityVolunteers
     CharityActivities to VolunteerApplication
