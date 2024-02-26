@@ -2,18 +2,20 @@ entity Volunteers{
     Name String required pattern(/^[A-Za-z]+\s[A-Za-z]+$/),
     Email String required,
     Password String required,
-    WeeklyVolunteerHoursCompleted Integer required max(100)
+    VolunteerHoursCompleted Integer required max(100)
 }
 entity VolunteerApplication{
+    timeStamp Instant,
     VolunteerStatus ApplicationCategory
+    
 }
-entity Societies{
-    SocietyName String required unique,
-    SocietyEmail String required unique,
-    SocietyLogo ImageBlob required,
-    SocietyPassword String required
+entity Charity{
+    CharityName String required unique,
+    CharityEmail String required unique,
+    CharityLogo ImageBlob required,
+    CharityPassword String required
 }
-entity SocietiesActivities{
+entity CharityActivities{
     ActivityTitle String required,
     ActivityDescription TextBlob required,
     ActivityStartDate LocalDate required,
@@ -21,9 +23,9 @@ entity SocietiesActivities{
     ActivityDuration Integer required,
     ActivityLocation LocationCategory required
 }
-entity SocietiesVolunteers{
+entity CharityVolunteers{
     VolunteerStatus ApplicationCategory required,
-    VolunteerHoursCompletedInSociety Integer required
+    VolunteerHoursCompletedInCharity Integer required
 
 }
 enum LocationCategory{
@@ -37,10 +39,10 @@ enum ApplicationCategory{
 }
 relationship OneToMany{
     Volunteers to VolunteerApplication
-    Societies to SocietiesActivities{society(SocietyName)},
-    Volunteers to SocietiesVolunteers
-    Societies to SocietiesVolunteers
-    SocietiesActivities to VolunteerApplication
-    SocietiesActivities to SocietiesVolunteers
+    Charity to ChairtyActivities{charity(CharityName)},
+    Volunteers to CharityVolunteers
+    Charity to CharityVolunteers
+    CharityActivities to VolunteerApplication
+    CharityActivities to CharityVolunteers
 
 }
