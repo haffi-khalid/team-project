@@ -1,32 +1,24 @@
 entity UserEntity {
-    userId Integer,
     username String,
     role String
 }
 
 entity Charity {
-    charityId Integer,
     name String
 }
 
 entity SocialFeed {
-    feedId Integer
 }
 
 entity PostEntity {
-    postId Integer,
     content ImageBlob,
     timeStamp Instant,
-    feedId Integer,
-    userId Integer
 }
 entity Comment
 {
-    commentId Integer,
     content String,
     timeStamp Integer,
     status String,
-    userId Integer,
     parentId Integer
   }
 relationship OneToOne
@@ -36,11 +28,11 @@ Charity{socialFeed} to SocialFeed
 
 relationship OneToMany {
 
-SocialFeed{posts} to PostEntity{feed}
-UserEntity{posts} to PostEntity{author}
-UserEntity{comments} to Comment{author}
-Charity{comments} to Comment{charity}
-Comment{replies} to Comment{parent}
+SocialFeed to PostEntity
+UserEntity to PostEntity
+UserEntity to Comment
+Charity to Comment
+Comment to Comment
 
 }
 
