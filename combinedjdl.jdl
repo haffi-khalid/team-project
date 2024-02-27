@@ -8,32 +8,38 @@ entity Charity {
 }
 
 entity SocialFeed {
+    SocialFeedID Integer
+    SocialFeedPostType String
 }
 
 entity PostEntity {
     content ImageBlob,
     timeStamp Instant,
 }
-entity Comment
+
+relationship OneToOne
 {
+Charity{SocialFeed} to SocialFeed
+}
+
+entity Comment {
     content String,
     timeStamp Integer,
     status String,
     parentId Integer
-  }
-relationship OneToOne
-{
-Charity{socialFeed} to SocialFeed
 }
-
 relationship OneToMany {
 
 SocialFeed to PostEntity
 UserEntity to PostEntity
 UserEntity to Comment
-Charity to Comment
-Comment to Comment
 
 }
+
+relationship ManyToOne
+{
+    Comment{parent} to Comment{child}
+}
+
 
 
