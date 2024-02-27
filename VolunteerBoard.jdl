@@ -1,19 +1,17 @@
-entity Volunteers{
+entity Volunteer_Profile{
     Name String required pattern(/^[A-Za-z]+\s[A-Za-z]+$/),
     Email String required,
-    Password String required,
-    VolunteerHoursCompleted Integer required max(100)
+    VolunteerHoursCompleted Integer required
 }
 entity VolunteerApplication{
     timeStamp Instant,
     VolunteerStatus ApplicationCategory
-    
+
 }
 entity Charity{
     CharityName String required unique,
     CharityEmail String required unique,
-    CharityLogo ImageBlob required,
-    CharityPassword String required
+    CharityLogo ImageBlob required
 }
 entity CharityActivities{
     ActivityTitle String required,
@@ -21,28 +19,37 @@ entity CharityActivities{
     ActivityStartDate LocalDate required,
     ActivityLogo ImageBlob,
     ActivityDuration Integer required,
-    ActivityLocation LocationCategory required
+    ActivityLocation LocationCategory required,
 }
 entity CharityVolunteers{
     VolunteerStatus ApplicationCategory required,
     VolunteerHoursCompletedInCharity Integer required
-
 }
+
+entity Skills{
+    skillName String
+}
+
 enum LocationCategory{
     REMOTE(Remote),
     PERSON(Person)
 }
 enum ApplicationCategory{
     PENDING(Pending),
+    INTERVIEW(Interview)
     REJECTED(Rejected),
     ACCEPTED(Accepted)
 }
 relationship OneToMany{
-    Volunteers to VolunteerApplication
+    Volunteer_Profile to VolunteerApplication
     Charity to CharityActivities{charity(CharityName)},
-    Volunteers to CharityVolunteers
+    Volunteer_Profile to CharityVolunteers
     Charity to CharityVolunteers
     CharityActivities to VolunteerApplication
     CharityActivities to CharityVolunteers
+    Volunteer_Profile to Skills
 
+}
+relationship ManyToMany{
+    Skills to CharityActivities
 }
