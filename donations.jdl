@@ -36,14 +36,14 @@ entity UserVolunteerApplication{
 }
 
 // Relationships
-relationship ManyToOne {
-  Donator to Charity,
-  GroupDonator to UserProfile,
-  GroupDonator to Event
-  UserProfile to UserVolunteerApplication
-}
+//relationship ManyToOne {
+//  Donator to Charity,
+//  GroupDonator to UserProfile,
+//  GroupDonator to Event
+//  UserProfile to UserVolunteerApplication
+//}
 
 relationship OneToOne{
-	Donator to GroupDonator
+	Donator{groupDonator} to GroupDonator
 }
 
