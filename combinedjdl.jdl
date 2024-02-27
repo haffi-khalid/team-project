@@ -22,7 +22,7 @@ relationship OneToOne
 Charity{SocialFeed} to SocialFeed
 }
 
-entity Comment {
+entity CommentEntity {
     content String,
     timeStamp Integer,
     status String,
@@ -32,13 +32,13 @@ relationship OneToMany {
 
 SocialFeed to PostEntity
 UserEntity to PostEntity
-UserEntity to Comment
+UserEntity to CommentEntity
 
 }
 
 relationship ManyToOne
 {
-    Comment{parent} to Comment{child}
+    CommentEntity{parent} to CommentEntity{child}
 }
 
 
