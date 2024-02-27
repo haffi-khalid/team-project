@@ -27,7 +27,6 @@ entity Comment
     timeStamp Integer,
     status String,
     userId Integer,
-    charityId Integer,
     parentId Integer
   }
 relationship OneToOne
