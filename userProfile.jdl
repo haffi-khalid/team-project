@@ -1,3 +1,4 @@
+
 entity UserProfile {
     userID Integer,
     username String required,
@@ -13,7 +14,7 @@ entity Charity {
     upcomingEvents String required
 }
 
-entity User {
+entity UserPage {
     picture ImageBlob,
     course String required,
     bio String required,
@@ -39,7 +40,7 @@ entity Events {
 }
 
 entity VolunteerApplication {
-    userid Integer,
+    userID Integer,
     applicationId Integer,
     applicationDate ZonedDateTime required,
     status String required,
@@ -50,13 +51,6 @@ entity VolunteerApplication {
     preferredCharityId Integer
 }
 
-entity GroupDonator {
-    groupID Integer,
-    groupName String required,
-    eventID Integer required,
-    totalCollectionAmount Integer required,
-    userID Integer
-}
 
 entity Comments {
     userID Integer,
@@ -66,34 +60,33 @@ entity Comments {
 }
 
 relationship OneToOne {
-    Authentication {userProfile(userID)} to UserProfile,
-    User{userProfile(userID)} to UserProfile
+    Authentication {userProfile} to UserProfile,
+    UserPage{userProfile} to UserProfile
     // Corrected: Removed incorrect one-to-one relationships.
 }
 
 relationship ManyToOne {
-    VolunteerApplication{charity(charityID)} to Charity,
-    Comments {userProfile(userID)} to UserProfile,
-    GroupDonator {userProfile(userID)} to UserProfile
+    VolunteerApplication{charity} to Charity,
+    Events to Charity,
+    Comments {userPage} to UserPage,
     // Corrected and optimized: Defined clearer ownership and removed redundant relationships.
 }
 
 relationship OneToMany {
-    Charity{event} to Events{charity(charityID)}
-    UserProfile {userID} to VolunteerApplication{userID}
+    Charity{event} to Events
+    UserProfile  to VolunteerApplication
     // Optimized: Used OneToMany for Charity to Events relationship.
 }
 
-relationship ManyToMany {
-    User {comment(commentID)} to Comments{user(userID)}
-    // Adjusted: Defined ManyToMany relationship between Users and Comments.
-}
 
-// Define services where complex logic or operations not directly tied to database storage occur.
-service User, UserProfile, Authentication, Charity, Events, VolunteerApplication, GroupDonator, Comments with serviceClass
+
+/*Define services where complex logic or operations not directly tied to database storage occur.
+service UserPage, UserProfile, Authentication, Charity, Events, VolunteerApplication, GroupDonator, Comments with serviceClass
 
 // Optionally, if you want to fine-tune how DTOs are generated or if you use them.
-dto User, UserProfile, Charity, Events, VolunteerApplication, GroupDonator, Comments with mapstruct
+dto UserPage, UserProfile, Charity, Events, VolunteerApplication, GroupDonator, Comments with mapstruct
 
 // Pagination for entities that might have a lot of records.
-paginate User, Charity, Events, VolunteerApplication, GroupDonator, Comments with pagination
+paginate UserPage, Charity, Events, VolunteerApplication, GroupDonator, Comments with pagination
+
+*/
