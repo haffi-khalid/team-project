@@ -1,21 +1,23 @@
-entity Charity {
-    charityId Integer required
-    charityName String required
+
+entity CharityGroup {
+    name String required
+    size Integer required
+    fundsAvailable Double
 }
 
-
-entity previousFundraiserEvent{
-    eventId Integer required
-    charityId Integer required
-    eventName String required
-    eventDescription String
-    numberOfVolunteers Integer
-    location String required
-    amountRaised Double required
-    cost Double
+entity Fund {
+    amount Double required
 }
 
-entity fundraiserEventIdea {
+entity Cause {
+    name String required
+}
+
+entity Preference {
+    name String required
+}
+
+entity FundraisingIdea {
     ideaId Integer required
     eventName String required
     eventDescription String
@@ -23,12 +25,44 @@ entity fundraiserEventIdea {
     location Boolean required
     cost Double
     expectedAttendance Integer required
-}
-
-relationship OneToMany {
-    fundraiserEventIdea{group} to Charity
-    previousFundraiserEvent{group} to Charity
 
 }
 
+// Define relationships between entities
+relationship ManyToOne {
+    FundraisingIdea{team} to CharityGroup
+    FundraisingIdea{fund} to Fund
+    FundraisingIdea{cause} to Cause
+    FundraisingIdea{preference} to Preference
+}
+
+// Define entities for the budget planner feature
+
+
+entity FundraiserBudgeter {
+    name String required
+    description String
+    startDate LocalDate
+    endDate LocalDate
+    targetAmount Double
+    ticketIncome Double
+    expectedSales Double
+    fundraiserType String
+    // Add other attributes as needed
+}
+
+entity Expense {
+    description String required
+    amount Double required
+    // Add other attributes as needed
+}
+
+// Define relationships between entities
+relationship ManyToOne {
+    Expense{fundraiser} to FundraiserBudgeter
+}
+
+relationship ManyToOne {
+    FundraiserBudgeter{charity} to CharityGroup
+}
 
