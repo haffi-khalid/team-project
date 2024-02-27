@@ -1,45 +1,35 @@
+entity User
+{
+    UserID Integer
+    userName String
+    Role String
 
-
-
-
-
-
-entity CharityProfile {
-    charityId Integer,
-    name String 
 }
 
-entity SocialFeed {
-    feedId Integer
+entity Comment
+{
+    commentID Integer
+    ParentID Integer
+    UserID Integer
+    Content String
+    timeStamp Integer
+    status String
+    CharityID Integer
 }
-
-entity Post {
-    postId Integer,
-    content Picture ,
-    timeStamp Instant 
+entity Charity
+{
+    Name String
+    charityID Integer
 }
-
-entity User {
-    userId Integer,
-    username String
+relationship OneToMany
+{
+    User{UserID} to Comment{UserID}
 }
-
-relationship OneToOne {
-    CharityProfile{socialFeed} to SocialFeed
+relationship OneToMany
+{
+    Comment{ParentID} to Comment{commentID}
 }
-
-relationship OneToMany {
-    SocialFeed{post} to Post{feed},
-    Post{comment} to Comment{post},
-    User{post} to Post{author},
-    User{comment} to Comment{author}
+relationship ManyToOne
+{
+    Comment{CharityID} to Charity{charityID}
 }
-
-
-
-// Defining how posts and comments are linked to users
-relationship ManyToOne {
-    Post{user} to User,
-    Comment{user} to User
-    }
-
