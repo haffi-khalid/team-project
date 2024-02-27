@@ -1,4 +1,4 @@
-entity Volunteer_Profile{
+entity Volunteer{
     Name String required pattern(/^[A-Za-z]+\s[A-Za-z]+$/),
     Email String required,
     VolunteerHoursCompleted Integer required
@@ -41,13 +41,13 @@ enum ApplicationCategory{
     ACCEPTED(Accepted)
 }
 relationship OneToMany{
-    Volunteer_Profile to VolunteerApplication
+    Volunteer to VolunteerApplication
     Charity to CharityActivities{charity(CharityName)},
-    Volunteer_Profile to CharityVolunteers
+    Volunteer to CharityVolunteers
     Charity to CharityVolunteers
     CharityActivities to VolunteerApplication
     CharityActivities to CharityVolunteers
-    Volunteer_Profile to Skills
+    Volunteer to Skills
 
 }
 relationship ManyToMany{
