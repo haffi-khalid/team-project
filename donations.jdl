@@ -1,13 +1,10 @@
-//JDL for Donations Page
-// Define Donator entity
-entity Donator {
-  name String,
-  anonymous Boolean,
-  amount Double,
-  groupDonation Boolean,
+entity Donator{
+    name String,
+    anonymous Boolean,
+    amount Double,
+    groupDonation Boolean,
 }
 
-// Define Charity entity
 entity Charity {
   name String,
   totalAmountRaised Double
@@ -15,33 +12,32 @@ entity Charity {
 
 
 entity GroupDonator {
-
   groupName String,
   totalCollectedAmount Double,
-
 }
-entity UserProfile{
-	username String,
+
+entity UserProfile {
+
+    username String,
     totalVoluneeringHours Integer,
 }
 
-// Define Event entity
-entity Event {
-  eventName String
+entity Event{
+    name String
 }
+
 
 entity UserVolunteerApplication{
     volunteerApplicationStatus String,
     requiredVolunteerHours Integer
 }
 
-// Relationships
-//relationship ManyToOne {
-//  Donator to Charity,
-//  GroupDonator to UserProfile,
-//  GroupDonator to Event
-//  UserProfile to UserVolunteerApplication
-//}
+relationship ManyToOne{
+    Donator{charity} to Charity,
+    GroupDonator{userProfile} to UserProfile,
+    GroupDonator{event} to Event,
+    UserVolunteerApplication{userProfile} to UserProfile
+}
 
 relationship OneToOne{
 	Donator{groupDonator} to GroupDonator
