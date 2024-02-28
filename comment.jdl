@@ -1,0 +1,25 @@
+entity UserProfile {
+    userName String,
+    role String
+}
+
+entity Comment {
+    parentID Integer,
+    content String,
+    timeStamp Instant,
+    status String
+}
+
+entity Charity {
+    name String
+}
+
+relationship ManyToOne {
+    Comment{userProfile(userID)} to UserProfile,
+    Comment{charity(charityID)} to Charity
+}
+
+relationship OneToMany {
+    UserProfile{comments} to Comment{userProfile},
+    Comment{replies(parentID)} to Comment{commentID}
+}
