@@ -15,11 +15,42 @@ entity Charity {
 }
 
 relationship ManyToOne {
-    Comment{userProfile(userID)} to UserProfile,
-    Comment{charity(charityID)} to Charity
+    Comment{CharityID} to Charity{charityID}
 }
 
 relationship OneToMany {
-    UserProfile{comments} to Comment{userProfile},
-    Comment{replies(parentID)} to Comment{commentID}
+    UserProfile to Comment,
+    Comment{ParentID} to Comment{commentID}
+
 }
+
+
+entity SocialFeed {
+    platform String required,
+    lastUpdated Instant
+}
+
+entity Post {
+    content String,
+    timestamp Instant,
+    likes Integer,
+    shares Integer
+}
+
+entity Media {
+    type String,
+    url String
+}
+
+relationship OneToMany {
+    Charity{socialFeed} to SocialFeed{charity}
+}
+
+relationship OneToMany {
+    SocialFeed{post} to Post{socialFeed}
+}
+
+relationship OneToMany {
+    Post{media} to Media{post}
+}
+
