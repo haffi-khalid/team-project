@@ -48,18 +48,6 @@ public class CacheConfiguration {
             createCache(cm, team.bham.domain.User.class.getName());
             createCache(cm, team.bham.domain.Authority.class.getName());
             createCache(cm, team.bham.domain.User.class.getName() + ".authorities");
-            createCache(cm, team.bham.domain.UserProfile.class.getName());
-            createCache(cm, team.bham.domain.UserProfile.class.getName() + ".comments");
-            createCache(cm, team.bham.domain.Comment.class.getName());
-            createCache(cm, team.bham.domain.Comment.class.getName() + ".parentIDS");
-            createCache(cm, team.bham.domain.Charity.class.getName());
-            createCache(cm, team.bham.domain.Charity.class.getName() + ".socialFeeds");
-            createCache(cm, team.bham.domain.Charity.class.getName() + ".charityIDS");
-            createCache(cm, team.bham.domain.SocialFeed.class.getName());
-            createCache(cm, team.bham.domain.SocialFeed.class.getName() + ".posts");
-            createCache(cm, team.bham.domain.Post.class.getName());
-            createCache(cm, team.bham.domain.Post.class.getName() + ".media");
-            createCache(cm, team.bham.domain.Media.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
