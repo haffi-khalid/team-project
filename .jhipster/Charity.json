@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20240228004336",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "charity",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Charity",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "socialFeed",
+      "otherEntityRelationshipName": "charity",
+      "relationshipName": "socialFeed",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "charityID",
+      "relationshipName": "charityID",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

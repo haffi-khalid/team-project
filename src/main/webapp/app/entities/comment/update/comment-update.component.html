@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-comment-heading" data-cy="CommentCreateUpdateHeading">Create or edit a Comment</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_parentID">Parent ID</label>
+          <input type="number" class="form-control" name="parentID" id="field_parentID" data-cy="parentID" formControlName="parentID" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_content">Content</label>
+          <input type="text" class="form-control" name="content" id="field_content" data-cy="content" formControlName="content" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_timeStamp">Time Stamp</label>
+          <div class="d-flex">
+            <input
+              id="field_timeStamp"
+              data-cy="timeStamp"
+              type="datetime-local"
+              class="form-control"
+              name="timeStamp"
+              formControlName="timeStamp"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_status">Status</label>
+          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_charityID">Charity ID</label>
+          <select
+            class="form-control"
+            id="field_charityID"
+            data-cy="charityID"
+            name="charityID"
+            formControlName="charityID"
+            [compareWith]="compareCharity"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="charityOption" *ngFor="let charityOption of charitiesSharedCollection">{{ charityOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_userProfile">User Profile</label>
+          <select
+            class="form-control"
+            id="field_userProfile"
+            data-cy="userProfile"
+            name="userProfile"
+            formControlName="userProfile"
+            [compareWith]="compareUserProfile"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userProfileOption" *ngFor="let userProfileOption of userProfilesSharedCollection">
+              {{ userProfileOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_commentID">Comment ID</label>
+          <select
+            class="form-control"
+            id="field_commentID"
+            data-cy="commentID"
+            name="commentID"
+            formControlName="commentID"
+            [compareWith]="compareComment"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="commentOption" *ngFor="let commentOption of commentsSharedCollection">{{ commentOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

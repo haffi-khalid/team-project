@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20240228004334",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "user_profile",
+  "fields": [
+    {
+      "fieldName": "userName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "UserProfile",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "userProfile",
+      "relationshipName": "comment",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

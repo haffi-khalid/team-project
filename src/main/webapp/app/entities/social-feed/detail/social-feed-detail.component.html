@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="socialFeed">
+      <h2 data-cy="socialFeedDetailsHeading"><span>Social Feed</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ socialFeed.id }}</span>
+        </dd>
+        <dt><span>Platform</span></dt>
+        <dd>
+          <span>{{ socialFeed.platform }}</span>
+        </dd>
+        <dt><span>Last Updated</span></dt>
+        <dd>
+          <span>{{ socialFeed.lastUpdated | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Charity</span></dt>
+        <dd>
+          <div *ngIf="socialFeed.charity">
+            <a [routerLink]="['/charity', socialFeed.charity.id, 'view']">{{ socialFeed.charity.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/social-feed', socialFeed.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
