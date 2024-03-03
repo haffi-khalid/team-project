@@ -82,7 +82,7 @@ entity FundraisingIdea {
 
 entity Vacancies {
     vacancyTitle String,
-    vacancyTitle ImageBlob,
+    vacancyDescription TextBlob,
     vacancyStartDate LocalDate,
     vacancyLogo ImageBlob,
     vacancyDuration Integer,
