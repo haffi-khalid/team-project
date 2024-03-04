@@ -1,0 +1,51 @@
+.admin-table {
+  border: 5px solid #e5bb89;
+  width: 100%;
+}
+.user-table {
+  width: 80%;
+  border: 5px solid #e5bb89;
+  margin-left: auto;
+  margin-right: 0;
+}
+.th {
+  border-right: 5px solid #e5bb89;
+}
+.small-cell {
+  width: 200px;
+  border: 5px solid #e5bb89;
+  border-right: none;
+}
+.main {
+  width: 200px;
+  border: 5px solid #e5bb89;
+}
+.last {
+  width: 1px;
+  height: 1px;
+  border-top: 5px solid #e5bb89;
+  border-right: 5px solid #e5bb89;
+}
+.first {
+  text-align: center;
+  width: 100px;
+  border: 5px solid #e5bb89;
+}
+
+.btn-sm {
+  border-radius: 80px;
+  margin-top: 1px;
+  margin-left: 1px;
+  background-color: #ccc5b7;
+  border-color: #ccc5b7;
+  color: black;
+  font-size: 15px;
+}
+.text-end {
+  width: 200px;
+  border-top: 5px solid #e5bb89;
+}
+.id-field {
+  border: 5px solid #e5bb89;
+  width: 100px;
+}
