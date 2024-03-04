@@ -2,22 +2,152 @@
 Main page styles
 ========================================================================== */
 
-.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-  background-size: contain;
-}
+
+
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-    background-size: contain;
+//@media only screen and (-webkit-min-device-pixel-ratio: 2),
+//only screen and (-moz-min-device-pixel-ratio: 2),
+//only screen and (-o-min-device-pixel-ratio: 2/1),
+//only screen and (min-resolution: 192dpi),
+//only screen and (min-resolution: 2dppx) {
+//  .hipster {
+//    background: url('../../content/images/bg2.jpg') no-repeat center top;
+//    background-size: contain;
+//  }
+//}
+
+//.container {
+//  position: relative;
+//}
+
+
+.home{
+  background-color: #E5BB89;
+  position: relative;/* Change this color to your desired background color */
+}
+
+
+.row {
+  background-color: #E5BB89;
+}
+
+.hipster {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 20px;
+  background: url('../../content/images/bg2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  align-items: center; // Vertically align items
+  .image-container {
+    width: 250px; // Adjust as needed
+    height: 150px; // Adjust as needed
+    margin-right: 10px; // Adjust spacing between logo and text
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Maintain aspect ratio and cover the container
+    }
   }
+
+  .description {
+    h2 {
+      margin-top: 0; // Remove default margin for h2
+      font-family: 'EB Garamond',Garamond,serif;
+
+    }
+
+    p{
+      font-family: 'Source Sans Pro',Arial,Helvetica,sans-serif;
+    }
+  }
+}
+
+.underline{
+  text-decoration: underline;
+}
+
+.container2 {
+  display: flex;
+  background-color: #6f5d44;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%; /* Take up full width of the page */
+  margin-bottom: 20px;
+  h2 {
+    margin-top: 5; // Remove default margin for h2
+    font-family: 'EB Garamond',Garamond,serif;
+    color: white;
+
+  }
+  p{
+    font-family: 'Source Sans Pro',Arial,Helvetica,sans-serif;
+    color: white;
+
+  }
+}
+.image-container {
+  flex: 1;
+  flex: 0 0 200px; /* Fixed width for the image container */
+  height: 200px; /* Fixed height for the image container */
+  overflow: hidden; /* Hide overflow if image is larger */
+}
+.image-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.description2 {
+  flex: 1;
+  padding: 20px;
+
+}
+h2 {
+  margin-top: 0;
+}
+
+
+.overlay-link{
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  background-color: #CCC5B7;
+  padding: 5px 10px;
+  border-radius: 2px;
+  z-index: 1; /* Ensure the overlay appears on top of the image */
+  font-family: 'Lemon/Milk light', sans-serif;
+  font-size: 20px;
+  opacity: 0.7;
+  font-weight: bold;
+}
+.overlay-text {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  background-color: #CCC5B7;
+  padding: 5px 10px;
+  border-radius: 2px;
+  z-index: 1; /* Ensure the overlay appears on top of the image */
+  font-family: 'Lemon/Milk light', sans-serif;
+  font-size: 34px;
+  opacity: 0.8;
+  font-weight: bold;
+;
+}
+
+.overlay-text {
+  top: 40%; /* Adjust vertical position as needed */
 }
