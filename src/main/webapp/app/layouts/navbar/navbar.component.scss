@@ -15,13 +15,29 @@ Navbar
   height: 1.75em;
   width: 1.75em;
 }
+.centered-navbar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link {
+  color: #140d07;
+  position: relative;
+  text-decoration: none; /* Remove default underline */
+}
+
+.navbar-nav .nav-link:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
 
 .navbar {
   background-color: #d1b7a1 !important;
   padding: 0.2rem 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
   .dropdown-toggle::after {
     content: none;
   }
@@ -29,15 +45,6 @@ Navbar
   .dropdown-item.active:focus,
   .dropdown-item.active:hover {
     background-color: #6f5d44;
-  }
-
-  .navbar.nav-item1 {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-  }
-  .navbar-nav-item1 {
-    margin: 0 auto;
   }
 
   a.nav-link {
@@ -54,7 +61,8 @@ Navbar
 
   .navbar-toggler {
     &:hover {
-      color: $navbar-dark-hover-color;
+      color: $navbar-light-hover-color;
+      text-decoration: underline;
     }
   }
 }
