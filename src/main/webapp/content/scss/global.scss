@@ -14,6 +14,9 @@ h3,
 h4 {
   font-weight: 300;
 }
+body {
+  background-color: #e5bb89; /* Change this color to your desired background color */
+}
 
 a:hover {
   /* make sure browsers use the pointer cursor for anchors, even with no href */
@@ -29,7 +32,7 @@ Browser Upgrade Prompt
 ========================================================================== */
 .browserupgrade {
   margin: 0.2em 0;
-  background: #ccc;
+  background: hsl(33, 64%, 72%);
   color: #000;
   padding: 0.2em 0;
 }
@@ -44,6 +47,7 @@ Generic styles
   padding: 1.5%;
   margin-top: 20px;
   border: none;
+  background-color: #e5bb89;
 }
 
 .error {
@@ -69,7 +73,7 @@ Generic styles
 }
 
 .form-control {
-  background-color: #fff;
+  background-color: #e5bb89;
 }
 
 .readonly {
