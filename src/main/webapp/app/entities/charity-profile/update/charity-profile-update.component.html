@@ -1,0 +1,139 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-charity-profile-heading" data-cy="CharityProfileCreateUpdateHeading">Create or edit a Charity Profile</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_charityName">Charity Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="charityName"
+            id="field_charityName"
+            data-cy="charityName"
+            formControlName="charityName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_purpose">Purpose</label>
+          <input type="text" class="form-control" name="purpose" id="field_purpose" data-cy="purpose" formControlName="purpose" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_aim">Aim</label>
+          <input type="text" class="form-control" name="aim" id="field_aim" data-cy="aim" formControlName="aim" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_emailAddress">Email Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="emailAddress"
+            id="field_emailAddress"
+            data-cy="emailAddress"
+            formControlName="emailAddress"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_logo">Logo</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('logoContentType')!.value + ';base64,' + editForm.get('logo')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('logo')!.value"
+              alt="charityProfile image"
+            />
+            <div *ngIf="editForm.get('logo')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('logoContentType')!.value }}, {{ byteSize(editForm.get('logo')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('logo', 'logoContentType', 'file_logo')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_logo" data-cy="logo" (change)="setFileData($event, 'logo', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
+          <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType" formControlName="logoContentType" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_pictures">Pictures</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('picturesContentType')!.value + ';base64,' + editForm.get('pictures')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('pictures')!.value"
+              alt="charityProfile image"
+            />
+            <div *ngIf="editForm.get('pictures')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('picturesContentType')!.value }}, {{ byteSize(editForm.get('pictures')!.value!) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('pictures', 'picturesContentType', 'file_pictures')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_pictures" data-cy="pictures" (change)="setFileData($event, 'pictures', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="pictures" id="field_pictures" data-cy="pictures" formControlName="pictures" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="picturesContentType"
+            id="field_picturesContentType"
+            formControlName="picturesContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_socialFeed">Social Feed</label>
+          <select
+            class="form-control"
+            id="field_socialFeed"
+            data-cy="socialFeed"
+            name="socialFeed"
+            formControlName="socialFeed"
+            [compareWith]="compareSocialFeed"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="socialFeedOption" *ngFor="let socialFeedOption of socialFeedsCollection">{{ socialFeedOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

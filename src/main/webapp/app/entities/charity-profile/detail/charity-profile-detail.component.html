@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="charityProfile">
+      <h2 data-cy="charityProfileDetailsHeading"><span>Charity Profile</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ charityProfile.id }}</span>
+        </dd>
+        <dt><span>Charity Name</span></dt>
+        <dd>
+          <span>{{ charityProfile.charityName }}</span>
+        </dd>
+        <dt><span>Purpose</span></dt>
+        <dd>
+          <span>{{ charityProfile.purpose }}</span>
+        </dd>
+        <dt><span>Aim</span></dt>
+        <dd>
+          <span>{{ charityProfile.aim }}</span>
+        </dd>
+        <dt><span>Email Address</span></dt>
+        <dd>
+          <span>{{ charityProfile.emailAddress }}</span>
+        </dd>
+        <dt><span>Logo</span></dt>
+        <dd>
+          <div *ngIf="charityProfile.logo">
+            <a (click)="openFile(charityProfile.logo, charityProfile.logoContentType)">
+              <img
+                [src]="'data:' + charityProfile.logoContentType + ';base64,' + charityProfile.logo"
+                style="max-width: 100%"
+                alt="charityProfile image"
+              />
+            </a>
+            {{ charityProfile.logoContentType }}, {{ byteSize(charityProfile.logo) }}
+          </div>
+        </dd>
+        <dt><span>Pictures</span></dt>
+        <dd>
+          <div *ngIf="charityProfile.pictures">
+            <a (click)="openFile(charityProfile.pictures, charityProfile.picturesContentType)">
+              <img
+                [src]="'data:' + charityProfile.picturesContentType + ';base64,' + charityProfile.pictures"
+                style="max-width: 100%"
+                alt="charityProfile image"
+              />
+            </a>
+            {{ charityProfile.picturesContentType }}, {{ byteSize(charityProfile.pictures) }}
+          </div>
+        </dd>
+        <dt><span>Social Feed</span></dt>
+        <dd>
+          <div *ngIf="charityProfile.socialFeed">
+            <a [routerLink]="['/social-feed', charityProfile.socialFeed.id, 'view']">{{ charityProfile.socialFeed.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/charity-profile', charityProfile.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

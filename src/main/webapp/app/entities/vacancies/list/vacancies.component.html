@@ -1,0 +1,143 @@
+<div>
+  <h2 id="page-heading" data-cy="VacanciesHeading">
+    <span>Vacancies</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-vacancies"
+        [routerLink]="['/vacancies/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Vacancies </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="vacancies?.length === 0">
+    <span>No Vacancies found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="vacancies && vacancies.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyTitle">
+            <div class="d-flex">
+              <span>Vacancy Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyDescription">
+            <div class="d-flex">
+              <span>Vacancy Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyStartDate">
+            <div class="d-flex">
+              <span>Vacancy Start Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyLogo">
+            <div class="d-flex">
+              <span>Vacancy Logo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyDuration">
+            <div class="d-flex">
+              <span>Vacancy Duration</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyLocation">
+            <div class="d-flex">
+              <span>Vacancy Location</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="charityAdmin.id">
+            <div class="d-flex">
+              <span>Charity Admin</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vacancies of vacancies; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/vacancies', vacancies.id, 'view']">{{ vacancies.id }}</a>
+          </td>
+          <td>{{ vacancies.vacancyTitle }}</td>
+          <td>{{ vacancies.vacancyDescription }}</td>
+          <td>{{ vacancies.vacancyStartDate | formatMediumDate }}</td>
+          <td>
+            <a *ngIf="vacancies.vacancyLogo" (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
+              <img
+                [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
+                style="max-height: 30px"
+                alt="vacancies image"
+              />
+            </a>
+            <span *ngIf="vacancies.vacancyLogo">{{ vacancies.vacancyLogoContentType }}, {{ byteSize(vacancies.vacancyLogo) }}</span>
+          </td>
+          <td>{{ vacancies.vacancyDuration }}</td>
+          <td>{{ vacancies.vacancyLocation }}</td>
+          <td>
+            <div *ngIf="vacancies.charityAdmin">
+              <a [routerLink]="['/charity-admin', vacancies.charityAdmin.id, 'view']">{{ vacancies.charityAdmin.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/vacancies', vacancies.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/vacancies', vacancies.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(vacancies)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

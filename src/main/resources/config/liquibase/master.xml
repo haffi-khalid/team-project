@@ -17,7 +17,35 @@
     <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225556_added_entity_CharityHubUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225557_added_entity_UserPage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225558_added_entity_ReviewComments.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225559_added_entity_VolunteerApplications.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225600_added_entity_SocialFeed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225601_added_entity_Posts.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225602_added_entity_GroupDonator.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225603_added_entity_CharityProfile.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225604_added_entity_CharityAdmin.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225605_added_entity_DonatorPage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225606_added_entity_CharityEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225607_added_entity_FundraisingIdea.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225608_added_entity_Vacancies.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225609_added_entity_BudgetPlanner.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225610_added_entity_ApprovedVolunteers.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225611_added_entity_Authentication.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20240303225556_added_entity_constraints_CharityHubUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225558_added_entity_constraints_ReviewComments.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225559_added_entity_constraints_VolunteerApplications.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225601_added_entity_constraints_Posts.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225602_added_entity_constraints_GroupDonator.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225603_added_entity_constraints_CharityProfile.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225604_added_entity_constraints_CharityAdmin.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225605_added_entity_constraints_DonatorPage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225606_added_entity_constraints_CharityEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225607_added_entity_constraints_FundraisingIdea.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225608_added_entity_constraints_Vacancies.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240303225610_added_entity_constraints_ApprovedVolunteers.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

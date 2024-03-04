@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity VolunteerApplications.
+    -->
+    <changeSet id="20240303225559-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="charity_admin_id"
+                                 baseTableName="volunteer_applications"
+                                 constraintName="fk_volunteer_applications__charity_admin_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="charity_admin"/>
+
+        <addForeignKeyConstraint baseColumnNames="charity_hub_user_id"
+                                 baseTableName="volunteer_applications"
+                                 constraintName="fk_volunteer_applications__charity_hub_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="charity_hub_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="vacancies_id"
+                                 baseTableName="volunteer_applications"
+                                 constraintName="fk_volunteer_applications__vacancies_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vacancies"/>
+    </changeSet>
+</databaseChangeLog>
