@@ -2,9 +2,6 @@
 Main page styles
 ========================================================================== */
 
-
-
-
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
 //@media only screen and (-webkit-min-device-pixel-ratio: 2),
 //only screen and (-moz-min-device-pixel-ratio: 2),
@@ -21,15 +18,13 @@ Main page styles
 //  position: relative;
 //}
 
-
-.home{
-  background-color: #E5BB89;
-  position: relative;/* Change this color to your desired background color */
+.home {
+  background-color: #e5bb89;
+  position: relative; /* Change this color to your desired background color */
 }
 
-
 .row {
-  background-color: #E5BB89;
+  background-color: #e5bb89;
 }
 
 .hipster {
@@ -60,17 +55,16 @@ Main page styles
   .description {
     h2 {
       margin-top: 0; // Remove default margin for h2
-      font-family: 'EB Garamond',Garamond,serif;
-
+      font-family: 'EB Garamond', Garamond, serif;
     }
 
-    p{
-      font-family: 'Source Sans Pro',Arial,Helvetica,sans-serif;
+    p {
+      font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
     }
   }
 }
 
-.underline{
+.underline {
   text-decoration: underline;
 }
 
@@ -83,15 +77,13 @@ Main page styles
   width: 100%; /* Take up full width of the page */
   margin-bottom: 20px;
   h2 {
-    margin-top: 5; // Remove default margin for h2
-    font-family: 'EB Garamond',Garamond,serif;
+    margin-top: 5px; // Remove default margin for h2
+    font-family: 'EB Garamond', Garamond, serif;
     color: white;
-
   }
-  p{
-    font-family: 'Source Sans Pro',Arial,Helvetica,sans-serif;
+  p {
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
     color: white;
-
   }
 }
 .image-container {
@@ -109,20 +101,18 @@ Main page styles
 .description2 {
   flex: 1;
   padding: 20px;
-
 }
 h2 {
   margin-top: 0;
 }
 
-
-.overlay-link{
+.overlay-link {
   position: absolute;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
-  background-color: #CCC5B7;
+  background-color: #ccc5b7;
   padding: 5px 10px;
   border-radius: 2px;
   z-index: 1; /* Ensure the overlay appears on top of the image */
@@ -137,7 +127,7 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
-  background-color: #CCC5B7;
+  background-color: #ccc5b7;
   padding: 5px 10px;
   border-radius: 2px;
   z-index: 1; /* Ensure the overlay appears on top of the image */
@@ -145,7 +135,6 @@ h2 {
   font-size: 34px;
   opacity: 0.8;
   font-weight: bold;
-;
 }
 
 .overlay-text {
