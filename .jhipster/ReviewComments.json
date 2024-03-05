@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20240305174035",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "review_comments",
+  "fields": [
+    {
+      "fieldName": "parentID",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "timestamp",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ReviewComments",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "charityHubUser",
+      "otherEntityRelationshipName": "reviewComments",
+      "relationshipName": "charityHubUser",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "charityProfile",
+      "otherEntityRelationshipName": "reviewComments",
+      "relationshipName": "charityProfile",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

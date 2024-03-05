@@ -1,7 +1,6 @@
 entity CharityHubUser {
     username String,
     email String,
-    password String
 }
 
 entity UserPage {
@@ -47,8 +46,8 @@ entity GroupDonator {
 
 entity CharityProfile {
     charityName String,
-    purpose String,
-    aim String,
+    purpose TextBlob,
+    aim TextBlob,
     emailAddress String,
     logo ImageBlob,
     pictures ImageBlob
@@ -128,6 +127,7 @@ relationship OneToMany {
 }
 
 relationship OneToOne {
+    CharityHubUser to User
     CharityHubUser to UserPage
     CharityHubUser to Authentication
     CharityAdmin to BudgetPlanner

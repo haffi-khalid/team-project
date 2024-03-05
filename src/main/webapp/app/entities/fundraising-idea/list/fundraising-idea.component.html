@@ -1,0 +1,134 @@
+<div>
+  <h2 id="page-heading" data-cy="FundraisingIdeaHeading">
+    <span>Fundraising Ideas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-fundraising-idea"
+        [routerLink]="['/fundraising-idea/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Fundraising Idea </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="fundraisingIdeas?.length === 0">
+    <span>No Fundraising Ideas found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="fundraisingIdeas && fundraisingIdeas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ideaName">
+            <div class="d-flex">
+              <span>Idea Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ideaDescription">
+            <div class="d-flex">
+              <span>Idea Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="numberOfVolunteers">
+            <div class="d-flex">
+              <span>Number Of Volunteers</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="location">
+            <div class="d-flex">
+              <span>Location</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="expectedCost">
+            <div class="d-flex">
+              <span>Expected Cost</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="expectedAttendance">
+            <div class="d-flex">
+              <span>Expected Attendance</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="charityAdmin.id">
+            <div class="d-flex">
+              <span>Charity Admin</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fundraisingIdea of fundraisingIdeas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/fundraising-idea', fundraisingIdea.id, 'view']">{{ fundraisingIdea.id }}</a>
+          </td>
+          <td>{{ fundraisingIdea.ideaName }}</td>
+          <td>{{ fundraisingIdea.ideaDescription }}</td>
+          <td>{{ fundraisingIdea.numberOfVolunteers }}</td>
+          <td>{{ fundraisingIdea.location }}</td>
+          <td>{{ fundraisingIdea.expectedCost }}</td>
+          <td>{{ fundraisingIdea.expectedAttendance }}</td>
+          <td>
+            <div *ngIf="fundraisingIdea.charityAdmin">
+              <a [routerLink]="['/charity-admin', fundraisingIdea.charityAdmin.id, 'view']">{{ fundraisingIdea.charityAdmin.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/fundraising-idea', fundraisingIdea.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/fundraising-idea', fundraisingIdea.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(fundraisingIdea)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

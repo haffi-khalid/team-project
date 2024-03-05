@@ -1,0 +1,116 @@
+<div>
+  <h2 id="page-heading" data-cy="BudgetPlannerHeading">
+    <span>Budget Planners</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-budget-planner"
+        [routerLink]="['/budget-planner/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Budget Planner </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="budgetPlanners?.length === 0">
+    <span>No Budget Planners found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="budgetPlanners && budgetPlanners.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="charityName">
+            <div class="d-flex">
+              <span>Charity Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="totalBalance">
+            <div class="d-flex">
+              <span>Total Balance</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="upcomingEvents">
+            <div class="d-flex">
+              <span>Upcoming Events</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="targetAmount">
+            <div class="d-flex">
+              <span>Target Amount</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="forecastIncome">
+            <div class="d-flex">
+              <span>Forecast Income</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let budgetPlanner of budgetPlanners; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/budget-planner', budgetPlanner.id, 'view']">{{ budgetPlanner.id }}</a>
+          </td>
+          <td>{{ budgetPlanner.charityName }}</td>
+          <td>{{ budgetPlanner.totalBalance }}</td>
+          <td>{{ budgetPlanner.upcomingEvents }}</td>
+          <td>{{ budgetPlanner.targetAmount }}</td>
+          <td>{{ budgetPlanner.forecastIncome }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/budget-planner', budgetPlanner.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/budget-planner', budgetPlanner.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(budgetPlanner)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

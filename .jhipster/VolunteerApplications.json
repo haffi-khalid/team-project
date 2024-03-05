@@ -1,0 +1,44 @@
+{
+  "applications": "*",
+  "changelogDate": "20240305174036",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "volunteer_applications",
+  "fields": [
+    {
+      "fieldName": "timeStamp",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "volunteerStatus",
+      "fieldType": "ApplicationCategory",
+      "fieldValues": "PENDING,INTERVIEW,REJECTED,ACCEPTED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "VolunteerApplications",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "charityAdmin",
+      "otherEntityRelationshipName": "volunteerApplications",
+      "relationshipName": "charityAdmin",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "charityHubUser",
+      "otherEntityRelationshipName": "volunteerApplications",
+      "relationshipName": "charityHubUser",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "vacancies",
+      "otherEntityRelationshipName": "volunteerApplications",
+      "relationshipName": "vacancies",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}
