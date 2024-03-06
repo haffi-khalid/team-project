@@ -1,0 +1,152 @@
+<div>
+  <h2 id="page-heading" data-cy="CharityProfileHeading">
+    <span>Charity Profiles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-charity-profile"
+        [routerLink]="['/charity-profile/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Charity Profile </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="charityProfiles?.length === 0">
+    <span>No Charity Profiles found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="charityProfiles && charityProfiles.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="charityName">
+            <div class="d-flex">
+              <span>Charity Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="purpose">
+            <div class="d-flex">
+              <span>Purpose</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="aim">
+            <div class="d-flex">
+              <span>Aim</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="emailAddress">
+            <div class="d-flex">
+              <span>Email Address</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="logo">
+            <div class="d-flex">
+              <span>Logo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="pictures">
+            <div class="d-flex">
+              <span>Pictures</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="socialFeed.id">
+            <div class="d-flex">
+              <span>Social Feed</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let charityProfile of charityProfiles; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/charity-profile', charityProfile.id, 'view']">{{ charityProfile.id }}</a>
+          </td>
+          <td>{{ charityProfile.charityName }}</td>
+          <td>{{ charityProfile.purpose }}</td>
+          <td>{{ charityProfile.aim }}</td>
+          <td>{{ charityProfile.emailAddress }}</td>
+          <td>
+            <a *ngIf="charityProfile.logo" (click)="openFile(charityProfile.logo, charityProfile.logoContentType)">
+              <img
+                [src]="'data:' + charityProfile.logoContentType + ';base64,' + charityProfile.logo"
+                style="max-height: 30px"
+                alt="charityProfile image"
+              />
+            </a>
+            <span *ngIf="charityProfile.logo">{{ charityProfile.logoContentType }}, {{ byteSize(charityProfile.logo) }}</span>
+          </td>
+          <td>
+            <a *ngIf="charityProfile.pictures" (click)="openFile(charityProfile.pictures, charityProfile.picturesContentType)">
+              <img
+                [src]="'data:' + charityProfile.picturesContentType + ';base64,' + charityProfile.pictures"
+                style="max-height: 30px"
+                alt="charityProfile image"
+              />
+            </a>
+            <span *ngIf="charityProfile.pictures">{{ charityProfile.picturesContentType }}, {{ byteSize(charityProfile.pictures) }}</span>
+          </td>
+          <td>
+            <div *ngIf="charityProfile.socialFeed">
+              <a [routerLink]="['/social-feed', charityProfile.socialFeed.id, 'view']">{{ charityProfile.socialFeed.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/charity-profile', charityProfile.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/charity-profile', charityProfile.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(charityProfile)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

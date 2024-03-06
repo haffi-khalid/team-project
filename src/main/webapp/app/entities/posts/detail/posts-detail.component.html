@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="posts">
+      <h2 data-cy="postsDetailsHeading"><span>Posts</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ posts.id }}</span>
+        </dd>
+        <dt><span>Content</span></dt>
+        <dd>
+          <span>{{ posts.content }}</span>
+        </dd>
+        <dt><span>Timestamp</span></dt>
+        <dd>
+          <span>{{ posts.timestamp | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Social Feed</span></dt>
+        <dd>
+          <div *ngIf="posts.socialFeed">
+            <a [routerLink]="['/social-feed', posts.socialFeed.id, 'view']">{{ posts.socialFeed.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/posts', posts.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

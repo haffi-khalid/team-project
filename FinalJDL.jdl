@@ -128,10 +128,11 @@ relationship OneToMany {
 }
 
 relationship OneToOne {
+    CharityHubUser to User
     CharityHubUser to UserPage
     CharityHubUser to Authentication
     CharityAdmin to BudgetPlanner
-    CharityAdmin to CharityProfile
+    CharityAdmin{charityProfile(charityName)} to CharityProfile
     GroupDonator to DonatorPage
     CharityProfile to SocialFeed
 }

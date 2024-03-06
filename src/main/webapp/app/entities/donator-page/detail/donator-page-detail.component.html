@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="donatorPage">
+      <h2 data-cy="donatorPageDetailsHeading"><span>Donator Page</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ donatorPage.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ donatorPage.name }}</span>
+        </dd>
+        <dt><span>Anonymous</span></dt>
+        <dd>
+          <span>{{ donatorPage.anonymous }}</span>
+        </dd>
+        <dt><span>Amount</span></dt>
+        <dd>
+          <span>{{ donatorPage.amount }}</span>
+        </dd>
+        <dt><span>Group Donation</span></dt>
+        <dd>
+          <span>{{ donatorPage.groupDonation }}</span>
+        </dd>
+        <dt><span>Charity Profile</span></dt>
+        <dd>
+          <div *ngIf="donatorPage.charityProfile">
+            <a [routerLink]="['/charity-profile', donatorPage.charityProfile.id, 'view']">{{ donatorPage.charityProfile.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/donator-page', donatorPage.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

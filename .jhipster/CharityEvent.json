@@ -1,0 +1,50 @@
+{
+  "applications": "*",
+  "changelogDate": "20240306074837",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "charity_event",
+  "fields": [
+    {
+      "fieldName": "eventName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "eventTimeDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "images",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "duration",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CharityEvent",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "groupDonator",
+      "otherEntityRelationshipName": "charityEvent",
+      "relationshipName": "groupDonator",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "charityAdmin",
+      "otherEntityRelationshipName": "charityEvent",
+      "relationshipName": "charityAdmin",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

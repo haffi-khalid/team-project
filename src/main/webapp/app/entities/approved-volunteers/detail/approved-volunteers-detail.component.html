@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="approvedVolunteers">
+      <h2 data-cy="approvedVolunteersDetailsHeading"><span>Approved Volunteers</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ approvedVolunteers.id }}</span>
+        </dd>
+        <dt><span>Volunteer Status</span></dt>
+        <dd>
+          <span>{{ approvedVolunteers.volunteerStatus }}</span>
+        </dd>
+        <dt><span>Volunteer Hours Completed In Charity</span></dt>
+        <dd>
+          <span>{{ approvedVolunteers.volunteerHoursCompletedInCharity }}</span>
+        </dd>
+        <dt><span>Current Event Volunteering In</span></dt>
+        <dd>
+          <span>{{ approvedVolunteers.currentEventVolunteeringIn }}</span>
+        </dd>
+        <dt><span>Charity Hub User</span></dt>
+        <dd>
+          <div *ngIf="approvedVolunteers.charityHubUser">
+            <a [routerLink]="['/charity-hub-user', approvedVolunteers.charityHubUser.id, 'view']">{{
+              approvedVolunteers.charityHubUser.id
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Charity Admin</span></dt>
+        <dd>
+          <div *ngIf="approvedVolunteers.charityAdmin">
+            <a [routerLink]="['/charity-admin', approvedVolunteers.charityAdmin.id, 'view']">{{ approvedVolunteers.charityAdmin.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/approved-volunteers', approvedVolunteers.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
