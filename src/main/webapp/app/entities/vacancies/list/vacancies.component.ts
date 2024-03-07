@@ -14,7 +14,6 @@ import { AccountService } from '../../../core/auth/account.service';
 @Component({
   selector: 'jhi-vacancies',
   templateUrl: './vacancies.component.html',
-  styleUrls: ['./vacancies.component.scss'],
 })
 export class VacanciesComponent implements OnInit {
   vacancies?: IVacancies[];
