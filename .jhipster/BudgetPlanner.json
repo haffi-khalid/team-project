@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130415",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "budget_planner",
+  "fields": [
+    {
+      "fieldName": "charityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "totalBalance",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "upcomingEvents",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "targetAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "forecastIncome",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BudgetPlanner",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "charityAdmin",
+      "otherEntityRelationshipName": "budgetPlanner",
+      "ownerSide": false,
+      "relationshipName": "charityAdmin",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

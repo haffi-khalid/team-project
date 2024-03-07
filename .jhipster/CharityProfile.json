@@ -1,0 +1,76 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130409",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "charity_profile",
+  "fields": [
+    {
+      "fieldName": "charityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "purpose",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "aim",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "emailAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "logo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "pictures",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CharityProfile",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "socialFeed",
+      "otherEntityRelationshipName": "charityProfile",
+      "ownerSide": true,
+      "relationshipName": "socialFeed",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "reviewComments",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "reviewComments",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "donatorPage",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "donatorPage",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "vacancies",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "vacancies",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "charityEvent",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "charityEvent",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

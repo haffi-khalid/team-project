@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130416",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "approved_volunteers",
+  "fields": [
+    {
+      "fieldName": "volunteerStatus",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "volunteerHoursCompletedInCharity",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "currentEventVolunteeringIn",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ApprovedVolunteers",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "charityHubUser",
+      "otherEntityRelationshipName": "approvedVolunteers",
+      "relationshipName": "charityHubUser",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "charityAdmin",
+      "otherEntityRelationshipName": "approvedVolunteers",
+      "relationshipName": "charityAdmin",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

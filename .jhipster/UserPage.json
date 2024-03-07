@@ -1,0 +1,46 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130403",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "user_page",
+  "fields": [
+    {
+      "fieldName": "volunteerHours",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "userBio",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "reviewComment",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "course",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "skills",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "UserPage",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "charityHubUser",
+      "otherEntityRelationshipName": "userPage",
+      "ownerSide": false,
+      "relationshipName": "charityHubUser",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

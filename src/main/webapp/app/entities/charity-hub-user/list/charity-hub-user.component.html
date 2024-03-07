@@ -1,0 +1,126 @@
+<div>
+  <h2 id="page-heading" data-cy="CharityHubUserHeading">
+    <span>Charity Hub Users</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-charity-hub-user"
+        [routerLink]="['/charity-hub-user/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Charity Hub User </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="charityHubUsers?.length === 0">
+    <span>No Charity Hub Users found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="charityHubUsers && charityHubUsers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="username">
+            <div class="d-flex">
+              <span>Username</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="email">
+            <div class="d-flex">
+              <span>Email</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="user.id">
+            <div class="d-flex">
+              <span>User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="userPage.id">
+            <div class="d-flex">
+              <span>User Page</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="authentication.id">
+            <div class="d-flex">
+              <span>Authentication</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let charityHubUser of charityHubUsers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/charity-hub-user', charityHubUser.id, 'view']">{{ charityHubUser.id }}</a>
+          </td>
+          <td>{{ charityHubUser.username }}</td>
+          <td>{{ charityHubUser.email }}</td>
+          <td>
+            {{ charityHubUser.user?.id }}
+          </td>
+          <td>
+            <div *ngIf="charityHubUser.userPage">
+              <a [routerLink]="['/user-page', charityHubUser.userPage.id, 'view']">{{ charityHubUser.userPage.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="charityHubUser.authentication">
+              <a [routerLink]="['/authentication', charityHubUser.authentication.id, 'view']">{{ charityHubUser.authentication.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/charity-hub-user', charityHubUser.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/charity-hub-user', charityHubUser.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(charityHubUser)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

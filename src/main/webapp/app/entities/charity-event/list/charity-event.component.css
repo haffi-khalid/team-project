@@ -1,0 +1,131 @@
+.banner-area {
+  background-image: url('content/images/output-onlinepngtools.png');
+  background-repeat: no-repeat;
+  display: flex;
+  position: relative;
+  background-size: cover;
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.page-heading {
+  margin-top: 150px;
+  margin-left: 25px;
+  width: 600px;
+  height: 50px;
+  color: white;
+  font-weight: bold;
+}
+
+.banner-img {
+  height: 300px;
+  width: 900px;
+  opacity: 0.9;
+}
+
+/* add event section */
+.add-event-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+/* event box section */
+.event-box {
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
+  margin-bottom: 50px;
+}
+
+.event-text-section {
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 200px;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.event-name {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.timings {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 14px;
+}
+
+.duration {
+  margin-left: 150px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.location {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.65);
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.location:hover {
+  color: blue;
+}
+
+.description {
+  height: 70px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.charity-name {
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 0px;
+}
+.charity-name:hover {
+  color: blue;
+}
+
+.event-type {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  margin-top: 1px;
+}
+.add-event-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.event1-box {
+  /*align-content: center;*/
+  background: white;
+  width: 350px;
+  height: 400px;
+  border: 1px solid #333;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+/*.event1-image{*/
+/*  background-image: url('content/images/nepali.jpeg');*/
+/*  width: 350px;*/
+/*  height: 200px;*/
+/*  background-size: cover ;*/
+/*  object-fit: cover;*/
+/*  border-radius: 12px;*/
+
+/*}*/
+
+.charity-event-image {
+  display: block;
+  width: 100%; /* Adjust width as necessary, could be less than 100% if padding is desired */
+  height: auto;
+  margin-bottom: 15px; /* Space between image and the rest of the card content */
+  border-radius: 4px; /* Optional: for rounded corners */
+}

@@ -1,0 +1,163 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-vacancies-heading" data-cy="VacanciesCreateUpdateHeading">Create or edit a Vacancies</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_vacancyTitle">Vacancy Title</label>
+          <input
+            type="text"
+            class="form-control"
+            name="vacancyTitle"
+            id="field_vacancyTitle"
+            data-cy="vacancyTitle"
+            formControlName="vacancyTitle"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_vacancyDescription">Vacancy Description</label>
+          <textarea
+            class="form-control"
+            name="vacancyDescription"
+            id="field_vacancyDescription"
+            data-cy="vacancyDescription"
+            formControlName="vacancyDescription"
+          ></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_vacancyStartDate">Vacancy Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_vacancyStartDate"
+              data-cy="vacancyStartDate"
+              type="text"
+              class="form-control"
+              name="vacancyStartDate"
+              ngbDatepicker
+              #vacancyStartDateDp="ngbDatepicker"
+              formControlName="vacancyStartDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="vacancyStartDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_vacancyLogo">Vacancy Logo</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('vacancyLogoContentType')!.value + ';base64,' + editForm.get('vacancyLogo')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('vacancyLogo')!.value"
+              alt="vacancies image"
+            />
+            <div *ngIf="editForm.get('vacancyLogo')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('vacancyLogoContentType')!.value }}, {{ byteSize(editForm.get('vacancyLogo')!.value!) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('vacancyLogo', 'vacancyLogoContentType', 'file_vacancyLogo')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_vacancyLogo"
+              data-cy="vacancyLogo"
+              (change)="setFileData($event, 'vacancyLogo', true)"
+              accept="image/*"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="vacancyLogo"
+            id="field_vacancyLogo"
+            data-cy="vacancyLogo"
+            formControlName="vacancyLogo"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="vacancyLogoContentType"
+            id="field_vacancyLogoContentType"
+            formControlName="vacancyLogoContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_vacancyDuration">Vacancy Duration</label>
+          <input
+            type="number"
+            class="form-control"
+            name="vacancyDuration"
+            id="field_vacancyDuration"
+            data-cy="vacancyDuration"
+            formControlName="vacancyDuration"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_vacancyLocation">Vacancy Location</label>
+          <select
+            class="form-control"
+            name="vacancyLocation"
+            formControlName="vacancyLocation"
+            id="field_vacancyLocation"
+            data-cy="vacancyLocation"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let locationCategory of locationCategoryValues" [value]="locationCategory">{{ locationCategory }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_charityProfile">Charity Profile</label>
+          <select
+            class="form-control"
+            id="field_charityProfile"
+            data-cy="charityProfile"
+            name="charityProfile"
+            formControlName="charityProfile"
+            [compareWith]="compareCharityProfile"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="charityProfileOption" *ngFor="let charityProfileOption of charityProfilesSharedCollection">
+              {{ charityProfileOption.charityName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

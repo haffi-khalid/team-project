@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="vacancies">
+      <h2 data-cy="vacanciesDetailsHeading"><span>Vacancies</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ vacancies.id }}</span>
+        </dd>
+        <dt><span>Vacancy Title</span></dt>
+        <dd>
+          <span>{{ vacancies.vacancyTitle }}</span>
+        </dd>
+        <dt><span>Vacancy Description</span></dt>
+        <dd>
+          <span>{{ vacancies.vacancyDescription }}</span>
+        </dd>
+        <dt><span>Vacancy Start Date</span></dt>
+        <dd>
+          <span>{{ vacancies.vacancyStartDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Vacancy Logo</span></dt>
+        <dd>
+          <div *ngIf="vacancies.vacancyLogo">
+            <a (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
+              <img
+                [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
+                style="max-width: 100%"
+                alt="vacancies image"
+              />
+            </a>
+            {{ vacancies.vacancyLogoContentType }}, {{ byteSize(vacancies.vacancyLogo) }}
+          </div>
+        </dd>
+        <dt><span>Vacancy Duration</span></dt>
+        <dd>
+          <span>{{ vacancies.vacancyDuration }}</span>
+        </dd>
+        <dt><span>Vacancy Location</span></dt>
+        <dd>
+          <span>{{ vacancies.vacancyLocation }}</span>
+        </dd>
+        <dt><span>Charity Profile</span></dt>
+        <dd>
+          <div *ngIf="vacancies.charityProfile">
+            <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']">{{ vacancies.charityProfile.charityName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/vacancies', vacancies.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

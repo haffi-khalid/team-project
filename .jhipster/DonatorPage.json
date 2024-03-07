@@ -1,0 +1,46 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130411",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "donator_page",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anonymous",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "groupDonation",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "DonatorPage",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "groupDonator",
+      "otherEntityRelationshipName": "donatorPage",
+      "ownerSide": false,
+      "relationshipName": "groupDonator",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "charityProfile",
+      "otherEntityRelationshipName": "donatorPage",
+      "relationshipName": "charityProfile",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

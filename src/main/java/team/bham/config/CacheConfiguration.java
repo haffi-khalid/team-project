@@ -48,6 +48,35 @@ public class CacheConfiguration {
             createCache(cm, team.bham.domain.User.class.getName());
             createCache(cm, team.bham.domain.Authority.class.getName());
             createCache(cm, team.bham.domain.User.class.getName() + ".authorities");
+            createCache(cm, team.bham.domain.CharityHubUser.class.getName());
+            createCache(cm, team.bham.domain.CharityHubUser.class.getName() + ".volunteerApplications");
+            createCache(cm, team.bham.domain.CharityHubUser.class.getName() + ".reviewComments");
+            createCache(cm, team.bham.domain.CharityHubUser.class.getName() + ".approvedVolunteers");
+            createCache(cm, team.bham.domain.UserPage.class.getName());
+            createCache(cm, team.bham.domain.ReviewComments.class.getName());
+            createCache(cm, team.bham.domain.VolunteerApplications.class.getName());
+            createCache(cm, team.bham.domain.SocialFeed.class.getName());
+            createCache(cm, team.bham.domain.SocialFeed.class.getName() + ".posts");
+            createCache(cm, team.bham.domain.Posts.class.getName());
+            createCache(cm, team.bham.domain.GroupDonator.class.getName());
+            createCache(cm, team.bham.domain.CharityProfile.class.getName());
+            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".reviewComments");
+            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".donatorPages");
+            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".vacancies");
+            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".charityEvents");
+            createCache(cm, team.bham.domain.CharityAdmin.class.getName());
+            createCache(cm, team.bham.domain.CharityAdmin.class.getName() + ".fundraisingIdeas");
+            createCache(cm, team.bham.domain.CharityAdmin.class.getName() + ".approvedVolunteers");
+            createCache(cm, team.bham.domain.CharityAdmin.class.getName() + ".volunteerApplications");
+            createCache(cm, team.bham.domain.DonatorPage.class.getName());
+            createCache(cm, team.bham.domain.CharityEvent.class.getName());
+            createCache(cm, team.bham.domain.CharityEvent.class.getName() + ".groupDonators");
+            createCache(cm, team.bham.domain.FundraisingIdea.class.getName());
+            createCache(cm, team.bham.domain.Vacancies.class.getName());
+            createCache(cm, team.bham.domain.Vacancies.class.getName() + ".volunteerApplications");
+            createCache(cm, team.bham.domain.BudgetPlanner.class.getName());
+            createCache(cm, team.bham.domain.ApprovedVolunteers.class.getName());
+            createCache(cm, team.bham.domain.Authentication.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

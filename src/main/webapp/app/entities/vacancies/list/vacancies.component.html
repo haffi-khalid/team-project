@@ -1,0 +1,136 @@
+<div>
+  <h2 id="page-heading" data-cy="VacanciesHeading">
+    <span>Vacancies</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-vacancies"
+        [routerLink]="['/vacancies/new']"
+        *jhiHasAnyAuthority="'ROLE_ADMIN'"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Vacancies </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="vacancies?.length === 0">
+    <span>No Vacancies found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="vacancies && vacancies.length > 0">
+    <table [ngClass]="accountService.hasAnyAuthority('ROLE_ADMIN') ? 'admin-table' : 'user-table'" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyTitle">
+            <div class="d-flex">
+              <span>Charity Society</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyDescription">
+            <div class="d-flex">
+              <span>Vacancy</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyStartDate">
+            <div class="d-flex">
+              <span>Vacancy Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vacancies of vacancies; trackBy: trackId" data-cy="entityTable">
+          <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="id-field">
+            <a [routerLink]="['/vacancies', vacancies.id, 'view']">{{ vacancies.id }}</a>
+          </td>
+          <td class="small-cell" style="text-align: center">
+            <a *ngIf="vacancies.vacancyLogo" (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
+              <img
+                [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
+                style="max-height: 100px"
+                alt="vacancies image"
+              />
+            </a>
+            <div *ngIf="vacancies.charityProfile">
+              <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']">{{ vacancies.charityProfile.charityName }}</a>
+            </div>
+          </td>
+          <td class="main">
+            <span style="font-weight: bold">Job: </span>{{ vacancies.vacancyTitle }}<br /><span style="font-weight: bold">Start Date: </span
+            >{{ vacancies.vacancyStartDate | formatMediumDate }}<br /><span style="font-weight: bold">Location: </span
+            >{{ vacancies.vacancyLocation }}<br /><span style="font-weight: bold">Duration: </span>{{ vacancies.vacancyDuration
+            }}<span> Hours</span>
+          </td>
+          <td class="last">{{ vacancies.vacancyDescription }}</td>
+
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/vacancies', vacancies.id, 'view']"
+                class="btn btn-info btn-sm2"
+                data-cy="entityDetailsButton"
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/vacancies', vacancies.id, 'edit']"
+                class="btn btn-primary btn-sm2"
+                data-cy="entityEditButton"
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+              <button
+                [routerLink]="['/volunteer-applications', 'new']"
+                class="btn btn-sm2"
+                data-cy="entityDetailsButton"
+                *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
+              >
+                <span class="d-none d-md-inline">Apply Now!</span>
+              </button>
+
+              <button
+                type="submit"
+                (click)="delete(vacancies)"
+                class="btn btn-danger btn-sm2"
+                data-cy="entityDeleteButton"
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              >
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

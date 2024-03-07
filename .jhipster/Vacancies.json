@@ -1,0 +1,57 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130414",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "vacancies",
+  "fields": [
+    {
+      "fieldName": "vacancyTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vacancyDescription",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "vacancyStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "vacancyLogo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "vacancyDuration",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "vacancyLocation",
+      "fieldType": "LocationCategory",
+      "fieldValues": "INPERSON,REMOTE"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Vacancies",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "volunteerApplications",
+      "otherEntityRelationshipName": "vacancies",
+      "relationshipName": "volunteerApplications",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "charityName",
+      "otherEntityName": "charityProfile",
+      "otherEntityRelationshipName": "vacancies",
+      "relationshipName": "charityProfile",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

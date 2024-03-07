@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130417",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "authentication",
+  "fields": [
+    {
+      "fieldName": "isAuthenticated",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Authentication",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "charityHubUser",
+      "otherEntityRelationshipName": "authentication",
+      "ownerSide": false,
+      "relationshipName": "charityHubUser",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

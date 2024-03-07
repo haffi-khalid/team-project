@@ -1,0 +1,38 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130408",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "group_donator",
+  "fields": [
+    {
+      "fieldName": "groupName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "totalCollectedAmount",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GroupDonator",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "donatorPage",
+      "otherEntityRelationshipName": "groupDonator",
+      "ownerSide": true,
+      "relationshipName": "donatorPage",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "charityEvent",
+      "otherEntityRelationshipName": "groupDonator",
+      "relationshipName": "charityEvent",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

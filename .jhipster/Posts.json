@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130407",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "posts",
+  "fields": [
+    {
+      "fieldName": "content",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "timestamp",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Posts",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "socialFeed",
+      "otherEntityRelationshipName": "posts",
+      "relationshipName": "socialFeed",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

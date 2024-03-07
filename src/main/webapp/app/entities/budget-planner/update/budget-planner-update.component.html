@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-budget-planner-heading" data-cy="BudgetPlannerCreateUpdateHeading">Create or edit a Budget Planner</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_charityName">Charity Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="charityName"
+            id="field_charityName"
+            data-cy="charityName"
+            formControlName="charityName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_totalBalance">Total Balance</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalBalance"
+            id="field_totalBalance"
+            data-cy="totalBalance"
+            formControlName="totalBalance"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_upcomingEvents">Upcoming Events</label>
+          <textarea
+            class="form-control"
+            name="upcomingEvents"
+            id="field_upcomingEvents"
+            data-cy="upcomingEvents"
+            formControlName="upcomingEvents"
+          ></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_targetAmount">Target Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="targetAmount"
+            id="field_targetAmount"
+            data-cy="targetAmount"
+            formControlName="targetAmount"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_forecastIncome">Forecast Income</label>
+          <input
+            type="number"
+            class="form-control"
+            name="forecastIncome"
+            id="field_forecastIncome"
+            data-cy="forecastIncome"
+            formControlName="forecastIncome"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,142 +1,142 @@
 entity CharityHubUser {
-    username String,
-    email String,
-    password String
+username String,
+email String,
 }
 
 entity UserPage {
-    volunteerHours Double,
-    userBio String,
-    reviewComment String,
-    course String,
-    skills String
+volunteerHours Integer,
+userBio TextBlob,
+reviewComment TextBlob,
+course String,
+skills String
 }
 
 entity ReviewComments {
-    parentID Integer,
-    content String,
-    timestamp Instant,
-    status String
+parentID Integer,
+content TextBlob,
+timestamp Instant,
+status String
 }
 
 entity VolunteerApplications {
-    timeStamp Instant,
-    volunteerStatus ApplicationCategory
+timeStamp Instant,
+volunteerStatus ApplicationCategory
 }
 
 enum ApplicationCategory {
-    PENDING,
-    INTERVIEW,
-    REJECTED,
-    ACCEPTED
+PENDING,
+INTERVIEW,
+REJECTED,
+ACCEPTED
 }
 
 entity SocialFeed {
-    lastUpdated Instant
+lastUpdated Instant
 }
 
 entity Posts {
-    content String,
-    timestamp Instant
+content TextBlob,
+timestamp Instant
 }
 
 entity GroupDonator {
-    groupname String,
-    totalCollectedAmount Double
+groupName String,
+totalCollectedAmount Double
 }
 
 entity CharityProfile {
-    charityName String,
-    purpose String,
-    aim String,
-    emailAddress String,
-    logo ImageBlob,
-    pictures ImageBlob
+charityName String,
+purpose TextBlob,
+aim TextBlob,
+emailAddress String,
+logo ImageBlob,
+pictures ImageBlob
 }
 
 entity CharityAdmin {
-    isCharityAdmin Boolean
+isCharityAdmin Boolean
 }
 entity DonatorPage {
-    name String,
-    anonymous Boolean,
-    amount Double,
-    groupDonation Boolean
+name String,
+anonymous Boolean,
+amount Double,
+groupDonation Boolean
 }
 
 entity CharityEvent {
-    eventName String,
-    eventTimeDate ZonedDateTime,
-    description String,
-    images ImageBlob,
-    duration Integer
+eventName String,
+eventTimeDate ZonedDateTime,
+description TextBlob,
+images ImageBlob,
+duration Integer
 }
 entity FundraisingIdea {
-    ideaName String,
-    ideaDescription String,
-    numberOfVolunteers Integer,
-    location LocationCategory,
-    expectedCost Double,
-    expectedAttendance Integer
+ideaName String,
+ideaDescription TextBlob,
+numberOfVolunteers Integer,
+location LocationCategory,
+expectedCost Double,
+expectedAttendance Integer
 }
 
 entity Vacancies {
-    vacancyTitle String,
-    vacancyDescription TextBlob,
-    vacancyStartDate LocalDate,
-    vacancyLogo ImageBlob,
-    vacancyDuration Integer,
-    vacancyLocation LocationCategory
+vacancyTitle String,
+vacancyDescription TextBlob,
+vacancyStartDate LocalDate,
+vacancyLogo ImageBlob,
+vacancyDuration Integer,
+vacancyLocation LocationCategory
 }
 
 enum LocationCategory {
-    INPERSON,
-    REMOTE
+INPERSON,
+REMOTE
 }
 
 entity BudgetPlanner {
-    charityName String,
-    totalBalance Double,
-    upcomingEvents String,
-    targetAmount Double,
-    upcomingEvents String,
-    forecastIncome Double
+charityName String,
+totalBalance Double,
+upcomingEvents String,
+targetAmount Double,
+upcomingEvents TextBlob,
+forecastIncome Double
 }
 
 entity ApprovedVolunteers {
-    volunteerStatus Boolean,
-    volunteerHoursCompletedInCharity Integer,
-    currentEventVolunteeringIn String
+volunteerStatus Boolean,
+volunteerHoursCompletedInCharity Integer,
+currentEventVolunteeringIn String
 }
 
 entity Authentication{
-    isAuthenticated Boolean
+isAuthenticated Boolean
 }
 
 relationship OneToMany {
-    CharityHubUser to VolunteerApplications
-    CharityHubUser to ReviewComments
-    CharityProfile to ReviewComments
-    CharityProfile to DonatorPage
-    SocialFeed to Posts
-    CharityAdmin to Vacancies
-    CharityAdmin to CharityEvent
-    CharityAdmin to FundraisingIdea
-    CharityAdmin to ApprovedVolunteers
-    CharityEvent to GroupDonator
-    Vacancies to VolunteerApplications
+CharityHubUser to VolunteerApplications
+CharityHubUser to ReviewComments
+CharityProfile to ReviewComments
+CharityProfile to DonatorPage
+SocialFeed to Posts
+CharityProfile to Vacancies{charityProfile(charityName)}
+CharityProfile to CharityEvent{charityProfile(charityName)}
+CharityAdmin to FundraisingIdea
+CharityAdmin to ApprovedVolunteers
+CharityEvent to GroupDonator
+Vacancies to VolunteerApplications
 }
 
 relationship OneToOne {
-    CharityHubUser to UserPage
-    CharityHubUser to Authentication
-    CharityAdmin to BudgetPlanner
-    CharityAdmin to CharityProfile
-    GroupDonator to DonatorPage
-    CharityProfile to SocialFeed
+CharityHubUser to User
+CharityHubUser to UserPage
+CharityHubUser to Authentication
+CharityAdmin to BudgetPlanner
+CharityAdmin{charityProfile(charityName)} to CharityProfile
+GroupDonator to DonatorPage
+CharityProfile to SocialFeed
 }
 
 relationship ManyToOne {
-    VolunteerApplications to CharityAdmin
-    ApprovedVolunteers to CharityHubUser
+VolunteerApplications to CharityAdmin
+ApprovedVolunteers to CharityHubUser
 }

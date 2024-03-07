@@ -1,0 +1,117 @@
+<div>
+  <h2 id="page-heading" data-cy="GroupDonatorHeading">
+    <span>Group Donators</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-group-donator"
+        [routerLink]="['/group-donator/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Group Donator </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="groupDonators?.length === 0">
+    <span>No Group Donators found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="groupDonators && groupDonators.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="groupName">
+            <div class="d-flex">
+              <span>Group Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="totalCollectedAmount">
+            <div class="d-flex">
+              <span>Total Collected Amount</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="donatorPage.id">
+            <div class="d-flex">
+              <span>Donator Page</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="charityEvent.id">
+            <div class="d-flex">
+              <span>Charity Event</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let groupDonator of groupDonators; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/group-donator', groupDonator.id, 'view']">{{ groupDonator.id }}</a>
+          </td>
+          <td>{{ groupDonator.groupName }}</td>
+          <td>{{ groupDonator.totalCollectedAmount }}</td>
+          <td>
+            <div *ngIf="groupDonator.donatorPage">
+              <a [routerLink]="['/donator-page', groupDonator.donatorPage.id, 'view']">{{ groupDonator.donatorPage.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="groupDonator.charityEvent">
+              <a [routerLink]="['/charity-event', groupDonator.charityEvent.id, 'view']">{{ groupDonator.charityEvent.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/group-donator', groupDonator.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/group-donator', groupDonator.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(groupDonator)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

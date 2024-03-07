@@ -1,0 +1,53 @@
+{
+  "applications": "*",
+  "changelogDate": "20240307130410",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "charity_admin",
+  "fields": [
+    {
+      "fieldName": "isCharityAdmin",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CharityAdmin",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "budgetPlanner",
+      "otherEntityRelationshipName": "charityAdmin",
+      "ownerSide": true,
+      "relationshipName": "budgetPlanner",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "charityName",
+      "otherEntityName": "charityProfile",
+      "ownerSide": true,
+      "relationshipName": "charityProfile",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "fundraisingIdea",
+      "otherEntityRelationshipName": "charityAdmin",
+      "relationshipName": "fundraisingIdea",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "approvedVolunteers",
+      "otherEntityRelationshipName": "charityAdmin",
+      "relationshipName": "approvedVolunteers",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "volunteerApplications",
+      "otherEntityRelationshipName": "charityAdmin",
+      "relationshipName": "volunteerApplications",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

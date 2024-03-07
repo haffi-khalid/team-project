@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-fundraising-idea-heading" data-cy="FundraisingIdeaCreateUpdateHeading">Create or edit a Fundraising Idea</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ideaName">Idea Name</label>
+          <input type="text" class="form-control" name="ideaName" id="field_ideaName" data-cy="ideaName" formControlName="ideaName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ideaDescription">Idea Description</label>
+          <textarea
+            class="form-control"
+            name="ideaDescription"
+            id="field_ideaDescription"
+            data-cy="ideaDescription"
+            formControlName="ideaDescription"
+          ></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_numberOfVolunteers">Number Of Volunteers</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numberOfVolunteers"
+            id="field_numberOfVolunteers"
+            data-cy="numberOfVolunteers"
+            formControlName="numberOfVolunteers"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_location">Location</label>
+          <select class="form-control" name="location" formControlName="location" id="field_location" data-cy="location">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let locationCategory of locationCategoryValues" [value]="locationCategory">locationCategory</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_expectedCost">Expected Cost</label>
+          <input
+            type="number"
+            class="form-control"
+            name="expectedCost"
+            id="field_expectedCost"
+            data-cy="expectedCost"
+            formControlName="expectedCost"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_expectedAttendance">Expected Attendance</label>
+          <input
+            type="number"
+            class="form-control"
+            name="expectedAttendance"
+            id="field_expectedAttendance"
+            data-cy="expectedAttendance"
+            formControlName="expectedAttendance"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_charityAdmin">Charity Admin</label>
+          <select
+            class="form-control"
+            id="field_charityAdmin"
+            data-cy="charityAdmin"
+            name="charityAdmin"
+            formControlName="charityAdmin"
+            [compareWith]="compareCharityAdmin"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="charityAdminOption" *ngFor="let charityAdminOption of charityAdminsSharedCollection">
+              {{ charityAdminOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

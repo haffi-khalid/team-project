@@ -1,0 +1,104 @@
+<div>
+  <h2 id="page-heading" data-cy="CharityEventHeading">
+    <div class="banner-area">
+      <span class="page-heading">Charity Events</span>
+      <span class="banner-img"></span>
+    </div>
+
+    <div class="add-event-section">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-charity-event"
+        [routerLink]="['/charity-event/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Charity Event </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="charityEvents?.length === 0">
+    <span>No Charity Events found</span>
+  </div>
+
+  <div class="row" *ngIf="charityEvents && charityEvents.length > 0">
+    <div class="col-4" *ngFor="let charityEvent of charityEvents">
+      <div class="event-box">
+        <!-- Image added here -->
+        <!--        <img src="{{ charityEvent.imange }}" class="event-image" alt="Event"/>-->
+        <!--        <a *ngIf="charityEvent.imange"> <img-->
+        <!--          [src]="'url(data:image/png;base64,' + charityEvent.imange + ')'"-->
+        <!--          style="max-height: 1000px"-->
+        <!--          alt=" charity Events"/></a>-->
+
+        <img
+          [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"
+          alt="Imange"
+          class="event-box"
+          style="width: 350px; height: 260px"
+        />
+
+        <div class="event-text-section">
+          <div class="event-name">
+            <span
+              ><a>{{ charityEvent.eventName }}</a></span
+            >
+          </div>
+          <div class="timings">
+            {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}</span>
+          </div>
+          <!--          <div class="event-type"><a> Event-Type : </a>{{ charityEvent.eventType | json }}</div>-->
+          <!--          <div class="event-type"><span><a [routerLink]="['/event-type']">{{ charityEvent.eventType }}</a></span></div>-->
+          <!--          <div class="location"><span class = "location"><a> Location:</a>{{ charityEvent.location}}</span></div>-->
+          <div class="description">{{ charityEvent.description }}</div>
+          <!--          <div class="charity-name">{{ charityEvent?.charityProfile }}</div>-->
+        </div>
+
+        <div class="text-end">
+          <div class="btn-group">
+            <button
+              type="submit"
+              [routerLink]="['/charity-event', charityEvent.id, 'view']"
+              class="btn btn-info btn-sm"
+              data-cy="entityDetailsButton"
+            >
+              <fa-icon icon="eye"></fa-icon>
+              <span class="d-none d-md-inline">View</span>
+            </button>
+
+            <button
+              type="submit"
+              [routerLink]="['/charity-event', charityEvent.id, 'edit']"
+              class="btn btn-primary btn-sm"
+              data-cy="entityEditButton"
+            >
+              <fa-icon icon="pencil-alt"></fa-icon>
+              <span class="d-none d-md-inline">Edit</span>
+            </button>
+
+            <button
+              type="submit"
+              (click)="delete(charityEvent)"
+              class="btn btn-danger btn-sm"
+              data-cy="entityDeleteButton"
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+            >
+              <fa-icon icon="times"></fa-icon>
+              <span class="d-none d-md-inline">Delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
