@@ -31,7 +31,6 @@ const volunteerApplicationsRoute: Routes = [
     resolve: {
       volunteerApplications: VolunteerApplicationsRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/edit',
