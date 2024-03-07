@@ -13,7 +13,6 @@ import { SortService } from 'app/shared/sort/sort.service';
 @Component({
   selector: 'jhi-charity-event',
   templateUrl: './charity-event.component.html',
-  styleUrls: ['./charity-event.component.css'],
 })
 export class CharityEventComponent implements OnInit {
   charityEvents?: ICharityEvent[];
