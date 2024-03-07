@@ -5,7 +5,7 @@ import { errorRoute } from './layouts/error/error.route';
 import { navbarRoute } from './layouts/navbar/navbar.route';
 import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
-
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 
 @NgModule({
@@ -27,6 +27,10 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
         {
           path: 'login',
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+        },
+        {
+          path: 'privacy-policy', // Add the privacy policy route
+          component: PrivacyPolicyComponent,
         },
         {
           path: '',
