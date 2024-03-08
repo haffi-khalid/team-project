@@ -10,8 +10,8 @@ import { VacanciesService } from '../service/vacancies.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
-import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
-import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
+import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
+import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
 import { LocationCategory } from 'app/entities/enumerations/location-category.model';
 
 @Component({
@@ -23,7 +23,7 @@ export class VacanciesUpdateComponent implements OnInit {
   vacancies: IVacancies | null = null;
   locationCategoryValues = Object.keys(LocationCategory);
 
-  charityAdminsSharedCollection: ICharityAdmin[] = [];
+  charityProfilesSharedCollection: ICharityProfile[] = [];
 
   editForm: VacanciesFormGroup = this.vacanciesFormService.createVacanciesFormGroup();
 
@@ -32,13 +32,13 @@ export class VacanciesUpdateComponent implements OnInit {
     protected eventManager: EventManager,
     protected vacanciesService: VacanciesService,
     protected vacanciesFormService: VacanciesFormService,
-    protected charityAdminService: CharityAdminService,
+    protected charityProfileService: CharityProfileService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareCharityAdmin = (o1: ICharityAdmin | null, o2: ICharityAdmin | null): boolean =>
-    this.charityAdminService.compareCharityAdmin(o1, o2);
+  compareCharityProfile = (o1: ICharityProfile | null, o2: ICharityProfile | null): boolean =>
+    this.charityProfileService.compareCharityProfile(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ vacancies }) => {
@@ -113,21 +113,24 @@ export class VacanciesUpdateComponent implements OnInit {
     this.vacancies = vacancies;
     this.vacanciesFormService.resetForm(this.editForm, vacancies);
 
-    this.charityAdminsSharedCollection = this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
-      this.charityAdminsSharedCollection,
-      vacancies.charityAdmin
+    this.charityProfilesSharedCollection = this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
+      this.charityProfilesSharedCollection,
+      vacancies.charityProfile
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.charityAdminService
+    this.charityProfileService
       .query()
-      .pipe(map((res: HttpResponse<ICharityAdmin[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<ICharityProfile[]>) => res.body ?? []))
       .pipe(
-        map((charityAdmins: ICharityAdmin[]) =>
-          this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(charityAdmins, this.vacancies?.charityAdmin)
+        map((charityProfiles: ICharityProfile[]) =>
+          this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
+            charityProfiles,
+            this.vacancies?.charityProfile
+          )
         )
       )
-      .subscribe((charityAdmins: ICharityAdmin[]) => (this.charityAdminsSharedCollection = charityAdmins));
+      .subscribe((charityProfiles: ICharityProfile[]) => (this.charityProfilesSharedCollection = charityProfiles));
   }
 }

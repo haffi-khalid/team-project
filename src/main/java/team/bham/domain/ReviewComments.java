@@ -6,6 +6,7 @@ import java.time.Instant;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A ReviewComments.
@@ -27,6 +28,8 @@ public class ReviewComments implements Serializable {
     @Column(name = "parent_id")
     private Integer parentID;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "content")
     private String content;
 
@@ -44,7 +47,7 @@ public class ReviewComments implements Serializable {
     private CharityHubUser charityHubUser;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
     private CharityProfile charityProfile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

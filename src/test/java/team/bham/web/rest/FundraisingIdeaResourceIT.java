@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import team.bham.IntegrationTest;
 import team.bham.domain.FundraisingIdea;
 import team.bham.domain.enumeration.LocationCategory;
@@ -160,7 +161,7 @@ class FundraisingIdeaResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(fundraisingIdea.getId().intValue())))
             .andExpect(jsonPath("$.[*].ideaName").value(hasItem(DEFAULT_IDEA_NAME)))
-            .andExpect(jsonPath("$.[*].ideaDescription").value(hasItem(DEFAULT_IDEA_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].ideaDescription").value(hasItem(DEFAULT_IDEA_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].numberOfVolunteers").value(hasItem(DEFAULT_NUMBER_OF_VOLUNTEERS)))
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION.toString())))
             .andExpect(jsonPath("$.[*].expectedCost").value(hasItem(DEFAULT_EXPECTED_COST.doubleValue())))
@@ -180,7 +181,7 @@ class FundraisingIdeaResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(fundraisingIdea.getId().intValue()))
             .andExpect(jsonPath("$.ideaName").value(DEFAULT_IDEA_NAME))
-            .andExpect(jsonPath("$.ideaDescription").value(DEFAULT_IDEA_DESCRIPTION))
+            .andExpect(jsonPath("$.ideaDescription").value(DEFAULT_IDEA_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.numberOfVolunteers").value(DEFAULT_NUMBER_OF_VOLUNTEERS))
             .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION.toString()))
             .andExpect(jsonPath("$.expectedCost").value(DEFAULT_EXPECTED_COST.doubleValue()))

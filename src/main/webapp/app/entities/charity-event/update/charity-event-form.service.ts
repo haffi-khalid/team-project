@@ -37,7 +37,7 @@ type CharityEventFormGroupContent = {
   images: FormControl<CharityEventFormRawValue['images']>;
   imagesContentType: FormControl<CharityEventFormRawValue['imagesContentType']>;
   duration: FormControl<CharityEventFormRawValue['duration']>;
-  charityAdmin: FormControl<CharityEventFormRawValue['charityAdmin']>;
+  charityProfile: FormControl<CharityEventFormRawValue['charityProfile']>;
 };
 
 export type CharityEventFormGroup = FormGroup<CharityEventFormGroupContent>;
@@ -63,7 +63,7 @@ export class CharityEventFormService {
       images: new FormControl(charityEventRawValue.images),
       imagesContentType: new FormControl(charityEventRawValue.imagesContentType),
       duration: new FormControl(charityEventRawValue.duration),
-      charityAdmin: new FormControl(charityEventRawValue.charityAdmin),
+      charityProfile: new FormControl(charityEventRawValue.charityProfile),
     });
   }
 

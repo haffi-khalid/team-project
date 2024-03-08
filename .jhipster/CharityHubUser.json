@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074827",
+  "changelogDate": "20240307130402",
   "dto": "no",
   "embedded": false,
   "entityTableName": "charity_hub_user",
@@ -11,10 +11,6 @@
     },
     {
       "fieldName": "email",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "password",
       "fieldType": "String"
     }
   ],

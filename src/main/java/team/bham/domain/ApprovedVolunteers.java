@@ -41,15 +41,7 @@ public class ApprovedVolunteers implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "charityProfile",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
+        value = { "budgetPlanner", "charityProfile", "fundraisingIdeas", "approvedVolunteers", "volunteerApplications" },
         allowSetters = true
     )
     private CharityAdmin charityAdmin;

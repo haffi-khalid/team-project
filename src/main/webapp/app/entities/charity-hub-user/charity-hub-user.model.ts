@@ -6,7 +6,6 @@ export interface ICharityHubUser {
   id: number;
   username?: string | null;
   email?: string | null;
-  password?: string | null;
   user?: Pick<IUser, 'id'> | null;
   userPage?: Pick<IUserPage, 'id'> | null;
   authentication?: Pick<IAuthentication, 'id'> | null;

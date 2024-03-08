@@ -20,7 +20,7 @@ describe('GroupDonator Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            groupname: expect.any(Object),
+            groupName: expect.any(Object),
             totalCollectedAmount: expect.any(Object),
             donatorPage: expect.any(Object),
             charityEvent: expect.any(Object),
@@ -34,7 +34,7 @@ describe('GroupDonator Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            groupname: expect.any(Object),
+            groupName: expect.any(Object),
             totalCollectedAmount: expect.any(Object),
             donatorPage: expect.any(Object),
             charityEvent: expect.any(Object),

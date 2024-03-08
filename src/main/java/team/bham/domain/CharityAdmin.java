@@ -33,20 +33,10 @@ public class CharityAdmin implements Serializable {
     @JoinColumn(unique = true)
     private BudgetPlanner budgetPlanner;
 
-    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private CharityProfile charityProfile;
-
-    @OneToMany(mappedBy = "charityAdmin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "volunteerApplications", "charityAdmin" }, allowSetters = true)
-    private Set<Vacancies> vacancies = new HashSet<>();
-
-    @OneToMany(mappedBy = "charityAdmin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "groupDonators", "charityAdmin" }, allowSetters = true)
-    private Set<CharityEvent> charityEvents = new HashSet<>();
 
     @OneToMany(mappedBy = "charityAdmin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -114,68 +104,6 @@ public class CharityAdmin implements Serializable {
 
     public CharityAdmin charityProfile(CharityProfile charityProfile) {
         this.setCharityProfile(charityProfile);
-        return this;
-    }
-
-    public Set<Vacancies> getVacancies() {
-        return this.vacancies;
-    }
-
-    public void setVacancies(Set<Vacancies> vacancies) {
-        if (this.vacancies != null) {
-            this.vacancies.forEach(i -> i.setCharityAdmin(null));
-        }
-        if (vacancies != null) {
-            vacancies.forEach(i -> i.setCharityAdmin(this));
-        }
-        this.vacancies = vacancies;
-    }
-
-    public CharityAdmin vacancies(Set<Vacancies> vacancies) {
-        this.setVacancies(vacancies);
-        return this;
-    }
-
-    public CharityAdmin addVacancies(Vacancies vacancies) {
-        this.vacancies.add(vacancies);
-        vacancies.setCharityAdmin(this);
-        return this;
-    }
-
-    public CharityAdmin removeVacancies(Vacancies vacancies) {
-        this.vacancies.remove(vacancies);
-        vacancies.setCharityAdmin(null);
-        return this;
-    }
-
-    public Set<CharityEvent> getCharityEvents() {
-        return this.charityEvents;
-    }
-
-    public void setCharityEvents(Set<CharityEvent> charityEvents) {
-        if (this.charityEvents != null) {
-            this.charityEvents.forEach(i -> i.setCharityAdmin(null));
-        }
-        if (charityEvents != null) {
-            charityEvents.forEach(i -> i.setCharityAdmin(this));
-        }
-        this.charityEvents = charityEvents;
-    }
-
-    public CharityAdmin charityEvents(Set<CharityEvent> charityEvents) {
-        this.setCharityEvents(charityEvents);
-        return this;
-    }
-
-    public CharityAdmin addCharityEvent(CharityEvent charityEvent) {
-        this.charityEvents.add(charityEvent);
-        charityEvent.setCharityAdmin(this);
-        return this;
-    }
-
-    public CharityAdmin removeCharityEvent(CharityEvent charityEvent) {
-        this.charityEvents.remove(charityEvent);
-        charityEvent.setCharityAdmin(null);
         return this;
     }
 

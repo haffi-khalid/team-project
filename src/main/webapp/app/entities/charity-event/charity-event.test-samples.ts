@@ -16,11 +16,11 @@ export const sampleWithPartialData: ICharityEvent = {
 export const sampleWithFullData: ICharityEvent = {
   id: 55217,
   eventName: 'HDD system',
-  eventTimeDate: dayjs('2024-03-06T02:24'),
-  description: 'Visionary',
+  eventTimeDate: dayjs('2024-03-07T07:40'),
+  description: '../fake-data/blob/hipster.txt',
   images: '../fake-data/blob/hipster.png',
   imagesContentType: 'unknown',
-  duration: 1904,
+  duration: 25520,
 };
 
 export const sampleWithNewData: NewCharityEvent = {

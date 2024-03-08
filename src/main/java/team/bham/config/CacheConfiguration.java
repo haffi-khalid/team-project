@@ -62,9 +62,9 @@ public class CacheConfiguration {
             createCache(cm, team.bham.domain.CharityProfile.class.getName());
             createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".reviewComments");
             createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".donatorPages");
+            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".vacancies");
+            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".charityEvents");
             createCache(cm, team.bham.domain.CharityAdmin.class.getName());
-            createCache(cm, team.bham.domain.CharityAdmin.class.getName() + ".vacancies");
-            createCache(cm, team.bham.domain.CharityAdmin.class.getName() + ".charityEvents");
             createCache(cm, team.bham.domain.CharityAdmin.class.getName() + ".fundraisingIdeas");
             createCache(cm, team.bham.domain.CharityAdmin.class.getName() + ".approvedVolunteers");
             createCache(cm, team.bham.domain.CharityAdmin.class.getName() + ".volunteerApplications");

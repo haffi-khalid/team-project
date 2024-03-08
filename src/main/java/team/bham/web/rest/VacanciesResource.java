@@ -158,12 +158,17 @@ public class VacanciesResource {
     /**
      * {@code GET  /vacancies} : get all the vacancies.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of vacancies in body.
      */
     @GetMapping("/vacancies")
-    public List<Vacancies> getAllVacancies() {
+    public List<Vacancies> getAllVacancies(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Vacancies");
-        return vacanciesRepository.findAll();
+        if (eagerload) {
+            return vacanciesRepository.findAllWithEagerRelationships();
+        } else {
+            return vacanciesRepository.findAll();
+        }
     }
 
     /**
@@ -175,7 +180,7 @@ public class VacanciesResource {
     @GetMapping("/vacancies/{id}")
     public ResponseEntity<Vacancies> getVacancies(@PathVariable Long id) {
         log.debug("REST request to get Vacancies : {}", id);
-        Optional<Vacancies> vacancies = vacanciesRepository.findById(id);
+        Optional<Vacancies> vacancies = vacanciesRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(vacancies);
     }
 

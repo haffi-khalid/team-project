@@ -1,50 +1,53 @@
 .admin-table {
-  border: 10px solid #e5bb89;
+  border: 10px solid #ffffff;
   width: 100%;
 }
 .user-table {
   width: 80%;
-  border: 10px solid #e5bb89;
+  border: 10px solid #ffffff;
   margin-left: auto;
   margin-right: 0;
 }
 .th {
-  border-right: 5px solid #e5bb89;
+  border-right: 5px solid #ffffff;
 }
 .small-cell {
   width: 200px;
-  border: 5px solid #e5bb89;
+  border: 5px solid #ffffff;
   border-right: none;
 }
 .main {
   width: 200px;
-  border: 5px solid #e5bb89;
+  text-align: center;
+  border: 5px solid #ffffff;
 }
 .last {
   width: 350px;
   height: 1px;
-  border-top: 5px solid #e5bb89;
+  text-align: center;
+  border-top: 5px solid #ffffff;
 }
 .first {
   text-align: center;
   width: 100px;
-  border: 5px solid #e5bb89;
+  border: 5px solid #ffffff;
 }
 
 .btn-sm2 {
   border-radius: 80px;
   margin-top: 1px;
   margin-left: 1px;
-  background-color: #ccc5b7;
-  border-color: #ccc5b7;
+  background-color: #ffffff;
+  border-color: #ffffff;
   color: black;
   font-size: 15px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 .text-end {
   width: 200px;
-  border-top: 5px solid #e5bb89;
+  border-top: 5px solid #ffffff;
 }
 .id-field {
-  border: 5px solid #e5bb89;
+  border: 5px solid #ffffff;
   width: 100px;
 }

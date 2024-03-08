@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074838",
+  "changelogDate": "20240307130413",
   "dto": "no",
   "embedded": false,
   "entityTableName": "fundraising_idea",
@@ -11,7 +11,8 @@
     },
     {
       "fieldName": "ideaDescription",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "numberOfVolunteers",

@@ -6,20 +6,29 @@
     </div>
 
     <div class="add-event-section">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh list</span>
-      </button>
+      <div class="component1">
+        <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span>Refresh list</span>
+        </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-charity-event"
-        [routerLink]="['/charity-event/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Charity Event </span>
-      </button>
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-charity-event"
+          [routerLink]="['/charity-event/new']"
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span> Create a new Charity Event </span>
+        </button>
+      </div>
+
+      <div class="component2">
+        <div class="search-box">
+          <input type="text" placeholder="Search..." />
+        </div>
+      </div>
     </div>
   </h2>
 
@@ -34,18 +43,11 @@
   <div class="row" *ngIf="charityEvents && charityEvents.length > 0">
     <div class="col-4" *ngFor="let charityEvent of charityEvents">
       <div class="event-box">
-        <!-- Image added here -->
-        <!--        <img src="{{ charityEvent.imange }}" class="event-image" alt="Event"/>-->
-        <!--        <a *ngIf="charityEvent.imange"> <img-->
-        <!--          [src]="'url(data:image/png;base64,' + charityEvent.imange + ')'"-->
-        <!--          style="max-height: 1000px"-->
-        <!--          alt=" charity Events"/></a>-->
-
         <img
           [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"
           alt="Imange"
           class="event-box"
-          style="width: 350px; height: 260px"
+          style="width: 350px; height: 260px; margin-bottom: 2px"
         />
 
         <div class="event-text-section">
@@ -55,13 +57,16 @@
             >
           </div>
           <div class="timings">
-            {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}</span>
+            {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}<a> hr</a></span>
           </div>
           <!--          <div class="event-type"><a> Event-Type : </a>{{ charityEvent.eventType | json }}</div>-->
           <!--          <div class="event-type"><span><a [routerLink]="['/event-type']">{{ charityEvent.eventType }}</a></span></div>-->
           <!--          <div class="location"><span class = "location"><a> Location:</a>{{ charityEvent.location}}</span></div>-->
           <div class="description">{{ charityEvent.description }}</div>
           <!--          <div class="charity-name">{{ charityEvent?.charityProfile }}</div>-->
+          <div class="charity-logo" *ngIf="charityEvent.charityProfile">
+            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>
+          </div>
         </div>
 
         <div class="text-end">
@@ -79,6 +84,7 @@
             <button
               type="submit"
               [routerLink]="['/charity-event', charityEvent.id, 'edit']"
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
               class="btn btn-primary btn-sm"
               data-cy="entityEditButton"
             >

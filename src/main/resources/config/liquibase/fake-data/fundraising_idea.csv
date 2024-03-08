@@ -1,11 +1,11 @@
 id;idea_name;idea_description;number_of_volunteers;location;expected_cost;expected_attendance
-1;Ruble;Fully-configurable Web;9656;REMOTE;21592;52035
-2;incubate;magenta sensor Officer;78489;REMOTE;56666;85409
-3;Salad;payment Savings;88982;REMOTE;80151;40030
-4;Bacon real-time;Unbranded Cambridgeshire Forward;68072;REMOTE;41613;25622
-5;blue Litas Identity;Checking Identity;86919;REMOTE;70794;17794
-6;Baby;Accounts Borders;1755;INPERSON;64526;82909
-7;Table Cuban;convergence;1114;REMOTE;18381;63121
-8;ROI;Steel backing generation;55366;INPERSON;61037;4969
-9;circuit user-centric Cotton;Assurance;97049;INPERSON;85973;76707
-10;Legacy;pixel;23223;INPERSON;89200;8837
+1;Ruble;../fake-data/blob/hipster.txt;57368;INPERSON;31035;57374
+2;payment Hawaii Fantastic;../fake-data/blob/hipster.txt;71670;REMOTE;20089;68901
+3;sensor Officer mobile;../fake-data/blob/hipster.txt;85409;INPERSON;5759;55744
+4;Internal payment;../fake-data/blob/hipster.txt;61154;INPERSON;14380;88982
+5;redundant Bacon real-time;../fake-data/blob/hipster.txt;66921;INPERSON;93986;78102
+6;Applications navigate;../fake-data/blob/hipster.txt;82606;INPERSON;25622;93271
+7;Reunion;../fake-data/blob/hipster.txt;48428;REMOTE;94361;35613
+8;Mozambique;../fake-data/blob/hipster.txt;29115;REMOTE;35423;8095
+9;Developer Metal Accounts;../fake-data/blob/hipster.txt;49394;REMOTE;75782;1755
+10;invoice;../fake-data/blob/hipster.txt;5756;REMOTE;42518;42233

@@ -8,14 +8,14 @@ export const sampleWithRequiredData: IPosts = {
 
 export const sampleWithPartialData: IPosts = {
   id: 48304,
-  content: 'Outdoors Dynamic state',
-  timestamp: dayjs('2024-03-05T19:10'),
+  content: '../fake-data/blob/hipster.txt',
+  timestamp: dayjs('2024-03-06T14:27'),
 };
 
 export const sampleWithFullData: IPosts = {
-  id: 64977,
-  content: 'Facilitator Franc',
-  timestamp: dayjs('2024-03-05T08:03'),
+  id: 2392,
+  content: '../fake-data/blob/hipster.txt',
+  timestamp: dayjs('2024-03-06T15:35'),
 };
 
 export const sampleWithNewData: NewPosts = {

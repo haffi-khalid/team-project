@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074840",
+  "changelogDate": "20240307130415",
   "dto": "no",
   "embedded": false,
   "entityTableName": "budget_planner",
@@ -15,7 +15,8 @@
     },
     {
       "fieldName": "upcomingEvents",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "targetAmount",

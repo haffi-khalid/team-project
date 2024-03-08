@@ -129,9 +129,6 @@ public class CharityHubUserResource {
                 if (charityHubUser.getEmail() != null) {
                     existingCharityHubUser.setEmail(charityHubUser.getEmail());
                 }
-                if (charityHubUser.getPassword() != null) {
-                    existingCharityHubUser.setPassword(charityHubUser.getPassword());
-                }
 
                 return existingCharityHubUser;
             })

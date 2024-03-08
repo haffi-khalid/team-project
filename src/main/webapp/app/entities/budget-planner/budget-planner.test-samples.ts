@@ -16,9 +16,9 @@ export const sampleWithFullData: IBudgetPlanner = {
   id: 29486,
   charityName: 'vertical GB',
   totalBalance: 74686,
-  upcomingEvents: 'Awesome Developer Mews',
-  targetAmount: 44031,
-  forecastIncome: 67720,
+  upcomingEvents: '../fake-data/blob/hipster.txt',
+  targetAmount: 79865,
+  forecastIncome: 8541,
 };
 
 export const sampleWithNewData: NewBudgetPlanner = {

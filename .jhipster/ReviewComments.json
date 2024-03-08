@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074829",
+  "changelogDate": "20240307130404",
   "dto": "no",
   "embedded": false,
   "entityTableName": "review_comments",
@@ -11,7 +11,8 @@
     },
     {
       "fieldName": "content",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "timestamp",

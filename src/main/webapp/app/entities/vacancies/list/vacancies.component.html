@@ -73,8 +73,8 @@
                 alt="vacancies image"
               />
             </a>
-            <div *ngIf="vacancies.charityAdmin">
-              <a [routerLink]="['/charity-admin', vacancies.charityAdmin.id, 'view']">{{ vacancies.charityAdmin.id }}</a>
+            <div *ngIf="vacancies.charityProfile">
+              <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']">{{ vacancies.charityProfile.charityName }}</a>
             </div>
           </td>
           <td class="main">

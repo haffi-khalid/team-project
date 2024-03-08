@@ -14,6 +14,7 @@ import { CharityHubUserService } from 'app/entities/charity-hub-user/service/cha
 import { IVacancies } from 'app/entities/vacancies/vacancies.model';
 import { VacanciesService } from 'app/entities/vacancies/service/vacancies.service';
 import { ApplicationCategory } from 'app/entities/enumerations/application-category.model';
+import { AccountService } from '../../../core/auth/account.service';
 
 @Component({
   selector: 'jhi-volunteer-applications-update',
@@ -36,7 +37,8 @@ export class VolunteerApplicationsUpdateComponent implements OnInit {
     protected charityAdminService: CharityAdminService,
     protected charityHubUserService: CharityHubUserService,
     protected vacanciesService: VacanciesService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    protected accountService: AccountService
   ) {}
 
   compareCharityAdmin = (o1: ICharityAdmin | null, o2: ICharityAdmin | null): boolean =>

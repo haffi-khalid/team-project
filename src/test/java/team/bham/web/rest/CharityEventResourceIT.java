@@ -2,6 +2,7 @@ package team.bham.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static team.bham.web.rest.TestUtil.sameInstant;
@@ -10,14 +11,21 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,6 +39,7 @@ import team.bham.repository.CharityEventRepository;
  * Integration tests for the {@link CharityEventResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class CharityEventResourceIT {
@@ -60,6 +69,9 @@ class CharityEventResourceIT {
 
     @Autowired
     private CharityEventRepository charityEventRepository;
+
+    @Mock
+    private CharityEventRepository charityEventRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -161,10 +173,27 @@ class CharityEventResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(charityEvent.getId().intValue())))
             .andExpect(jsonPath("$.[*].eventName").value(hasItem(DEFAULT_EVENT_NAME)))
             .andExpect(jsonPath("$.[*].eventTimeDate").value(hasItem(sameInstant(DEFAULT_EVENT_TIME_DATE))))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].imagesContentType").value(hasItem(DEFAULT_IMAGES_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].images").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGES))))
             .andExpect(jsonPath("$.[*].duration").value(hasItem(DEFAULT_DURATION)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllCharityEventsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(charityEventRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCharityEventMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(charityEventRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllCharityEventsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(charityEventRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCharityEventMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(charityEventRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -181,7 +210,7 @@ class CharityEventResourceIT {
             .andExpect(jsonPath("$.id").value(charityEvent.getId().intValue()))
             .andExpect(jsonPath("$.eventName").value(DEFAULT_EVENT_NAME))
             .andExpect(jsonPath("$.eventTimeDate").value(sameInstant(DEFAULT_EVENT_TIME_DATE)))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.imagesContentType").value(DEFAULT_IMAGES_CONTENT_TYPE))
             .andExpect(jsonPath("$.images").value(Base64Utils.encodeToString(DEFAULT_IMAGES)))
             .andExpect(jsonPath("$.duration").value(DEFAULT_DURATION));

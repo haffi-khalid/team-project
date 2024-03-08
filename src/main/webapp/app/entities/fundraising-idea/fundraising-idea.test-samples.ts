@@ -9,17 +9,17 @@ export const sampleWithRequiredData: IFundraisingIdea = {
 export const sampleWithPartialData: IFundraisingIdea = {
   id: 54818,
   ideaName: 'Pennsylvania',
-  ideaDescription: 'visualize user-centric Ameliorated',
+  ideaDescription: '../fake-data/blob/hipster.txt',
 };
 
 export const sampleWithFullData: IFundraisingIdea = {
-  id: 73196,
-  ideaName: 'invoice Account',
-  ideaDescription: 'salmon Optimized withdrawal',
-  numberOfVolunteers: 38783,
+  id: 78762,
+  ideaName: 'Islands CSS',
+  ideaDescription: '../fake-data/blob/hipster.txt',
+  numberOfVolunteers: 2747,
   location: LocationCategory['INPERSON'],
-  expectedCost: 28274,
-  expectedAttendance: 40716,
+  expectedCost: 73196,
+  expectedAttendance: 39803,
 };
 
 export const sampleWithNewData: NewFundraisingIdea = {

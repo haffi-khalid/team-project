@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A CharityEvent.
@@ -32,6 +33,8 @@ public class CharityEvent implements Serializable {
     @Column(name = "event_time_date")
     private ZonedDateTime eventTimeDate;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "description")
     private String description;
 
@@ -51,19 +54,8 @@ public class CharityEvent implements Serializable {
     private Set<GroupDonator> groupDonators = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "charityProfile",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
-        allowSetters = true
-    )
-    private CharityAdmin charityAdmin;
+    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
+    private CharityProfile charityProfile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -189,16 +181,16 @@ public class CharityEvent implements Serializable {
         return this;
     }
 
-    public CharityAdmin getCharityAdmin() {
-        return this.charityAdmin;
+    public CharityProfile getCharityProfile() {
+        return this.charityProfile;
     }
 
-    public void setCharityAdmin(CharityAdmin charityAdmin) {
-        this.charityAdmin = charityAdmin;
+    public void setCharityProfile(CharityProfile charityProfile) {
+        this.charityProfile = charityProfile;
     }
 
-    public CharityEvent charityAdmin(CharityAdmin charityAdmin) {
-        this.setCharityAdmin(charityAdmin);
+    public CharityEvent charityProfile(CharityProfile charityProfile) {
+        this.setCharityProfile(charityProfile);
         return this;
     }
 

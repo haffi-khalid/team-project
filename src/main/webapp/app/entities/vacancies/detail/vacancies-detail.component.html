@@ -47,10 +47,10 @@
         <dd>
           <span>{{ vacancies.vacancyLocation }}</span>
         </dd>
-        <dt><span>Charity Admin</span></dt>
+        <dt><span>Charity Profile</span></dt>
         <dd>
-          <div *ngIf="vacancies.charityAdmin">
-            <a [routerLink]="['/charity-admin', vacancies.charityAdmin.id, 'view']">{{ vacancies.charityAdmin.id }}</a>
+          <div *ngIf="vacancies.charityProfile">
+            <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']">{{ vacancies.charityProfile.charityName }}</a>
           </div>
         </dd>
       </dl>

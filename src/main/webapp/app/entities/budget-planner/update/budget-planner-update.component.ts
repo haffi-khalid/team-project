@@ -7,6 +7,9 @@ import { finalize } from 'rxjs/operators';
 import { BudgetPlannerFormService, BudgetPlannerFormGroup } from './budget-planner-form.service';
 import { IBudgetPlanner } from '../budget-planner.model';
 import { BudgetPlannerService } from '../service/budget-planner.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-budget-planner-update',
@@ -19,6 +22,8 @@ export class BudgetPlannerUpdateComponent implements OnInit {
   editForm: BudgetPlannerFormGroup = this.budgetPlannerFormService.createBudgetPlannerFormGroup();
 
   constructor(
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
     protected budgetPlannerService: BudgetPlannerService,
     protected budgetPlannerFormService: BudgetPlannerFormService,
     protected activatedRoute: ActivatedRoute
@@ -30,6 +35,21 @@ export class BudgetPlannerUpdateComponent implements OnInit {
       if (budgetPlanner) {
         this.updateForm(budgetPlanner);
       }
+    });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(new EventWithContent<AlertError>('teamprojectApp.error', { message: err.message })),
     });
   }
 

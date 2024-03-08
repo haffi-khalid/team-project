@@ -7,6 +7,9 @@ import { finalize, map } from 'rxjs/operators';
 import { PostsFormService, PostsFormGroup } from './posts-form.service';
 import { IPosts } from '../posts.model';
 import { PostsService } from '../service/posts.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { ISocialFeed } from 'app/entities/social-feed/social-feed.model';
 import { SocialFeedService } from 'app/entities/social-feed/service/social-feed.service';
 
@@ -23,6 +26,8 @@ export class PostsUpdateComponent implements OnInit {
   editForm: PostsFormGroup = this.postsFormService.createPostsFormGroup();
 
   constructor(
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
     protected postsService: PostsService,
     protected postsFormService: PostsFormService,
     protected socialFeedService: SocialFeedService,
@@ -39,6 +44,21 @@ export class PostsUpdateComponent implements OnInit {
       }
 
       this.loadRelationshipsOptions();
+    });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(new EventWithContent<AlertError>('teamprojectApp.error', { message: err.message })),
     });
   }
 

@@ -1,21 +1,23 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074828",
+  "changelogDate": "20240307130403",
   "dto": "no",
   "embedded": false,
   "entityTableName": "user_page",
   "fields": [
     {
       "fieldName": "volunteerHours",
-      "fieldType": "Double"
+      "fieldType": "Integer"
     },
     {
       "fieldName": "userBio",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "reviewComment",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "course",

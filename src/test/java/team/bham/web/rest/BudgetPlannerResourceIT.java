@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import team.bham.IntegrationTest;
 import team.bham.domain.BudgetPlanner;
 import team.bham.repository.BudgetPlannerRepository;
@@ -150,7 +151,7 @@ class BudgetPlannerResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(budgetPlanner.getId().intValue())))
             .andExpect(jsonPath("$.[*].charityName").value(hasItem(DEFAULT_CHARITY_NAME)))
             .andExpect(jsonPath("$.[*].totalBalance").value(hasItem(DEFAULT_TOTAL_BALANCE.doubleValue())))
-            .andExpect(jsonPath("$.[*].upcomingEvents").value(hasItem(DEFAULT_UPCOMING_EVENTS)))
+            .andExpect(jsonPath("$.[*].upcomingEvents").value(hasItem(DEFAULT_UPCOMING_EVENTS.toString())))
             .andExpect(jsonPath("$.[*].targetAmount").value(hasItem(DEFAULT_TARGET_AMOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].forecastIncome").value(hasItem(DEFAULT_FORECAST_INCOME.doubleValue())));
     }
@@ -169,7 +170,7 @@ class BudgetPlannerResourceIT {
             .andExpect(jsonPath("$.id").value(budgetPlanner.getId().intValue()))
             .andExpect(jsonPath("$.charityName").value(DEFAULT_CHARITY_NAME))
             .andExpect(jsonPath("$.totalBalance").value(DEFAULT_TOTAL_BALANCE.doubleValue()))
-            .andExpect(jsonPath("$.upcomingEvents").value(DEFAULT_UPCOMING_EVENTS))
+            .andExpect(jsonPath("$.upcomingEvents").value(DEFAULT_UPCOMING_EVENTS.toString()))
             .andExpect(jsonPath("$.targetAmount").value(DEFAULT_TARGET_AMOUNT.doubleValue()))
             .andExpect(jsonPath("$.forecastIncome").value(DEFAULT_FORECAST_INCOME.doubleValue()));
     }

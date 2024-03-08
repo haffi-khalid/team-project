@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074836",
+  "changelogDate": "20240307130411",
   "dto": "no",
   "embedded": false,
   "entityTableName": "donator_page",

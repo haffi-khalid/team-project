@@ -6,18 +6,18 @@ export const sampleWithRequiredData: ICharityProfile = {
 
 export const sampleWithPartialData: ICharityProfile = {
   id: 45771,
-  aim: 'payment parse Plastic',
-  emailAddress: 'analyzing withdrawal',
+  aim: '../fake-data/blob/hipster.txt',
+  emailAddress: 'payment parse Plastic',
   pictures: '../fake-data/blob/hipster.png',
   picturesContentType: 'unknown',
 };
 
 export const sampleWithFullData: ICharityProfile = {
-  id: 43700,
-  charityName: 'content Factors',
-  purpose: 'white',
-  aim: 'intuitive Avon methodical',
-  emailAddress: 'scale',
+  id: 50517,
+  charityName: 'Rustic',
+  purpose: '../fake-data/blob/hipster.txt',
+  aim: '../fake-data/blob/hipster.txt',
+  emailAddress: 'redundant',
   logo: '../fake-data/blob/hipster.png',
   logoContentType: 'unknown',
   pictures: '../fake-data/blob/hipster.png',

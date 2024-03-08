@@ -31,9 +31,6 @@ public class CharityHubUser implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
-    private String password;
-
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
@@ -102,19 +99,6 @@ public class CharityHubUser implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public CharityHubUser password(String password) {
-        this.setPassword(password);
-        return this;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public User getUser() {
@@ -275,7 +259,6 @@ public class CharityHubUser implements Serializable {
             "id=" + getId() +
             ", username='" + getUsername() + "'" +
             ", email='" + getEmail() + "'" +
-            ", password='" + getPassword() + "'" +
             "}";
     }
 }

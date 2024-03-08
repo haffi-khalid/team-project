@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity CharityEvent.
+    -->
+    <changeSet id="20240307130412-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="charity_profile_id"
+                                 baseTableName="charity_event"
+                                 constraintName="fk_charity_event__charity_profile_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="charity_profile"/>
+    </changeSet>
+</databaseChangeLog>

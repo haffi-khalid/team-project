@@ -1,5 +1,5 @@
 import dayjs from 'dayjs/esm';
-import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
+import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 
 export interface ICharityEvent {
   id: number;
@@ -9,7 +9,7 @@ export interface ICharityEvent {
   images?: string | null;
   imagesContentType?: string | null;
   duration?: number | null;
-  charityAdmin?: Pick<ICharityAdmin, 'id'> | null;
+  charityProfile?: Pick<ICharityProfile, 'id' | 'charityName'> | null;
 }
 
 export type NewCharityEvent = Omit<ICharityEvent, 'id'> & { id: null };

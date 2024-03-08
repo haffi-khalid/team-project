@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074842",
+  "changelogDate": "20240307130417",
   "dto": "no",
   "embedded": false,
   "entityTableName": "authentication",

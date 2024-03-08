@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A UserPage.
@@ -24,11 +25,15 @@ public class UserPage implements Serializable {
     private Long id;
 
     @Column(name = "volunteer_hours")
-    private Double volunteerHours;
+    private Integer volunteerHours;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "user_bio")
     private String userBio;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "review_comment")
     private String reviewComment;
 
@@ -60,16 +65,16 @@ public class UserPage implements Serializable {
         this.id = id;
     }
 
-    public Double getVolunteerHours() {
+    public Integer getVolunteerHours() {
         return this.volunteerHours;
     }
 
-    public UserPage volunteerHours(Double volunteerHours) {
+    public UserPage volunteerHours(Integer volunteerHours) {
         this.setVolunteerHours(volunteerHours);
         return this;
     }
 
-    public void setVolunteerHours(Double volunteerHours) {
+    public void setVolunteerHours(Integer volunteerHours) {
         this.volunteerHours = volunteerHours;
     }
 

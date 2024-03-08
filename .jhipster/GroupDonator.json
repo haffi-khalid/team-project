@@ -1,12 +1,12 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074833",
+  "changelogDate": "20240307130408",
   "dto": "no",
   "embedded": false,
   "entityTableName": "group_donator",
   "fields": [
     {
-      "fieldName": "groupname",
+      "fieldName": "groupName",
       "fieldType": "String"
     },
     {

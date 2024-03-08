@@ -6,6 +6,7 @@ import java.time.Instant;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A Posts.
@@ -24,6 +25,8 @@ public class Posts implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "content")
     private String content;
 

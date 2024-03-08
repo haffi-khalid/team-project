@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074837",
+  "changelogDate": "20240307130412",
   "dto": "no",
   "embedded": false,
   "entityTableName": "charity_event",
@@ -15,7 +15,8 @@
     },
     {
       "fieldName": "description",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "images",
@@ -40,9 +41,10 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "charityAdmin",
+      "otherEntityField": "charityName",
+      "otherEntityName": "charityProfile",
       "otherEntityRelationshipName": "charityEvent",
-      "relationshipName": "charityAdmin",
+      "relationshipName": "charityProfile",
       "relationshipType": "many-to-one"
     }
   ],

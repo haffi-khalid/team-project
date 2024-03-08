@@ -38,9 +38,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="groupname">
+          <th scope="col" jhiSortBy="groupName">
             <div class="d-flex">
-              <span>Groupname</span>
+              <span>Group Name</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -70,7 +70,7 @@
           <td>
             <a [routerLink]="['/group-donator', groupDonator.id, 'view']">{{ groupDonator.id }}</a>
           </td>
-          <td>{{ groupDonator.groupname }}</td>
+          <td>{{ groupDonator.groupName }}</td>
           <td>{{ groupDonator.totalCollectedAmount }}</td>
           <td>
             <div *ngIf="groupDonator.donatorPage">

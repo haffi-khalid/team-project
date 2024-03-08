@@ -155,12 +155,17 @@ public class CharityEventResource {
     /**
      * {@code GET  /charity-events} : get all the charityEvents.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of charityEvents in body.
      */
     @GetMapping("/charity-events")
-    public List<CharityEvent> getAllCharityEvents() {
+    public List<CharityEvent> getAllCharityEvents(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all CharityEvents");
-        return charityEventRepository.findAll();
+        if (eagerload) {
+            return charityEventRepository.findAllWithEagerRelationships();
+        } else {
+            return charityEventRepository.findAll();
+        }
     }
 
     /**
@@ -172,7 +177,7 @@ public class CharityEventResource {
     @GetMapping("/charity-events/{id}")
     public ResponseEntity<CharityEvent> getCharityEvent(@PathVariable Long id) {
         log.debug("REST request to get CharityEvent : {}", id);
-        Optional<CharityEvent> charityEvent = charityEventRepository.findById(id);
+        Optional<CharityEvent> charityEvent = charityEventRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(charityEvent);
     }
 

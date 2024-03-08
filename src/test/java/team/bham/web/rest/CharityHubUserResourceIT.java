@@ -35,9 +35,6 @@ class CharityHubUserResourceIT {
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
-    private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
-
     private static final String ENTITY_API_URL = "/api/charity-hub-users";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -62,7 +59,7 @@ class CharityHubUserResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static CharityHubUser createEntity(EntityManager em) {
-        CharityHubUser charityHubUser = new CharityHubUser().username(DEFAULT_USERNAME).email(DEFAULT_EMAIL).password(DEFAULT_PASSWORD);
+        CharityHubUser charityHubUser = new CharityHubUser().username(DEFAULT_USERNAME).email(DEFAULT_EMAIL);
         return charityHubUser;
     }
 
@@ -73,7 +70,7 @@ class CharityHubUserResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static CharityHubUser createUpdatedEntity(EntityManager em) {
-        CharityHubUser charityHubUser = new CharityHubUser().username(UPDATED_USERNAME).email(UPDATED_EMAIL).password(UPDATED_PASSWORD);
+        CharityHubUser charityHubUser = new CharityHubUser().username(UPDATED_USERNAME).email(UPDATED_EMAIL);
         return charityHubUser;
     }
 
@@ -99,7 +96,6 @@ class CharityHubUserResourceIT {
         CharityHubUser testCharityHubUser = charityHubUserList.get(charityHubUserList.size() - 1);
         assertThat(testCharityHubUser.getUsername()).isEqualTo(DEFAULT_USERNAME);
         assertThat(testCharityHubUser.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testCharityHubUser.getPassword()).isEqualTo(DEFAULT_PASSWORD);
     }
 
     @Test
@@ -135,8 +131,7 @@ class CharityHubUserResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(charityHubUser.getId().intValue())))
             .andExpect(jsonPath("$.[*].username").value(hasItem(DEFAULT_USERNAME)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
-            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
     }
 
     @Test
@@ -152,8 +147,7 @@ class CharityHubUserResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(charityHubUser.getId().intValue()))
             .andExpect(jsonPath("$.username").value(DEFAULT_USERNAME))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
-            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL));
     }
 
     @Test
@@ -175,7 +169,7 @@ class CharityHubUserResourceIT {
         CharityHubUser updatedCharityHubUser = charityHubUserRepository.findById(charityHubUser.getId()).get();
         // Disconnect from session so that the updates on updatedCharityHubUser are not directly saved in db
         em.detach(updatedCharityHubUser);
-        updatedCharityHubUser.username(UPDATED_USERNAME).email(UPDATED_EMAIL).password(UPDATED_PASSWORD);
+        updatedCharityHubUser.username(UPDATED_USERNAME).email(UPDATED_EMAIL);
 
         restCharityHubUserMockMvc
             .perform(
@@ -191,7 +185,6 @@ class CharityHubUserResourceIT {
         CharityHubUser testCharityHubUser = charityHubUserList.get(charityHubUserList.size() - 1);
         assertThat(testCharityHubUser.getUsername()).isEqualTo(UPDATED_USERNAME);
         assertThat(testCharityHubUser.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testCharityHubUser.getPassword()).isEqualTo(UPDATED_PASSWORD);
     }
 
     @Test
@@ -278,7 +271,6 @@ class CharityHubUserResourceIT {
         CharityHubUser testCharityHubUser = charityHubUserList.get(charityHubUserList.size() - 1);
         assertThat(testCharityHubUser.getUsername()).isEqualTo(UPDATED_USERNAME);
         assertThat(testCharityHubUser.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testCharityHubUser.getPassword()).isEqualTo(DEFAULT_PASSWORD);
     }
 
     @Test
@@ -293,7 +285,7 @@ class CharityHubUserResourceIT {
         CharityHubUser partialUpdatedCharityHubUser = new CharityHubUser();
         partialUpdatedCharityHubUser.setId(charityHubUser.getId());
 
-        partialUpdatedCharityHubUser.username(UPDATED_USERNAME).email(UPDATED_EMAIL).password(UPDATED_PASSWORD);
+        partialUpdatedCharityHubUser.username(UPDATED_USERNAME).email(UPDATED_EMAIL);
 
         restCharityHubUserMockMvc
             .perform(
@@ -309,7 +301,6 @@ class CharityHubUserResourceIT {
         CharityHubUser testCharityHubUser = charityHubUserList.get(charityHubUserList.size() - 1);
         assertThat(testCharityHubUser.getUsername()).isEqualTo(UPDATED_USERNAME);
         assertThat(testCharityHubUser.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testCharityHubUser.getPassword()).isEqualTo(UPDATED_PASSWORD);
     }
 
     @Test

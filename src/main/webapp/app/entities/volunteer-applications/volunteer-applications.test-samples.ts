@@ -14,7 +14,7 @@ export const sampleWithPartialData: IVolunteerApplications = {
 
 export const sampleWithFullData: IVolunteerApplications = {
   id: 4855,
-  timeStamp: dayjs('2024-03-05T16:11'),
+  timeStamp: dayjs('2024-03-06T21:27'),
   volunteerStatus: ApplicationCategory['INTERVIEW'],
 };
 

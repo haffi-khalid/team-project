@@ -10,8 +10,8 @@ import { CharityEventService } from '../service/charity-event.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
-import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
-import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
+import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
+import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
 
 @Component({
   selector: 'jhi-charity-event-update',
@@ -21,7 +21,7 @@ export class CharityEventUpdateComponent implements OnInit {
   isSaving = false;
   charityEvent: ICharityEvent | null = null;
 
-  charityAdminsSharedCollection: ICharityAdmin[] = [];
+  charityProfilesSharedCollection: ICharityProfile[] = [];
 
   editForm: CharityEventFormGroup = this.charityEventFormService.createCharityEventFormGroup();
 
@@ -30,13 +30,13 @@ export class CharityEventUpdateComponent implements OnInit {
     protected eventManager: EventManager,
     protected charityEventService: CharityEventService,
     protected charityEventFormService: CharityEventFormService,
-    protected charityAdminService: CharityAdminService,
+    protected charityProfileService: CharityProfileService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareCharityAdmin = (o1: ICharityAdmin | null, o2: ICharityAdmin | null): boolean =>
-    this.charityAdminService.compareCharityAdmin(o1, o2);
+  compareCharityProfile = (o1: ICharityProfile | null, o2: ICharityProfile | null): boolean =>
+    this.charityProfileService.compareCharityProfile(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ charityEvent }) => {
@@ -111,21 +111,24 @@ export class CharityEventUpdateComponent implements OnInit {
     this.charityEvent = charityEvent;
     this.charityEventFormService.resetForm(this.editForm, charityEvent);
 
-    this.charityAdminsSharedCollection = this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
-      this.charityAdminsSharedCollection,
-      charityEvent.charityAdmin
+    this.charityProfilesSharedCollection = this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
+      this.charityProfilesSharedCollection,
+      charityEvent.charityProfile
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.charityAdminService
+    this.charityProfileService
       .query()
-      .pipe(map((res: HttpResponse<ICharityAdmin[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<ICharityProfile[]>) => res.body ?? []))
       .pipe(
-        map((charityAdmins: ICharityAdmin[]) =>
-          this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(charityAdmins, this.charityEvent?.charityAdmin)
+        map((charityProfiles: ICharityProfile[]) =>
+          this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
+            charityProfiles,
+            this.charityEvent?.charityProfile
+          )
         )
       )
-      .subscribe((charityAdmins: ICharityAdmin[]) => (this.charityAdminsSharedCollection = charityAdmins));
+      .subscribe((charityProfiles: ICharityProfile[]) => (this.charityProfilesSharedCollection = charityProfiles));
   }
 }

@@ -6,12 +6,12 @@ export const sampleWithRequiredData: IGroupDonator = {
 
 export const sampleWithPartialData: IGroupDonator = {
   id: 18141,
-  groupname: 'engineer',
+  groupName: 'engineer',
 };
 
 export const sampleWithFullData: IGroupDonator = {
   id: 45698,
-  groupname: 'Loan',
+  groupName: 'Loan',
   totalCollectedAmount: 29155,
 };
 

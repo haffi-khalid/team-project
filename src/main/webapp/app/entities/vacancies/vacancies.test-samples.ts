@@ -17,7 +17,7 @@ export const sampleWithFullData: IVacancies = {
   id: 60143,
   vacancyTitle: 'Buckinghamshire Locks supply-chains',
   vacancyDescription: '../fake-data/blob/hipster.txt',
-  vacancyStartDate: dayjs('2024-03-05'),
+  vacancyStartDate: dayjs('2024-03-06'),
   vacancyLogo: '../fake-data/blob/hipster.png',
   vacancyLogoContentType: 'unknown',
   vacancyDuration: 12568,

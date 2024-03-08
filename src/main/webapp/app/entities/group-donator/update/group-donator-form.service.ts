@@ -18,7 +18,7 @@ type GroupDonatorFormDefaults = Pick<NewGroupDonator, 'id'>;
 
 type GroupDonatorFormGroupContent = {
   id: FormControl<IGroupDonator['id'] | NewGroupDonator['id']>;
-  groupname: FormControl<IGroupDonator['groupname']>;
+  groupName: FormControl<IGroupDonator['groupName']>;
   totalCollectedAmount: FormControl<IGroupDonator['totalCollectedAmount']>;
   donatorPage: FormControl<IGroupDonator['donatorPage']>;
   charityEvent: FormControl<IGroupDonator['charityEvent']>;
@@ -41,7 +41,7 @@ export class GroupDonatorFormService {
           validators: [Validators.required],
         }
       ),
-      groupname: new FormControl(groupDonatorRawValue.groupname),
+      groupName: new FormControl(groupDonatorRawValue.groupName),
       totalCollectedAmount: new FormControl(groupDonatorRawValue.totalCollectedAmount),
       donatorPage: new FormControl(groupDonatorRawValue.donatorPage),
       charityEvent: new FormControl(groupDonatorRawValue.charityEvent),

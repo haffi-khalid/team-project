@@ -5,14 +5,13 @@ export const sampleWithRequiredData: ICharityHubUser = {
 };
 
 export const sampleWithPartialData: ICharityHubUser = {
-  id: 55303,
+  id: 24048,
 };
 
 export const sampleWithFullData: ICharityHubUser = {
-  id: 14139,
-  username: 'auxiliary Identity',
-  email: 'Layla_Mante31@gmail.com',
-  password: 'SSL Direct',
+  id: 55303,
+  username: 'engineer',
+  email: 'Trace.Hilll60@hotmail.com',
 };
 
 export const sampleWithNewData: NewCharityHubUser = {

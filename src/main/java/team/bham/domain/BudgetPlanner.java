@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A BudgetPlanner.
@@ -29,6 +30,8 @@ public class BudgetPlanner implements Serializable {
     @Column(name = "total_balance")
     private Double totalBalance;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "upcoming_events")
     private String upcomingEvents;
 
@@ -39,15 +42,7 @@ public class BudgetPlanner implements Serializable {
     private Double forecastIncome;
 
     @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "charityProfile",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
+        value = { "budgetPlanner", "charityProfile", "fundraisingIdeas", "approvedVolunteers", "volunteerApplications" },
         allowSetters = true
     )
     @OneToOne(mappedBy = "budgetPlanner")

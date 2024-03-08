@@ -34,15 +34,7 @@ public class VolunteerApplications implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "charityProfile",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
+        value = { "budgetPlanner", "charityProfile", "fundraisingIdeas", "approvedVolunteers", "volunteerApplications" },
         allowSetters = true
     )
     private CharityAdmin charityAdmin;
@@ -55,7 +47,7 @@ public class VolunteerApplications implements Serializable {
     private CharityHubUser charityHubUser;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "volunteerApplications", "charityAdmin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "volunteerApplications", "charityProfile" }, allowSetters = true)
     private Vacancies vacancies;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

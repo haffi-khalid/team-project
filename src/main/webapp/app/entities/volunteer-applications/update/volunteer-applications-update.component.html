@@ -1,8 +1,11 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-volunteer-applications-heading" data-cy="VolunteerApplicationsCreateUpdateHeading">
+      <h2 *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jhi-volunteer-applications-heading" data-cy="VolunteerApplicationsCreateUpdateHeading">
         Create or edit a Volunteer Applications
+      </h2>
+      <h2 *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')" data-cy="VolunteerApplicationsCreateUpdateHeading">
+        Please Fill The Application Form
       </h2>
 
       <div>

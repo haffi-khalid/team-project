@@ -1,5 +1,5 @@
 import dayjs from 'dayjs/esm';
-import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
+import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 import { LocationCategory } from 'app/entities/enumerations/location-category.model';
 
 export interface IVacancies {
@@ -11,7 +11,7 @@ export interface IVacancies {
   vacancyLogoContentType?: string | null;
   vacancyDuration?: number | null;
   vacancyLocation?: LocationCategory | null;
-  charityAdmin?: Pick<ICharityAdmin, 'id'> | null;
+  charityProfile?: Pick<ICharityProfile, 'id' | 'charityName'> | null;
 }
 
 export type NewVacancies = Omit<IVacancies, 'id'> & { id: null };

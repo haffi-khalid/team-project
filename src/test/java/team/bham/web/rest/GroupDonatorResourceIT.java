@@ -29,8 +29,8 @@ import team.bham.repository.GroupDonatorRepository;
 @WithMockUser
 class GroupDonatorResourceIT {
 
-    private static final String DEFAULT_GROUPNAME = "AAAAAAAAAA";
-    private static final String UPDATED_GROUPNAME = "BBBBBBBBBB";
+    private static final String DEFAULT_GROUP_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_GROUP_NAME = "BBBBBBBBBB";
 
     private static final Double DEFAULT_TOTAL_COLLECTED_AMOUNT = 1D;
     private static final Double UPDATED_TOTAL_COLLECTED_AMOUNT = 2D;
@@ -59,7 +59,7 @@ class GroupDonatorResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static GroupDonator createEntity(EntityManager em) {
-        GroupDonator groupDonator = new GroupDonator().groupname(DEFAULT_GROUPNAME).totalCollectedAmount(DEFAULT_TOTAL_COLLECTED_AMOUNT);
+        GroupDonator groupDonator = new GroupDonator().groupName(DEFAULT_GROUP_NAME).totalCollectedAmount(DEFAULT_TOTAL_COLLECTED_AMOUNT);
         return groupDonator;
     }
 
@@ -70,7 +70,7 @@ class GroupDonatorResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static GroupDonator createUpdatedEntity(EntityManager em) {
-        GroupDonator groupDonator = new GroupDonator().groupname(UPDATED_GROUPNAME).totalCollectedAmount(UPDATED_TOTAL_COLLECTED_AMOUNT);
+        GroupDonator groupDonator = new GroupDonator().groupName(UPDATED_GROUP_NAME).totalCollectedAmount(UPDATED_TOTAL_COLLECTED_AMOUNT);
         return groupDonator;
     }
 
@@ -92,7 +92,7 @@ class GroupDonatorResourceIT {
         List<GroupDonator> groupDonatorList = groupDonatorRepository.findAll();
         assertThat(groupDonatorList).hasSize(databaseSizeBeforeCreate + 1);
         GroupDonator testGroupDonator = groupDonatorList.get(groupDonatorList.size() - 1);
-        assertThat(testGroupDonator.getGroupname()).isEqualTo(DEFAULT_GROUPNAME);
+        assertThat(testGroupDonator.getGroupName()).isEqualTo(DEFAULT_GROUP_NAME);
         assertThat(testGroupDonator.getTotalCollectedAmount()).isEqualTo(DEFAULT_TOTAL_COLLECTED_AMOUNT);
     }
 
@@ -126,7 +126,7 @@ class GroupDonatorResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(groupDonator.getId().intValue())))
-            .andExpect(jsonPath("$.[*].groupname").value(hasItem(DEFAULT_GROUPNAME)))
+            .andExpect(jsonPath("$.[*].groupName").value(hasItem(DEFAULT_GROUP_NAME)))
             .andExpect(jsonPath("$.[*].totalCollectedAmount").value(hasItem(DEFAULT_TOTAL_COLLECTED_AMOUNT.doubleValue())));
     }
 
@@ -142,7 +142,7 @@ class GroupDonatorResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(groupDonator.getId().intValue()))
-            .andExpect(jsonPath("$.groupname").value(DEFAULT_GROUPNAME))
+            .andExpect(jsonPath("$.groupName").value(DEFAULT_GROUP_NAME))
             .andExpect(jsonPath("$.totalCollectedAmount").value(DEFAULT_TOTAL_COLLECTED_AMOUNT.doubleValue()));
     }
 
@@ -165,7 +165,7 @@ class GroupDonatorResourceIT {
         GroupDonator updatedGroupDonator = groupDonatorRepository.findById(groupDonator.getId()).get();
         // Disconnect from session so that the updates on updatedGroupDonator are not directly saved in db
         em.detach(updatedGroupDonator);
-        updatedGroupDonator.groupname(UPDATED_GROUPNAME).totalCollectedAmount(UPDATED_TOTAL_COLLECTED_AMOUNT);
+        updatedGroupDonator.groupName(UPDATED_GROUP_NAME).totalCollectedAmount(UPDATED_TOTAL_COLLECTED_AMOUNT);
 
         restGroupDonatorMockMvc
             .perform(
@@ -179,7 +179,7 @@ class GroupDonatorResourceIT {
         List<GroupDonator> groupDonatorList = groupDonatorRepository.findAll();
         assertThat(groupDonatorList).hasSize(databaseSizeBeforeUpdate);
         GroupDonator testGroupDonator = groupDonatorList.get(groupDonatorList.size() - 1);
-        assertThat(testGroupDonator.getGroupname()).isEqualTo(UPDATED_GROUPNAME);
+        assertThat(testGroupDonator.getGroupName()).isEqualTo(UPDATED_GROUP_NAME);
         assertThat(testGroupDonator.getTotalCollectedAmount()).isEqualTo(UPDATED_TOTAL_COLLECTED_AMOUNT);
     }
 
@@ -251,7 +251,7 @@ class GroupDonatorResourceIT {
         GroupDonator partialUpdatedGroupDonator = new GroupDonator();
         partialUpdatedGroupDonator.setId(groupDonator.getId());
 
-        partialUpdatedGroupDonator.groupname(UPDATED_GROUPNAME);
+        partialUpdatedGroupDonator.groupName(UPDATED_GROUP_NAME);
 
         restGroupDonatorMockMvc
             .perform(
@@ -265,7 +265,7 @@ class GroupDonatorResourceIT {
         List<GroupDonator> groupDonatorList = groupDonatorRepository.findAll();
         assertThat(groupDonatorList).hasSize(databaseSizeBeforeUpdate);
         GroupDonator testGroupDonator = groupDonatorList.get(groupDonatorList.size() - 1);
-        assertThat(testGroupDonator.getGroupname()).isEqualTo(UPDATED_GROUPNAME);
+        assertThat(testGroupDonator.getGroupName()).isEqualTo(UPDATED_GROUP_NAME);
         assertThat(testGroupDonator.getTotalCollectedAmount()).isEqualTo(DEFAULT_TOTAL_COLLECTED_AMOUNT);
     }
 
@@ -281,7 +281,7 @@ class GroupDonatorResourceIT {
         GroupDonator partialUpdatedGroupDonator = new GroupDonator();
         partialUpdatedGroupDonator.setId(groupDonator.getId());
 
-        partialUpdatedGroupDonator.groupname(UPDATED_GROUPNAME).totalCollectedAmount(UPDATED_TOTAL_COLLECTED_AMOUNT);
+        partialUpdatedGroupDonator.groupName(UPDATED_GROUP_NAME).totalCollectedAmount(UPDATED_TOTAL_COLLECTED_AMOUNT);
 
         restGroupDonatorMockMvc
             .perform(
@@ -295,7 +295,7 @@ class GroupDonatorResourceIT {
         List<GroupDonator> groupDonatorList = groupDonatorRepository.findAll();
         assertThat(groupDonatorList).hasSize(databaseSizeBeforeUpdate);
         GroupDonator testGroupDonator = groupDonatorList.get(groupDonatorList.size() - 1);
-        assertThat(testGroupDonator.getGroupname()).isEqualTo(UPDATED_GROUPNAME);
+        assertThat(testGroupDonator.getGroupName()).isEqualTo(UPDATED_GROUP_NAME);
         assertThat(testGroupDonator.getTotalCollectedAmount()).isEqualTo(UPDATED_TOTAL_COLLECTED_AMOUNT);
     }
 

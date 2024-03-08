@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074834",
+  "changelogDate": "20240307130409",
   "dto": "no",
   "embedded": false,
   "entityTableName": "charity_profile",
@@ -11,11 +11,13 @@
     },
     {
       "fieldName": "purpose",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "aim",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "emailAddress",
@@ -55,6 +57,18 @@
       "otherEntityName": "donatorPage",
       "otherEntityRelationshipName": "charityProfile",
       "relationshipName": "donatorPage",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "vacancies",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "vacancies",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "charityEvent",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "charityEvent",
       "relationshipType": "one-to-many"
     }
   ],

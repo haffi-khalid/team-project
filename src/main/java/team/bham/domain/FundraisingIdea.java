@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 import team.bham.domain.enumeration.LocationCategory;
 
 /**
@@ -27,6 +28,8 @@ public class FundraisingIdea implements Serializable {
     @Column(name = "idea_name")
     private String ideaName;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "idea_description")
     private String ideaDescription;
 
@@ -45,15 +48,7 @@ public class FundraisingIdea implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "charityProfile",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
+        value = { "budgetPlanner", "charityProfile", "fundraisingIdeas", "approvedVolunteers", "volunteerApplications" },
         allowSetters = true
     )
     private CharityAdmin charityAdmin;

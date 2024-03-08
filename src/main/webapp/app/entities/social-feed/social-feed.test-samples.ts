@@ -8,12 +8,12 @@ export const sampleWithRequiredData: ISocialFeed = {
 
 export const sampleWithPartialData: ISocialFeed = {
   id: 29240,
-  lastUpdated: dayjs('2024-03-05T09:23'),
+  lastUpdated: dayjs('2024-03-06T14:39'),
 };
 
 export const sampleWithFullData: ISocialFeed = {
   id: 24264,
-  lastUpdated: dayjs('2024-03-05T08:48'),
+  lastUpdated: dayjs('2024-03-06T14:04'),
 };
 
 export const sampleWithNewData: NewSocialFeed = {

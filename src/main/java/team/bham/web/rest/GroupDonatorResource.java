@@ -123,8 +123,8 @@ public class GroupDonatorResource {
         Optional<GroupDonator> result = groupDonatorRepository
             .findById(groupDonator.getId())
             .map(existingGroupDonator -> {
-                if (groupDonator.getGroupname() != null) {
-                    existingGroupDonator.setGroupname(groupDonator.getGroupname());
+                if (groupDonator.getGroupName() != null) {
+                    existingGroupDonator.setGroupName(groupDonator.getGroupName());
                 }
                 if (groupDonator.getTotalCollectedAmount() != null) {
                     existingGroupDonator.setTotalCollectedAmount(groupDonator.getTotalCollectedAmount());

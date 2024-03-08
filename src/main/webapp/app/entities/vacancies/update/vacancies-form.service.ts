@@ -25,7 +25,7 @@ type VacanciesFormGroupContent = {
   vacancyLogoContentType: FormControl<IVacancies['vacancyLogoContentType']>;
   vacancyDuration: FormControl<IVacancies['vacancyDuration']>;
   vacancyLocation: FormControl<IVacancies['vacancyLocation']>;
-  charityAdmin: FormControl<IVacancies['charityAdmin']>;
+  charityProfile: FormControl<IVacancies['charityProfile']>;
 };
 
 export type VacanciesFormGroup = FormGroup<VacanciesFormGroupContent>;
@@ -52,7 +52,7 @@ export class VacanciesFormService {
       vacancyLogoContentType: new FormControl(vacanciesRawValue.vacancyLogoContentType),
       vacancyDuration: new FormControl(vacanciesRawValue.vacancyDuration),
       vacancyLocation: new FormControl(vacanciesRawValue.vacancyLocation),
-      charityAdmin: new FormControl(vacanciesRawValue.charityAdmin),
+      charityProfile: new FormControl(vacanciesRawValue.charityProfile),
     });
   }
 

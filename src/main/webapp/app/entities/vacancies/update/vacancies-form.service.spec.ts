@@ -26,7 +26,7 @@ describe('Vacancies Form Service', () => {
             vacancyLogo: expect.any(Object),
             vacancyDuration: expect.any(Object),
             vacancyLocation: expect.any(Object),
-            charityAdmin: expect.any(Object),
+            charityProfile: expect.any(Object),
           })
         );
       });
@@ -43,7 +43,7 @@ describe('Vacancies Form Service', () => {
             vacancyLogo: expect.any(Object),
             vacancyDuration: expect.any(Object),
             vacancyLocation: expect.any(Object),
-            charityAdmin: expect.any(Object),
+            charityProfile: expect.any(Object),
           })
         );
       });

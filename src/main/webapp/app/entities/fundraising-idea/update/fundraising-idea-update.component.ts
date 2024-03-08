@@ -7,6 +7,9 @@ import { finalize, map } from 'rxjs/operators';
 import { FundraisingIdeaFormService, FundraisingIdeaFormGroup } from './fundraising-idea-form.service';
 import { IFundraisingIdea } from '../fundraising-idea.model';
 import { FundraisingIdeaService } from '../service/fundraising-idea.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
 import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
 import { LocationCategory } from 'app/entities/enumerations/location-category.model';
@@ -25,6 +28,8 @@ export class FundraisingIdeaUpdateComponent implements OnInit {
   editForm: FundraisingIdeaFormGroup = this.fundraisingIdeaFormService.createFundraisingIdeaFormGroup();
 
   constructor(
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
     protected fundraisingIdeaService: FundraisingIdeaService,
     protected fundraisingIdeaFormService: FundraisingIdeaFormService,
     protected charityAdminService: CharityAdminService,
@@ -42,6 +47,21 @@ export class FundraisingIdeaUpdateComponent implements OnInit {
       }
 
       this.loadRelationshipsOptions();
+    });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(new EventWithContent<AlertError>('teamprojectApp.error', { message: err.message })),
     });
   }
 

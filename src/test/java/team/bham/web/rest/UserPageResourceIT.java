@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import team.bham.IntegrationTest;
 import team.bham.domain.UserPage;
 import team.bham.repository.UserPageRepository;
@@ -29,8 +30,8 @@ import team.bham.repository.UserPageRepository;
 @WithMockUser
 class UserPageResourceIT {
 
-    private static final Double DEFAULT_VOLUNTEER_HOURS = 1D;
-    private static final Double UPDATED_VOLUNTEER_HOURS = 2D;
+    private static final Integer DEFAULT_VOLUNTEER_HOURS = 1;
+    private static final Integer UPDATED_VOLUNTEER_HOURS = 2;
 
     private static final String DEFAULT_USER_BIO = "AAAAAAAAAA";
     private static final String UPDATED_USER_BIO = "BBBBBBBBBB";
@@ -148,9 +149,9 @@ class UserPageResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userPage.getId().intValue())))
-            .andExpect(jsonPath("$.[*].volunteerHours").value(hasItem(DEFAULT_VOLUNTEER_HOURS.doubleValue())))
-            .andExpect(jsonPath("$.[*].userBio").value(hasItem(DEFAULT_USER_BIO)))
-            .andExpect(jsonPath("$.[*].reviewComment").value(hasItem(DEFAULT_REVIEW_COMMENT)))
+            .andExpect(jsonPath("$.[*].volunteerHours").value(hasItem(DEFAULT_VOLUNTEER_HOURS)))
+            .andExpect(jsonPath("$.[*].userBio").value(hasItem(DEFAULT_USER_BIO.toString())))
+            .andExpect(jsonPath("$.[*].reviewComment").value(hasItem(DEFAULT_REVIEW_COMMENT.toString())))
             .andExpect(jsonPath("$.[*].course").value(hasItem(DEFAULT_COURSE)))
             .andExpect(jsonPath("$.[*].skills").value(hasItem(DEFAULT_SKILLS)));
     }
@@ -167,9 +168,9 @@ class UserPageResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userPage.getId().intValue()))
-            .andExpect(jsonPath("$.volunteerHours").value(DEFAULT_VOLUNTEER_HOURS.doubleValue()))
-            .andExpect(jsonPath("$.userBio").value(DEFAULT_USER_BIO))
-            .andExpect(jsonPath("$.reviewComment").value(DEFAULT_REVIEW_COMMENT))
+            .andExpect(jsonPath("$.volunteerHours").value(DEFAULT_VOLUNTEER_HOURS))
+            .andExpect(jsonPath("$.userBio").value(DEFAULT_USER_BIO.toString()))
+            .andExpect(jsonPath("$.reviewComment").value(DEFAULT_REVIEW_COMMENT.toString()))
             .andExpect(jsonPath("$.course").value(DEFAULT_COURSE))
             .andExpect(jsonPath("$.skills").value(DEFAULT_SKILLS));
     }

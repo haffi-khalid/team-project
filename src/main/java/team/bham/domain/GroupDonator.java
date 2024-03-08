@@ -23,8 +23,8 @@ public class GroupDonator implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "groupname")
-    private String groupname;
+    @Column(name = "group_name")
+    private String groupName;
 
     @Column(name = "total_collected_amount")
     private Double totalCollectedAmount;
@@ -35,7 +35,7 @@ public class GroupDonator implements Serializable {
     private DonatorPage donatorPage;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "groupDonators", "charityAdmin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "groupDonators", "charityProfile" }, allowSetters = true)
     private CharityEvent charityEvent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -53,17 +53,17 @@ public class GroupDonator implements Serializable {
         this.id = id;
     }
 
-    public String getGroupname() {
-        return this.groupname;
+    public String getGroupName() {
+        return this.groupName;
     }
 
-    public GroupDonator groupname(String groupname) {
-        this.setGroupname(groupname);
+    public GroupDonator groupName(String groupName) {
+        this.setGroupName(groupName);
         return this;
     }
 
-    public void setGroupname(String groupname) {
-        this.groupname = groupname;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public Double getTotalCollectedAmount() {
@@ -129,7 +129,7 @@ public class GroupDonator implements Serializable {
     public String toString() {
         return "GroupDonator{" +
             "id=" + getId() +
-            ", groupname='" + getGroupname() + "'" +
+            ", groupName='" + getGroupName() + "'" +
             ", totalCollectedAmount=" + getTotalCollectedAmount() +
             "}";
     }

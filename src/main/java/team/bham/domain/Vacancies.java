@@ -59,19 +59,8 @@ public class Vacancies implements Serializable {
     private Set<VolunteerApplications> volunteerApplications = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "charityProfile",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
-        allowSetters = true
-    )
-    private CharityAdmin charityAdmin;
+    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
+    private CharityProfile charityProfile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -210,16 +199,16 @@ public class Vacancies implements Serializable {
         return this;
     }
 
-    public CharityAdmin getCharityAdmin() {
-        return this.charityAdmin;
+    public CharityProfile getCharityProfile() {
+        return this.charityProfile;
     }
 
-    public void setCharityAdmin(CharityAdmin charityAdmin) {
-        this.charityAdmin = charityAdmin;
+    public void setCharityProfile(CharityProfile charityProfile) {
+        this.charityProfile = charityProfile;
     }
 
-    public Vacancies charityAdmin(CharityAdmin charityAdmin) {
-        this.setCharityAdmin(charityAdmin);
+    public Vacancies charityProfile(CharityProfile charityProfile) {
+        this.setCharityProfile(charityProfile);
         return this;
     }
 

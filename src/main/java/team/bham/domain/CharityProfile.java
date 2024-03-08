@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A CharityProfile.
@@ -28,9 +29,13 @@ public class CharityProfile implements Serializable {
     @Column(name = "charity_name")
     private String charityName;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "purpose")
     private String purpose;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "aim")
     private String aim;
 
@@ -65,6 +70,16 @@ public class CharityProfile implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "groupDonator", "charityProfile" }, allowSetters = true)
     private Set<DonatorPage> donatorPages = new HashSet<>();
+
+    @OneToMany(mappedBy = "charityProfile")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "volunteerApplications", "charityProfile" }, allowSetters = true)
+    private Set<Vacancies> vacancies = new HashSet<>();
+
+    @OneToMany(mappedBy = "charityProfile")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "groupDonators", "charityProfile" }, allowSetters = true)
+    private Set<CharityEvent> charityEvents = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -257,6 +272,68 @@ public class CharityProfile implements Serializable {
     public CharityProfile removeDonatorPage(DonatorPage donatorPage) {
         this.donatorPages.remove(donatorPage);
         donatorPage.setCharityProfile(null);
+        return this;
+    }
+
+    public Set<Vacancies> getVacancies() {
+        return this.vacancies;
+    }
+
+    public void setVacancies(Set<Vacancies> vacancies) {
+        if (this.vacancies != null) {
+            this.vacancies.forEach(i -> i.setCharityProfile(null));
+        }
+        if (vacancies != null) {
+            vacancies.forEach(i -> i.setCharityProfile(this));
+        }
+        this.vacancies = vacancies;
+    }
+
+    public CharityProfile vacancies(Set<Vacancies> vacancies) {
+        this.setVacancies(vacancies);
+        return this;
+    }
+
+    public CharityProfile addVacancies(Vacancies vacancies) {
+        this.vacancies.add(vacancies);
+        vacancies.setCharityProfile(this);
+        return this;
+    }
+
+    public CharityProfile removeVacancies(Vacancies vacancies) {
+        this.vacancies.remove(vacancies);
+        vacancies.setCharityProfile(null);
+        return this;
+    }
+
+    public Set<CharityEvent> getCharityEvents() {
+        return this.charityEvents;
+    }
+
+    public void setCharityEvents(Set<CharityEvent> charityEvents) {
+        if (this.charityEvents != null) {
+            this.charityEvents.forEach(i -> i.setCharityProfile(null));
+        }
+        if (charityEvents != null) {
+            charityEvents.forEach(i -> i.setCharityProfile(this));
+        }
+        this.charityEvents = charityEvents;
+    }
+
+    public CharityProfile charityEvents(Set<CharityEvent> charityEvents) {
+        this.setCharityEvents(charityEvents);
+        return this;
+    }
+
+    public CharityProfile addCharityEvent(CharityEvent charityEvent) {
+        this.charityEvents.add(charityEvent);
+        charityEvent.setCharityProfile(this);
+        return this;
+    }
+
+    public CharityProfile removeCharityEvent(CharityEvent charityEvent) {
+        this.charityEvents.remove(charityEvent);
+        charityEvent.setCharityProfile(null);
         return this;
     }
 

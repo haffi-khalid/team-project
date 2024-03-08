@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074839",
+  "changelogDate": "20240307130414",
   "dto": "no",
   "embedded": false,
   "entityTableName": "vacancies",
@@ -46,9 +46,10 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "charityAdmin",
+      "otherEntityField": "charityName",
+      "otherEntityName": "charityProfile",
       "otherEntityRelationshipName": "vacancies",
-      "relationshipName": "charityAdmin",
+      "relationshipName": "charityProfile",
       "relationshipType": "many-to-one"
     }
   ],

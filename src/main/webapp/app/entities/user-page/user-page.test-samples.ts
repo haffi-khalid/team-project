@@ -6,17 +6,17 @@ export const sampleWithRequiredData: IUserPage = {
 
 export const sampleWithPartialData: IUserPage = {
   id: 75701,
-  userBio: 'Cambridgeshire',
-  course: 'Cotton',
+  userBio: '../fake-data/blob/hipster.txt',
+  course: 'Cambridgeshire',
 };
 
 export const sampleWithFullData: IUserPage = {
-  id: 56070,
-  volunteerHours: 11158,
-  userBio: 'Avon',
-  reviewComment: 'olive Designer green',
-  course: 'Market',
-  skills: 'transmit',
+  id: 8397,
+  volunteerHours: 13234,
+  userBio: '../fake-data/blob/hipster.txt',
+  reviewComment: '../fake-data/blob/hipster.txt',
+  course: 'quantify sky',
+  skills: 'overriding Virtual',
 };
 
 export const sampleWithNewData: NewUserPage = {

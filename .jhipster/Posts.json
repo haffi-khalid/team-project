@@ -1,13 +1,14 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074832",
+  "changelogDate": "20240307130407",
   "dto": "no",
   "embedded": false,
   "entityTableName": "posts",
   "fields": [
     {
       "fieldName": "content",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "timestamp",

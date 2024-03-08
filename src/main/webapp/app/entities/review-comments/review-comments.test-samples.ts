@@ -8,16 +8,16 @@ export const sampleWithRequiredData: IReviewComments = {
 
 export const sampleWithPartialData: IReviewComments = {
   id: 90107,
-  timestamp: dayjs('2024-03-05T14:25'),
+  timestamp: dayjs('2024-03-06T19:41'),
   status: 'Keyboard Profound',
 };
 
 export const sampleWithFullData: IReviewComments = {
   id: 51064,
   parentID: 5477,
-  content: 'Personal Fantastic Towels',
-  timestamp: dayjs('2024-03-05T15:16'),
-  status: 'benchmark users synthesizing',
+  content: '../fake-data/blob/hipster.txt',
+  timestamp: dayjs('2024-03-06T13:57'),
+  status: 'SQL facilitate',
 };
 
 export const sampleWithNewData: NewReviewComments = {

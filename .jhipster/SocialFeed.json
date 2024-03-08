@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20240306074831",
+  "changelogDate": "20240307130406",
   "dto": "no",
   "embedded": false,
   "entityTableName": "social_feed",

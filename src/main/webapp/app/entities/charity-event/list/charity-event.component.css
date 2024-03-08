@@ -1,5 +1,5 @@
 .banner-area {
-  background-image: url('content/images/output-onlinepngtools.png');
+  background-image: url('content/images/events_banner_image.png');
   background-repeat: no-repeat;
   display: flex;
   position: relative;
@@ -26,8 +26,15 @@
 /* add event section */
 .add-event-section {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
   margin-bottom: 50px;
+}
+
+.component1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 /* event box section */
@@ -36,32 +43,38 @@
   border-radius: 12px;
   box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
   margin-bottom: 50px;
+  background-color: #fffacd;
 }
 
 .event-text-section {
-  padding-left: 15px;
+  padding-left: 10px;
   padding-right: 15px;
   height: 200px;
 
   align-items: center;
   justify-content: center;
+  margin-top: 10px; /* You can adjust this value to decrease the space */
 }
 
 .event-name {
+  display: flex;
+  align-content: center;
   font-size: 24px;
   font-weight: 600;
+  margin-top: 1px;
+  justify-content: center;
 }
 
 .timings {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  font-size: 14px;
+  text-align: left;
+  font-weight: bold;
 }
 
-.duration {
-  margin-left: 150px;
-  color: rgba(0, 0, 0, 0.65);
+.timings .duration {
+  font-size: 16px;
+  color: black; /* Adjust color as needed */
+  display: block; /* This makes the duration appear on a new line */
+  font-weight: bold;
 }
 
 .location {
@@ -77,9 +90,12 @@
 }
 
 .description {
-  height: 70px;
-  overflow: hidden;
+  text-size: small;
+  margin-bottom: 20px;
+  font-size: medium;
+  height: 120px;
   margin-bottom: 5px;
+  overflow: hidden;
 }
 
 .charity-name {
@@ -102,30 +118,13 @@
   align-items: center;
   margin-bottom: 50px;
 }
-.event1-box {
-  /*align-content: center;*/
-  background: white;
-  width: 350px;
-  height: 400px;
-  border: 1px solid #333;
-  margin: 0 auto;
-  border-radius: 12px;
+.charityProfile {
+  color: black;
 }
 
-/*.event1-image{*/
-/*  background-image: url('content/images/nepali.jpeg');*/
-/*  width: 350px;*/
-/*  height: 200px;*/
-/*  background-size: cover ;*/
-/*  object-fit: cover;*/
-/*  border-radius: 12px;*/
-
-/*}*/
-
-.charity-event-image {
-  display: block;
-  width: 100%; /* Adjust width as necessary, could be less than 100% if padding is desired */
-  height: auto;
-  margin-bottom: 15px; /* Space between image and the rest of the card content */
-  border-radius: 4px; /* Optional: for rounded corners */
+.search-box {
+  padding: 6px;
+  border: none;
+  font-size: 17px;
+  border-radius: 8px;
 }

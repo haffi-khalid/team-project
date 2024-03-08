@@ -43,10 +43,10 @@
         <dd>
           <span>{{ charityEvent.duration }}</span>
         </dd>
-        <dt><span>Charity Admin</span></dt>
+        <dt><span>Charity Profile</span></dt>
         <dd>
-          <div *ngIf="charityEvent.charityAdmin">
-            <a [routerLink]="['/charity-admin', charityEvent.charityAdmin.id, 'view']">{{ charityEvent.charityAdmin.id }}</a>
+          <div *ngIf="charityEvent.charityProfile">
+            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>
           </div>
         </dd>
       </dl>
