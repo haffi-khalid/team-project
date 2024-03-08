@@ -1,48 +1,3 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
-/*
-.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-  background-size: contain;
-}
-
-// wait autoprefixer update to allow simple generation of high pixel density media query
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-    background-size: contain;
-  }
-}
-*/
-
-/* ==========================================================================
-Main page styles
-========================================================================== */
-
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-//@media only screen and (-webkit-min-device-pixel-ratio: 2),
-//only screen and (-moz-min-device-pixel-ratio: 2),
-//only screen and (-o-min-device-pixel-ratio: 2/1),
-//only screen and (min-resolution: 192dpi),
-//only screen and (min-resolution: 2dppx) {
-//  .hipster {
-//    background: url('../../content/images/bg2.jpg') no-repeat center top;
-//    background-size: contain;
-//  }
-//}
-
-//.container {
-//  position: relative;
-//}
-
 .home {
   background-color: #d8c3a9;
   position: relative; /* Change this color to your desired background color */
@@ -105,12 +60,14 @@ Main page styles
     margin-top: 5px; // Remove default margin for h2
     font-family: 'EB Garamond', Garamond, serif;
     color: white;
+    text-decoration: underline;
   }
   p {
     font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
     color: white;
   }
 }
+
 .image-container {
   flex: 1;
   flex: 0 0 200px; /* Fixed width for the image container */
@@ -127,10 +84,32 @@ Main page styles
   flex: 1;
   padding: 20px;
 }
-h2 {
-  margin-top: 0;
+.container2-right {
+  display: flex;
+  align-items: center; // Align items vertically in the center
+  justify-content: space-between; // Space between the text and image
+  background-color: #6f5d44; // Or any color of your choice
+  padding: 20px; // Add some padding inside the container
+  border-radius: 5px; // Optional: Adds rounded corners to the container
+}
+.description2-right {
+  // If you want the text to take up more space when the image is on the right
+  flex: 1;
+  margin-right: 20px; // Add some space between the text and the image
+}
+.image-container-right {
+  flex: 1;
+  flex: 0 0 200px; /* Fixed width for the image container */
+  height: 200px; /* Fixed height for the image container */
+  overflow: hidden; /* Hide overflow if image is larger */
 }
 
+.image-container-right img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .overlay-link {
   position: absolute;
   top: 60%;
@@ -158,7 +137,7 @@ h2 {
   z-index: 1; /* Ensure the overlay appears on top of the image */
   font-family: 'Lemon/Milk light', sans-serif;
   font-size: 34px;
-  opacity: 0.8;
+  opacity: 0.7;
   font-weight: bold;
 }
 
