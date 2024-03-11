@@ -64,6 +64,12 @@ export class VacanciesService {
       .get<RestVacancies[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
+  getAllCharityNames(): Observable<string[]> {
+    return this.http.get<string[]>('api/charity-name');
+  }
+  getCharityId(name: string): Observable<number> {
+    return this.http.get<number>(`api/charityId/${name}`);
+  }
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });

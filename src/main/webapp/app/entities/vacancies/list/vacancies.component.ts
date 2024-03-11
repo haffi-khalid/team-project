@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
+import { combineLatest, filter, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IVacancies } from '../vacancies.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
-import { EntityArrayResponseType, VacanciesService } from '../service/vacancies.service';
+import { EntityArrayResponseType, EntityResponseType, VacanciesService } from '../service/vacancies.service';
 import { VacanciesDeleteDialogComponent } from '../delete/vacancies-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { SortService } from 'app/shared/sort/sort.service';
@@ -22,6 +22,10 @@ export class VacanciesComponent implements OnInit {
 
   predicate = 'id';
   ascending = true;
+  charityNames: Observable<string[]>;
+  filteredCharityNames: string[] = [];
+  charityNameSub: Subscription = new Subscription();
+  searchText: string = '';
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -31,7 +35,9 @@ export class VacanciesComponent implements OnInit {
     protected dataUtils: DataUtils,
     protected modalService: NgbModal,
     protected accountService: AccountService
-  ) {}
+  ) {
+    this.charityNames = this.vacanciesService.getAllCharityNames();
+  }
 
   trackId = (_index: number, item: IVacancies): number => this.vacanciesService.getVacanciesIdentifier(item);
 
@@ -41,6 +47,11 @@ export class VacanciesComponent implements OnInit {
 
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
+  }
+  filterResults(text: string) {
+    this.charityNameSub = this.charityNames.subscribe(
+      names => (this.filteredCharityNames = names.filter(name => name.toLowerCase().includes(text.toLowerCase())))
+    );
   }
 
   openFile(base64String: string, contentType: string | null | undefined): void {
