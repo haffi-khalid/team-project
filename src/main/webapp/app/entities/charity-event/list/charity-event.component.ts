@@ -16,6 +16,10 @@ import { SortService } from 'app/shared/sort/sort.service';
   styleUrls: ['./charity-event.component.css'],
 })
 export class CharityEventComponent implements OnInit {
+  searchQuery: string = '';
+  filteredEvents?: ICharityEvent[];
+  //
+
   charityEvents?: ICharityEvent[];
   isLoading = false;
 
@@ -35,6 +39,8 @@ export class CharityEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    ////
+    this.filteredEvents = this.charityEvents;
   }
 
   byteSize(base64String: string): string {
@@ -125,6 +131,18 @@ export class CharityEventComponent implements OnInit {
       return [];
     } else {
       return [predicate + ',' + ascendingQueryParam];
+    }
+  }
+
+  ///
+
+  performSearch(): void {
+    if (this.charityEvents) {
+      // Check if charityEvents is not null or undefined
+      // Filter charityEvents based on the search query
+      this.filteredEvents = this.charityEvents.filter(
+        (event: ICharityEvent) => event && event.eventName && event.eventName.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
     }
   }
 }

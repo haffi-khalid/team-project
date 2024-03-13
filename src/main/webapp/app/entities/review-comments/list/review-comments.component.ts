@@ -15,6 +15,8 @@ import { SortService } from 'app/shared/sort/sort.service';
   templateUrl: './review-comments.component.html',
 })
 export class ReviewCommentsComponent implements OnInit {
+  searchQuery: string = '';
+  //
   reviewComments?: IReviewComments[];
   isLoading = false;
 

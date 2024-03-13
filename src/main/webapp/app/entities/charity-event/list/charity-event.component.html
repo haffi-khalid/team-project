@@ -25,8 +25,20 @@
       </div>
 
       <div class="component2">
-        <div class="search-box">
-          <input type="text" placeholder="Search..." />
+        <!--        <div class="search-box">-->
+        <!--          <input type="text" placeholder="Search..." />-->
+        <!--        </div>-->
+        <div class="search-box-container">
+          <input
+            type="text"
+            placeholder="Search the Event Name"
+            class="search-box-input"
+            [(ngModel)]="searchQuery"
+            (input)="performSearch()"
+          />
+          <!--          <button class="search-box-button" (click)="performSearch()">-->
+          <!--            <fa-icon icon="search"></fa-icon>-->
+          <!--          </button>-->
         </div>
       </div>
     </div>
@@ -40,12 +52,80 @@
     <span>No Charity Events found</span>
   </div>
 
-  <div class="row" *ngIf="charityEvents && charityEvents.length > 0">
-    <div class="col-4" *ngFor="let charityEvent of charityEvents">
+  <!--  <div class="row" *ngIf="charityEvents && charityEvents.length > 0">-->
+  <!--    <div class="col-4" *ngFor="let charityEvent of charityEvents">-->
+  <!--      <div class="event-box">-->
+  <!--        <img-->
+  <!--          [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"-->
+  <!--          alt="Imange"-->
+  <!--          class="event-box"-->
+  <!--          style="width: 350px; height: 260px; margin-bottom: 2px"-->
+  <!--        />-->
+
+  <!--        <div class="event-text-section">-->
+  <!--          <div class="event-name">-->
+  <!--            <span-->
+  <!--              ><a>{{ charityEvent.eventName }}</a></span-->
+  <!--            >-->
+  <!--          </div>-->
+  <!--          <div class="timings">-->
+  <!--            {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}<a> hr</a></span>-->
+  <!--          </div>-->
+  <!--          &lt;!&ndash;          <div class="event-type"><a> Event-Type : </a>{{ charityEvent.eventType | json }}</div>&ndash;&gt;-->
+  <!--          &lt;!&ndash;          <div class="event-type"><span><a [routerLink]="['/event-type']">{{ charityEvent.eventType }}</a></span></div>&ndash;&gt;-->
+  <!--          &lt;!&ndash;          <div class="location"><span class = "location"><a> Location:</a>{{ charityEvent.location}}</span></div>&ndash;&gt;-->
+  <!--          <div class="description">{{ charityEvent.description }}</div>-->
+  <!--          &lt;!&ndash;          <div class="charity-name">{{ charityEvent?.charityProfile }}</div>&ndash;&gt;-->
+  <!--          <div class="charity-logo" *ngIf="charityEvent.charityProfile">-->
+  <!--            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>-->
+  <!--          </div>-->
+  <!--        </div>-->
+
+  <!--        <div class="text-end">-->
+  <!--          <div class="btn-group">-->
+  <!--            <button-->
+  <!--              type="submit"-->
+  <!--              [routerLink]="['/charity-event', charityEvent.id, 'view']"-->
+  <!--              class="btn btn-info btn-sm"-->
+  <!--              data-cy="entityDetailsButton"-->
+  <!--            >-->
+  <!--              <fa-icon icon="eye"></fa-icon>-->
+  <!--              <span class="d-none d-md-inline">View</span>-->
+  <!--            </button>-->
+
+  <!--            <button-->
+  <!--              type="submit"-->
+  <!--              [routerLink]="['/charity-event', charityEvent.id, 'edit']"-->
+  <!--              *jhiHasAnyAuthority="'ROLE_ADMIN'"-->
+  <!--              class="btn btn-primary btn-sm"-->
+  <!--              data-cy="entityEditButton"-->
+  <!--            >-->
+  <!--              <fa-icon icon="pencil-alt"></fa-icon>-->
+  <!--              <span class="d-none d-md-inline">Edit</span>-->
+  <!--            </button>-->
+
+  <!--            <button-->
+  <!--              type="submit"-->
+  <!--              (click)="delete(charityEvent)"-->
+  <!--              class="btn btn-danger btn-sm"-->
+  <!--              data-cy="entityDeleteButton"-->
+  <!--              *jhiHasAnyAuthority="'ROLE_ADMIN'"-->
+  <!--            >-->
+  <!--              <fa-icon icon="times"></fa-icon>-->
+  <!--              <span class="d-none d-md-inline">Delete</span>-->
+  <!--            </button>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div class="row" *ngIf="filteredEvents && filteredEvents.length > 0">
+    <div class="col-4" *ngFor="let charityEvent of filteredEvents">
       <div class="event-box">
+        <!-- Display event details -->
         <img
           [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"
-          alt="Imange"
+          alt="Image"
           class="event-box"
           style="width: 350px; height: 260px; margin-bottom: 2px"
         />
@@ -59,11 +139,7 @@
           <div class="timings">
             {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}<a> hr</a></span>
           </div>
-          <!--          <div class="event-type"><a> Event-Type : </a>{{ charityEvent.eventType | json }}</div>-->
-          <!--          <div class="event-type"><span><a [routerLink]="['/event-type']">{{ charityEvent.eventType }}</a></span></div>-->
-          <!--          <div class="location"><span class = "location"><a> Location:</a>{{ charityEvent.location}}</span></div>-->
           <div class="description">{{ charityEvent.description }}</div>
-          <!--          <div class="charity-name">{{ charityEvent?.charityProfile }}</div>-->
           <div class="charity-logo" *ngIf="charityEvent.charityProfile">
             <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>
           </div>
