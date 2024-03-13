@@ -50,15 +50,15 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="donatorPage.id">
-            <div class="d-flex">
-              <span>Donator Page</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
+          <!--          <th scope="col" jhiSortBy="donatorPage.id">-->
+          <!--            <div class="d-flex">-->
+          <!--              <span>Donator Page</span>-->
+          <!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+          <!--            </div>-->
+          <!--          </th>-->
           <th scope="col" jhiSortBy="charityEvent.id">
             <div class="d-flex">
-              <span>Charity Event</span>
+              <span>Charity Event Name</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -72,14 +72,14 @@
           </td>
           <td>{{ groupDonator.groupName }}</td>
           <td>{{ groupDonator.totalCollectedAmount }}</td>
-          <td>
-            <div *ngIf="groupDonator.donatorPage">
-              <a [routerLink]="['/donator-page', groupDonator.donatorPage.id, 'view']">{{ groupDonator.donatorPage.id }}</a>
-            </div>
-          </td>
+          <!--          <td>-->
+          <!--            <div *ngIf="groupDonator.donatorPage">-->
+          <!--              <a [routerLink]="['/donator-page', groupDonator.donatorPage.id, 'view']">{{ groupDonator.donatorPage.id }}</a>-->
+          <!--            </div>-->
+          <!--          </td>-->
           <td>
             <div *ngIf="groupDonator.charityEvent">
-              <a [routerLink]="['/charity-event', groupDonator.charityEvent.id, 'view']">{{ groupDonator.charityEvent.id }}</a>
+              <a [routerLink]="['/charity-event', groupDonator.charityEvent.id, 'view']">{{ groupDonator.charityEvent }}</a>
             </div>
           </td>
           <td class="text-end">
