@@ -19,6 +19,7 @@ import { AccountService } from '../../../core/auth/account.service';
 export class VacanciesComponent implements OnInit {
   vacancies?: IVacancies[];
   isLoading = false;
+  vacancies2?: IVacancies[];
 
   predicate = 'id';
   ascending = true;
@@ -26,6 +27,8 @@ export class VacanciesComponent implements OnInit {
   filteredCharityNames: string[] = [];
   charityNameSub: Subscription = new Subscription();
   searchText: string = '';
+  filteredCharityId: number[] = [];
+  toggled: boolean = false;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -49,9 +52,19 @@ export class VacanciesComponent implements OnInit {
     return this.dataUtils.byteSize(base64String);
   }
   filterResults(text: string) {
-    this.charityNameSub = this.charityNames.subscribe(
-      names => (this.filteredCharityNames = names.filter(name => name.toLowerCase().includes(text.toLowerCase())))
-    );
+    this.toggled = !this.toggled;
+    if (this.searchText.trim() === '') {
+      this.filteredCharityId = [];
+      this.filteredCharityNames = [];
+    } else {
+      this.charityNameSub = this.charityNames.subscribe(
+        names => (this.filteredCharityNames = names.filter(name => name.toLowerCase().includes(text.toLowerCase())))
+      );
+      for (let i = 0; i < this.filteredCharityNames.length; i++) {
+        this.vacanciesService.getCharityId(this.filteredCharityNames[i]).subscribe(id => (this.filteredCharityId[i] = id));
+      }
+    }
+    /*this.vacanciesService.getCharityVacancies(this.filteredCharityId[0]).subscribe(vacancy=>this.onResponseSuccess2(vacancy))**/
   }
 
   openFile(base64String: string, contentType: string | null | undefined): void {
@@ -102,6 +115,10 @@ export class VacanciesComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.vacancies = this.refineData(dataFromBody);
+  }
+  protected onResponseSuccess2(response: EntityArrayResponseType): void {
+    const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
+    this.vacancies2 = this.refineData(dataFromBody);
   }
 
   protected refineData(data: IVacancies[]): IVacancies[] {
