@@ -12,6 +12,7 @@ export class UserPageRoutingResolveService implements Resolve<IUserPage | null> 
   constructor(protected service: UserPageService, protected router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<IUserPage | null | never> {
+    console.log(route.params, '////route.params');
     const id = route.params['id'];
     if (id) {
       return this.service.find(id).pipe(
