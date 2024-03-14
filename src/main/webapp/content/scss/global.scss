@@ -213,3 +213,77 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   }
 }
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+.background-container {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-image: linear-gradient(rgba(4, 9, 30, 0.3), rgba(4, 9, 30, 0.3));
+  width: 100%;
+  min-height: 50vh;
+}
+
+.edit-button-container {
+  position: absolute;
+  top: -50px;
+  right: -540px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.button-container button {
+  margin: 0 5px;
+}
+
+.container1 {
+  width: 100%;
+  margin: 0px;
+  text-align: left;
+  padding-top: 100px;
+  min-height: 50vh;
+  position: relative;
+  z-index: 1;
+  background-color: #9d7e5f;
+}
+
+.charity-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.charity-name {
+  font-size: 50px;
+  color: antiquewhite;
+  position: relative;
+  top: -40px;
+}
+.charity-logo {
+  width: 180px;
+  height: auto;
+  margin-bottom: 20px;
+  margin-top: -40px;
+  border-radius: 60%;
+}
+
+.purpose-aim {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: black;
+  align-content: center;
+}
+.btn-outline-white {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+}
+
+.purpose,
+.aim {
+  flex-basis: 48%;
+  color: white;
+}
