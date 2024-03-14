@@ -1,28 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import dayjs from 'dayjs/esm';
-
-import { isPresent } from 'app/core/util/operators';
+import { IReviewComments, NewReviewComments } from '../review-comments.model';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IReviewComments, NewReviewComments } from '../review-comments.model';
-
-export type PartialUpdateReviewComments = Partial<IReviewComments> & Pick<IReviewComments, 'id'>;
-
-type RestOf<T extends IReviewComments | NewReviewComments> = Omit<T, 'timestamp'> & {
-  timestamp?: string | null;
-};
-
-export type RestReviewComments = RestOf<IReviewComments>;
-
-export type NewRestReviewComments = RestOf<NewReviewComments>;
-
-export type PartialUpdateRestReviewComments = RestOf<PartialUpdateReviewComments>;
-
-export type EntityResponseType = HttpResponse<IReviewComments>;
-export type EntityArrayResponseType = HttpResponse<IReviewComments[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ReviewCommentsService {
@@ -30,99 +13,63 @@ export class ReviewCommentsService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(reviewComments: NewReviewComments): Observable<EntityResponseType> {
+  create(reviewComments: NewReviewComments): Observable<IReviewComments> {
     const copy = this.convertDateFromClient(reviewComments);
-    return this.http
-      .post<RestReviewComments>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map(res => this.convertResponseFromServer(res)));
+    return this.http.post<IReviewComments>(this.resourceUrl, copy).pipe(map((res: any) => this.convertDateFromServer(res)));
   }
 
-  update(reviewComments: IReviewComments): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(reviewComments);
-    return this.http
-      .put<RestReviewComments>(`${this.resourceUrl}/${this.getReviewCommentsIdentifier(reviewComments)}`, copy, { observe: 'response' })
-      .pipe(map(res => this.convertResponseFromServer(res)));
-  }
-
-  partialUpdate(reviewComments: PartialUpdateReviewComments): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(reviewComments);
-    return this.http
-      .patch<RestReviewComments>(`${this.resourceUrl}/${this.getReviewCommentsIdentifier(reviewComments)}`, copy, { observe: 'response' })
-      .pipe(map(res => this.convertResponseFromServer(res)));
-  }
-
-  find(id: number): Observable<EntityResponseType> {
-    return this.http
-      .get<RestReviewComments>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-      .pipe(map(res => this.convertResponseFromServer(res)));
-  }
-
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any): Observable<IReviewComments[]> {
     const options = createRequestOption(req);
     return this.http
-      .get<RestReviewComments[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map(res => this.convertResponseArrayFromServer(res)));
+      .get<IReviewComments[]>(this.resourceUrl, { params: options })
+      .pipe(map((res: any) => this.convertResponseArrayFromServer(res)));
   }
 
-  delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  update(reviewComments: IReviewComments): Observable<IReviewComments> {
+    const copy = this.convertDateFromClient(reviewComments);
+    return this.http
+      .put<IReviewComments>(`${this.resourceUrl}/${reviewComments.id}`, copy)
+      .pipe(map((res: any) => this.convertDateFromServer(res)));
   }
 
-  getReviewCommentsIdentifier(reviewComments: Pick<IReviewComments, 'id'>): number {
-    return reviewComments.id;
+  find(id: number): Observable<IReviewComments> {
+    return this.http.get<IReviewComments>(`${this.resourceUrl}/${id}`).pipe(map((res: any) => this.convertDateFromServer(res)));
   }
 
-  compareReviewComments(o1: Pick<IReviewComments, 'id'> | null, o2: Pick<IReviewComments, 'id'> | null): boolean {
-    return o1 && o2 ? this.getReviewCommentsIdentifier(o1) === this.getReviewCommentsIdentifier(o2) : o1 === o2;
+  delete(id: number): Observable<{}> {
+    return this.http.delete(`${this.resourceUrl}/${id}`);
   }
 
-  addReviewCommentsToCollectionIfMissing<Type extends Pick<IReviewComments, 'id'>>(
-    reviewCommentsCollection: Type[],
-    ...reviewCommentsToCheck: (Type | null | undefined)[]
-  ): Type[] {
-    const reviewComments: Type[] = reviewCommentsToCheck.filter(isPresent);
-    if (reviewComments.length > 0) {
-      const reviewCommentsCollectionIdentifiers = reviewCommentsCollection.map(
-        reviewCommentsItem => this.getReviewCommentsIdentifier(reviewCommentsItem)!
-      );
-      const reviewCommentsToAdd = reviewComments.filter(reviewCommentsItem => {
-        const reviewCommentsIdentifier = this.getReviewCommentsIdentifier(reviewCommentsItem);
-        if (reviewCommentsCollectionIdentifiers.includes(reviewCommentsIdentifier)) {
-          return false;
-        }
-        reviewCommentsCollectionIdentifiers.push(reviewCommentsIdentifier);
-        return true;
-      });
-      return [...reviewCommentsToAdd, ...reviewCommentsCollection];
-    }
-    return reviewCommentsCollection;
+  addComment(comment: NewReviewComments): Observable<IReviewComments> {
+    return this.create(comment);
   }
 
-  protected convertDateFromClient<T extends IReviewComments | NewReviewComments | PartialUpdateReviewComments>(
-    reviewComments: T
-  ): RestOf<T> {
+  addReply(commentId: number, reply: NewReviewComments): Observable<IReviewComments> {
+    const replyUrl = `${this.resourceUrl}/${commentId}/replies`;
+    return this.http.post<IReviewComments>(replyUrl, reply).pipe(map((res: any) => this.convertDateFromServer(res)));
+  }
+
+  protected convertDateFromClient(comment: IReviewComments | NewReviewComments): IReviewComments | NewReviewComments {
     return {
-      ...reviewComments,
-      timestamp: reviewComments.timestamp?.toJSON() ?? null,
+      ...comment,
+      // Only convert if timestamp is a string, otherwise assume it's already a Dayjs object or null.
+      timestamp: typeof comment.timestamp === 'string' ? dayjs(comment.timestamp) : comment.timestamp,
     };
   }
 
-  protected convertDateFromServer(restReviewComments: RestReviewComments): IReviewComments {
+  protected convertDateFromServer(res: IReviewComments): IReviewComments {
     return {
-      ...restReviewComments,
-      timestamp: restReviewComments.timestamp ? dayjs(restReviewComments.timestamp) : undefined,
+      ...res,
+      // Convert the string timestamp from the server to a Dayjs object
+      timestamp: res.timestamp ? dayjs(res.timestamp) : null,
     };
   }
 
-  protected convertResponseFromServer(res: HttpResponse<RestReviewComments>): HttpResponse<IReviewComments> {
-    return res.clone({
-      body: res.body ? this.convertDateFromServer(res.body) : null,
-    });
-  }
-
-  protected convertResponseArrayFromServer(res: HttpResponse<RestReviewComments[]>): HttpResponse<IReviewComments[]> {
-    return res.clone({
-      body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
-    });
+  protected convertResponseArrayFromServer(res: IReviewComments[]): IReviewComments[] {
+    return res.map(reviewComment => ({
+      ...reviewComment,
+      // Convert the string timestamp from the server to a Dayjs object
+      timestamp: reviewComment.timestamp ? dayjs(reviewComment.timestamp) : null,
+    }));
   }
 }

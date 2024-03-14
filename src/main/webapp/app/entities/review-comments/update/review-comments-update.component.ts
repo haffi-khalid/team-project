@@ -7,9 +7,6 @@ import { finalize, map } from 'rxjs/operators';
 import { ReviewCommentsFormService, ReviewCommentsFormGroup } from './review-comments-form.service';
 import { IReviewComments } from '../review-comments.model';
 import { ReviewCommentsService } from '../service/review-comments.service';
-import { AlertError } from 'app/shared/alert/alert-error.model';
-import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
-import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { ICharityHubUser } from 'app/entities/charity-hub-user/charity-hub-user.model';
 import { CharityHubUserService } from 'app/entities/charity-hub-user/service/charity-hub-user.service';
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
@@ -29,8 +26,6 @@ export class ReviewCommentsUpdateComponent implements OnInit {
   editForm: ReviewCommentsFormGroup = this.reviewCommentsFormService.createReviewCommentsFormGroup();
 
   constructor(
-    protected dataUtils: DataUtils,
-    protected eventManager: EventManager,
     protected reviewCommentsService: ReviewCommentsService,
     protected reviewCommentsFormService: ReviewCommentsFormService,
     protected charityHubUserService: CharityHubUserService,
@@ -55,21 +50,6 @@ export class ReviewCommentsUpdateComponent implements OnInit {
     });
   }
 
-  byteSize(base64String: string): string {
-    return this.dataUtils.byteSize(base64String);
-  }
-
-  openFile(base64String: string, contentType: string | null | undefined): void {
-    this.dataUtils.openFile(base64String, contentType);
-  }
-
-  setFileData(event: Event, field: string, isImage: boolean): void {
-    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
-      error: (err: FileLoadError) =>
-        this.eventManager.broadcast(new EventWithContent<AlertError>('teamprojectApp.error', { message: err.message })),
-    });
-  }
-
   previousState(): void {
     window.history.back();
   }
@@ -84,7 +64,7 @@ export class ReviewCommentsUpdateComponent implements OnInit {
     }
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IReviewComments>>): void {
+  protected subscribeToSaveResponse(result: Observable<IReviewComments>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
       error: () => this.onSaveError(),

@@ -1,0 +1,152 @@
+$primary-color: #065fd4;
+$border-color: #ccc;
+$background-color: #fff;
+$font-family: 'Arial', sans-serif;
+$box-shadow-color: rgba(0, 0, 0, 0.1);
+
+.comments-container {
+  font-family: $font-family;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.comment-entry,
+.reply-entry {
+  background-color: $background-color;
+  padding: 12px 16px;
+  border-radius: 25px;
+  box-shadow: 0 1px 2px $box-shadow-color;
+  margin-bottom: 10px;
+}
+
+.user-info {
+  .user-id {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .comment-content {
+    margin-top: 4px;
+    font-size: 14px;
+    background-color: $background-color;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px $box-shadow-color;
+  }
+}
+
+.comment-actions,
+.reply-input-section {
+  .reply-button {
+    background: none;
+    border: none;
+    color: $primary-color;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 4px;
+  }
+  .delete-button {
+    padding-left: 590px;
+    background: none;
+    border: none;
+    color: $primary-color;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 4px;
+  }
+}
+
+/* Adjusted to match new-comment input */
+.reply-input-section {
+  flex-grow: 1;
+  margin-top: 10px;
+
+  .reply-input {
+    width: 100%; /* Match the width of the new comment input */
+    border: 1px solid $border-color;
+    border-radius: 25px;
+    padding: 10px 15px; /* Match the padding */
+    font-size: 14px;
+    margin-bottom: 10px; /* Space below the input */
+  }
+}
+
+.reply-post-button {
+  background: none;
+  border: none;
+  color: $primary-color;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-left: 4px;
+}
+.delete-reply-button {
+  background: none;
+  border: none;
+  color: $primary-color;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+.edit-button,
+.edit-save-button {
+  background: none;
+  border: none;
+  color: $primary-color;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-left: 4px; // For spacing between buttons
+}
+
+.edit-input-section {
+  margin-top: 10px;
+
+  .edit-input {
+    width: 100%; // Use the full width to match the reply input
+    border: 1px solid $border-color;
+    border-radius: 25px;
+    padding: 10px 15px; // Consistent padding with other inputs
+    font-size: 14px; // Match the font size with other inputs
+    box-shadow: 0px 2px 4px $box-shadow-color; // Consistent shadow effect
+    background-color: $background-color; // Match the background with other inputs
+    margin-bottom: 10px; // Space below the input for separation
+  }
+}
+
+.replies {
+  margin-top: 8px;
+  padding-left: 20px;
+  border-left: 2px solid $border-color;
+}
+
+.new-comment-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: $background-color;
+  border-radius: 25px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .new-comment-input {
+    width: 75%;
+    border: 1px solid $border-color;
+    border-radius: 25px;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .add-comment-button {
+    background-color: $primary-color;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 25px;
+  }
+}
