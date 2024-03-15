@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IUserPage, NewUserPage } from '../user-page.model';
+import { getUserIdentifier, IUser } from '../../user/user.model';
 
 export type PartialUpdateUserPage = Partial<IUserPage> & Pick<IUserPage, 'id'>;
 
@@ -34,6 +35,20 @@ export class UserPageService {
     return this.http.get<IUserPage>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  // findByUserId(id: number): Observable<EntityResponseType> {
+  //   return this.find(id).pipe(
+  //     catchError((error) => {
+  //       // Assuming error response when user page not found, then create a new one
+  //       // You might need to adjust error handling based on your backend's response
+  //       if (error.status === 404) {
+  //         const newUserPage: NewUserPage = { userId: id }; // Adjust according to your NewUserPage model
+  //         return this.create(newUserPage);
+  //       }
+  //       // Re-throw error if it's not a "not found" error
+  //       return throwError(error);
+  //     })
+  //   );
+  // }
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IUserPage[]>(this.resourceUrl, { params: options, observe: 'response' });

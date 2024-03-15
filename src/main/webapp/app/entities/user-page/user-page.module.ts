@@ -9,5 +9,6 @@ import { UserPageRoutingModule } from './route/user-page-routing.module';
 @NgModule({
   imports: [SharedModule, UserPageRoutingModule],
   declarations: [UserPageComponent, UserPageDetailComponent, UserPageUpdateComponent, UserPageDeleteDialogComponent],
+  exports: [UserPageUpdateComponent, UserPageComponent, UserPageDetailComponent, UserPageDeleteDialogComponent],
 })
 export class UserPageModule {}

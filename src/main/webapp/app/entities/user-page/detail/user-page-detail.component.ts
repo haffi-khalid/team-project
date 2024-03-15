@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IUserPage } from '../user-page.model';
@@ -9,7 +9,7 @@ import { DataUtils } from 'app/core/util/data-util.service';
   templateUrl: './user-page-detail.component.html',
 })
 export class UserPageDetailComponent implements OnInit {
-  userPage: IUserPage | null = null;
+  @Input() userPage: IUserPage | null = null;
 
   constructor(protected dataUtils: DataUtils, protected activatedRoute: ActivatedRoute) {}
 
