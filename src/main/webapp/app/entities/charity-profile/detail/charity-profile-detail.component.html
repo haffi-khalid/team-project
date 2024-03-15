@@ -25,8 +25,8 @@
           </button>
         </div>
         <div class="button-container">
-          <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/donator-page">
-            <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Donate
+          <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/charity-event">
+            <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Events
           </button>
 
           <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/vacancies">
@@ -39,21 +39,42 @@
 </div>
 
 <div class="container1">
+  <div class="slash"></div>
   <div class="purpose-aim">
     <div class="purpose">
-      <h3 class="section-title" style="text-align: center">Purpose</h3>
+      <h3 class="section-title" style="text-align: center">Our Purpose</h3>
       <p>{{ charityProfile?.purpose }}</p>
     </div>
     <div class="aim">
-      <h3 class="section-title" style="text-align: center">Aim</h3>
-      <p>{{ charityProfile?.aim }}</p>
+      <h3 class="section-title" style="text-align: center">Our Progress</h3>
     </div>
   </div>
-  <button type="button" class="btn btn-lg btn-outline-white" style="color: #ffffff" routerLink="/vacancies">
-    <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Contact us
+  <div style="text-align: center; padding-top: 10px">
+    <button type="button" class="btn btn-lg btn-outline-white" style="color: #ffffff" routerLink="/vacancies">
+      <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Contact us
+    </button>
+  </div>
+</div>
+
+<div class="container2">
+  <h3 class="section-title" style="text-align: center">Recent Photos</h3>
+  <button type="button" class="btn btn-lg btn-outline" style="color: #3b2f1f; border: none" routerLink="/social-feed">
+    <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See more...
   </button>
 </div>
 
-<button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-  <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
-</button>
+<div class="container3">
+  <h3 class="section-title" style="text-align: center">Help us to meet our goal!</h3>
+
+  <div class="aim" style="margin-top: 20px; color: #3b2f1f">
+    <p>Our aim: {{ charityProfile?.aim }}</p>
+  </div>
+  <div class="button-container">
+    <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/donator-page">
+      <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Donate
+    </button>
+    <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+    </button>
+  </div>
+</div>
