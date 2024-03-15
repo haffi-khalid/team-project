@@ -169,11 +169,12 @@ public class CharityProfileResource {
         return charityProfileRepository.findAll();
     }
 
+    //Step 2: Create API URI. Specifiy what it returns, call the function you created in the Repository File and return it.
     @GetMapping("/charity-name")
     public List<String> getAllVacancyCharityName() {
-        log.debug("REST request to get all Charity Names in Vacancy");
+        log.debug("REST request to get all Charity Names in Vacancy Testing------------");
         return charityProfileRepository.findAllVacancyCharityName();
-    }
+    } //
 
     @GetMapping("/charityId/{name}")
     public Optional<Long> getVacancyCharityId(@PathVariable String name) {
