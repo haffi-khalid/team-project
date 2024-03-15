@@ -24,6 +24,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { LoginPopUpCheckComponent } from './login-pop-up-check/login-pop-up-check.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,15 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, PrivacyPolicyComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    FooterComponent,
+    PrivacyPolicyComponent,
+    LoginPopUpCheckComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {
