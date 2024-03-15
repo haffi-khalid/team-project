@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, forkJoin, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { combineLatest, filter, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IVacancies } from '../vacancies.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { EntityArrayResponseType, EntityResponseType, VacanciesService } from '../service/vacancies.service';
 import { VacanciesDeleteDialogComponent } from '../delete/vacancies-delete-dialog.component';
-import { LoginPopUpCheckComponent } from '../../../login-pop-up-check/login-pop-up-check.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { SortService } from 'app/shared/sort/sort.service';
 import { AccountService } from '../../../core/auth/account.service';
@@ -20,12 +19,16 @@ import { AccountService } from '../../../core/auth/account.service';
 export class VacanciesComponent implements OnInit {
   vacancies?: IVacancies[];
   isLoading = false;
+  vacancies2?: IVacancies[];
+
   predicate = 'id';
   ascending = true;
   charityNames: Observable<string[]>;
   filteredCharityNames: string[] = [];
+  charityNameSub: Subscription = new Subscription();
   searchText: string = '';
   filteredCharityId: number[] = [];
+  toggled: boolean = false;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -36,7 +39,6 @@ export class VacanciesComponent implements OnInit {
     protected modalService: NgbModal,
     protected accountService: AccountService
   ) {
-    // Step 4: Call the function you created in the Service File.
     this.charityNames = this.vacanciesService.getAllCharityNames();
   }
 
@@ -49,23 +51,20 @@ export class VacanciesComponent implements OnInit {
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
   }
-  filterResults(search: string) {
+  filterResults(text: string) {
+    this.toggled = !this.toggled;
     if (this.searchText.trim() === '') {
       this.filteredCharityId = [];
       this.filteredCharityNames = [];
     } else {
-      this.charityNames.subscribe(charityNames => {
-        this.filteredCharityNames = charityNames.filter(charityName => charityName.toLowerCase().includes(search.toLowerCase()));
-        const forLoop = this.filteredCharityNames.map(name => this.vacanciesService.getCharityId(name));
-        forkJoin(forLoop).subscribe(charityIds => {
-          this.filteredCharityId = charityIds;
-        });
-      });
+      this.charityNameSub = this.charityNames.subscribe(
+        names => (this.filteredCharityNames = names.filter(name => name.toLowerCase().includes(text.toLowerCase())))
+      );
+      for (let i = 0; i < this.filteredCharityNames.length; i++) {
+        this.vacanciesService.getCharityId(this.filteredCharityNames[i]).subscribe(id => (this.filteredCharityId[i] = id));
+      }
     }
-  }
-
-  openLoginCheckDialog() {
-    this.modalService.open(LoginPopUpCheckComponent);
+    /*this.vacanciesService.getCharityVacancies(this.filteredCharityId[0]).subscribe(vacancy=>this.onResponseSuccess2(vacancy))**/
   }
 
   openFile(base64String: string, contentType: string | null | undefined): void {
@@ -116,6 +115,10 @@ export class VacanciesComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.vacancies = this.refineData(dataFromBody);
+  }
+  protected onResponseSuccess2(response: EntityArrayResponseType): void {
+    const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
+    this.vacancies2 = this.refineData(dataFromBody);
   }
 
   protected refineData(data: IVacancies[]): IVacancies[] {

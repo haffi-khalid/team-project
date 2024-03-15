@@ -64,10 +64,9 @@ export class VacanciesService {
       .get<RestVacancies[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
-  //Step 3: Service Calls the URI and creates a function which takes in the result of calling this API
   getAllCharityNames(): Observable<string[]> {
     return this.http.get<string[]>('api/charity-name');
-  } //
+  }
   getCharityId(name: string): Observable<number> {
     return this.http.get<number>(`api/charityId/${name}`);
   }

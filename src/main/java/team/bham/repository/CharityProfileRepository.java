@@ -20,7 +20,6 @@ public interface CharityProfileRepository extends JpaRepository<CharityProfile, 
     @Query(
         value = "select distinct charityProfile.charityName from CharityProfile charityProfile inner join Vacancies vacancies on vacancies.charityProfile.id=charityProfile.id"
     )
-    // Step 1: Define the type your statement returns and create a function name for it
     List<String> findAllVacancyCharityName();
 
     @Query(value = "select distinct charityProfile.id from CharityProfile charityProfile where charityProfile.charityName=:name")

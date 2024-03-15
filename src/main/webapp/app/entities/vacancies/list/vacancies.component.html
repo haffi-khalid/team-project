@@ -4,6 +4,7 @@
     <button class="primary" type="button" (click)="filterResults(searchText)">Search</button>
     <!--<h4 *ngIf="searchText&&toggled">Vacancies Best Matching: {{searchText}}</h4>-->
   </div>
+
   <h2 id="page-heading" data-cy="VacanciesHeading">
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
@@ -110,12 +111,12 @@
                 <span class="d-none d-md-inline">Edit</span>
               </button>
               <button
-                type="submit"
-                (click)="openLoginCheckDialog()"
-                class="btn btn-danger btn-sm2"
+                [routerLink]="['/volunteer-applications', 'new']"
+                class="btn btn-sm2"
+                data-cy="entityDetailsButton"
                 *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
               >
-                <span class="d-none d-md-inline">Apply Now</span>
+                <span class="d-none d-md-inline">Apply Now!</span>
               </button>
 
               <button
@@ -180,24 +181,14 @@
                   <fa-icon icon="pencil-alt"></fa-icon>
                   <span class="d-none d-md-inline">Edit</span>
                 </button>
-
                 <button
-                  type="submit"
-                  (click)="openLoginCheckDialog()"
-                  class="btn btn-danger btn-sm2"
-                  *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
-                >
-                  <span class="d-none d-md-inline">Apply Now</span>
-                </button>
-                <!--<button
                   [routerLink]="['/volunteer-applications', 'new']"
                   class="btn btn-sm2"
                   data-cy="entityDetailsButton"
                   *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
                 >
                   <span class="d-none d-md-inline">Apply Now!</span>
-                </button>-->
-
+                </button>
                 <button
                   type="submit"
                   (click)="delete(vacancies)"

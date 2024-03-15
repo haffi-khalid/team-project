@@ -41,11 +41,7 @@
             data-cy="volunteerStatus"
           >
             <option [ngValue]="null"></option>
-            <ng-container *ngIf="this.accountService.hasAnyAuthority('ROLE_ADMIN')">
-              <option *ngFor="let applicationCategory of applicationCategoryValues" [value]="applicationCategory">
-                applicationCategory
-              </option>
-            </ng-container>
+            <option *ngFor="let applicationCategory of applicationCategoryValues" [value]="applicationCategory">applicationCategory</option>
           </select>
         </div>
 
