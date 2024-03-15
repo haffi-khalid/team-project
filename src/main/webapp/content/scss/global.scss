@@ -229,16 +229,6 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   right: -540px;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 5px;
-}
-
-.button-container button {
-  margin: 0 5px;
-}
-
 .container1 {
   width: 100%;
   margin: 0px;
@@ -277,12 +267,6 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   color: black;
   align-content: center;
 }
-.btn-outline-white {
-  background-color: transparent;
-  border: 2px solid #ffffff;
-  margin-top: 60px;
-}
-
 .purpose,
 .aim {
   flex-basis: 48%;
@@ -293,6 +277,24 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 }
 .aim {
   text-align: center; /* Align the content to the center */
+}
+.btn-outline-white {
+  position: absolute;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  margin-top: 60px;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.button-container button {
+  margin: 0 5px;
+}
+button:hover {
+  text-decoration: underline;
 }
 
 .container2 {
