@@ -182,12 +182,12 @@
                   <span class="d-none d-md-inline">Edit</span>
                 </button>
                 <button
-                  [routerLink]="['/volunteer-applications', 'new']"
-                  class="btn btn-sm2"
-                  data-cy="entityDetailsButton"
+                  type="submit"
+                  (click)="openLoginCheckDialog()"
+                  class="btn btn-danger btn-sm2"
                   *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
                 >
-                  <span class="d-none d-md-inline">Apply Now!</span>
+                  <span class="d-none d-md-inline">Apply Now</span>
                 </button>
                 <button
                   type="submit"
