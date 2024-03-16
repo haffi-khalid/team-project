@@ -13,6 +13,7 @@ import { SortService } from 'app/shared/sort/sort.service';
 @Component({
   selector: 'jhi-fundraising-idea',
   templateUrl: './fundraising-idea.component.html',
+  styleUrls: ['./fundraising-idea.component.scss'],
 })
 export class FundraisingIdeaComponent implements OnInit {
   fundraisingIdeas?: IFundraisingIdea[];
@@ -42,6 +43,16 @@ export class FundraisingIdeaComponent implements OnInit {
 
   openFile(base64String: string, contentType: string | null | undefined): void {
     return this.dataUtils.openFile(base64String, contentType);
+  }
+
+  isFormOpen: boolean = false;
+
+  openForm() {
+    this.isFormOpen = true;
+  }
+
+  closeForm() {
+    this.isFormOpen = false;
   }
 
   delete(fundraisingIdea: IFundraisingIdea): void {
