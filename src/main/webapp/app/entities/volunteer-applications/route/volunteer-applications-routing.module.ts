@@ -33,6 +33,13 @@ const volunteerApplicationsRoute: Routes = [
     },
   },
   {
+    path: 'new/vacancy/:vacancy',
+    component: VolunteerApplicationsUpdateComponent,
+    resolve: {
+      volunteerApplications: VolunteerApplicationsRoutingResolveService,
+    },
+  },
+  {
     path: ':id/edit',
     component: VolunteerApplicationsUpdateComponent,
     resolve: {

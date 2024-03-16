@@ -53,7 +53,6 @@ export class VacanciesComponent implements OnInit {
     return this.dataUtils.byteSize(base64String);
   }
   filterResults(search: string) {
-    this.toggled = !this.toggled;
     if (this.searchText.trim() === '') {
       this.filteredCharityId = [];
       this.filteredCharityNames = [];
@@ -66,10 +65,17 @@ export class VacanciesComponent implements OnInit {
         });
       });
     }
-    this.toggled = !this.toggled;
   }
-  openLoginCheckDialog() {
-    this.modalService.open(LoginPopUpCheckComponent);
+
+  cleanFilterVariables(text: string) {
+    if (text == '') {
+      this.filteredCharityNames = [];
+      this.filteredCharityId = [];
+    }
+  }
+  openLoginCheckDialog(vacancies: IVacancies) {
+    const modalRef = this.modalService.open(LoginPopUpCheckComponent, { size: 'xl' });
+    modalRef.componentInstance.vacancies = vacancies;
   }
 
   openFile(base64String: string, contentType: string | null | undefined): void {

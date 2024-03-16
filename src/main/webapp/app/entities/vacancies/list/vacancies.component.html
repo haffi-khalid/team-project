@@ -1,6 +1,12 @@
 <div>
   <div class="d-flex justify-content-start">
-    <input class="searchbar" type="text" placeholder="Filter by Society" [(ngModel)]="searchText" />
+    <input
+      class="searchbar"
+      type="text"
+      placeholder="Filter by Society"
+      [(ngModel)]="searchText"
+      (ngModelChange)="cleanFilterVariables(searchText)"
+    />
     <button class="primary" type="button" (click)="filterResults(searchText)">Search</button>
     <!--<h4 *ngIf="searchText&&toggled">Vacancies Best Matching: {{searchText}}</h4>-->
   </div>
@@ -26,6 +32,7 @@
   </h2>
 
   <jhi-alert></jhi-alert>
+  <div class="alert alert-warnidddng"><input type="checkbox" />In-Person <input type="checkbox" />Remote</div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="vacancies?.length === 0">
     <span>No Vacancies found</span>
@@ -111,14 +118,13 @@
                 <span class="d-none d-md-inline">Edit</span>
               </button>
               <button
-                [routerLink]="['/volunteer-applications', 'new']"
-                class="btn btn-sm2"
-                data-cy="entityDetailsButton"
+                type="submit"
+                (click)="openLoginCheckDialog(vacancies)"
+                class="btn btn-danger btn-sm2"
                 *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
               >
-                <span class="d-none d-md-inline">Apply Now!</span>
+                <span class="d-none d-md-inline">Apply Now</span>
               </button>
-
               <button
                 type="submit"
                 (click)="delete(vacancies)"
@@ -183,7 +189,7 @@
                 </button>
                 <button
                   type="submit"
-                  (click)="openLoginCheckDialog()"
+                  (click)="openLoginCheckDialog(vacancies)"
                   class="btn btn-danger btn-sm2"
                   *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
                 >
