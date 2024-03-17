@@ -25,6 +25,7 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { LoginPopUpCheckComponent } from './login-pop-up-check/login-pop-up-check.component';
+import { NewApplicationsComponent } from './new-applications/new-applications.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { LoginPopUpCheckComponent } from './login-pop-up-check/login-pop-up-chec
     FooterComponent,
     PrivacyPolicyComponent,
     LoginPopUpCheckComponent,
+    NewApplicationsComponent,
   ],
   bootstrap: [MainComponent],
 })

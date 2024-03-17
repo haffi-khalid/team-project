@@ -16,7 +16,7 @@
     </button>
   </ng-template>
   <ng-template [ngIf]="accountService.isAuthenticated()">
-    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="apply()">
+    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="apply(vacancies)">
       <span>Yes</span>
     </button>
   </ng-template>

@@ -1,0 +1,19 @@
+<div class="row-md">
+  <div class="vacancyImage">
+    <a>
+      <img
+        [src]="'data:' + vacancy?.vacancyLogoContentType + ';base64,' + vacancy?.vacancyLogo"
+        style="max-height: 100px"
+        alt="vacancies image"
+      />
+    </a>
+  </div>
+  <div class="vacancyImage">
+    <span style="font-weight: bold">Job: </span>{{ vacancy?.vacancyTitle }}<br /><span style="font-weight: bold">Start Date: </span
+    >{{ vacancy?.vacancyStartDate | formatMediumDate }}<br /><span style="font-weight: bold">Location: </span>{{ vacancy?.vacancyLocation
+    }}<br /><span style="font-weight: bold">Duration: </span>{{ vacancy?.vacancyDuration }}<span> Hours</span><br /><span
+      style="font-weight: bold"
+      >Description:</span
+    >{{ vacancy?.vacancyDescription }}
+  </div>
+</div>

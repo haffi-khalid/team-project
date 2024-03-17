@@ -28,9 +28,10 @@ export class LoginPopUpCheckComponent implements OnInit {
     this.router.navigate(['/login']);
     this.activeModal.dismiss();
   }
-  apply() {
+
+  apply(vacancy: IVacancies | undefined) {
     // this.route.params.subscribe(object=>this.vacancies=object['vacancy'])
-    this.router.navigate(['/volunteer-applications/new/vacancy', this.vacancies]);
+    this.router.navigate(['/volunteer-applications/new/vacancy', vacancy?.id]);
     this.activeModal.dismiss();
   }
 }

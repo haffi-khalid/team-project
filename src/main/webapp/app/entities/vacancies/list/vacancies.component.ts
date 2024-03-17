@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, forkJoin, Observable, Subscription, switchMap, tap } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IVacancies } from '../vacancies.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
@@ -11,6 +11,7 @@ import { DataUtils } from 'app/core/util/data-util.service';
 import { SortService } from 'app/shared/sort/sort.service';
 import { AccountService } from '../../../core/auth/account.service';
 import { LoginPopUpCheckComponent } from '../../../login-pop-up-check/login-pop-up-check.component';
+import dayjs from 'dayjs/esm';
 
 @Component({
   selector: 'jhi-vacancies',
@@ -20,16 +21,17 @@ import { LoginPopUpCheckComponent } from '../../../login-pop-up-check/login-pop-
 export class VacanciesComponent implements OnInit {
   vacancies?: IVacancies[];
   isLoading = false;
-  vacancies2?: IVacancies[];
 
   predicate = 'id';
   ascending = true;
   charityNames: Observable<string[]>;
   filteredCharityNames: string[] = [];
-  charityNameSub: Subscription = new Subscription();
   searchText: string = '';
   filteredCharityId: number[] = [];
-  toggled: boolean = false;
+  remote: boolean = false;
+  person: boolean = false;
+  filteredVacancies: IVacancies[] | undefined;
+  dateSelector: dayjs.Dayjs | undefined;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -48,7 +50,40 @@ export class VacanciesComponent implements OnInit {
   ngOnInit(): void {
     this.load();
   }
-
+  applyFilters() {
+    this.filteredVacancies = this.vacancies;
+    if (this.vacancies != null) {
+      if (this.remote && this.person && this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(
+          home =>
+            (home.vacancyLocation?.includes('REMOTE') || home.vacancyLocation?.includes('INPERSON')) &&
+            home.vacancyStartDate?.isSame(this.dateSelector)
+        );
+      }
+      if (this.person && !this.remote && this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(
+          home => home.vacancyLocation?.includes('INPERSON') && home.vacancyStartDate?.isSame(this.dateSelector)
+        );
+      }
+      if (this.person && !this.remote && !this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(home => home.vacancyLocation?.includes('INPERSON'));
+      }
+      if (this.remote && !this.person && !this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(home => home.vacancyLocation?.includes('REMOTE'));
+      }
+      if (this.remote && !this.person && this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(
+          home => home.vacancyLocation?.includes('REMOTE') && home.vacancyStartDate?.isSame(this.dateSelector)
+        );
+      }
+      if (!this.remote && !this.person && !this.dateSelector) {
+        this.filteredVacancies = undefined;
+      }
+      if (!this.remote && !this.person && this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(home => home.vacancyStartDate?.isSame(this.dateSelector));
+      }
+    }
+  }
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
   }
@@ -126,10 +161,6 @@ export class VacanciesComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.vacancies = this.refineData(dataFromBody);
-  }
-  protected onResponseSuccess2(response: EntityArrayResponseType): void {
-    const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
-    this.vacancies2 = this.refineData(dataFromBody);
   }
 
   protected refineData(data: IVacancies[]): IVacancies[] {
