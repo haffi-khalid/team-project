@@ -74,6 +74,11 @@ export class VacanciesService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+  getCharityVacancies(id: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<RestVacancies[]>(`api/vacanciesByCharity/${id}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
 
   getVacanciesIdentifier(vacancies: Pick<IVacancies, 'id'>): number {
     return vacancies.id;

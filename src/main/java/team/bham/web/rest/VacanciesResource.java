@@ -184,6 +184,13 @@ public class VacanciesResource {
         return ResponseUtil.wrapOrNotFound(vacancies);
     }
 
+    @GetMapping("/vacanciesByCharity/{charityId}")
+    public ResponseEntity<Vacancies> getVacanciesByCharityID(@PathVariable Long charityId) {
+        log.debug("REST request to get Vacancies : {}", charityId);
+        Optional<Vacancies> vacancies = vacanciesRepository.charityVacancies(charityId);
+        return ResponseUtil.wrapOrNotFound(vacancies);
+    }
+
     /**
      * {@code DELETE  /vacancies/:id} : delete the "id" vacancies.
      *

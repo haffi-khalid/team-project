@@ -1,3 +1,50 @@
+<ng-template #eventDetailsModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Event Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <!-- Display event details here -->
+    <div *ngIf="selectedEvent">
+      <img
+        [src]="getEventImage(selectedEvent)"
+        alt="Event Image"
+        class="event-image"
+        *ngIf="hasEventImage(selectedEvent)"
+        style="width: 760px; height: 260px; margin-bottom: 2px; background-size: cover; display: flex; align-content: center"
+      />
+      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>
+      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>
+      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>
+
+      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>
+
+      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
+      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
+
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
+
+      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
+      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
+
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
+
+      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
+      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
+
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
+
+      <!-- Add more details as needed -->
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
 <div>
   <h2 id="page-heading" data-cy="CharityEventHeading">
     <div class="banner-area">
@@ -41,7 +88,38 @@
           <!--          </button>-->
         </div>
       </div>
+
+      <div class="component3">
+        <div class="filter-container">
+          <select class="mighty-filter" [(ngModel)]="selectedFilter">
+            <option value="none">Filters</option>
+            <option value="dateTime">Date & Time</option>
+          </select>
+          <div *ngIf="selectedFilter == 'dateTime'">
+            <input type="datetime-local" [(ngModel)]="selectedDateTime" class="date-time-picker" />
+            <button class="filter-button" (click)="filterEventsByDateTime()">Filter</button>
+          </div>
+        </div>
+
+        /////////////
+
+        <!--      <div class="component3">-->
+        <!--        <div class="filter-container">-->
+        <!--          <input type="datetime-local" [(ngModel)]="selectedDateTime" class="date-time-picker" />-->
+        <!--          <button class="filter-button" (click)="filterEventsByDateTime()">Filter</button>-->
+        <!--        </div>-->
+
+        <!--      </div>-->
+      </div>
     </div>
+
+    <!--    <div class="charity-profile-filter">-->
+
+    <!--         <button class = "charity-logo-button" (click)="filterByCharityProfile(null)">-->
+
+    <!--         </button>-->
+
+    <!--    </div>-->
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
@@ -121,7 +199,7 @@
   <!--  </div>-->
   <div class="row" *ngIf="filteredEvents && filteredEvents.length > 0">
     <div class="col-4" *ngFor="let charityEvent of filteredEvents">
-      <div class="event-box">
+      <div class="event-box" (click)="showEventDetails(charityEvent)">
         <!-- Display event details -->
         <img
           [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"

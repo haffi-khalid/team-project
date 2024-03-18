@@ -43,7 +43,7 @@
   border-radius: 12px;
   box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
   margin-bottom: 50px;
-  background-color: #fffacd;
+  background-color: #9d7e5f;
 }
 
 .event-text-section {
@@ -60,6 +60,7 @@
   display: flex;
   align-content: center;
   font-size: 24px;
+  color: white;
   font-weight: 600;
   margin-top: 1px;
   justify-content: center;
@@ -68,11 +69,12 @@
 .timings {
   text-align: left;
   font-weight: bold;
+  color: white;
 }
 
 .timings .duration {
   font-size: 16px;
-  color: black; /* Adjust color as needed */
+  color: white; /* Adjust color as needed */
   display: block; /* This makes the duration appear on a new line */
   font-weight: bold;
 }
@@ -93,6 +95,7 @@
   text-size: small;
   margin-bottom: 20px;
   font-size: medium;
+  color: white;
   height: 120px;
   margin-bottom: 5px;
   overflow: hidden;
@@ -103,6 +106,7 @@
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 0px;
+  font-color: white;
 }
 .charity-name:hover {
   color: blue;
@@ -162,4 +166,40 @@
 
 .fa-icon {
   font-size: 18px;
+}
+
+.Filter-event {
+  background-color: green;
+  height: 180px;
+}
+
+.component3 {
+  display: flex;
+  align-items: center;
+}
+
+.filter-container {
+  margin-right: 10px; /* Add margin to create space between the input and the button */
+}
+
+.filter-button {
+  background-color: #007bff; /* Set background color */
+  color: #fff; /* Set text color */
+  border: none; /* Remove border */
+  padding: 8px 16px; /* Add padding */
+  border-radius: 4px; /* Add border radius */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+.filter-button:hover {
+  background-color: #0056b3; /* Change background color on hover */
+}
+.modal-body {
+  background-color: #d2b48c;
+}
+.modal-header {
+  background-color: #9d7e5f;
+}
+
+.modal-footer {
+  background-color: #9d7e5f;
 }
