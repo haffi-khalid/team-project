@@ -14,16 +14,6 @@
           <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
         </button>
       </div>
-      <!--                <div class="button-container">-->
-      <!--          <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/charity-event">-->
-      <!--            <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Events-->
-      <!--          </button>-->
-
-      <!--          <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/vacancies">-->
-      <!--            <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Volunteer-->
-      <!--          </button>-->
-
-      <!--        </div>-->
     </div>
   </div>
 </div>
@@ -36,7 +26,21 @@
       <p>{{ charityProfile?.purpose }}</p>
     </div>
     <div class="aim">
-      <h3 class="section-title" style="text-align: center">Our Progress</h3>
+      <p>Our Email Address:</p>
+      <p>{{ charityProfile?.emailAddress }}</p>
+      <h3 class="section-title" style="text-align: center; padding-top: 20px">Our Progress:</h3>
+      <div class="circle-container">
+        <div class="circle">
+          <div class="inner-circle">
+            <span class="donators">100 donators</span>
+          </div>
+        </div>
+        <div class="circle1">
+          <div class="inner-circle">
+            <span class="donators">30 volunteers</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div style="text-align: center; padding-top: 10px">
@@ -48,6 +52,11 @@
 
 <div class="container2">
   <h3 class="section-title" style="text-align: center">Recent Photos</h3>
+  <div class="photo-gallery">
+    <img src="/../../../content/images/download (11).jpeg" alt="Photo 1" class="photo" />
+    <img src="/../../../content/images/download (13).jpeg" alt="Photo 2" class="photo" />
+    <img src="/../../../content/images/download (12).jpeg" alt="Photo 3" class="photo" />
+  </div>
   <button type="button" class="btn btn-lg btn-outline" style="color: #3b2f1f; border: none" routerLink="/social-feed">
     <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See more...
   </button>
