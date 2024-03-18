@@ -54,32 +54,48 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   overflow: hidden;
-  width: 100%; /* Take up full width of the page */
+  width: 100%;
   margin-bottom: 20px;
+  text-align: left;
+  transition: box-shadow 0.3s;
+
   h2 {
     margin-top: 5px; // Remove default margin for h2
     font-family: 'EB Garamond', Garamond, serif;
     color: white;
     text-decoration: underline;
   }
+
   p {
     font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
     color: white;
   }
+
+  &:hover,
+  &:focus,
+  &.focus-visible {
+    outline: 2px solid blue;
+    box-shadow: none; // Remove shadow when hovered or focused
+    background-color: darken(#9d7e5f, 5%); // Darken for hover and focus
+  }
+
+  cursor: pointer;
 }
 
-.image-container {
-  flex: 1;
-  flex: 0 0 200px; /* Fixed width for the image container */
-  height: 200px; /* Fixed height for the image container */
-  overflow: hidden; /* Hide overflow if image is larger */
-}
-.image-container img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+//
+//.image-container {
+//  flex: 1;
+//  flex: 0 0 200px; /* Fixed width for the image container */
+//  height: 200px; /* Fixed height for the image container */
+//  overflow: hidden; /* Hide overflow if image is larger */
+//}
+//.image-container img {
+//  display: block;
+//  width: 100%;
+//  height: 100%;
+//  object-fit: cover;
+//}
+
 .description2 {
   flex: 1;
   padding: 20px;
@@ -97,19 +113,37 @@
   flex: 1;
   margin-right: 20px; // Add some space between the text and the image
 }
+
+//.image-container-right {
+//  flex: 1;
+//  flex: 0 0 200px; /* Fixed width for the image container */
+//  height: 200px; /* Fixed height for the image container */
+//  overflow: hidden; /* Hide overflow if image is larger */
+//}
+//
+//.image-container-right img {
+//  display: block;
+//  width: 100%;
+//  height: 100%;
+//  object-fit: cover;
+//}
+
+.image-container,
 .image-container-right {
-  flex: 1;
-  flex: 0 0 200px; /* Fixed width for the image container */
-  height: 200px; /* Fixed height for the image container */
-  overflow: hidden; /* Hide overflow if image is larger */
+  flex: 1; // Takes the full height and dynamic width
+  flex: 0 0 200px;
+  overflow: hidden;
+  height: 200px;
 }
 
+.image-container img,
 .image-container-right img {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100%; // Use 'auto' to maintain the aspect ratio
+  height: 100%; // Set height to 100% to fill the container
+  object-fit: cover; // Use 'contain' to make sure the image is fully visible
 }
+
 .overlay-link {
   position: absolute;
   top: 60%;
