@@ -1,0 +1,7 @@
+.vacancyImage {
+  flex: 1;
+  flex: 0 0 200px; /* Fixed width for the image container */
+  height: 100px; /* Fixed height for the image container */
+  overflow: hidden; /* Hide overflow if image is larger */
+  border: black;
+}

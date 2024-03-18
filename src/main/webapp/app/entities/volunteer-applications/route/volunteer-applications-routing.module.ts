@@ -7,6 +7,8 @@ import { VolunteerApplicationsDetailComponent } from '../detail/volunteer-applic
 import { VolunteerApplicationsUpdateComponent } from '../update/volunteer-applications-update.component';
 import { VolunteerApplicationsRoutingResolveService } from './volunteer-applications-routing-resolve.service';
 import { ASC } from 'app/config/navigation.constants';
+import { NewApplicationsComponent } from '../../../new-applications/new-applications.component';
+import { NewApplicationsRoutingResolveService } from '../../../new-applications/route/new-applications-routing-resolve.service';
 
 const volunteerApplicationsRoute: Routes = [
   {
@@ -30,6 +32,13 @@ const volunteerApplicationsRoute: Routes = [
     component: VolunteerApplicationsUpdateComponent,
     resolve: {
       volunteerApplications: VolunteerApplicationsRoutingResolveService,
+    },
+  },
+  {
+    path: 'new/vacancy/:vacancyID',
+    component: NewApplicationsComponent,
+    resolve: {
+      vacancy: NewApplicationsRoutingResolveService,
     },
   },
   {

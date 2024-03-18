@@ -1,37 +1,41 @@
 .admin-table {
-  border: 10px solid #ffffff;
+  //border: 10px solid #ffffff;
   width: 100%;
+  background-color: #d2b48c;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .user-table {
-  width: 80%;
-  border: 10px solid #ffffff;
-  margin-left: auto;
-  margin-right: 0;
-  margin-top: 2px;
+  width: 100%;
+  background-color: #d2b48c;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .th {
-  border-right: 5px solid #ffffff;
+  border-right: 5px solid black;
 }
+
 .small-cell {
   width: 200px;
-  border: 5px solid #ffffff;
-  border-right: none;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
+  //border-right: none;
 }
 .main {
   width: 200px;
   text-align: center;
-  border: 5px solid #ffffff;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
 }
 .last {
-  width: 350px;
+  width: 300px;
   height: 1px;
   text-align: center;
-  border-top: 5px solid #ffffff;
+  //border-top: 5px solid black;
+  border-bottom: 5px solid black;
 }
 .first {
   text-align: center;
   width: 100px;
-  border: 5px solid #ffffff;
+  border: 5px solid black;
 }
 
 .btn-sm2 {
@@ -42,11 +46,25 @@
   border-color: #ffffff;
   color: black;
   font-size: 15px;
+  //margin-right: 200px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.btn-sm1 {
+  border-radius: 80px;
+  margin-top: 1px;
+  margin-left: 1px;
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: black;
+  font-size: 15px;
+  margin-right: 200px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  width: 150px;
 }
 .container {
   text-align: left;
 }
+
 .primary {
   border-radius: 0 80px 80px 0;
   background-color: #ffffff;
@@ -63,11 +81,57 @@
   border: 10px solid #ffffff;
   font-size: 20px;
 }
-.text-end {
-  width: 200px;
-  border-top: 5px solid #ffffff;
-}
+//.text-end {
+//  width: 1px;
+//  //border-top: 5px solid black;
+//  border-bottom: 5px solid black;
+//
+//}
 .id-field {
-  border: 5px solid #ffffff;
+  border-bottom: 5px solid black;
+  width: 100px;
+  border-right: 5px solid black;
+  text-align: center;
+}
+tr:first-child th {
+  background-color: #d8c3a9;
+}
+.text-end {
+  width: 10px;
+  height: 1px;
+  text-align: center;
+  //border-top: 5px solid black;
+  border-bottom: 5px solid black;
+}
+
+.filterBox {
+  border: solid black;
+  width: 250px;
+  height: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.table-entities {
+  top: -300px;
+  position: relative;
+  margin-left: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.page {
+  height: auto;
+}
+.inputBox {
+  padding: 10px;
+}
+.applyFilter {
+  margin-left: 100px;
+}
+label {
+  font-size: 20px;
+  font-weight: bold;
+}
+.applyButton {
+  margin-right: 500px;
+}
+.btn-group2 {
   width: 100px;
 }

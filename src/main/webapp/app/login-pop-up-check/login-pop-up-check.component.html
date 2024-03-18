@@ -1,0 +1,23 @@
+<div class="modal-body">
+  <ng-template [ngIf]="!accountService.isAuthenticated()">
+    <p>Please Login to continue with {{ vacancies?.vacancyTitle }} application...</p>
+  </ng-template>
+  <ng-template [ngIf]="accountService.isAuthenticated()">
+    <p>Are you sure you want to continue {{ vacancies?.vacancyTitle }} application?</p>
+  </ng-template>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn-sm1" data-dismiss="modal" (click)="cancel()">
+    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Go Back</span>
+  </button>
+  <ng-template [ngIf]="!accountService.isAuthenticated()">
+    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="login()">
+      <span>Login/Register Now!</span>
+    </button>
+  </ng-template>
+  <ng-template [ngIf]="accountService.isAuthenticated()">
+    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="apply(vacancies)">
+      <span>Yes</span>
+    </button>
+  </ng-template>
+</div>

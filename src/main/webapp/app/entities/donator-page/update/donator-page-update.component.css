@@ -1,0 +1,67 @@
+.add-donator-header {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border-bottom: solid 1px black;
+}
+.text {
+  color: red;
+  margin-bottom: 5px;
+}
+.add-donator-heading {
+  margin-bottom: 0px;
+}
+
+.input-bar {
+  background-color: white;
+  box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
+}
+
+.input-field {
+  display: flex;
+  flex-direction: row;
+  column-gap: 100px;
+  width: 100%;
+  align-items: center;
+}
+
+.input-bar {
+  width: 400px;
+}
+
+.label {
+  width: 500px;
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+
+.checkbox-style {
+  width: 60px;
+  height: 24px;
+  font-size: 18px;
+  border: none;
+}
+
+.button-section {
+  border-top: solid 1px black;
+  padding-top: 15px;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 120px;
+  margin-bottom: 50px;
+}
+
+.donate-now-button {
+  background-color: rgb(234, 0, 0);
+  color: white;
+  border: none;
+  font-size: 20px;
+  width: 120px;
+}
+
+.cancel-button {
+  border: none;
+  font-size: 20px;
+  width: 120px;
+}

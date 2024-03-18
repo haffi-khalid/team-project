@@ -1,0 +1,247 @@
+.banner-area {
+  background-image: url('../../../../content/images/idea-banner.jpg');
+  background-repeat: no-repeat;
+  display: flex;
+  position: relative;
+  background-size: cover;
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.page-heading {
+  margin-top: 150px;
+  margin-left: 25px;
+  width: 600px;
+  height: 50px;
+  color: white;
+  font-weight: bold;
+}
+
+.banner-img {
+  height: 300px;
+  width: 900px;
+  opacity: 0.9;
+}
+
+/* add event section */
+.add-event-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.component1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* event box section */
+.event-box {
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
+  margin-bottom: 50px;
+  background-color: #fffacd;
+}
+
+.event-text-section {
+  padding-left: 10px;
+  padding-right: 15px;
+  height: 200px;
+
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px; /* You can adjust this value to decrease the space */
+}
+
+.event-name {
+  display: flex;
+  align-content: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 1px;
+  justify-content: center;
+}
+
+.timings {
+  text-align: left;
+  font-weight: bold;
+}
+
+.timings .duration {
+  font-size: 16px;
+  color: black; /* Adjust color as needed */
+  display: block; /* This makes the duration appear on a new line */
+  font-weight: bold;
+}
+
+.location {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.65);
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.location:hover {
+  color: blue;
+}
+
+.description {
+  text-size: small;
+  margin-bottom: 20px;
+  font-size: medium;
+  height: 120px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.charity-name {
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 0px;
+}
+.charity-name:hover {
+  color: blue;
+}
+
+.event-type {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  margin-top: 1px;
+}
+.add-event-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.charityProfile {
+  color: black;
+}
+
+.search-box {
+  padding: 6px;
+  border: none;
+  font-size: 17px;
+  border-radius: 8px;
+}
+
+.card {
+  width: 100%;
+  padding: 10px;
+  background-color: #d2b48c;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* CSS for Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Apply animation only on hover */
+.card:hover .card-content {
+  animation: fadeIn 0.5s ease;
+}
+
+/* CSS for Card Content */
+.card-content {
+  opacity: 0; /* Initially hidden */
+}
+
+.subheading {
+  margin-left: 25px;
+  margin-bottom: 10px;
+  width: 600px;
+  height: 50px;
+  color: black;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.body-text {
+  margin-left: 25px;
+  font-size: 20px;
+}
+
+/* Additional styling for table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.idea-box {
+  background-color: #d2b48c;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.popup-form {
+  //display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.idea-box:hover {
+  transform: translateY(-5px);
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
