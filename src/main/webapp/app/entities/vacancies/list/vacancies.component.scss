@@ -41,7 +41,7 @@
 .btn-sm2 {
   border-radius: 80px;
   margin-top: 1px;
-  margin-left: 1px;
+  margin-left: 75px;
   background-color: #ffffff;
   border-color: #ffffff;
   color: black;
@@ -57,7 +57,7 @@
   border-color: #ffffff;
   color: black;
   font-size: 15px;
-  margin-right: 200px;
+  margin-right: 50px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   width: 150px;
 }
@@ -81,12 +81,7 @@
   border: 10px solid #ffffff;
   font-size: 20px;
 }
-//.text-end {
-//  width: 1px;
-//  //border-top: 5px solid black;
-//  border-bottom: 5px solid black;
-//
-//}
+
 .id-field {
   border-bottom: 5px solid black;
   width: 100px;
@@ -97,18 +92,17 @@ tr:first-child th {
   background-color: #d8c3a9;
 }
 .text-end {
-  width: 10px;
+  width: 100px;
   height: 1px;
   text-align: center;
-  //border-top: 5px solid black;
   border-bottom: 5px solid black;
 }
 
 .filterBox {
-  border: solid black;
+  border: solid #d2b48c;
   width: 250px;
   height: 300px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .table-entities {
   top: -300px;
@@ -132,6 +126,6 @@ label {
 .applyButton {
   margin-right: 500px;
 }
-.btn-group2 {
-  width: 100px;
+.volunteerTracker {
+  margin-top: 50px;
 }

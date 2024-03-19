@@ -36,6 +36,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.username.nativeElement.focus();
   }
+  previousState(): void {
+    window.history.back();
+  }
 
   login(): void {
     this.loginService.login(this.loginForm.getRawValue()).subscribe({
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.authenticationError = false;
         if (!this.router.getCurrentNavigation()) {
           // There were no routing during login (eg from navigationToStoredUrl)
-          this.router.navigate(['']);
+          this.previousState();
         }
       },
       error: () => (this.authenticationError = true),

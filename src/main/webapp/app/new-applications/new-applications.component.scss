@@ -1,7 +1,46 @@
+//.vacancyImage {
+//  flex: 1;
+//  flex: 0 0 200px; /* Fixed width for the image container */
+//  height: 100px; /* Fixed height for the image container */
+//  overflow: hidden; /* Hide overflow if image is larger */
+//  border: black;
+//  padding-bottom: 20px;
+//  margin-left:100px;
+//
+//}
 .vacancyImage {
-  flex: 1;
-  flex: 0 0 200px; /* Fixed width for the image container */
-  height: 100px; /* Fixed height for the image container */
-  overflow: hidden; /* Hide overflow if image is larger */
-  border: black;
+  display: flex;
+  height: 50%;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  margin-left: 65px;
+}
+.vacancyLogo {
+  max-width: 75%;
+  max-height: 75%;
+  object-fit: contain;
+}
+.vacancyDescription {
+  text-align: center;
+}
+
+.job {
+  margin-left: 10px;
+  width: 25%;
+  align-content: center;
+  border: solid #d2b48c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.vacancyDetail {
+  text-align: center;
+}
+
+//.d-flex.justify-content-end{
+//  margin-top:100px;
+//}
+.form-container {
+  position: relative;
+  top: -500px;
+  margin-left: 700px;
 }

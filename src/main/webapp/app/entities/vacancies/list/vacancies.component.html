@@ -32,36 +32,6 @@
   </h2>
 
   <jhi-alert></jhi-alert>
-
-  <!--  <div class="alert alert-warnidddng">-->
-  <!--    <li ngbDropdown class="dropdown">-->
-  <!--      <a ngbDropdownToggle class="dropdown-toggle">Apply Filters</a>-->
-  <!--      <div ngbDropdownMenu class="dropdown-menu">-->
-  <!--        <input type="checkbox" [(ngModel)]="person"/>In-Person-->
-  <!--        <input type="checkbox" [(ngModel)]="remote"/>Remote-->
-  <!--        <input-->
-  <!--          id="field_vacancyStartDate"-->
-  <!--          data-cy="vacancyStartDate"-->
-  <!--          type="text"-->
-  <!--          name="vacancyStartDate"-->
-  <!--          ngbDatepicker-->
-  <!--          [(ngModel)]="dateSelector"-->
-  <!--          #vacancyStartDateDp="ngbDatepicker"-->
-  <!--        />-->
-  <!--        <button type="button" class="btn btn-secondary" (click)="vacancyStartDateDp.toggle()">-->
-  <!--          <fa-icon icon="calendar-alt"></fa-icon>-->
-  <!--        </button>-->
-  <!--        <button-->
-  <!--          type="submit"-->
-  <!--          id="save-entity"-->
-  <!--          data-cy="entityCreateSaveButton"-->
-  <!--          class="btn btn-primary"-->
-  <!--          (click)="applyFilters()"-->
-  <!--        > Apply Filters</button>-->
-  <!--      </div>-->
-  <!--    </li>-->
-
-  <!--  </div>-->
   <div class="filterBox">
     <div class="inputBox">
       <label>In-Person</label>
@@ -91,6 +61,11 @@
         Apply Filters
       </button>
     </div>
+  </div>
+  <div class="volunteerTracker">
+    <button type="submit" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="openVolunteerTrackerDialog()">
+      Volunteer Tracker
+    </button>
   </div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="vacancies?.length === 0">

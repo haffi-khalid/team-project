@@ -1,19 +1,151 @@
 <div class="row-md">
-  <div class="vacancyImage">
-    <a>
-      <img
-        [src]="'data:' + vacancy?.vacancyLogoContentType + ';base64,' + vacancy?.vacancyLogo"
-        style="max-height: 100px"
-        alt="vacancies image"
-      />
-    </a>
+  <div class="job">
+    <div class="vacancyImage">
+      <a>
+        <img
+          class="vacancyLogo"
+          [src]="'data:' + vacancy?.vacancyLogoContentType + ';base64,' + vacancy?.vacancyLogo"
+          alt="vacancies image"
+        />
+      </a>
+    </div>
+    <div class="vacancyDetail">
+      <span style="font-weight: bold">Job:</span>
+      {{ vacancy?.vacancyTitle }}<br />
+    </div>
+    <div class="vacancyDetail">
+      <span style="font-weight: bold">Start Date: </span>
+      {{ vacancy?.vacancyStartDate | formatMediumDate }}<br />
+    </div>
+    <div class="vacancyDetail">
+      <span style="font-weight: bold">Location: </span>
+      {{ vacancy?.vacancyLocation }}<br />
+    </div>
+    <div class="vacancyDetail">
+      <span style="font-weight: bold">Duration: </span>
+      {{ vacancy?.vacancyDuration }}<span> Hours</span><br />
+    </div>
+    <div class="vacancyDescription">
+      <span style="font-weight: bold">Description:</span>
+      {{ vacancy?.vacancyDescription }}<br />
+    </div>
   </div>
-  <div class="vacancyImage">
-    <span style="font-weight: bold">Job: </span>{{ vacancy?.vacancyTitle }}<br /><span style="font-weight: bold">Start Date: </span
-    >{{ vacancy?.vacancyStartDate | formatMediumDate }}<br /><span style="font-weight: bold">Location: </span>{{ vacancy?.vacancyLocation
-    }}<br /><span style="font-weight: bold">Duration: </span>{{ vacancy?.vacancyDuration }}<span> Hours</span><br /><span
-      style="font-weight: bold"
-      >Description:</span
-    >{{ vacancy?.vacancyDescription }}
+  <div class="form-container">
+    <div class="col-8">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <h2 *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jhi-volunteer-applications-heading" data-cy="VolunteerApplicationsCreateUpdateHeading">
+          Create or edit a Volunteer Applications
+        </h2>
+        <h2 *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')" data-cy="VolunteerApplicationsCreateUpdateHeading">
+          Please Fill The Application Form
+        </h2>
+
+        <div>
+          <jhi-alert-error></jhi-alert-error>
+
+          <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+
+          <div class="row mb-3">
+            <label class="form-label" for="field_timeStamp">Time Stamp</label>
+            <div class="d-flex">
+              <input
+                id="field_timeStamp"
+                data-cy="timeStamp"
+                type="datetime-local"
+                class="form-control"
+                name="timeStamp"
+                formControlName="timeStamp"
+                placeholder="YYYY-MM-DD HH:mm"
+              />
+            </div>
+          </div>
+
+          <!--          <div class="row mb-3">-->
+          <!--            <label class="form-label" for="field_volunteerStatus">Volunteer Status</label>-->
+          <!--            <select-->
+          <!--              class="form-control"-->
+          <!--              name="volunteerStatus"-->
+          <!--              formControlName="volunteerStatus"-->
+          <!--              id="field_volunteerStatus"-->
+          <!--              data-cy="volunteerStatus"-->
+          <!--            >-->
+          <!--              <option [ngValue]="null"></option>-->
+          <!--              <option *ngFor="let applicationCategory of applicationCategoryValues" [value]="applicationCategory">-->
+          <!--                {{ applicationCategory }}-->
+          <!--              </option>-->
+          <!--            </select>-->
+          <!--          </div>-->
+
+          <div class="row mb-3">
+            <label class="form-label" for="field_charityAdmin">Charity Admin</label>
+            <select
+              class="form-control"
+              id="field_charityAdmin"
+              data-cy="charityAdmin"
+              name="charityAdmin"
+              formControlName="charityAdmin"
+              [compareWith]="compareCharityAdmin"
+            >
+              <option [ngValue]="null"></option>
+              <option [ngValue]="charityAdminOption" *ngFor="let charityAdminOption of charityAdminsSharedCollection">
+                {{ charityAdminOption.id }}
+              </option>
+            </select>
+          </div>
+
+          <div class="row mb-3">
+            <label class="form-label" for="field_charityHubUser">Charity Hub User</label>
+            <select
+              class="form-control"
+              id="field_charityHubUser"
+              data-cy="charityHubUser"
+              name="charityHubUser"
+              formControlName="charityHubUser"
+              [compareWith]="compareCharityHubUser"
+            >
+              <option [ngValue]="null"></option>
+              <option [ngValue]="charityHubUserOption" *ngFor="let charityHubUserOption of charityHubUsersSharedCollection">
+                {{ charityHubUserOption.id }}
+              </option>
+            </select>
+          </div>
+
+          <div class="row mb-3">
+            <label class="form-label" for="field_vacancies">Vacancies</label>
+            <select
+              class="form-control"
+              id="field_vacancies"
+              data-cy="vacancies"
+              name="vacancies"
+              formControlName="vacancies"
+              [compareWith]="compareVacancies"
+            >
+              <option *ngIf="vacancy?.id">{{ vacancy?.vacancyTitle }}</option>
+              <!--              <option [ngValue]="null"></option>-->
+              <!--              <option [ngValue]="vacanciesOption" *ngFor="let vacanciesOption of vacanciesSharedCollection">{{ vacanciesOption.vacancyTitle }}</option>-->
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+          </button>
+
+          <button
+            type="submit"
+            id="save-entity"
+            data-cy="entityCreateSaveButton"
+            [disabled]="editForm.invalid || isSaving"
+            class="btn btn-primary"
+          >
+            <fa-icon icon="save"></fa-icon>&nbsp;<span>Submit</span>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

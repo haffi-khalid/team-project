@@ -60,6 +60,7 @@ export class VacanciesService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
+    // const url = id ? `${this.resourceUrl}/${id}` : this.resourceUrl;
     return this.http
       .get<RestVacancies[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));

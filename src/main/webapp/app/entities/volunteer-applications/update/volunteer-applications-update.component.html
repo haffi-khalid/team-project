@@ -40,7 +40,6 @@
             id="field_volunteerStatus"
             data-cy="volunteerStatus"
           >
-            <option [ngValue]="null"></option>
             <option *ngFor="let applicationCategory of applicationCategoryValues" [value]="applicationCategory">
               {{ applicationCategory }}
             </option>

@@ -2,6 +2,7 @@ package team.bham.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Security;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -9,10 +10,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import team.bham.domain.CharityHubUser;
+import team.bham.domain.User;
 import team.bham.repository.CharityHubUserRepository;
+import team.bham.repository.UserRepository;
+import team.bham.security.SecurityUtils;
+import team.bham.service.UserService;
 import team.bham.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -33,9 +41,11 @@ public class CharityHubUserResource {
     private String applicationName;
 
     private final CharityHubUserRepository charityHubUserRepository;
+    private final UserRepository userRepository;
 
-    public CharityHubUserResource(CharityHubUserRepository charityHubUserRepository) {
+    public CharityHubUserResource(CharityHubUserRepository charityHubUserRepository, UserRepository userRepository) {
         this.charityHubUserRepository = charityHubUserRepository;
+        this.userRepository = userRepository;
     }
 
     /**

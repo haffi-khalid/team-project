@@ -12,6 +12,7 @@ import { SortService } from 'app/shared/sort/sort.service';
 import { AccountService } from '../../../core/auth/account.service';
 import { LoginPopUpCheckComponent } from '../../../login-pop-up-check/login-pop-up-check.component';
 import dayjs from 'dayjs/esm';
+import { VolunteerApplicationsComponent } from '../../volunteer-applications/list/volunteer-applications.component';
 
 @Component({
   selector: 'jhi-vacancies',
@@ -111,6 +112,10 @@ export class VacanciesComponent implements OnInit {
   openLoginCheckDialog(vacancies: IVacancies) {
     const modalRef = this.modalService.open(LoginPopUpCheckComponent, { size: 'xl' });
     modalRef.componentInstance.vacancies = vacancies;
+  }
+  openVolunteerTrackerDialog() {
+    this.modalService.open(VolunteerApplicationsComponent, { size: 'xl' });
+    // modalRef.componentInstance.vacancies = vacancies;
   }
 
   openFile(base64String: string, contentType: string | null | undefined): void {
