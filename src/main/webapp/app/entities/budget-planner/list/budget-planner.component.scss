@@ -1,0 +1,24 @@
+.banner-area {
+  background-image: url('../../../../content/images/budgeter-banner.jpg');
+  background-repeat: no-repeat;
+  display: flex;
+  position: relative;
+  background-size: cover;
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.page-heading {
+  margin-top: 150px;
+  margin-left: 25px;
+  width: 600px;
+  height: 50px;
+  color: white;
+  font-weight: bold;
+}
+
+.banner-img {
+  height: 300px;
+  width: 900px;
+  opacity: 0.9;
+}

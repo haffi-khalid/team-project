@@ -13,6 +13,7 @@ import { SortService } from 'app/shared/sort/sort.service';
 @Component({
   selector: 'jhi-budget-planner',
   templateUrl: './budget-planner.component.html',
+  styleUrls: ['./budget-planner.component.scss'],
 })
 export class BudgetPlannerComponent implements OnInit {
   budgetPlanners?: IBudgetPlanner[];
