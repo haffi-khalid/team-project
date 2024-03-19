@@ -5,18 +5,22 @@ export const sampleWithRequiredData: IUserPage = {
 };
 
 export const sampleWithPartialData: IUserPage = {
-  id: 75701,
-  userBio: '../fake-data/blob/hipster.txt',
-  course: 'Cambridgeshire',
+  id: 48791,
+  name: 'asymmetric unleash Concrete',
+  volunteerHours: 10410,
+  course: 'overriding Virtual',
 };
 
 export const sampleWithFullData: IUserPage = {
-  id: 8397,
-  volunteerHours: 13234,
+  id: 85421,
+  profilePicture: '../fake-data/blob/hipster.png',
+  profilePictureContentType: 'unknown',
+  name: 'Sausages',
   userBio: '../fake-data/blob/hipster.txt',
+  volunteerHours: 60519,
   reviewComment: '../fake-data/blob/hipster.txt',
-  course: 'quantify sky',
-  skills: 'overriding Virtual',
+  course: 'deposit',
+  skills: 'application mint Wooden',
 };
 
 export const sampleWithNewData: NewUserPage = {

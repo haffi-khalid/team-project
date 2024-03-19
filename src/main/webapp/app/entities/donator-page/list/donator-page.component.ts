@@ -12,7 +12,6 @@ import { SortService } from 'app/shared/sort/sort.service';
 @Component({
   selector: 'jhi-donator-page',
   templateUrl: './donator-page.component.html',
-  styleUrls: ['./donator-page.component.css'],
 })
 export class DonatorPageComponent implements OnInit {
   donatorPages?: IDonatorPage[];
@@ -20,8 +19,6 @@ export class DonatorPageComponent implements OnInit {
 
   predicate = 'id';
   ascending = true;
-
-  topDonatorPages?: IDonatorPage[];
 
   constructor(
     protected donatorPageService: DonatorPageService,
@@ -81,11 +78,10 @@ export class DonatorPageComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.donatorPages = this.refineData(dataFromBody);
-    this.topDonatorPages = this.donatorPages.slice(0, 7);
   }
 
   protected refineData(data: IDonatorPage[]): IDonatorPage[] {
-    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? -1 : 1));
+    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
   }
 
   protected fillComponentAttributesFromResponseBody(data: IDonatorPage[] | null): IDonatorPage[] {
@@ -95,6 +91,7 @@ export class DonatorPageComponent implements OnInit {
   protected queryBackend(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
     this.isLoading = true;
     const queryObject = {
+      eagerload: true,
       sort: this.getSortQueryParam(predicate, ascending),
     };
     return this.donatorPageService.query(queryObject).pipe(tap(() => (this.isLoading = false)));

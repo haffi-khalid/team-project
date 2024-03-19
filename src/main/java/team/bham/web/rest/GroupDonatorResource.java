@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -143,12 +145,28 @@ public class GroupDonatorResource {
     /**
      * {@code GET  /group-donators} : get all the groupDonators.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of groupDonators in body.
      */
     @GetMapping("/group-donators")
-    public List<GroupDonator> getAllGroupDonators() {
+    public List<GroupDonator> getAllGroupDonators(
+        @RequestParam(required = false) String filter,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
+        if ("groupdonatorcollector-is-null".equals(filter)) {
+            log.debug("REST request to get all GroupDonators where groupDonatorCollector is null");
+            return StreamSupport
+                .stream(groupDonatorRepository.findAll().spliterator(), false)
+                .filter(groupDonator -> groupDonator.getGroupDonatorCollector() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all GroupDonators");
-        return groupDonatorRepository.findAll();
+        if (eagerload) {
+            return groupDonatorRepository.findAllWithEagerRelationships();
+        } else {
+            return groupDonatorRepository.findAll();
+        }
     }
 
     /**
@@ -160,7 +178,7 @@ public class GroupDonatorResource {
     @GetMapping("/group-donators/{id}")
     public ResponseEntity<GroupDonator> getGroupDonator(@PathVariable Long id) {
         log.debug("REST request to get GroupDonator : {}", id);
-        Optional<GroupDonator> groupDonator = groupDonatorRepository.findById(id);
+        Optional<GroupDonator> groupDonator = groupDonatorRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(groupDonator);
     }
 

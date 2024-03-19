@@ -39,15 +39,28 @@ public class ReviewComments implements Serializable {
     @Column(name = "status")
     private String status;
 
-    @ManyToOne
-    @JsonIgnoreProperties(
-        value = { "user", "userPage", "authentication", "volunteerApplications", "reviewComments", "approvedVolunteers" },
-        allowSetters = true
-    )
-    private CharityHubUser charityHubUser;
+    @Column(name = "like_count")
+    private Integer likeCount;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "volunteerApplications", "reviewComments", "approvedVolunteers" }, allowSetters = true)
+    private UserPage userPage;
+
+    @ManyToOne
+    @JsonIgnoreProperties(
+        value = {
+            "budgetPlanner",
+            "socialFeed",
+            "reviewComments",
+            "donatorPages",
+            "vacancies",
+            "charityEvents",
+            "fundraisingIdeas",
+            "approvedVolunteers",
+            "volunteerApplications",
+        },
+        allowSetters = true
+    )
     private CharityProfile charityProfile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -117,16 +130,29 @@ public class ReviewComments implements Serializable {
         this.status = status;
     }
 
-    public CharityHubUser getCharityHubUser() {
-        return this.charityHubUser;
+    public Integer getLikeCount() {
+        return this.likeCount;
     }
 
-    public void setCharityHubUser(CharityHubUser charityHubUser) {
-        this.charityHubUser = charityHubUser;
+    public ReviewComments likeCount(Integer likeCount) {
+        this.setLikeCount(likeCount);
+        return this;
     }
 
-    public ReviewComments charityHubUser(CharityHubUser charityHubUser) {
-        this.setCharityHubUser(charityHubUser);
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public UserPage getUserPage() {
+        return this.userPage;
+    }
+
+    public void setUserPage(UserPage userPage) {
+        this.userPage = userPage;
+    }
+
+    public ReviewComments userPage(UserPage userPage) {
+        this.setUserPage(userPage);
         return this;
     }
 
@@ -171,6 +197,7 @@ public class ReviewComments implements Serializable {
             ", content='" + getContent() + "'" +
             ", timestamp='" + getTimestamp() + "'" +
             ", status='" + getStatus() + "'" +
+            ", likeCount=" + getLikeCount() +
             "}";
     }
 }

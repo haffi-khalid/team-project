@@ -13,7 +13,6 @@ import { CharityProfileService } from 'app/entities/charity-profile/service/char
 @Component({
   selector: 'jhi-donator-page-update',
   templateUrl: './donator-page-update.component.html',
-  styleUrls: ['./donator-page-update.component.css'],
 })
 export class DonatorPageUpdateComponent implements OnInit {
   isSaving = false;

@@ -12,6 +12,7 @@ import { EventManager, EventWithContent } from 'app/core/util/event-manager.serv
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
+import { EventType } from 'app/entities/enumerations/event-type.model';
 
 @Component({
   selector: 'jhi-charity-event-update',
@@ -20,6 +21,7 @@ import { CharityProfileService } from 'app/entities/charity-profile/service/char
 export class CharityEventUpdateComponent implements OnInit {
   isSaving = false;
   charityEvent: ICharityEvent | null = null;
+  eventTypeValues = Object.keys(EventType);
 
   charityProfilesSharedCollection: ICharityProfile[] = [];
 

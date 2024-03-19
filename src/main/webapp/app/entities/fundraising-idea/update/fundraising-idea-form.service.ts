@@ -24,7 +24,7 @@ type FundraisingIdeaFormGroupContent = {
   location: FormControl<IFundraisingIdea['location']>;
   expectedCost: FormControl<IFundraisingIdea['expectedCost']>;
   expectedAttendance: FormControl<IFundraisingIdea['expectedAttendance']>;
-  charityAdmin: FormControl<IFundraisingIdea['charityAdmin']>;
+  charityProfile: FormControl<IFundraisingIdea['charityProfile']>;
 };
 
 export type FundraisingIdeaFormGroup = FormGroup<FundraisingIdeaFormGroupContent>;
@@ -50,7 +50,7 @@ export class FundraisingIdeaFormService {
       location: new FormControl(fundraisingIdeaRawValue.location),
       expectedCost: new FormControl(fundraisingIdeaRawValue.expectedCost),
       expectedAttendance: new FormControl(fundraisingIdeaRawValue.expectedAttendance),
-      charityAdmin: new FormControl(fundraisingIdeaRawValue.charityAdmin),
+      charityProfile: new FormControl(fundraisingIdeaRawValue.charityProfile),
     });
   }
 

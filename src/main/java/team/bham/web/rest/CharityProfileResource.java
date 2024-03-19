@@ -169,19 +169,6 @@ public class CharityProfileResource {
         return charityProfileRepository.findAll();
     }
 
-    @GetMapping("/charity-name")
-    public List<String> getAllVacancyCharityName() {
-        log.debug("REST request to get all Charity Names in Vacancy");
-        return charityProfileRepository.findAllVacancyCharityName();
-    }
-
-    @GetMapping("/charityId/{name}")
-    public Optional<Long> getVacancyCharityId(@PathVariable String name) {
-        log.debug("REST request to get Id for a Charity Name");
-        Optional<Long> charityID = charityProfileRepository.findCharityId(name);
-        return charityID;
-    }
-
     /**
      * {@code GET  /charity-profiles/:id} : get the "id" charityProfile.
      *

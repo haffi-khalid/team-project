@@ -56,6 +56,11 @@ public class CharityProfile implements Serializable {
     @Column(name = "pictures_content_type")
     private String picturesContentType;
 
+    @JsonIgnoreProperties(value = { "charityProfile" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private BudgetPlanner budgetPlanner;
+
     @JsonIgnoreProperties(value = { "posts", "charityProfile" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
@@ -63,7 +68,7 @@ public class CharityProfile implements Serializable {
 
     @OneToMany(mappedBy = "charityProfile")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "charityHubUser", "charityProfile" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "userPage", "charityProfile" }, allowSetters = true)
     private Set<ReviewComments> reviewComments = new HashSet<>();
 
     @OneToMany(mappedBy = "charityProfile")
@@ -80,6 +85,21 @@ public class CharityProfile implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "groupDonators", "charityProfile" }, allowSetters = true)
     private Set<CharityEvent> charityEvents = new HashSet<>();
+
+    @OneToMany(mappedBy = "charityProfile")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "charityProfile" }, allowSetters = true)
+    private Set<FundraisingIdea> fundraisingIdeas = new HashSet<>();
+
+    @OneToMany(mappedBy = "charityProfile")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "volunteerApplications", "userPage", "charityProfile" }, allowSetters = true)
+    private Set<ApprovedVolunteers> approvedVolunteers = new HashSet<>();
+
+    @OneToMany(mappedBy = "charityProfile")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "charityProfile", "approvedVolunteers", "userPage", "vacancies" }, allowSetters = true)
+    private Set<VolunteerApplications> volunteerApplications = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -198,6 +218,19 @@ public class CharityProfile implements Serializable {
 
     public void setPicturesContentType(String picturesContentType) {
         this.picturesContentType = picturesContentType;
+    }
+
+    public BudgetPlanner getBudgetPlanner() {
+        return this.budgetPlanner;
+    }
+
+    public void setBudgetPlanner(BudgetPlanner budgetPlanner) {
+        this.budgetPlanner = budgetPlanner;
+    }
+
+    public CharityProfile budgetPlanner(BudgetPlanner budgetPlanner) {
+        this.setBudgetPlanner(budgetPlanner);
+        return this;
     }
 
     public SocialFeed getSocialFeed() {
@@ -334,6 +367,99 @@ public class CharityProfile implements Serializable {
     public CharityProfile removeCharityEvent(CharityEvent charityEvent) {
         this.charityEvents.remove(charityEvent);
         charityEvent.setCharityProfile(null);
+        return this;
+    }
+
+    public Set<FundraisingIdea> getFundraisingIdeas() {
+        return this.fundraisingIdeas;
+    }
+
+    public void setFundraisingIdeas(Set<FundraisingIdea> fundraisingIdeas) {
+        if (this.fundraisingIdeas != null) {
+            this.fundraisingIdeas.forEach(i -> i.setCharityProfile(null));
+        }
+        if (fundraisingIdeas != null) {
+            fundraisingIdeas.forEach(i -> i.setCharityProfile(this));
+        }
+        this.fundraisingIdeas = fundraisingIdeas;
+    }
+
+    public CharityProfile fundraisingIdeas(Set<FundraisingIdea> fundraisingIdeas) {
+        this.setFundraisingIdeas(fundraisingIdeas);
+        return this;
+    }
+
+    public CharityProfile addFundraisingIdea(FundraisingIdea fundraisingIdea) {
+        this.fundraisingIdeas.add(fundraisingIdea);
+        fundraisingIdea.setCharityProfile(this);
+        return this;
+    }
+
+    public CharityProfile removeFundraisingIdea(FundraisingIdea fundraisingIdea) {
+        this.fundraisingIdeas.remove(fundraisingIdea);
+        fundraisingIdea.setCharityProfile(null);
+        return this;
+    }
+
+    public Set<ApprovedVolunteers> getApprovedVolunteers() {
+        return this.approvedVolunteers;
+    }
+
+    public void setApprovedVolunteers(Set<ApprovedVolunteers> approvedVolunteers) {
+        if (this.approvedVolunteers != null) {
+            this.approvedVolunteers.forEach(i -> i.setCharityProfile(null));
+        }
+        if (approvedVolunteers != null) {
+            approvedVolunteers.forEach(i -> i.setCharityProfile(this));
+        }
+        this.approvedVolunteers = approvedVolunteers;
+    }
+
+    public CharityProfile approvedVolunteers(Set<ApprovedVolunteers> approvedVolunteers) {
+        this.setApprovedVolunteers(approvedVolunteers);
+        return this;
+    }
+
+    public CharityProfile addApprovedVolunteers(ApprovedVolunteers approvedVolunteers) {
+        this.approvedVolunteers.add(approvedVolunteers);
+        approvedVolunteers.setCharityProfile(this);
+        return this;
+    }
+
+    public CharityProfile removeApprovedVolunteers(ApprovedVolunteers approvedVolunteers) {
+        this.approvedVolunteers.remove(approvedVolunteers);
+        approvedVolunteers.setCharityProfile(null);
+        return this;
+    }
+
+    public Set<VolunteerApplications> getVolunteerApplications() {
+        return this.volunteerApplications;
+    }
+
+    public void setVolunteerApplications(Set<VolunteerApplications> volunteerApplications) {
+        if (this.volunteerApplications != null) {
+            this.volunteerApplications.forEach(i -> i.setCharityProfile(null));
+        }
+        if (volunteerApplications != null) {
+            volunteerApplications.forEach(i -> i.setCharityProfile(this));
+        }
+        this.volunteerApplications = volunteerApplications;
+    }
+
+    public CharityProfile volunteerApplications(Set<VolunteerApplications> volunteerApplications) {
+        this.setVolunteerApplications(volunteerApplications);
+        return this;
+    }
+
+    public CharityProfile addVolunteerApplications(VolunteerApplications volunteerApplications) {
+        this.volunteerApplications.add(volunteerApplications);
+        volunteerApplications.setCharityProfile(this);
+        return this;
+    }
+
+    public CharityProfile removeVolunteerApplications(VolunteerApplications volunteerApplications) {
+        this.volunteerApplications.remove(volunteerApplications);
+        volunteerApplications.setCharityProfile(null);
         return this;
     }
 

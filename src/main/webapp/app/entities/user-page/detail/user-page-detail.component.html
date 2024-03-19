@@ -14,13 +14,30 @@
         <dd>
           <span>{{ userPage.id }}</span>
         </dd>
-        <dt><span>Volunteer Hours</span></dt>
+        <dt><span>Profile Picture</span></dt>
         <dd>
-          <span>{{ userPage.volunteerHours }}</span>
+          <div *ngIf="userPage.profilePicture">
+            <a (click)="openFile(userPage.profilePicture, userPage.profilePictureContentType)">
+              <img
+                [src]="'data:' + userPage.profilePictureContentType + ';base64,' + userPage.profilePicture"
+                style="max-width: 100%"
+                alt="userPage image"
+              />
+            </a>
+            {{ userPage.profilePictureContentType }}, {{ byteSize(userPage.profilePicture) }}
+          </div>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ userPage.name }}</span>
         </dd>
         <dt><span>User Bio</span></dt>
         <dd>
           <span>{{ userPage.userBio }}</span>
+        </dd>
+        <dt><span>Volunteer Hours</span></dt>
+        <dd>
+          <span>{{ userPage.volunteerHours }}</span>
         </dd>
         <dt><span>Review Comment</span></dt>
         <dd>
@@ -33,6 +50,10 @@
         <dt><span>Skills</span></dt>
         <dd>
           <span>{{ userPage.skills }}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ userPage.user?.id }}</span>
         </dd>
       </dl>
 

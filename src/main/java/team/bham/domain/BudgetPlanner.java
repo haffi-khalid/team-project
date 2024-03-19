@@ -42,11 +42,21 @@ public class BudgetPlanner implements Serializable {
     private Double forecastIncome;
 
     @JsonIgnoreProperties(
-        value = { "budgetPlanner", "charityProfile", "fundraisingIdeas", "approvedVolunteers", "volunteerApplications" },
+        value = {
+            "budgetPlanner",
+            "socialFeed",
+            "reviewComments",
+            "donatorPages",
+            "vacancies",
+            "charityEvents",
+            "fundraisingIdeas",
+            "approvedVolunteers",
+            "volunteerApplications",
+        },
         allowSetters = true
     )
     @OneToOne(mappedBy = "budgetPlanner")
-    private CharityAdmin charityAdmin;
+    private CharityProfile charityProfile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -128,22 +138,22 @@ public class BudgetPlanner implements Serializable {
         this.forecastIncome = forecastIncome;
     }
 
-    public CharityAdmin getCharityAdmin() {
-        return this.charityAdmin;
+    public CharityProfile getCharityProfile() {
+        return this.charityProfile;
     }
 
-    public void setCharityAdmin(CharityAdmin charityAdmin) {
-        if (this.charityAdmin != null) {
-            this.charityAdmin.setBudgetPlanner(null);
+    public void setCharityProfile(CharityProfile charityProfile) {
+        if (this.charityProfile != null) {
+            this.charityProfile.setBudgetPlanner(null);
         }
-        if (charityAdmin != null) {
-            charityAdmin.setBudgetPlanner(this);
+        if (charityProfile != null) {
+            charityProfile.setBudgetPlanner(this);
         }
-        this.charityAdmin = charityAdmin;
+        this.charityProfile = charityProfile;
     }
 
-    public BudgetPlanner charityAdmin(CharityAdmin charityAdmin) {
-        this.setCharityAdmin(charityAdmin);
+    public BudgetPlanner charityProfile(CharityProfile charityProfile) {
+        this.setCharityProfile(charityProfile);
         return this;
     }
 

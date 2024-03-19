@@ -39,9 +39,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "charityAdmin",
+      "otherEntityField": "charityName",
+      "otherEntityName": "charityProfile",
       "otherEntityRelationshipName": "fundraisingIdea",
-      "relationshipName": "charityAdmin",
+      "relationshipName": "charityProfile",
       "relationshipType": "many-to-one"
     }
   ],

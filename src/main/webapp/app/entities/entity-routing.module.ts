@@ -84,6 +84,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'Authentications' },
         loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule),
       },
+      {
+        path: 'group-donator-collector',
+        data: { pageTitle: 'GroupDonatorCollectors' },
+        loadChildren: () => import('./group-donator-collector/group-donator-collector.module').then(m => m.GroupDonatorCollectorModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

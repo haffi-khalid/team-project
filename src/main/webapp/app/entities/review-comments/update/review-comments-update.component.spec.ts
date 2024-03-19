@@ -9,8 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { ReviewCommentsFormService } from './review-comments-form.service';
 import { ReviewCommentsService } from '../service/review-comments.service';
 import { IReviewComments } from '../review-comments.model';
-import { ICharityHubUser } from 'app/entities/charity-hub-user/charity-hub-user.model';
-import { CharityHubUserService } from 'app/entities/charity-hub-user/service/charity-hub-user.service';
+import { IUserPage } from 'app/entities/user-page/user-page.model';
+import { UserPageService } from 'app/entities/user-page/service/user-page.service';
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
 
@@ -22,7 +22,7 @@ describe('ReviewComments Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let reviewCommentsFormService: ReviewCommentsFormService;
   let reviewCommentsService: ReviewCommentsService;
-  let charityHubUserService: CharityHubUserService;
+  let userPageService: UserPageService;
   let charityProfileService: CharityProfileService;
 
   beforeEach(() => {
@@ -46,33 +46,33 @@ describe('ReviewComments Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     reviewCommentsFormService = TestBed.inject(ReviewCommentsFormService);
     reviewCommentsService = TestBed.inject(ReviewCommentsService);
-    charityHubUserService = TestBed.inject(CharityHubUserService);
+    userPageService = TestBed.inject(UserPageService);
     charityProfileService = TestBed.inject(CharityProfileService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call CharityHubUser query and add missing value', () => {
+    it('Should call UserPage query and add missing value', () => {
       const reviewComments: IReviewComments = { id: 456 };
-      const charityHubUser: ICharityHubUser = { id: 58110 };
-      reviewComments.charityHubUser = charityHubUser;
+      const userPage: IUserPage = { id: 88824 };
+      reviewComments.userPage = userPage;
 
-      const charityHubUserCollection: ICharityHubUser[] = [{ id: 50924 }];
-      jest.spyOn(charityHubUserService, 'query').mockReturnValue(of(new HttpResponse({ body: charityHubUserCollection })));
-      const additionalCharityHubUsers = [charityHubUser];
-      const expectedCollection: ICharityHubUser[] = [...additionalCharityHubUsers, ...charityHubUserCollection];
-      jest.spyOn(charityHubUserService, 'addCharityHubUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const userPageCollection: IUserPage[] = [{ id: 82929 }];
+      jest.spyOn(userPageService, 'query').mockReturnValue(of(new HttpResponse({ body: userPageCollection })));
+      const additionalUserPages = [userPage];
+      const expectedCollection: IUserPage[] = [...additionalUserPages, ...userPageCollection];
+      jest.spyOn(userPageService, 'addUserPageToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ reviewComments });
       comp.ngOnInit();
 
-      expect(charityHubUserService.query).toHaveBeenCalled();
-      expect(charityHubUserService.addCharityHubUserToCollectionIfMissing).toHaveBeenCalledWith(
-        charityHubUserCollection,
-        ...additionalCharityHubUsers.map(expect.objectContaining)
+      expect(userPageService.query).toHaveBeenCalled();
+      expect(userPageService.addUserPageToCollectionIfMissing).toHaveBeenCalledWith(
+        userPageCollection,
+        ...additionalUserPages.map(expect.objectContaining)
       );
-      expect(comp.charityHubUsersSharedCollection).toEqual(expectedCollection);
+      expect(comp.userPagesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call CharityProfile query and add missing value', () => {
@@ -99,15 +99,15 @@ describe('ReviewComments Management Update Component', () => {
 
     it('Should update editForm', () => {
       const reviewComments: IReviewComments = { id: 456 };
-      const charityHubUser: ICharityHubUser = { id: 2477 };
-      reviewComments.charityHubUser = charityHubUser;
+      const userPage: IUserPage = { id: 7470 };
+      reviewComments.userPage = userPage;
       const charityProfile: ICharityProfile = { id: 94444 };
       reviewComments.charityProfile = charityProfile;
 
       activatedRoute.data = of({ reviewComments });
       comp.ngOnInit();
 
-      expect(comp.charityHubUsersSharedCollection).toContain(charityHubUser);
+      expect(comp.userPagesSharedCollection).toContain(userPage);
       expect(comp.charityProfilesSharedCollection).toContain(charityProfile);
       expect(comp.reviewComments).toEqual(reviewComments);
     });
@@ -182,13 +182,13 @@ describe('ReviewComments Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareCharityHubUser', () => {
-      it('Should forward to charityHubUserService', () => {
+    describe('compareUserPage', () => {
+      it('Should forward to userPageService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(charityHubUserService, 'compareCharityHubUser');
-        comp.compareCharityHubUser(entity, entity2);
-        expect(charityHubUserService.compareCharityHubUser).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(userPageService, 'compareUserPage');
+        comp.compareUserPage(entity, entity2);
+        expect(userPageService.compareUserPage).toHaveBeenCalledWith(entity, entity2);
       });
     });
 

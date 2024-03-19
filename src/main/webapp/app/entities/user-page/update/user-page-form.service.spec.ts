@@ -20,11 +20,14 @@ describe('UserPage Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            volunteerHours: expect.any(Object),
+            profilePicture: expect.any(Object),
+            name: expect.any(Object),
             userBio: expect.any(Object),
+            volunteerHours: expect.any(Object),
             reviewComment: expect.any(Object),
             course: expect.any(Object),
             skills: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });
@@ -35,11 +38,14 @@ describe('UserPage Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            volunteerHours: expect.any(Object),
+            profilePicture: expect.any(Object),
+            name: expect.any(Object),
             userBio: expect.any(Object),
+            volunteerHours: expect.any(Object),
             reviewComment: expect.any(Object),
             course: expect.any(Object),
             skills: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });

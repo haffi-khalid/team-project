@@ -6,9 +6,11 @@ import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
+import team.bham.domain.enumeration.EventType;
 
 /**
  * A CharityEvent.
@@ -48,13 +50,35 @@ public class CharityEvent implements Serializable {
     @Column(name = "duration")
     private Integer duration;
 
+    @NotNull
+    @Column(name = "location", nullable = false)
+    private String location;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "charity_type", nullable = false)
+    private EventType charityType;
+
     @OneToMany(mappedBy = "charityEvent")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "donatorPage", "charityEvent" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "donatorPage", "groupDonatorCollector", "charityEvent" }, allowSetters = true)
     private Set<GroupDonator> groupDonators = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "budgetPlanner",
+            "socialFeed",
+            "reviewComments",
+            "donatorPages",
+            "vacancies",
+            "charityEvents",
+            "fundraisingIdeas",
+            "approvedVolunteers",
+            "volunteerApplications",
+        },
+        allowSetters = true
+    )
     private CharityProfile charityProfile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -150,6 +174,32 @@ public class CharityEvent implements Serializable {
         this.duration = duration;
     }
 
+    public String getLocation() {
+        return this.location;
+    }
+
+    public CharityEvent location(String location) {
+        this.setLocation(location);
+        return this;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public EventType getCharityType() {
+        return this.charityType;
+    }
+
+    public CharityEvent charityType(EventType charityType) {
+        this.setCharityType(charityType);
+        return this;
+    }
+
+    public void setCharityType(EventType charityType) {
+        this.charityType = charityType;
+    }
+
     public Set<GroupDonator> getGroupDonators() {
         return this.groupDonators;
     }
@@ -224,6 +274,8 @@ public class CharityEvent implements Serializable {
             ", images='" + getImages() + "'" +
             ", imagesContentType='" + getImagesContentType() + "'" +
             ", duration=" + getDuration() +
+            ", location='" + getLocation() + "'" +
+            ", charityType='" + getCharityType() + "'" +
             "}";
     }
 }

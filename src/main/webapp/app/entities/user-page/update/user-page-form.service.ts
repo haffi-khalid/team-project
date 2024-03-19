@@ -18,11 +18,15 @@ type UserPageFormDefaults = Pick<NewUserPage, 'id'>;
 
 type UserPageFormGroupContent = {
   id: FormControl<IUserPage['id'] | NewUserPage['id']>;
-  volunteerHours: FormControl<IUserPage['volunteerHours']>;
+  profilePicture: FormControl<IUserPage['profilePicture']>;
+  profilePictureContentType: FormControl<IUserPage['profilePictureContentType']>;
+  name: FormControl<IUserPage['name']>;
   userBio: FormControl<IUserPage['userBio']>;
+  volunteerHours: FormControl<IUserPage['volunteerHours']>;
   reviewComment: FormControl<IUserPage['reviewComment']>;
   course: FormControl<IUserPage['course']>;
   skills: FormControl<IUserPage['skills']>;
+  user: FormControl<IUserPage['user']>;
 };
 
 export type UserPageFormGroup = FormGroup<UserPageFormGroupContent>;
@@ -42,11 +46,15 @@ export class UserPageFormService {
           validators: [Validators.required],
         }
       ),
-      volunteerHours: new FormControl(userPageRawValue.volunteerHours),
+      profilePicture: new FormControl(userPageRawValue.profilePicture),
+      profilePictureContentType: new FormControl(userPageRawValue.profilePictureContentType),
+      name: new FormControl(userPageRawValue.name),
       userBio: new FormControl(userPageRawValue.userBio),
+      volunteerHours: new FormControl(userPageRawValue.volunteerHours),
       reviewComment: new FormControl(userPageRawValue.reviewComment),
       course: new FormControl(userPageRawValue.course),
       skills: new FormControl(userPageRawValue.skills),
+      user: new FormControl(userPageRawValue.user),
     });
   }
 

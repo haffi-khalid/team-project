@@ -26,7 +26,10 @@
             <column name="status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="charity_hub_user_id" type="bigint">
+            <column name="like_count" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_page_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="charity_profile_id" type="bigint">
@@ -58,6 +61,7 @@
             <column name="content" type="clob"/>
             <column name="timestamp" type="date"/>
             <column name="status" type="string"/>
+            <column name="like_count" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

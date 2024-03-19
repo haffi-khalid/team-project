@@ -31,7 +31,7 @@
         <dt><span>Charity Event</span></dt>
         <dd>
           <div *ngIf="groupDonator.charityEvent">
-            <a [routerLink]="['/charity-event', groupDonator.charityEvent.id, 'view']">{{ groupDonator.charityEvent.id }}</a>
+            <a [routerLink]="['/charity-event', groupDonator.charityEvent.id, 'view']">{{ groupDonator.charityEvent.eventName }}</a>
           </div>
         </dd>
       </dl>

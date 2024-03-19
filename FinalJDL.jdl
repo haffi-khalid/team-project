@@ -4,8 +4,10 @@ email String,
 }
 
 entity UserPage {
-volunteerHours Integer,
-userBio TextBlob,
+    profilePicture ImageBlob,
+    name String,
+    userBio TextBlob,
+    volunteerHours Integer,
 reviewComment TextBlob,
 course String,
 skills String
@@ -15,7 +17,8 @@ entity ReviewComments {
 parentID Integer,
 content TextBlob,
 timestamp Instant,
-status String
+status String,
+    likeCount Integer
 }
 
 entity VolunteerApplications {
@@ -69,6 +72,16 @@ eventTimeDate ZonedDateTime,
 description TextBlob,
 images ImageBlob,
 duration Integer
+    location String required,
+    charityType EventType required
+}
+
+enum EventType{
+    CHILDCARE,
+    HUMANRIGHT,
+    HEALTH,
+    HOMELESSNESS,
+    OTHER
 }
 entity FundraisingIdea {
 ideaName String,
@@ -112,31 +125,34 @@ entity Authentication{
 isAuthenticated Boolean
 }
 
+entity GroupDonatorCollector{
+    donatorName String,
+    donationAmount Double
+}
 relationship OneToMany {
-CharityHubUser to VolunteerApplications
-CharityHubUser to ReviewComments
-CharityProfile to ReviewComments
-CharityProfile to DonatorPage
+UserPage to VolunteerApplications{userPage(user)}
+UserPage to ReviewComments{userPage(user)}
+CharityProfile to ReviewComments{charityProfile(charityName)}
+CharityProfile to DonatorPage{charityProfile(charityName)}
 SocialFeed to Posts
 CharityProfile to Vacancies{charityProfile(charityName)}
 CharityProfile to CharityEvent{charityProfile(charityName)}
-CharityAdmin to FundraisingIdea
-CharityAdmin to ApprovedVolunteers
-CharityEvent to GroupDonator
+CharityProfile to FundraisingIdea{charityProfile(charityName)}
+CharityProfile to ApprovedVolunteers{charityProfile(charityName)}
+CharityEvent to GroupDonator{charityEvent(eventName)}
 Vacancies to VolunteerApplications
 }
 
 relationship OneToOne {
-CharityHubUser to User
-CharityHubUser to UserPage
-CharityHubUser to Authentication
-CharityAdmin to BudgetPlanner
-CharityAdmin{charityProfile(charityName)} to CharityProfile
+    UserPage to User
+CharityProfile to BudgetPlanner
 GroupDonator to DonatorPage
 CharityProfile to SocialFeed
+    GroupDonatorCollector to GroupDonator
+    ApprovedVolunteers to VolunteerApplications
 }
 
 relationship ManyToOne {
-VolunteerApplications to CharityAdmin
-ApprovedVolunteers to CharityHubUser
+VolunteerApplications to CharityProfile
+ApprovedVolunteers to UserPage
 }

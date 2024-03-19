@@ -44,18 +44,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="budgetPlanner.id">
-            <div class="d-flex">
-              <span>Budget Planner</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="charityProfile.charityName">
-            <div class="d-flex">
-              <span>Charity Profile</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -65,18 +53,6 @@
             <a [routerLink]="['/charity-admin', charityAdmin.id, 'view']">{{ charityAdmin.id }}</a>
           </td>
           <td>{{ charityAdmin.isCharityAdmin }}</td>
-          <td>
-            <div *ngIf="charityAdmin.budgetPlanner">
-              <a [routerLink]="['/budget-planner', charityAdmin.budgetPlanner.id, 'view']">{{ charityAdmin.budgetPlanner.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="charityAdmin.charityProfile">
-              <a [routerLink]="['/charity-profile', charityAdmin.charityProfile.id, 'view']">{{
-                charityAdmin.charityProfile.charityName
-              }}</a>
-            </div>
-          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

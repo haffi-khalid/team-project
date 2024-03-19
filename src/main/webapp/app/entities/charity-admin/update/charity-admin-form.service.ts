@@ -19,8 +19,6 @@ type CharityAdminFormDefaults = Pick<NewCharityAdmin, 'id' | 'isCharityAdmin'>;
 type CharityAdminFormGroupContent = {
   id: FormControl<ICharityAdmin['id'] | NewCharityAdmin['id']>;
   isCharityAdmin: FormControl<ICharityAdmin['isCharityAdmin']>;
-  budgetPlanner: FormControl<ICharityAdmin['budgetPlanner']>;
-  charityProfile: FormControl<ICharityAdmin['charityProfile']>;
 };
 
 export type CharityAdminFormGroup = FormGroup<CharityAdminFormGroupContent>;
@@ -41,8 +39,6 @@ export class CharityAdminFormService {
         }
       ),
       isCharityAdmin: new FormControl(charityAdminRawValue.isCharityAdmin),
-      budgetPlanner: new FormControl(charityAdminRawValue.budgetPlanner),
-      charityProfile: new FormControl(charityAdminRawValue.charityProfile),
     });
   }
 

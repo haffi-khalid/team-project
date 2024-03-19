@@ -35,12 +35,25 @@ public class DonatorPage implements Serializable {
     @Column(name = "group_donation")
     private Boolean groupDonation;
 
-    @JsonIgnoreProperties(value = { "donatorPage", "charityEvent" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "donatorPage", "groupDonatorCollector", "charityEvent" }, allowSetters = true)
     @OneToOne(mappedBy = "donatorPage")
     private GroupDonator groupDonator;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "budgetPlanner",
+            "socialFeed",
+            "reviewComments",
+            "donatorPages",
+            "vacancies",
+            "charityEvents",
+            "fundraisingIdeas",
+            "approvedVolunteers",
+            "volunteerApplications",
+        },
+        allowSetters = true
+    )
     private CharityProfile charityProfile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

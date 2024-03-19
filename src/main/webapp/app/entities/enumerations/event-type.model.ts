@@ -1,0 +1,11 @@
+export enum EventType {
+  CHILDCARE = 'CHILDCARE',
+
+  HUMANRIGHT = 'HUMANRIGHT',
+
+  HEALTH = 'HEALTH',
+
+  HOMELESSNESS = 'HOMELESSNESS',
+
+  OTHER = 'OTHER',
+}

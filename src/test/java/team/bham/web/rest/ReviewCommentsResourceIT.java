@@ -2,19 +2,27 @@ package team.bham.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,6 +36,7 @@ import team.bham.repository.ReviewCommentsRepository;
  * Integration tests for the {@link ReviewCommentsResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class ReviewCommentsResourceIT {
@@ -44,6 +53,9 @@ class ReviewCommentsResourceIT {
     private static final String DEFAULT_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_LIKE_COUNT = 1;
+    private static final Integer UPDATED_LIKE_COUNT = 2;
+
     private static final String ENTITY_API_URL = "/api/review-comments";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -52,6 +64,9 @@ class ReviewCommentsResourceIT {
 
     @Autowired
     private ReviewCommentsRepository reviewCommentsRepository;
+
+    @Mock
+    private ReviewCommentsRepository reviewCommentsRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -72,7 +87,8 @@ class ReviewCommentsResourceIT {
             .parentID(DEFAULT_PARENT_ID)
             .content(DEFAULT_CONTENT)
             .timestamp(DEFAULT_TIMESTAMP)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .likeCount(DEFAULT_LIKE_COUNT);
         return reviewComments;
     }
 
@@ -87,7 +103,8 @@ class ReviewCommentsResourceIT {
             .parentID(UPDATED_PARENT_ID)
             .content(UPDATED_CONTENT)
             .timestamp(UPDATED_TIMESTAMP)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .likeCount(UPDATED_LIKE_COUNT);
         return reviewComments;
     }
 
@@ -115,6 +132,7 @@ class ReviewCommentsResourceIT {
         assertThat(testReviewComments.getContent()).isEqualTo(DEFAULT_CONTENT);
         assertThat(testReviewComments.getTimestamp()).isEqualTo(DEFAULT_TIMESTAMP);
         assertThat(testReviewComments.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testReviewComments.getLikeCount()).isEqualTo(DEFAULT_LIKE_COUNT);
     }
 
     @Test
@@ -152,7 +170,25 @@ class ReviewCommentsResourceIT {
             .andExpect(jsonPath("$.[*].parentID").value(hasItem(DEFAULT_PARENT_ID)))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
             .andExpect(jsonPath("$.[*].timestamp").value(hasItem(DEFAULT_TIMESTAMP.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
+            .andExpect(jsonPath("$.[*].likeCount").value(hasItem(DEFAULT_LIKE_COUNT)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllReviewCommentsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(reviewCommentsRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restReviewCommentsMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(reviewCommentsRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllReviewCommentsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(reviewCommentsRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restReviewCommentsMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(reviewCommentsRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -170,7 +206,8 @@ class ReviewCommentsResourceIT {
             .andExpect(jsonPath("$.parentID").value(DEFAULT_PARENT_ID))
             .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
             .andExpect(jsonPath("$.timestamp").value(DEFAULT_TIMESTAMP.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS))
+            .andExpect(jsonPath("$.likeCount").value(DEFAULT_LIKE_COUNT));
     }
 
     @Test
@@ -192,7 +229,12 @@ class ReviewCommentsResourceIT {
         ReviewComments updatedReviewComments = reviewCommentsRepository.findById(reviewComments.getId()).get();
         // Disconnect from session so that the updates on updatedReviewComments are not directly saved in db
         em.detach(updatedReviewComments);
-        updatedReviewComments.parentID(UPDATED_PARENT_ID).content(UPDATED_CONTENT).timestamp(UPDATED_TIMESTAMP).status(UPDATED_STATUS);
+        updatedReviewComments
+            .parentID(UPDATED_PARENT_ID)
+            .content(UPDATED_CONTENT)
+            .timestamp(UPDATED_TIMESTAMP)
+            .status(UPDATED_STATUS)
+            .likeCount(UPDATED_LIKE_COUNT);
 
         restReviewCommentsMockMvc
             .perform(
@@ -210,6 +252,7 @@ class ReviewCommentsResourceIT {
         assertThat(testReviewComments.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testReviewComments.getTimestamp()).isEqualTo(UPDATED_TIMESTAMP);
         assertThat(testReviewComments.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testReviewComments.getLikeCount()).isEqualTo(UPDATED_LIKE_COUNT);
     }
 
     @Test
@@ -302,6 +345,7 @@ class ReviewCommentsResourceIT {
         assertThat(testReviewComments.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testReviewComments.getTimestamp()).isEqualTo(UPDATED_TIMESTAMP);
         assertThat(testReviewComments.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testReviewComments.getLikeCount()).isEqualTo(DEFAULT_LIKE_COUNT);
     }
 
     @Test
@@ -320,7 +364,8 @@ class ReviewCommentsResourceIT {
             .parentID(UPDATED_PARENT_ID)
             .content(UPDATED_CONTENT)
             .timestamp(UPDATED_TIMESTAMP)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .likeCount(UPDATED_LIKE_COUNT);
 
         restReviewCommentsMockMvc
             .perform(
@@ -338,6 +383,7 @@ class ReviewCommentsResourceIT {
         assertThat(testReviewComments.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testReviewComments.getTimestamp()).isEqualTo(UPDATED_TIMESTAMP);
         assertThat(testReviewComments.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testReviewComments.getLikeCount()).isEqualTo(UPDATED_LIKE_COUNT);
     }
 
     @Test

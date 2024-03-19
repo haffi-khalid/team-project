@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { UserPageFormService, UserPageFormGroup } from './user-page-form.service';
 import { IUserPage } from '../user-page.model';
@@ -10,6 +10,8 @@ import { UserPageService } from '../service/user-page.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 
 @Component({
   selector: 'jhi-user-page-update',
@@ -19,6 +21,8 @@ export class UserPageUpdateComponent implements OnInit {
   isSaving = false;
   userPage: IUserPage | null = null;
 
+  usersSharedCollection: IUser[] = [];
+
   editForm: UserPageFormGroup = this.userPageFormService.createUserPageFormGroup();
 
   constructor(
@@ -26,8 +30,12 @@ export class UserPageUpdateComponent implements OnInit {
     protected eventManager: EventManager,
     protected userPageService: UserPageService,
     protected userPageFormService: UserPageFormService,
+    protected userService: UserService,
+    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ userPage }) => {
@@ -35,6 +43,8 @@ export class UserPageUpdateComponent implements OnInit {
       if (userPage) {
         this.updateForm(userPage);
       }
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -51,6 +61,16 @@ export class UserPageUpdateComponent implements OnInit {
       error: (err: FileLoadError) =>
         this.eventManager.broadcast(new EventWithContent<AlertError>('teamprojectApp.error', { message: err.message })),
     });
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
 
   previousState(): void {
@@ -89,5 +109,15 @@ export class UserPageUpdateComponent implements OnInit {
   protected updateForm(userPage: IUserPage): void {
     this.userPage = userPage;
     this.userPageFormService.resetForm(this.editForm, userPage);
+
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, userPage.user);
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, this.userPage?.user)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
   }
 }

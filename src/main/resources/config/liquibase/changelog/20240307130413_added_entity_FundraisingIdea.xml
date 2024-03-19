@@ -32,7 +32,7 @@
             <column name="expected_attendance" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="charity_admin_id" type="bigint">
+            <column name="charity_profile_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

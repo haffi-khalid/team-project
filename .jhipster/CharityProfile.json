@@ -41,6 +41,13 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "budgetPlanner",
+      "otherEntityRelationshipName": "charityProfile",
+      "ownerSide": true,
+      "relationshipName": "budgetPlanner",
+      "relationshipType": "one-to-one"
+    },
+    {
       "otherEntityName": "socialFeed",
       "otherEntityRelationshipName": "charityProfile",
       "ownerSide": true,
@@ -69,6 +76,24 @@
       "otherEntityName": "charityEvent",
       "otherEntityRelationshipName": "charityProfile",
       "relationshipName": "charityEvent",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "fundraisingIdea",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "fundraisingIdea",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "approvedVolunteers",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "approvedVolunteers",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "volunteerApplications",
+      "otherEntityRelationshipName": "charityProfile",
+      "relationshipName": "volunteerApplications",
       "relationshipType": "one-to-many"
     }
   ],

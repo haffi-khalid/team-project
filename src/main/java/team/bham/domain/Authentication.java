@@ -1,6 +1,5 @@
 package team.bham.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -25,13 +24,6 @@ public class Authentication implements Serializable {
 
     @Column(name = "is_authenticated")
     private Boolean isAuthenticated;
-
-    @JsonIgnoreProperties(
-        value = { "user", "userPage", "authentication", "volunteerApplications", "reviewComments", "approvedVolunteers" },
-        allowSetters = true
-    )
-    @OneToOne(mappedBy = "authentication")
-    private CharityHubUser charityHubUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -59,25 +51,6 @@ public class Authentication implements Serializable {
 
     public void setIsAuthenticated(Boolean isAuthenticated) {
         this.isAuthenticated = isAuthenticated;
-    }
-
-    public CharityHubUser getCharityHubUser() {
-        return this.charityHubUser;
-    }
-
-    public void setCharityHubUser(CharityHubUser charityHubUser) {
-        if (this.charityHubUser != null) {
-            this.charityHubUser.setAuthentication(null);
-        }
-        if (charityHubUser != null) {
-            charityHubUser.setAuthentication(this);
-        }
-        this.charityHubUser = charityHubUser;
-    }
-
-    public Authentication charityHubUser(CharityHubUser charityHubUser) {
-        this.setCharityHubUser(charityHubUser);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

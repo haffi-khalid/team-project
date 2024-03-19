@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { CharityProfileFormService } from './charity-profile-form.service';
 import { CharityProfileService } from '../service/charity-profile.service';
 import { ICharityProfile } from '../charity-profile.model';
+import { IBudgetPlanner } from 'app/entities/budget-planner/budget-planner.model';
+import { BudgetPlannerService } from 'app/entities/budget-planner/service/budget-planner.service';
 import { ISocialFeed } from 'app/entities/social-feed/social-feed.model';
 import { SocialFeedService } from 'app/entities/social-feed/service/social-feed.service';
 
@@ -20,6 +22,7 @@ describe('CharityProfile Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let charityProfileFormService: CharityProfileFormService;
   let charityProfileService: CharityProfileService;
+  let budgetPlannerService: BudgetPlannerService;
   let socialFeedService: SocialFeedService;
 
   beforeEach(() => {
@@ -43,12 +46,31 @@ describe('CharityProfile Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     charityProfileFormService = TestBed.inject(CharityProfileFormService);
     charityProfileService = TestBed.inject(CharityProfileService);
+    budgetPlannerService = TestBed.inject(BudgetPlannerService);
     socialFeedService = TestBed.inject(SocialFeedService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
+    it('Should call budgetPlanner query and add missing value', () => {
+      const charityProfile: ICharityProfile = { id: 456 };
+      const budgetPlanner: IBudgetPlanner = { id: 57619 };
+      charityProfile.budgetPlanner = budgetPlanner;
+
+      const budgetPlannerCollection: IBudgetPlanner[] = [{ id: 36581 }];
+      jest.spyOn(budgetPlannerService, 'query').mockReturnValue(of(new HttpResponse({ body: budgetPlannerCollection })));
+      const expectedCollection: IBudgetPlanner[] = [budgetPlanner, ...budgetPlannerCollection];
+      jest.spyOn(budgetPlannerService, 'addBudgetPlannerToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ charityProfile });
+      comp.ngOnInit();
+
+      expect(budgetPlannerService.query).toHaveBeenCalled();
+      expect(budgetPlannerService.addBudgetPlannerToCollectionIfMissing).toHaveBeenCalledWith(budgetPlannerCollection, budgetPlanner);
+      expect(comp.budgetPlannersCollection).toEqual(expectedCollection);
+    });
+
     it('Should call socialFeed query and add missing value', () => {
       const charityProfile: ICharityProfile = { id: 456 };
       const socialFeed: ISocialFeed = { id: 83074 };
@@ -69,12 +91,15 @@ describe('CharityProfile Management Update Component', () => {
 
     it('Should update editForm', () => {
       const charityProfile: ICharityProfile = { id: 456 };
+      const budgetPlanner: IBudgetPlanner = { id: 85586 };
+      charityProfile.budgetPlanner = budgetPlanner;
       const socialFeed: ISocialFeed = { id: 94815 };
       charityProfile.socialFeed = socialFeed;
 
       activatedRoute.data = of({ charityProfile });
       comp.ngOnInit();
 
+      expect(comp.budgetPlannersCollection).toContain(budgetPlanner);
       expect(comp.socialFeedsCollection).toContain(socialFeed);
       expect(comp.charityProfile).toEqual(charityProfile);
     });
@@ -149,6 +174,16 @@ describe('CharityProfile Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
+    describe('compareBudgetPlanner', () => {
+      it('Should forward to budgetPlannerService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(budgetPlannerService, 'compareBudgetPlanner');
+        comp.compareBudgetPlanner(entity, entity2);
+        expect(budgetPlannerService.compareBudgetPlanner).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
     describe('compareSocialFeed', () => {
       it('Should forward to socialFeedService', () => {
         const entity = { id: 123 };

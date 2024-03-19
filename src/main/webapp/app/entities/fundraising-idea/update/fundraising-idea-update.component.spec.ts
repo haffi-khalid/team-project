@@ -9,8 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { FundraisingIdeaFormService } from './fundraising-idea-form.service';
 import { FundraisingIdeaService } from '../service/fundraising-idea.service';
 import { IFundraisingIdea } from '../fundraising-idea.model';
-import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
-import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
+import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
+import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
 
 import { FundraisingIdeaUpdateComponent } from './fundraising-idea-update.component';
 
@@ -20,7 +20,7 @@ describe('FundraisingIdea Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let fundraisingIdeaFormService: FundraisingIdeaFormService;
   let fundraisingIdeaService: FundraisingIdeaService;
-  let charityAdminService: CharityAdminService;
+  let charityProfileService: CharityProfileService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -43,43 +43,43 @@ describe('FundraisingIdea Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     fundraisingIdeaFormService = TestBed.inject(FundraisingIdeaFormService);
     fundraisingIdeaService = TestBed.inject(FundraisingIdeaService);
-    charityAdminService = TestBed.inject(CharityAdminService);
+    charityProfileService = TestBed.inject(CharityProfileService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call CharityAdmin query and add missing value', () => {
+    it('Should call CharityProfile query and add missing value', () => {
       const fundraisingIdea: IFundraisingIdea = { id: 456 };
-      const charityAdmin: ICharityAdmin = { id: 10802 };
-      fundraisingIdea.charityAdmin = charityAdmin;
+      const charityProfile: ICharityProfile = { id: 92567 };
+      fundraisingIdea.charityProfile = charityProfile;
 
-      const charityAdminCollection: ICharityAdmin[] = [{ id: 38317 }];
-      jest.spyOn(charityAdminService, 'query').mockReturnValue(of(new HttpResponse({ body: charityAdminCollection })));
-      const additionalCharityAdmins = [charityAdmin];
-      const expectedCollection: ICharityAdmin[] = [...additionalCharityAdmins, ...charityAdminCollection];
-      jest.spyOn(charityAdminService, 'addCharityAdminToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const charityProfileCollection: ICharityProfile[] = [{ id: 71887 }];
+      jest.spyOn(charityProfileService, 'query').mockReturnValue(of(new HttpResponse({ body: charityProfileCollection })));
+      const additionalCharityProfiles = [charityProfile];
+      const expectedCollection: ICharityProfile[] = [...additionalCharityProfiles, ...charityProfileCollection];
+      jest.spyOn(charityProfileService, 'addCharityProfileToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ fundraisingIdea });
       comp.ngOnInit();
 
-      expect(charityAdminService.query).toHaveBeenCalled();
-      expect(charityAdminService.addCharityAdminToCollectionIfMissing).toHaveBeenCalledWith(
-        charityAdminCollection,
-        ...additionalCharityAdmins.map(expect.objectContaining)
+      expect(charityProfileService.query).toHaveBeenCalled();
+      expect(charityProfileService.addCharityProfileToCollectionIfMissing).toHaveBeenCalledWith(
+        charityProfileCollection,
+        ...additionalCharityProfiles.map(expect.objectContaining)
       );
-      expect(comp.charityAdminsSharedCollection).toEqual(expectedCollection);
+      expect(comp.charityProfilesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const fundraisingIdea: IFundraisingIdea = { id: 456 };
-      const charityAdmin: ICharityAdmin = { id: 75452 };
-      fundraisingIdea.charityAdmin = charityAdmin;
+      const charityProfile: ICharityProfile = { id: 13167 };
+      fundraisingIdea.charityProfile = charityProfile;
 
       activatedRoute.data = of({ fundraisingIdea });
       comp.ngOnInit();
 
-      expect(comp.charityAdminsSharedCollection).toContain(charityAdmin);
+      expect(comp.charityProfilesSharedCollection).toContain(charityProfile);
       expect(comp.fundraisingIdea).toEqual(fundraisingIdea);
     });
   });
@@ -153,13 +153,13 @@ describe('FundraisingIdea Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareCharityAdmin', () => {
-      it('Should forward to charityAdminService', () => {
+    describe('compareCharityProfile', () => {
+      it('Should forward to charityProfileService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(charityAdminService, 'compareCharityAdmin');
-        comp.compareCharityAdmin(entity, entity2);
-        expect(charityAdminService.compareCharityAdmin).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(charityProfileService, 'compareCharityProfile');
+        comp.compareCharityProfile(entity, entity2);
+        expect(charityProfileService.compareCharityProfile).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

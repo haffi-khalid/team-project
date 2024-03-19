@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,37 +10,16 @@ import { CharityEventDeleteDialogComponent } from '../delete/charity-event-delet
 import { DataUtils } from 'app/core/util/data-util.service';
 import { SortService } from 'app/shared/sort/sort.service';
 
-//
-import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
-//
-
 @Component({
   selector: 'jhi-charity-event',
   templateUrl: './charity-event.component.html',
-  styleUrls: ['./charity-event.component.css'],
 })
 export class CharityEventComponent implements OnInit {
-  searchQuery: string = '';
-  filteredEvents?: ICharityEvent[];
-
-  charityEvents: ICharityEvent[] = [];
+  charityEvents?: ICharityEvent[];
   isLoading = false;
 
   predicate = 'id';
   ascending = true;
-
-  selectedDateTime: string = '';
-  selectedFilter: string = 'dateTime';
-  ////pop up for event-box
-  //  selectedEvent property to store the selected event
-  selectedEvent: ICharityEvent | null = null;
-
-  //
-
-  ///
-  @ViewChild('eventDetailsModal') eventDetailsModal: any;
-
-  ///
 
   constructor(
     protected charityEventService: CharityEventService,
@@ -51,26 +30,10 @@ export class CharityEventComponent implements OnInit {
     protected modalService: NgbModal
   ) {}
 
-  //// using hasEventImage and getEventImage to show the image in model pop of charity events.
-
-  hasEventImage(selectedEvent: ICharityEvent | null): boolean {
-    return !!selectedEvent && !!selectedEvent.imagesContentType && !!selectedEvent.images;
-  }
-
-  // Method to construct the image source URL for the selected event
-  getEventImage(selectedEvent: ICharityEvent): string {
-    return `data:${selectedEvent.imagesContentType};base64,${selectedEvent.images}`;
-  }
-  ///////////
-
   trackId = (_index: number, item: ICharityEvent): number => this.charityEventService.getCharityEventIdentifier(item);
 
   ngOnInit(): void {
     this.load();
-    ////
-    this.charityEvents = [];
-
-    // this.filteredEvents = this.charityEvents;
   }
 
   byteSize(base64String: string): string {
@@ -101,7 +64,6 @@ export class CharityEventComponent implements OnInit {
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
-        this.filteredEvents = this.charityEvents;
       },
     });
   }
@@ -163,56 +125,5 @@ export class CharityEventComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
-  }
-
-  ///
-
-  performSearch(): void {
-    if (this.charityEvents) {
-      // Check if charityEvents is not null or undefined
-      // Filter charityEvents based on the search query
-      this.filteredEvents = this.charityEvents.filter(
-        (event: ICharityEvent) => event && event.eventName && event.eventName.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-
-      // If a charity profile is selected, further filter events by that profile
-    }
-  }
-
-  filterEventsByDateTime(): void {
-    if (!this.selectedDateTime) {
-      // Handle case when no date and time is selected
-      return;
-    }
-
-    const selectedDate = new Date(this.selectedDateTime).toISOString();
-
-    // Filter events based on selected date and time
-    this.filteredEvents = this.charityEvents.filter(event => event.eventTimeDate?.toISOString().includes(selectedDate));
-  }
-
-  // showEventDetails(event: ICharityEvent): void {
-  //   this.selectedEvent = event; // Store the selected event
-  //   this.modalService.open('eventDetailsModal', { size: 'lg' }); // Open the modal
-  // }
-
-  showEventDetails(event: ICharityEvent): void {
-    this.selectedEvent = event; // Store the selected event
-    if (this.eventDetailsModal) {
-      this.modalService.open(this.eventDetailsModal, { size: 'lg' }); // Open the modal
-    } else {
-      console.error('Event details modal not found.');
-    }
-
-    // filterByCharityProfile(charityProfile: CharityProfile | null): void {
-    //   if (charityProfile) {
-    //     this.filteredEvents = this.charityEvents.filter(event =>
-    //       event.charityProfile && event.charityProfile.id === charityProfile.id
-    //     );
-    //   } else {
-    //     // If no charity profile is selected, show all events
-    //     this.filteredEvents = this.charityEvents;
-    //   }
-    // }
   }
 }

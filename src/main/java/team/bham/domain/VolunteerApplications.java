@@ -34,17 +34,28 @@ public class VolunteerApplications implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(
-        value = { "budgetPlanner", "charityProfile", "fundraisingIdeas", "approvedVolunteers", "volunteerApplications" },
+        value = {
+            "budgetPlanner",
+            "socialFeed",
+            "reviewComments",
+            "donatorPages",
+            "vacancies",
+            "charityEvents",
+            "fundraisingIdeas",
+            "approvedVolunteers",
+            "volunteerApplications",
+        },
         allowSetters = true
     )
-    private CharityAdmin charityAdmin;
+    private CharityProfile charityProfile;
+
+    @JsonIgnoreProperties(value = { "volunteerApplications", "userPage", "charityProfile" }, allowSetters = true)
+    @OneToOne(mappedBy = "volunteerApplications")
+    private ApprovedVolunteers approvedVolunteers;
 
     @ManyToOne
-    @JsonIgnoreProperties(
-        value = { "user", "userPage", "authentication", "volunteerApplications", "reviewComments", "approvedVolunteers" },
-        allowSetters = true
-    )
-    private CharityHubUser charityHubUser;
+    @JsonIgnoreProperties(value = { "user", "volunteerApplications", "reviewComments", "approvedVolunteers" }, allowSetters = true)
+    private UserPage userPage;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "volunteerApplications", "charityProfile" }, allowSetters = true)
@@ -91,29 +102,48 @@ public class VolunteerApplications implements Serializable {
         this.volunteerStatus = volunteerStatus;
     }
 
-    public CharityAdmin getCharityAdmin() {
-        return this.charityAdmin;
+    public CharityProfile getCharityProfile() {
+        return this.charityProfile;
     }
 
-    public void setCharityAdmin(CharityAdmin charityAdmin) {
-        this.charityAdmin = charityAdmin;
+    public void setCharityProfile(CharityProfile charityProfile) {
+        this.charityProfile = charityProfile;
     }
 
-    public VolunteerApplications charityAdmin(CharityAdmin charityAdmin) {
-        this.setCharityAdmin(charityAdmin);
+    public VolunteerApplications charityProfile(CharityProfile charityProfile) {
+        this.setCharityProfile(charityProfile);
         return this;
     }
 
-    public CharityHubUser getCharityHubUser() {
-        return this.charityHubUser;
+    public ApprovedVolunteers getApprovedVolunteers() {
+        return this.approvedVolunteers;
     }
 
-    public void setCharityHubUser(CharityHubUser charityHubUser) {
-        this.charityHubUser = charityHubUser;
+    public void setApprovedVolunteers(ApprovedVolunteers approvedVolunteers) {
+        if (this.approvedVolunteers != null) {
+            this.approvedVolunteers.setVolunteerApplications(null);
+        }
+        if (approvedVolunteers != null) {
+            approvedVolunteers.setVolunteerApplications(this);
+        }
+        this.approvedVolunteers = approvedVolunteers;
     }
 
-    public VolunteerApplications charityHubUser(CharityHubUser charityHubUser) {
-        this.setCharityHubUser(charityHubUser);
+    public VolunteerApplications approvedVolunteers(ApprovedVolunteers approvedVolunteers) {
+        this.setApprovedVolunteers(approvedVolunteers);
+        return this;
+    }
+
+    public UserPage getUserPage() {
+        return this.userPage;
+    }
+
+    public void setUserPage(UserPage userPage) {
+        this.userPage = userPage;
+    }
+
+    public VolunteerApplications userPage(UserPage userPage) {
+        this.setUserPage(userPage);
         return this;
     }
 

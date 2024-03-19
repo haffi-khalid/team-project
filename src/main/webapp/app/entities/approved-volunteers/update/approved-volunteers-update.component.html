@@ -48,35 +48,50 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_charityHubUser">Charity Hub User</label>
+          <label class="form-label" for="field_volunteerApplications">Volunteer Applications</label>
           <select
             class="form-control"
-            id="field_charityHubUser"
-            data-cy="charityHubUser"
-            name="charityHubUser"
-            formControlName="charityHubUser"
-            [compareWith]="compareCharityHubUser"
+            id="field_volunteerApplications"
+            data-cy="volunteerApplications"
+            name="volunteerApplications"
+            formControlName="volunteerApplications"
+            [compareWith]="compareVolunteerApplications"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="charityHubUserOption" *ngFor="let charityHubUserOption of charityHubUsersSharedCollection">
-              {{ charityHubUserOption.id }}
+            <option [ngValue]="volunteerApplicationsOption" *ngFor="let volunteerApplicationsOption of volunteerApplicationsCollection">
+              {{ volunteerApplicationsOption.id }}
             </option>
           </select>
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_charityAdmin">Charity Admin</label>
+          <label class="form-label" for="field_userPage">User Page</label>
           <select
             class="form-control"
-            id="field_charityAdmin"
-            data-cy="charityAdmin"
-            name="charityAdmin"
-            formControlName="charityAdmin"
-            [compareWith]="compareCharityAdmin"
+            id="field_userPage"
+            data-cy="userPage"
+            name="userPage"
+            formControlName="userPage"
+            [compareWith]="compareUserPage"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="charityAdminOption" *ngFor="let charityAdminOption of charityAdminsSharedCollection">
-              {{ charityAdminOption.id }}
+            <option [ngValue]="userPageOption" *ngFor="let userPageOption of userPagesSharedCollection">{{ userPageOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_charityProfile">Charity Profile</label>
+          <select
+            class="form-control"
+            id="field_charityProfile"
+            data-cy="charityProfile"
+            name="charityProfile"
+            formControlName="charityProfile"
+            [compareWith]="compareCharityProfile"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="charityProfileOption" *ngFor="let charityProfileOption of charityProfilesSharedCollection">
+              {{ charityProfileOption.charityName }}
             </option>
           </select>
         </div>

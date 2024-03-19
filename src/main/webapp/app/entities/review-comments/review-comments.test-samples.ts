@@ -7,17 +7,19 @@ export const sampleWithRequiredData: IReviewComments = {
 };
 
 export const sampleWithPartialData: IReviewComments = {
-  id: 90107,
-  timestamp: dayjs('2024-03-03T05:33'),
-  status: 'Keyboard Profound',
+  id: 72405,
+  timestamp: dayjs('2024-03-07T03:45'),
+  status: 'Computer',
+  likeCount: 65201,
 };
 
 export const sampleWithFullData: IReviewComments = {
-  id: 51064,
-  parentID: 5477,
-  content: 'Personal Fantastic Towels',
-  timestamp: dayjs('2024-03-03T06:24'),
-  status: 'benchmark users synthesizing',
+  id: 1553,
+  parentID: 51064,
+  content: '../fake-data/blob/hipster.txt',
+  timestamp: dayjs('2024-03-07T11:45'),
+  status: 'Personal Fantastic Towels',
+  likeCount: 68858,
 };
 
 export const sampleWithNewData: NewReviewComments = {

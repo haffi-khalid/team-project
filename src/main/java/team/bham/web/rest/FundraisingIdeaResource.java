@@ -155,12 +155,17 @@ public class FundraisingIdeaResource {
     /**
      * {@code GET  /fundraising-ideas} : get all the fundraisingIdeas.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of fundraisingIdeas in body.
      */
     @GetMapping("/fundraising-ideas")
-    public List<FundraisingIdea> getAllFundraisingIdeas() {
+    public List<FundraisingIdea> getAllFundraisingIdeas(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all FundraisingIdeas");
-        return fundraisingIdeaRepository.findAll();
+        if (eagerload) {
+            return fundraisingIdeaRepository.findAllWithEagerRelationships();
+        } else {
+            return fundraisingIdeaRepository.findAll();
+        }
     }
 
     /**
@@ -172,7 +177,7 @@ public class FundraisingIdeaResource {
     @GetMapping("/fundraising-ideas/{id}")
     public ResponseEntity<FundraisingIdea> getFundraisingIdea(@PathVariable Long id) {
         log.debug("REST request to get FundraisingIdea : {}", id);
-        Optional<FundraisingIdea> fundraisingIdea = fundraisingIdeaRepository.findById(id);
+        Optional<FundraisingIdea> fundraisingIdea = fundraisingIdeaRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(fundraisingIdea);
     }
 

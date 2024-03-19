@@ -1,107 +1,206 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ReviewCommentsService } from './review-comments.service';
+
 import { IReviewComments } from '../review-comments.model';
+import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../review-comments.test-samples';
 
-describe('Service Tests', () => {
-  describe('ReviewComments Service', () => {
-    let service: ReviewCommentsService;
-    let httpMock: HttpTestingController;
-    let elemDefault: IReviewComments;
-    let expectedResult: IReviewComments | IReviewComments[] | boolean | undefined;
+import { ReviewCommentsService, RestReviewComments } from './review-comments.service';
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-      });
-      expectedResult = undefined;
-      service = TestBed.inject(ReviewCommentsService);
-      httpMock = TestBed.inject(HttpTestingController);
+const requireRestSample: RestReviewComments = {
+  ...sampleWithRequiredData,
+  timestamp: sampleWithRequiredData.timestamp?.toJSON(),
+};
 
-      elemDefault = {
-        id: 0,
-        content: 'AAAAAAA',
-        // Add additional fields with default values as required
-      };
+describe('ReviewComments Service', () => {
+  let service: ReviewCommentsService;
+  let httpMock: HttpTestingController;
+  let expectedResult: IReviewComments | IReviewComments[] | boolean | null;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+    });
+    expectedResult = null;
+    service = TestBed.inject(ReviewCommentsService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  describe('Service methods', () => {
+    it('should find an element', () => {
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
+
+      service.find(123).subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'GET' });
+      req.flush(returnedFromService);
+      expect(expectedResult).toMatchObject(expected);
     });
 
-    describe('Service methods', () => {
-      it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+    it('should create a ReviewComments', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const reviewComments = { ...sampleWithNewData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-        service.find(123).subscribe(resp => (expectedResult = resp));
+      service.create(reviewComments).subscribe(resp => (expectedResult = resp.body));
 
-        const req = httpMock.expectOne({ method: 'GET' });
-        req.flush(returnedFromService);
-        expect(expectedResult).toEqual(elemDefault);
-      });
-
-      it('should create a ReviewComments', () => {
-        const returnedFromService = Object.assign(
-          {
-            id: 0,
-            // Add additional default values if required
-          },
-          elemDefault
-        );
-
-        const expected = Object.assign({}, returnedFromService);
-
-        service.create(elemDefault).subscribe(resp => (expectedResult = resp));
-
-        const req = httpMock.expectOne({ method: 'POST' });
-        req.flush(returnedFromService);
-        expect(expectedResult).toEqual(expected);
-      });
-
-      it('should update a ReviewComments', () => {
-        const returnedFromService = Object.assign(
-          {
-            // Mock other fields if required
-            content: 'BBBBBB',
-          },
-          elemDefault
-        );
-
-        const expected = Object.assign({}, returnedFromService);
-
-        service.update(expected).subscribe(resp => (expectedResult = resp));
-
-        const req = httpMock.expectOne({ method: 'PUT' });
-        req.flush(returnedFromService);
-        expect(expectedResult).toEqual(expected);
-      });
-
-      it('should return a list of ReviewComments', () => {
-        const returnedFromService = Object.assign(
-          {
-            content: 'BBBBBB',
-            // Mock other fields if required
-          },
-          elemDefault
-        );
-
-        const expected = Object.assign({}, returnedFromService);
-
-        service.query().subscribe(resp => (expectedResult = resp));
-
-        const req = httpMock.expectOne({ method: 'GET' });
-        req.flush([returnedFromService]);
-        httpMock.verify();
-        expect(expectedResult).toEqual([expected]);
-      });
-
-      it('should delete a ReviewComments', () => {
-        service.delete(123).subscribe(resp => (expectedResult = resp));
-
-        const req = httpMock.expectOne({ method: 'DELETE' });
-        req.flush(null);
-        expect(expectedResult).toBe(true);
-      });
+      const req = httpMock.expectOne({ method: 'POST' });
+      req.flush(returnedFromService);
+      expect(expectedResult).toMatchObject(expected);
     });
 
-    afterEach(() => {
+    it('should update a ReviewComments', () => {
+      const reviewComments = { ...sampleWithRequiredData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
+
+      service.update(reviewComments).subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'PUT' });
+      req.flush(returnedFromService);
+      expect(expectedResult).toMatchObject(expected);
+    });
+
+    it('should partial update a ReviewComments', () => {
+      const patchObject = { ...sampleWithPartialData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
+
+      service.partialUpdate(patchObject).subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'PATCH' });
+      req.flush(returnedFromService);
+      expect(expectedResult).toMatchObject(expected);
+    });
+
+    it('should return a list of ReviewComments', () => {
+      const returnedFromService = { ...requireRestSample };
+
+      const expected = { ...sampleWithRequiredData };
+
+      service.query().subscribe(resp => (expectedResult = resp.body));
+
+      const req = httpMock.expectOne({ method: 'GET' });
+      req.flush([returnedFromService]);
       httpMock.verify();
+      expect(expectedResult).toMatchObject([expected]);
     });
+
+    it('should delete a ReviewComments', () => {
+      const expected = true;
+
+      service.delete(123).subscribe(resp => (expectedResult = resp.ok));
+
+      const req = httpMock.expectOne({ method: 'DELETE' });
+      req.flush({ status: 200 });
+      expect(expectedResult).toBe(expected);
+    });
+
+    describe('addReviewCommentsToCollectionIfMissing', () => {
+      it('should add a ReviewComments to an empty array', () => {
+        const reviewComments: IReviewComments = sampleWithRequiredData;
+        expectedResult = service.addReviewCommentsToCollectionIfMissing([], reviewComments);
+        expect(expectedResult).toHaveLength(1);
+        expect(expectedResult).toContain(reviewComments);
+      });
+
+      it('should not add a ReviewComments to an array that contains it', () => {
+        const reviewComments: IReviewComments = sampleWithRequiredData;
+        const reviewCommentsCollection: IReviewComments[] = [
+          {
+            ...reviewComments,
+          },
+          sampleWithPartialData,
+        ];
+        expectedResult = service.addReviewCommentsToCollectionIfMissing(reviewCommentsCollection, reviewComments);
+        expect(expectedResult).toHaveLength(2);
+      });
+
+      it("should add a ReviewComments to an array that doesn't contain it", () => {
+        const reviewComments: IReviewComments = sampleWithRequiredData;
+        const reviewCommentsCollection: IReviewComments[] = [sampleWithPartialData];
+        expectedResult = service.addReviewCommentsToCollectionIfMissing(reviewCommentsCollection, reviewComments);
+        expect(expectedResult).toHaveLength(2);
+        expect(expectedResult).toContain(reviewComments);
+      });
+
+      it('should add only unique ReviewComments to an array', () => {
+        const reviewCommentsArray: IReviewComments[] = [sampleWithRequiredData, sampleWithPartialData, sampleWithFullData];
+        const reviewCommentsCollection: IReviewComments[] = [sampleWithRequiredData];
+        expectedResult = service.addReviewCommentsToCollectionIfMissing(reviewCommentsCollection, ...reviewCommentsArray);
+        expect(expectedResult).toHaveLength(3);
+      });
+
+      it('should accept varargs', () => {
+        const reviewComments: IReviewComments = sampleWithRequiredData;
+        const reviewComments2: IReviewComments = sampleWithPartialData;
+        expectedResult = service.addReviewCommentsToCollectionIfMissing([], reviewComments, reviewComments2);
+        expect(expectedResult).toHaveLength(2);
+        expect(expectedResult).toContain(reviewComments);
+        expect(expectedResult).toContain(reviewComments2);
+      });
+
+      it('should accept null and undefined values', () => {
+        const reviewComments: IReviewComments = sampleWithRequiredData;
+        expectedResult = service.addReviewCommentsToCollectionIfMissing([], null, reviewComments, undefined);
+        expect(expectedResult).toHaveLength(1);
+        expect(expectedResult).toContain(reviewComments);
+      });
+
+      it('should return initial array if no ReviewComments is added', () => {
+        const reviewCommentsCollection: IReviewComments[] = [sampleWithRequiredData];
+        expectedResult = service.addReviewCommentsToCollectionIfMissing(reviewCommentsCollection, undefined, null);
+        expect(expectedResult).toEqual(reviewCommentsCollection);
+      });
+    });
+
+    describe('compareReviewComments', () => {
+      it('Should return true if both entities are null', () => {
+        const entity1 = null;
+        const entity2 = null;
+
+        const compareResult = service.compareReviewComments(entity1, entity2);
+
+        expect(compareResult).toEqual(true);
+      });
+
+      it('Should return false if one entity is null', () => {
+        const entity1 = { id: 123 };
+        const entity2 = null;
+
+        const compareResult1 = service.compareReviewComments(entity1, entity2);
+        const compareResult2 = service.compareReviewComments(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey differs', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 456 };
+
+        const compareResult1 = service.compareReviewComments(entity1, entity2);
+        const compareResult2 = service.compareReviewComments(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey matches', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 123 };
+
+        const compareResult1 = service.compareReviewComments(entity1, entity2);
+        const compareResult2 = service.compareReviewComments(entity2, entity1);
+
+        expect(compareResult1).toEqual(true);
+        expect(compareResult2).toEqual(true);
+      });
+    });
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 });

@@ -24,7 +24,8 @@ describe('ReviewComments Form Service', () => {
             content: expect.any(Object),
             timestamp: expect.any(Object),
             status: expect.any(Object),
-            charityHubUser: expect.any(Object),
+            likeCount: expect.any(Object),
+            userPage: expect.any(Object),
             charityProfile: expect.any(Object),
           })
         );
@@ -40,7 +41,8 @@ describe('ReviewComments Form Service', () => {
             content: expect.any(Object),
             timestamp: expect.any(Object),
             status: expect.any(Object),
-            charityHubUser: expect.any(Object),
+            likeCount: expect.any(Object),
+            userPage: expect.any(Object),
             charityProfile: expect.any(Object),
           })
         );

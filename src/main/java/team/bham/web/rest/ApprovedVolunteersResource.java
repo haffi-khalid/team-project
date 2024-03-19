@@ -149,12 +149,17 @@ public class ApprovedVolunteersResource {
     /**
      * {@code GET  /approved-volunteers} : get all the approvedVolunteers.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of approvedVolunteers in body.
      */
     @GetMapping("/approved-volunteers")
-    public List<ApprovedVolunteers> getAllApprovedVolunteers() {
+    public List<ApprovedVolunteers> getAllApprovedVolunteers(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all ApprovedVolunteers");
-        return approvedVolunteersRepository.findAll();
+        if (eagerload) {
+            return approvedVolunteersRepository.findAllWithEagerRelationships();
+        } else {
+            return approvedVolunteersRepository.findAll();
+        }
     }
 
     /**
@@ -166,7 +171,7 @@ public class ApprovedVolunteersResource {
     @GetMapping("/approved-volunteers/{id}")
     public ResponseEntity<ApprovedVolunteers> getApprovedVolunteers(@PathVariable Long id) {
         log.debug("REST request to get ApprovedVolunteers : {}", id);
-        Optional<ApprovedVolunteers> approvedVolunteers = approvedVolunteersRepository.findById(id);
+        Optional<ApprovedVolunteers> approvedVolunteers = approvedVolunteersRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(approvedVolunteers);
     }
 

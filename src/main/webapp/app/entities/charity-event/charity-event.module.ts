@@ -5,9 +5,9 @@ import { CharityEventDetailComponent } from './detail/charity-event-detail.compo
 import { CharityEventUpdateComponent } from './update/charity-event-update.component';
 import { CharityEventDeleteDialogComponent } from './delete/charity-event-delete-dialog.component';
 import { CharityEventRoutingModule } from './route/charity-event-routing.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // addaed NgbModule
+
 @NgModule({
-  imports: [SharedModule, CharityEventRoutingModule, NgbModule],
+  imports: [SharedModule, CharityEventRoutingModule],
   declarations: [CharityEventComponent, CharityEventDetailComponent, CharityEventUpdateComponent, CharityEventDeleteDialogComponent],
 })
 export class CharityEventModule {}

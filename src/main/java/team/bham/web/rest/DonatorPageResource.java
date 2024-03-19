@@ -151,11 +151,15 @@ public class DonatorPageResource {
     /**
      * {@code GET  /donator-pages} : get all the donatorPages.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of donatorPages in body.
      */
     @GetMapping("/donator-pages")
-    public List<DonatorPage> getAllDonatorPages(@RequestParam(required = false) String filter) {
+    public List<DonatorPage> getAllDonatorPages(
+        @RequestParam(required = false) String filter,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
         if ("groupdonator-is-null".equals(filter)) {
             log.debug("REST request to get all DonatorPages where groupDonator is null");
             return StreamSupport
@@ -164,7 +168,11 @@ public class DonatorPageResource {
                 .collect(Collectors.toList());
         }
         log.debug("REST request to get all DonatorPages");
-        return donatorPageRepository.findAll();
+        if (eagerload) {
+            return donatorPageRepository.findAllWithEagerRelationships();
+        } else {
+            return donatorPageRepository.findAll();
+        }
     }
 
     /**
@@ -176,7 +184,7 @@ public class DonatorPageResource {
     @GetMapping("/donator-pages/{id}")
     public ResponseEntity<DonatorPage> getDonatorPage(@PathVariable Long id) {
         log.debug("REST request to get DonatorPage : {}", id);
-        Optional<DonatorPage> donatorPage = donatorPageRepository.findById(id);
+        Optional<DonatorPage> donatorPage = donatorPageRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(donatorPage);
     }
 

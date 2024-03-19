@@ -22,8 +22,8 @@ describe('VolunteerApplications Form Service', () => {
             id: expect.any(Object),
             timeStamp: expect.any(Object),
             volunteerStatus: expect.any(Object),
-            charityAdmin: expect.any(Object),
-            charityHubUser: expect.any(Object),
+            charityProfile: expect.any(Object),
+            userPage: expect.any(Object),
             vacancies: expect.any(Object),
           })
         );
@@ -37,8 +37,8 @@ describe('VolunteerApplications Form Service', () => {
             id: expect.any(Object),
             timeStamp: expect.any(Object),
             volunteerStatus: expect.any(Object),
-            charityAdmin: expect.any(Object),
-            charityHubUser: expect.any(Object),
+            charityProfile: expect.any(Object),
+            userPage: expect.any(Object),
             vacancies: expect.any(Object),
           })
         );
