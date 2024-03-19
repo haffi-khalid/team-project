@@ -37,4 +37,7 @@ public interface VacanciesRepository extends JpaRepository<Vacancies, Long> {
 
     @Query("select vacancies from Vacancies vacancies left join fetch vacancies.charityProfile where vacancies.id =:id")
     Optional<Vacancies> findOneWithToOneRelationships(@Param("id") Long id);
+
+    @Query("select vacancies from Vacancies vacancies where vacancies.charityProfile.id =:id")
+    Optional<Vacancies> charityVacancies(@Param("id") Long id);
 }

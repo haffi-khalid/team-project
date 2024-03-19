@@ -23,9 +23,8 @@ describe('ApprovedVolunteers Form Service', () => {
             volunteerStatus: expect.any(Object),
             volunteerHoursCompletedInCharity: expect.any(Object),
             currentEventVolunteeringIn: expect.any(Object),
-            volunteerApplications: expect.any(Object),
-            userPage: expect.any(Object),
-            charityProfile: expect.any(Object),
+            charityHubUser: expect.any(Object),
+            charityAdmin: expect.any(Object),
           })
         );
       });
@@ -39,9 +38,8 @@ describe('ApprovedVolunteers Form Service', () => {
             volunteerStatus: expect.any(Object),
             volunteerHoursCompletedInCharity: expect.any(Object),
             currentEventVolunteeringIn: expect.any(Object),
-            volunteerApplications: expect.any(Object),
-            userPage: expect.any(Object),
-            charityProfile: expect.any(Object),
+            charityHubUser: expect.any(Object),
+            charityAdmin: expect.any(Object),
           })
         );
       });

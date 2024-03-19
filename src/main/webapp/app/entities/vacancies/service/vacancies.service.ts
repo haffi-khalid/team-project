@@ -60,13 +60,25 @@ export class VacanciesService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
+    // const url = id ? `${this.resourceUrl}/${id}` : this.resourceUrl;
     return this.http
       .get<RestVacancies[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
+  getAllCharityNames(): Observable<string[]> {
+    return this.http.get<string[]>('api/charity-name');
+  }
+  getCharityId(name: string): Observable<number> {
+    return this.http.get<number>(`api/charityId/${name}`);
+  }
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+  getCharityVacancies(id: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<RestVacancies[]>(`api/vacanciesByCharity/${id}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 
   getVacanciesIdentifier(vacancies: Pick<IVacancies, 'id'>): number {

@@ -10,6 +10,13 @@ import { CharityHubUserFormService } from './charity-hub-user-form.service';
 import { CharityHubUserService } from '../service/charity-hub-user.service';
 import { ICharityHubUser } from '../charity-hub-user.model';
 
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
+import { IUserPage } from 'app/entities/user-page/user-page.model';
+import { UserPageService } from 'app/entities/user-page/service/user-page.service';
+import { IAuthentication } from 'app/entities/authentication/authentication.model';
+import { AuthenticationService } from 'app/entities/authentication/service/authentication.service';
+
 import { CharityHubUserUpdateComponent } from './charity-hub-user-update.component';
 
 describe('CharityHubUser Management Update Component', () => {
@@ -18,6 +25,9 @@ describe('CharityHubUser Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let charityHubUserFormService: CharityHubUserFormService;
   let charityHubUserService: CharityHubUserService;
+  let userService: UserService;
+  let userPageService: UserPageService;
+  let authenticationService: AuthenticationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,17 +50,87 @@ describe('CharityHubUser Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     charityHubUserFormService = TestBed.inject(CharityHubUserFormService);
     charityHubUserService = TestBed.inject(CharityHubUserService);
+    userService = TestBed.inject(UserService);
+    userPageService = TestBed.inject(UserPageService);
+    authenticationService = TestBed.inject(AuthenticationService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call User query and add missing value', () => {
       const charityHubUser: ICharityHubUser = { id: 456 };
+      const user: IUser = { id: 64027 };
+      charityHubUser.user = user;
+
+      const userCollection: IUser[] = [{ id: 61036 }];
+      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
+      const additionalUsers = [user];
+      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ charityHubUser });
       comp.ngOnInit();
 
+      expect(userService.query).toHaveBeenCalled();
+      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
+        userCollection,
+        ...additionalUsers.map(expect.objectContaining)
+      );
+      expect(comp.usersSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should call userPage query and add missing value', () => {
+      const charityHubUser: ICharityHubUser = { id: 456 };
+      const userPage: IUserPage = { id: 50836 };
+      charityHubUser.userPage = userPage;
+
+      const userPageCollection: IUserPage[] = [{ id: 13323 }];
+      jest.spyOn(userPageService, 'query').mockReturnValue(of(new HttpResponse({ body: userPageCollection })));
+      const expectedCollection: IUserPage[] = [userPage, ...userPageCollection];
+      jest.spyOn(userPageService, 'addUserPageToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ charityHubUser });
+      comp.ngOnInit();
+
+      expect(userPageService.query).toHaveBeenCalled();
+      expect(userPageService.addUserPageToCollectionIfMissing).toHaveBeenCalledWith(userPageCollection, userPage);
+      expect(comp.userPagesCollection).toEqual(expectedCollection);
+    });
+
+    it('Should call authentication query and add missing value', () => {
+      const charityHubUser: ICharityHubUser = { id: 456 };
+      const authentication: IAuthentication = { id: 20393 };
+      charityHubUser.authentication = authentication;
+
+      const authenticationCollection: IAuthentication[] = [{ id: 1362 }];
+      jest.spyOn(authenticationService, 'query').mockReturnValue(of(new HttpResponse({ body: authenticationCollection })));
+      const expectedCollection: IAuthentication[] = [authentication, ...authenticationCollection];
+      jest.spyOn(authenticationService, 'addAuthenticationToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ charityHubUser });
+      comp.ngOnInit();
+
+      expect(authenticationService.query).toHaveBeenCalled();
+      expect(authenticationService.addAuthenticationToCollectionIfMissing).toHaveBeenCalledWith(authenticationCollection, authentication);
+      expect(comp.authenticationsCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const charityHubUser: ICharityHubUser = { id: 456 };
+      const user: IUser = { id: 42396 };
+      charityHubUser.user = user;
+      const userPage: IUserPage = { id: 22914 };
+      charityHubUser.userPage = userPage;
+      const authentication: IAuthentication = { id: 36878 };
+      charityHubUser.authentication = authentication;
+
+      activatedRoute.data = of({ charityHubUser });
+      comp.ngOnInit();
+
+      expect(comp.usersSharedCollection).toContain(user);
+      expect(comp.userPagesCollection).toContain(userPage);
+      expect(comp.authenticationsCollection).toContain(authentication);
       expect(comp.charityHubUser).toEqual(charityHubUser);
     });
   });
@@ -120,6 +200,38 @@ describe('CharityHubUser Management Update Component', () => {
       expect(charityHubUserService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareUser', () => {
+      it('Should forward to userService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(userService, 'compareUser');
+        comp.compareUser(entity, entity2);
+        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareUserPage', () => {
+      it('Should forward to userPageService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(userPageService, 'compareUserPage');
+        comp.compareUserPage(entity, entity2);
+        expect(userPageService.compareUserPage).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareAuthentication', () => {
+      it('Should forward to authenticationService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(authenticationService, 'compareAuthentication');
+        comp.compareAuthentication(entity, entity2);
+        expect(authenticationService.compareAuthentication).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

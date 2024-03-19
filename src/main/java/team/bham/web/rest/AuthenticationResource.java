@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -140,10 +142,18 @@ public class AuthenticationResource {
     /**
      * {@code GET  /authentications} : get all the authentications.
      *
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of authentications in body.
      */
     @GetMapping("/authentications")
-    public List<Authentication> getAllAuthentications() {
+    public List<Authentication> getAllAuthentications(@RequestParam(required = false) String filter) {
+        if ("charityhubuser-is-null".equals(filter)) {
+            log.debug("REST request to get all Authentications where charityHubUser is null");
+            return StreamSupport
+                .stream(authenticationRepository.findAll().spliterator(), false)
+                .filter(authentication -> authentication.getCharityHubUser() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all Authentications");
         return authenticationRepository.findAll();
     }

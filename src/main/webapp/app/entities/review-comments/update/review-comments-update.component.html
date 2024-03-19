@@ -18,7 +18,7 @@
 
         <div class="row mb-3">
           <label class="form-label" for="field_content">Content</label>
-          <textarea class="form-control" name="content" id="field_content" data-cy="content" formControlName="content"></textarea>
+          <input type="text" class="form-control" name="content" id="field_content" data-cy="content" formControlName="content" />
         </div>
 
         <div class="row mb-3">
@@ -42,22 +42,19 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_likeCount">Like Count</label>
-          <input type="number" class="form-control" name="likeCount" id="field_likeCount" data-cy="likeCount" formControlName="likeCount" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_userPage">User Page</label>
+          <label class="form-label" for="field_charityHubUser">Charity Hub User</label>
           <select
             class="form-control"
-            id="field_userPage"
-            data-cy="userPage"
-            name="userPage"
-            formControlName="userPage"
-            [compareWith]="compareUserPage"
+            id="field_charityHubUser"
+            data-cy="charityHubUser"
+            name="charityHubUser"
+            formControlName="charityHubUser"
+            [compareWith]="compareCharityHubUser"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="userPageOption" *ngFor="let userPageOption of userPagesSharedCollection">{{ userPageOption.user }}</option>
+            <option [ngValue]="charityHubUserOption" *ngFor="let charityHubUserOption of charityHubUsersSharedCollection">
+              {{ charityHubUserOption.id }}
+            </option>
           </select>
         </div>
 
@@ -73,7 +70,7 @@
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="charityProfileOption" *ngFor="let charityProfileOption of charityProfilesSharedCollection">
-              {{ charityProfileOption.charityName }}
+              {{ charityProfileOption.id }}
             </option>
           </select>
         </div>

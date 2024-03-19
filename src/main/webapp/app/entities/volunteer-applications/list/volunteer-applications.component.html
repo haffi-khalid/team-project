@@ -50,15 +50,15 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="charityProfile.id">
+          <th scope="col" jhiSortBy="charityAdmin.id">
             <div class="d-flex">
-              <span>Charity Profile</span>
+              <span>Charity Admin</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="userPage.user">
+          <th scope="col" jhiSortBy="charityHubUser.id">
             <div class="d-flex">
-              <span>User Page</span>
+              <span>Charity Hub User</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -79,15 +79,17 @@
           <td>{{ volunteerApplications.timeStamp | formatMediumDatetime }}</td>
           <td>{{ volunteerApplications.volunteerStatus }}</td>
           <td>
-            <div *ngIf="volunteerApplications.charityProfile">
-              <a [routerLink]="['/charity-profile', volunteerApplications.charityProfile.id, 'view']">{{
-                volunteerApplications.charityProfile.id
+            <div *ngIf="volunteerApplications.charityAdmin">
+              <a [routerLink]="['/charity-admin', volunteerApplications.charityAdmin.id, 'view']">{{
+                volunteerApplications.charityAdmin.id
               }}</a>
             </div>
           </td>
           <td>
-            <div *ngIf="volunteerApplications.userPage">
-              <a [routerLink]="['/user-page', volunteerApplications.userPage.id, 'view']">{{ volunteerApplications.userPage.user }}</a>
+            <div *ngIf="volunteerApplications.charityHubUser">
+              <a [routerLink]="['/charity-hub-user', volunteerApplications.charityHubUser.id, 'view']">{{
+                volunteerApplications.charityHubUser.id
+              }}</a>
             </div>
           </td>
           <td>

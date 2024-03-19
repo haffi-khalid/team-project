@@ -9,12 +9,10 @@ import { of, Subject, from } from 'rxjs';
 import { ApprovedVolunteersFormService } from './approved-volunteers-form.service';
 import { ApprovedVolunteersService } from '../service/approved-volunteers.service';
 import { IApprovedVolunteers } from '../approved-volunteers.model';
-import { IVolunteerApplications } from 'app/entities/volunteer-applications/volunteer-applications.model';
-import { VolunteerApplicationsService } from 'app/entities/volunteer-applications/service/volunteer-applications.service';
-import { IUserPage } from 'app/entities/user-page/user-page.model';
-import { UserPageService } from 'app/entities/user-page/service/user-page.service';
-import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
-import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
+import { ICharityHubUser } from 'app/entities/charity-hub-user/charity-hub-user.model';
+import { CharityHubUserService } from 'app/entities/charity-hub-user/service/charity-hub-user.service';
+import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
+import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
 
 import { ApprovedVolunteersUpdateComponent } from './approved-volunteers-update.component';
 
@@ -24,9 +22,8 @@ describe('ApprovedVolunteers Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let approvedVolunteersFormService: ApprovedVolunteersFormService;
   let approvedVolunteersService: ApprovedVolunteersService;
-  let volunteerApplicationsService: VolunteerApplicationsService;
-  let userPageService: UserPageService;
-  let charityProfileService: CharityProfileService;
+  let charityHubUserService: CharityHubUserService;
+  let charityAdminService: CharityAdminService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -49,94 +46,69 @@ describe('ApprovedVolunteers Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     approvedVolunteersFormService = TestBed.inject(ApprovedVolunteersFormService);
     approvedVolunteersService = TestBed.inject(ApprovedVolunteersService);
-    volunteerApplicationsService = TestBed.inject(VolunteerApplicationsService);
-    userPageService = TestBed.inject(UserPageService);
-    charityProfileService = TestBed.inject(CharityProfileService);
+    charityHubUserService = TestBed.inject(CharityHubUserService);
+    charityAdminService = TestBed.inject(CharityAdminService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call volunteerApplications query and add missing value', () => {
+    it('Should call CharityHubUser query and add missing value', () => {
       const approvedVolunteers: IApprovedVolunteers = { id: 456 };
-      const volunteerApplications: IVolunteerApplications = { id: 44483 };
-      approvedVolunteers.volunteerApplications = volunteerApplications;
+      const charityHubUser: ICharityHubUser = { id: 6000 };
+      approvedVolunteers.charityHubUser = charityHubUser;
 
-      const volunteerApplicationsCollection: IVolunteerApplications[] = [{ id: 12422 }];
-      jest.spyOn(volunteerApplicationsService, 'query').mockReturnValue(of(new HttpResponse({ body: volunteerApplicationsCollection })));
-      const expectedCollection: IVolunteerApplications[] = [volunteerApplications, ...volunteerApplicationsCollection];
-      jest.spyOn(volunteerApplicationsService, 'addVolunteerApplicationsToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const charityHubUserCollection: ICharityHubUser[] = [{ id: 65644 }];
+      jest.spyOn(charityHubUserService, 'query').mockReturnValue(of(new HttpResponse({ body: charityHubUserCollection })));
+      const additionalCharityHubUsers = [charityHubUser];
+      const expectedCollection: ICharityHubUser[] = [...additionalCharityHubUsers, ...charityHubUserCollection];
+      jest.spyOn(charityHubUserService, 'addCharityHubUserToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ approvedVolunteers });
       comp.ngOnInit();
 
-      expect(volunteerApplicationsService.query).toHaveBeenCalled();
-      expect(volunteerApplicationsService.addVolunteerApplicationsToCollectionIfMissing).toHaveBeenCalledWith(
-        volunteerApplicationsCollection,
-        volunteerApplications
+      expect(charityHubUserService.query).toHaveBeenCalled();
+      expect(charityHubUserService.addCharityHubUserToCollectionIfMissing).toHaveBeenCalledWith(
+        charityHubUserCollection,
+        ...additionalCharityHubUsers.map(expect.objectContaining)
       );
-      expect(comp.volunteerApplicationsCollection).toEqual(expectedCollection);
+      expect(comp.charityHubUsersSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call UserPage query and add missing value', () => {
+    it('Should call CharityAdmin query and add missing value', () => {
       const approvedVolunteers: IApprovedVolunteers = { id: 456 };
-      const userPage: IUserPage = { id: 23505 };
-      approvedVolunteers.userPage = userPage;
+      const charityAdmin: ICharityAdmin = { id: 52976 };
+      approvedVolunteers.charityAdmin = charityAdmin;
 
-      const userPageCollection: IUserPage[] = [{ id: 84113 }];
-      jest.spyOn(userPageService, 'query').mockReturnValue(of(new HttpResponse({ body: userPageCollection })));
-      const additionalUserPages = [userPage];
-      const expectedCollection: IUserPage[] = [...additionalUserPages, ...userPageCollection];
-      jest.spyOn(userPageService, 'addUserPageToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const charityAdminCollection: ICharityAdmin[] = [{ id: 39394 }];
+      jest.spyOn(charityAdminService, 'query').mockReturnValue(of(new HttpResponse({ body: charityAdminCollection })));
+      const additionalCharityAdmins = [charityAdmin];
+      const expectedCollection: ICharityAdmin[] = [...additionalCharityAdmins, ...charityAdminCollection];
+      jest.spyOn(charityAdminService, 'addCharityAdminToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ approvedVolunteers });
       comp.ngOnInit();
 
-      expect(userPageService.query).toHaveBeenCalled();
-      expect(userPageService.addUserPageToCollectionIfMissing).toHaveBeenCalledWith(
-        userPageCollection,
-        ...additionalUserPages.map(expect.objectContaining)
+      expect(charityAdminService.query).toHaveBeenCalled();
+      expect(charityAdminService.addCharityAdminToCollectionIfMissing).toHaveBeenCalledWith(
+        charityAdminCollection,
+        ...additionalCharityAdmins.map(expect.objectContaining)
       );
-      expect(comp.userPagesSharedCollection).toEqual(expectedCollection);
-    });
-
-    it('Should call CharityProfile query and add missing value', () => {
-      const approvedVolunteers: IApprovedVolunteers = { id: 456 };
-      const charityProfile: ICharityProfile = { id: 71932 };
-      approvedVolunteers.charityProfile = charityProfile;
-
-      const charityProfileCollection: ICharityProfile[] = [{ id: 93075 }];
-      jest.spyOn(charityProfileService, 'query').mockReturnValue(of(new HttpResponse({ body: charityProfileCollection })));
-      const additionalCharityProfiles = [charityProfile];
-      const expectedCollection: ICharityProfile[] = [...additionalCharityProfiles, ...charityProfileCollection];
-      jest.spyOn(charityProfileService, 'addCharityProfileToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ approvedVolunteers });
-      comp.ngOnInit();
-
-      expect(charityProfileService.query).toHaveBeenCalled();
-      expect(charityProfileService.addCharityProfileToCollectionIfMissing).toHaveBeenCalledWith(
-        charityProfileCollection,
-        ...additionalCharityProfiles.map(expect.objectContaining)
-      );
-      expect(comp.charityProfilesSharedCollection).toEqual(expectedCollection);
+      expect(comp.charityAdminsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const approvedVolunteers: IApprovedVolunteers = { id: 456 };
-      const volunteerApplications: IVolunteerApplications = { id: 66171 };
-      approvedVolunteers.volunteerApplications = volunteerApplications;
-      const userPage: IUserPage = { id: 34590 };
-      approvedVolunteers.userPage = userPage;
-      const charityProfile: ICharityProfile = { id: 56150 };
-      approvedVolunteers.charityProfile = charityProfile;
+      const charityHubUser: ICharityHubUser = { id: 7692 };
+      approvedVolunteers.charityHubUser = charityHubUser;
+      const charityAdmin: ICharityAdmin = { id: 80262 };
+      approvedVolunteers.charityAdmin = charityAdmin;
 
       activatedRoute.data = of({ approvedVolunteers });
       comp.ngOnInit();
 
-      expect(comp.volunteerApplicationsCollection).toContain(volunteerApplications);
-      expect(comp.userPagesSharedCollection).toContain(userPage);
-      expect(comp.charityProfilesSharedCollection).toContain(charityProfile);
+      expect(comp.charityHubUsersSharedCollection).toContain(charityHubUser);
+      expect(comp.charityAdminsSharedCollection).toContain(charityAdmin);
       expect(comp.approvedVolunteers).toEqual(approvedVolunteers);
     });
   });
@@ -210,33 +182,23 @@ describe('ApprovedVolunteers Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareVolunteerApplications', () => {
-      it('Should forward to volunteerApplicationsService', () => {
+    describe('compareCharityHubUser', () => {
+      it('Should forward to charityHubUserService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(volunteerApplicationsService, 'compareVolunteerApplications');
-        comp.compareVolunteerApplications(entity, entity2);
-        expect(volunteerApplicationsService.compareVolunteerApplications).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(charityHubUserService, 'compareCharityHubUser');
+        comp.compareCharityHubUser(entity, entity2);
+        expect(charityHubUserService.compareCharityHubUser).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('compareUserPage', () => {
-      it('Should forward to userPageService', () => {
+    describe('compareCharityAdmin', () => {
+      it('Should forward to charityAdminService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(userPageService, 'compareUserPage');
-        comp.compareUserPage(entity, entity2);
-        expect(userPageService.compareUserPage).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareCharityProfile', () => {
-      it('Should forward to charityProfileService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(charityProfileService, 'compareCharityProfile');
-        comp.compareCharityProfile(entity, entity2);
-        expect(charityProfileService.compareCharityProfile).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(charityAdminService, 'compareCharityAdmin');
+        comp.compareCharityAdmin(entity, entity2);
+        expect(charityAdminService.compareCharityAdmin).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

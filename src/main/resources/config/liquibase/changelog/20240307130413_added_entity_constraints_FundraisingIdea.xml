@@ -8,10 +8,10 @@
     -->
     <changeSet id="20240307130413-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="charity_profile_id"
+        <addForeignKeyConstraint baseColumnNames="charity_admin_id"
                                  baseTableName="fundraising_idea"
-                                 constraintName="fk_fundraising_idea__charity_profile_id"
+                                 constraintName="fk_fundraising_idea__charity_admin_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="charity_profile"/>
+                                 referencedTableName="charity_admin"/>
     </changeSet>
 </databaseChangeLog>

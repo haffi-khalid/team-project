@@ -74,12 +74,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="budgetPlanner.id">
-            <div class="d-flex">
-              <span>Budget Planner</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="socialFeed.id">
             <div class="d-flex">
               <span>Social Feed</span>
@@ -117,11 +111,6 @@
               />
             </a>
             <span *ngIf="charityProfile.pictures">{{ charityProfile.picturesContentType }}, {{ byteSize(charityProfile.pictures) }}</span>
-          </td>
-          <td>
-            <div *ngIf="charityProfile.budgetPlanner">
-              <a [routerLink]="['/budget-planner', charityProfile.budgetPlanner.id, 'view']">{{ charityProfile.budgetPlanner.id }}</a>
-            </div>
           </td>
           <td>
             <div *ngIf="charityProfile.socialFeed">

@@ -1,23 +1,125 @@
+<ng-template #eventDetailsModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Event Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <!-- Display event details here -->
+    <div *ngIf="selectedEvent">
+      <img
+        [src]="getEventImage(selectedEvent)"
+        alt="Event Image"
+        class="event-image"
+        *ngIf="hasEventImage(selectedEvent)"
+        style="width: 760px; height: 260px; margin-bottom: 2px; background-size: cover; display: flex; align-content: center"
+      />
+      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>
+      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>
+      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>
+
+      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>
+
+      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
+      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
+
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
+
+      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
+      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
+
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
+
+      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
+      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
+
+      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
+
+      <!-- Add more details as needed -->
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
 <div>
   <h2 id="page-heading" data-cy="CharityEventHeading">
-    <span>Charity Events</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh list</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-charity-event"
-        [routerLink]="['/charity-event/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Charity Event </span>
-      </button>
+    <div class="banner-area">
+      <h2 class="page-heading">Charity Events</h2>
+      <span class="banner-img"></span>
     </div>
+
+    <div class="add-event-section">
+      <div class="component1">
+        <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span>Refresh list</span>
+        </button>
+
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-charity-event"
+          [routerLink]="['/charity-event/new']"
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span> Create a new Charity Event </span>
+        </button>
+      </div>
+
+      <div class="component2">
+        <!--        <div class="search-box">-->
+        <!--          <input type="text" placeholder="Search..." />-->
+        <!--        </div>-->
+        <div class="search-box-container">
+          <input
+            type="text"
+            placeholder="Search the Event Name"
+            class="search-box-input"
+            [(ngModel)]="searchQuery"
+            (input)="performSearch()"
+          />
+          <!--          <button class="search-box-button" (click)="performSearch()">-->
+          <!--            <fa-icon icon="search"></fa-icon>-->
+          <!--          </button>-->
+        </div>
+      </div>
+
+      <div class="component3">
+        <div class="filter-container">
+          <select class="mighty-filter" [(ngModel)]="selectedFilter">
+            <option value="none">Filters</option>
+            <option value="dateTime">Date & Time</option>
+          </select>
+          <div *ngIf="selectedFilter == 'dateTime'">
+            <input type="datetime-local" [(ngModel)]="selectedDateTime" class="date-time-picker" />
+            <button class="filter-button" (click)="filterEventsByDateTime()">Filter</button>
+          </div>
+        </div>
+
+        /////////////
+
+        <!--      <div class="component3">-->
+        <!--        <div class="filter-container">-->
+        <!--          <input type="datetime-local" [(ngModel)]="selectedDateTime" class="date-time-picker" />-->
+        <!--          <button class="filter-button" (click)="filterEventsByDateTime()">Filter</button>-->
+        <!--        </div>-->
+
+        <!--      </div>-->
+      </div>
+    </div>
+
+    <!--    <div class="charity-profile-filter">-->
+
+    <!--         <button class = "charity-logo-button" (click)="filterByCharityProfile(null)">-->
+
+    <!--         </button>-->
+
+    <!--    </div>-->
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
@@ -28,125 +130,135 @@
     <span>No Charity Events found</span>
   </div>
 
-  <div class="table-responsive table-entities" id="entities" *ngIf="charityEvents && charityEvents.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span>ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="eventName">
-            <div class="d-flex">
-              <span>Event Name</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="eventTimeDate">
-            <div class="d-flex">
-              <span>Event Time Date</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="description">
-            <div class="d-flex">
-              <span>Description</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="images">
-            <div class="d-flex">
-              <span>Images</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="duration">
-            <div class="d-flex">
-              <span>Duration</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="location">
-            <div class="d-flex">
-              <span>Location</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="charityType">
-            <div class="d-flex">
-              <span>Charity Type</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="charityProfile.charityName">
-            <div class="d-flex">
-              <span>Charity Profile</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let charityEvent of charityEvents; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/charity-event', charityEvent.id, 'view']">{{ charityEvent.id }}</a>
-          </td>
-          <td>{{ charityEvent.eventName }}</td>
-          <td>{{ charityEvent.eventTimeDate | formatMediumDatetime }}</td>
-          <td>{{ charityEvent.description }}</td>
-          <td>
-            <a *ngIf="charityEvent.images" (click)="openFile(charityEvent.images, charityEvent.imagesContentType)">
-              <img
-                [src]="'data:' + charityEvent.imagesContentType + ';base64,' + charityEvent.images"
-                style="max-height: 30px"
-                alt="charityEvent image"
-              />
-            </a>
-            <span *ngIf="charityEvent.images">{{ charityEvent.imagesContentType }}, {{ byteSize(charityEvent.images) }}</span>
-          </td>
-          <td>{{ charityEvent.duration }}</td>
-          <td>{{ charityEvent.location }}</td>
-          <td>{{ charityEvent.charityType }}</td>
-          <td>
-            <div *ngIf="charityEvent.charityProfile">
-              <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{
-                charityEvent.charityProfile.charityName
-              }}</a>
-            </div>
-          </td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/charity-event', charityEvent.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
-              </button>
+  <!--  <div class="row" *ngIf="charityEvents && charityEvents.length > 0">-->
+  <!--    <div class="col-4" *ngFor="let charityEvent of charityEvents">-->
+  <!--      <div class="event-box">-->
+  <!--        <img-->
+  <!--          [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"-->
+  <!--          alt="Imange"-->
+  <!--          class="event-box"-->
+  <!--          style="width: 350px; height: 260px; margin-bottom: 2px"-->
+  <!--        />-->
 
-              <button
-                type="submit"
-                [routerLink]="['/charity-event', charityEvent.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
+  <!--        <div class="event-text-section">-->
+  <!--          <div class="event-name">-->
+  <!--            <span-->
+  <!--              ><a>{{ charityEvent.eventName }}</a></span-->
+  <!--            >-->
+  <!--          </div>-->
+  <!--          <div class="timings">-->
+  <!--            {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}<a> hr</a></span>-->
+  <!--          </div>-->
+  <!--          &lt;!&ndash;          <div class="event-type"><a> Event-Type : </a>{{ charityEvent.eventType | json }}</div>&ndash;&gt;-->
+  <!--          &lt;!&ndash;          <div class="event-type"><span><a [routerLink]="['/event-type']">{{ charityEvent.eventType }}</a></span></div>&ndash;&gt;-->
+  <!--          &lt;!&ndash;          <div class="location"><span class = "location"><a> Location:</a>{{ charityEvent.location}}</span></div>&ndash;&gt;-->
+  <!--          <div class="description">{{ charityEvent.description }}</div>-->
+  <!--          &lt;!&ndash;          <div class="charity-name">{{ charityEvent?.charityProfile }}</div>&ndash;&gt;-->
+  <!--          <div class="charity-logo" *ngIf="charityEvent.charityProfile">-->
+  <!--            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>-->
+  <!--          </div>-->
+  <!--        </div>-->
 
-              <button type="submit" (click)="delete(charityEvent)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!--        <div class="text-end">-->
+  <!--          <div class="btn-group">-->
+  <!--            <button-->
+  <!--              type="submit"-->
+  <!--              [routerLink]="['/charity-event', charityEvent.id, 'view']"-->
+  <!--              class="btn btn-info btn-sm"-->
+  <!--              data-cy="entityDetailsButton"-->
+  <!--            >-->
+  <!--              <fa-icon icon="eye"></fa-icon>-->
+  <!--              <span class="d-none d-md-inline">View</span>-->
+  <!--            </button>-->
+
+  <!--            <button-->
+  <!--              type="submit"-->
+  <!--              [routerLink]="['/charity-event', charityEvent.id, 'edit']"-->
+  <!--              *jhiHasAnyAuthority="'ROLE_ADMIN'"-->
+  <!--              class="btn btn-primary btn-sm"-->
+  <!--              data-cy="entityEditButton"-->
+  <!--            >-->
+  <!--              <fa-icon icon="pencil-alt"></fa-icon>-->
+  <!--              <span class="d-none d-md-inline">Edit</span>-->
+  <!--            </button>-->
+
+  <!--            <button-->
+  <!--              type="submit"-->
+  <!--              (click)="delete(charityEvent)"-->
+  <!--              class="btn btn-danger btn-sm"-->
+  <!--              data-cy="entityDeleteButton"-->
+  <!--              *jhiHasAnyAuthority="'ROLE_ADMIN'"-->
+  <!--            >-->
+  <!--              <fa-icon icon="times"></fa-icon>-->
+  <!--              <span class="d-none d-md-inline">Delete</span>-->
+  <!--            </button>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div class="row" *ngIf="filteredEvents && filteredEvents.length > 0">
+    <div class="col-4" *ngFor="let charityEvent of filteredEvents">
+      <div class="event-box" (click)="showEventDetails(charityEvent)">
+        <!-- Display event details -->
+        <img
+          [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"
+          alt="Image"
+          class="event-box"
+          style="width: 350px; height: 260px; margin-bottom: 2px"
+        />
+
+        <div class="event-text-section">
+          <div class="event-name">
+            <span
+              ><a>{{ charityEvent.eventName }}</a></span
+            >
+          </div>
+          <div class="timings">
+            {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}<a> hr</a></span>
+          </div>
+          <div class="description">{{ charityEvent.description }}</div>
+          <div class="charity-logo" *ngIf="charityEvent.charityProfile">
+            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>
+          </div>
+        </div>
+
+        <div class="text-end">
+          <div class="btn-group">
+            <button
+              type="submit"
+              [routerLink]="['/charity-event', charityEvent.id, 'view']"
+              class="btn btn-info btn-sm"
+              data-cy="entityDetailsButton"
+            >
+              <fa-icon icon="eye"></fa-icon>
+              <span class="d-none d-md-inline">View</span>
+            </button>
+
+            <button
+              type="submit"
+              [routerLink]="['/charity-event', charityEvent.id, 'edit']"
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              class="btn btn-primary btn-sm"
+              data-cy="entityEditButton"
+            >
+              <fa-icon icon="pencil-alt"></fa-icon>
+              <span class="d-none d-md-inline">Edit</span>
+            </button>
+
+            <button
+              type="submit"
+              (click)="delete(charityEvent)"
+              class="btn btn-danger btn-sm"
+              data-cy="entityDeleteButton"
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+            >
+              <fa-icon icon="times"></fa-icon>
+              <span class="d-none d-md-inline">Delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

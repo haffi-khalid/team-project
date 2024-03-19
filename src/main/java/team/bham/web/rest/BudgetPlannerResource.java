@@ -159,11 +159,11 @@ public class BudgetPlannerResource {
      */
     @GetMapping("/budget-planners")
     public List<BudgetPlanner> getAllBudgetPlanners(@RequestParam(required = false) String filter) {
-        if ("charityprofile-is-null".equals(filter)) {
-            log.debug("REST request to get all BudgetPlanners where charityProfile is null");
+        if ("charityadmin-is-null".equals(filter)) {
+            log.debug("REST request to get all BudgetPlanners where charityAdmin is null");
             return StreamSupport
                 .stream(budgetPlannerRepository.findAll().spliterator(), false)
-                .filter(budgetPlanner -> budgetPlanner.getCharityProfile() == null)
+                .filter(budgetPlanner -> budgetPlanner.getCharityAdmin() == null)
                 .collect(Collectors.toList());
         }
         log.debug("REST request to get all BudgetPlanners");

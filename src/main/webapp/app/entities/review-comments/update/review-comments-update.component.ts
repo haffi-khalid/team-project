@@ -7,11 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import { ReviewCommentsFormService, ReviewCommentsFormGroup } from './review-comments-form.service';
 import { IReviewComments } from '../review-comments.model';
 import { ReviewCommentsService } from '../service/review-comments.service';
-import { AlertError } from 'app/shared/alert/alert-error.model';
-import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
-import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
-import { IUserPage } from 'app/entities/user-page/user-page.model';
-import { UserPageService } from 'app/entities/user-page/service/user-page.service';
+import { ICharityHubUser } from 'app/entities/charity-hub-user/charity-hub-user.model';
+import { CharityHubUserService } from 'app/entities/charity-hub-user/service/charity-hub-user.service';
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
 
@@ -23,22 +20,21 @@ export class ReviewCommentsUpdateComponent implements OnInit {
   isSaving = false;
   reviewComments: IReviewComments | null = null;
 
-  userPagesSharedCollection: IUserPage[] = [];
+  charityHubUsersSharedCollection: ICharityHubUser[] = [];
   charityProfilesSharedCollection: ICharityProfile[] = [];
 
   editForm: ReviewCommentsFormGroup = this.reviewCommentsFormService.createReviewCommentsFormGroup();
 
   constructor(
-    protected dataUtils: DataUtils,
-    protected eventManager: EventManager,
     protected reviewCommentsService: ReviewCommentsService,
     protected reviewCommentsFormService: ReviewCommentsFormService,
-    protected userPageService: UserPageService,
+    protected charityHubUserService: CharityHubUserService,
     protected charityProfileService: CharityProfileService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareUserPage = (o1: IUserPage | null, o2: IUserPage | null): boolean => this.userPageService.compareUserPage(o1, o2);
+  compareCharityHubUser = (o1: ICharityHubUser | null, o2: ICharityHubUser | null): boolean =>
+    this.charityHubUserService.compareCharityHubUser(o1, o2);
 
   compareCharityProfile = (o1: ICharityProfile | null, o2: ICharityProfile | null): boolean =>
     this.charityProfileService.compareCharityProfile(o1, o2);
@@ -51,21 +47,6 @@ export class ReviewCommentsUpdateComponent implements OnInit {
       }
 
       this.loadRelationshipsOptions();
-    });
-  }
-
-  byteSize(base64String: string): string {
-    return this.dataUtils.byteSize(base64String);
-  }
-
-  openFile(base64String: string, contentType: string | null | undefined): void {
-    this.dataUtils.openFile(base64String, contentType);
-  }
-
-  setFileData(event: Event, field: string, isImage: boolean): void {
-    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
-      error: (err: FileLoadError) =>
-        this.eventManager.broadcast(new EventWithContent<AlertError>('teamprojectApp.error', { message: err.message })),
     });
   }
 
@@ -83,7 +64,7 @@ export class ReviewCommentsUpdateComponent implements OnInit {
     }
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IReviewComments>>): void {
+  protected subscribeToSaveResponse(result: Observable<IReviewComments>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
       error: () => this.onSaveError(),
@@ -106,9 +87,9 @@ export class ReviewCommentsUpdateComponent implements OnInit {
     this.reviewComments = reviewComments;
     this.reviewCommentsFormService.resetForm(this.editForm, reviewComments);
 
-    this.userPagesSharedCollection = this.userPageService.addUserPageToCollectionIfMissing<IUserPage>(
-      this.userPagesSharedCollection,
-      reviewComments.userPage
+    this.charityHubUsersSharedCollection = this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
+      this.charityHubUsersSharedCollection,
+      reviewComments.charityHubUser
     );
     this.charityProfilesSharedCollection = this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
       this.charityProfilesSharedCollection,
@@ -117,15 +98,18 @@ export class ReviewCommentsUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
-    this.userPageService
+    this.charityHubUserService
       .query()
-      .pipe(map((res: HttpResponse<IUserPage[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<ICharityHubUser[]>) => res.body ?? []))
       .pipe(
-        map((userPages: IUserPage[]) =>
-          this.userPageService.addUserPageToCollectionIfMissing<IUserPage>(userPages, this.reviewComments?.userPage)
+        map((charityHubUsers: ICharityHubUser[]) =>
+          this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
+            charityHubUsers,
+            this.reviewComments?.charityHubUser
+          )
         )
       )
-      .subscribe((userPages: IUserPage[]) => (this.userPagesSharedCollection = userPages));
+      .subscribe((charityHubUsers: ICharityHubUser[]) => (this.charityHubUsersSharedCollection = charityHubUsers));
 
     this.charityProfileService
       .query()

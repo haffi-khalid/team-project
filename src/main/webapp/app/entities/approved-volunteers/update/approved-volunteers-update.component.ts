@@ -7,12 +7,10 @@ import { finalize, map } from 'rxjs/operators';
 import { ApprovedVolunteersFormService, ApprovedVolunteersFormGroup } from './approved-volunteers-form.service';
 import { IApprovedVolunteers } from '../approved-volunteers.model';
 import { ApprovedVolunteersService } from '../service/approved-volunteers.service';
-import { IVolunteerApplications } from 'app/entities/volunteer-applications/volunteer-applications.model';
-import { VolunteerApplicationsService } from 'app/entities/volunteer-applications/service/volunteer-applications.service';
-import { IUserPage } from 'app/entities/user-page/user-page.model';
-import { UserPageService } from 'app/entities/user-page/service/user-page.service';
-import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
-import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
+import { ICharityHubUser } from 'app/entities/charity-hub-user/charity-hub-user.model';
+import { CharityHubUserService } from 'app/entities/charity-hub-user/service/charity-hub-user.service';
+import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
+import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
 
 @Component({
   selector: 'jhi-approved-volunteers-update',
@@ -22,28 +20,24 @@ export class ApprovedVolunteersUpdateComponent implements OnInit {
   isSaving = false;
   approvedVolunteers: IApprovedVolunteers | null = null;
 
-  volunteerApplicationsCollection: IVolunteerApplications[] = [];
-  userPagesSharedCollection: IUserPage[] = [];
-  charityProfilesSharedCollection: ICharityProfile[] = [];
+  charityHubUsersSharedCollection: ICharityHubUser[] = [];
+  charityAdminsSharedCollection: ICharityAdmin[] = [];
 
   editForm: ApprovedVolunteersFormGroup = this.approvedVolunteersFormService.createApprovedVolunteersFormGroup();
 
   constructor(
     protected approvedVolunteersService: ApprovedVolunteersService,
     protected approvedVolunteersFormService: ApprovedVolunteersFormService,
-    protected volunteerApplicationsService: VolunteerApplicationsService,
-    protected userPageService: UserPageService,
-    protected charityProfileService: CharityProfileService,
+    protected charityHubUserService: CharityHubUserService,
+    protected charityAdminService: CharityAdminService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareVolunteerApplications = (o1: IVolunteerApplications | null, o2: IVolunteerApplications | null): boolean =>
-    this.volunteerApplicationsService.compareVolunteerApplications(o1, o2);
+  compareCharityHubUser = (o1: ICharityHubUser | null, o2: ICharityHubUser | null): boolean =>
+    this.charityHubUserService.compareCharityHubUser(o1, o2);
 
-  compareUserPage = (o1: IUserPage | null, o2: IUserPage | null): boolean => this.userPageService.compareUserPage(o1, o2);
-
-  compareCharityProfile = (o1: ICharityProfile | null, o2: ICharityProfile | null): boolean =>
-    this.charityProfileService.compareCharityProfile(o1, o2);
+  compareCharityAdmin = (o1: ICharityAdmin | null, o2: ICharityAdmin | null): boolean =>
+    this.charityAdminService.compareCharityAdmin(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ approvedVolunteers }) => {
@@ -93,56 +87,38 @@ export class ApprovedVolunteersUpdateComponent implements OnInit {
     this.approvedVolunteers = approvedVolunteers;
     this.approvedVolunteersFormService.resetForm(this.editForm, approvedVolunteers);
 
-    this.volunteerApplicationsCollection =
-      this.volunteerApplicationsService.addVolunteerApplicationsToCollectionIfMissing<IVolunteerApplications>(
-        this.volunteerApplicationsCollection,
-        approvedVolunteers.volunteerApplications
-      );
-    this.userPagesSharedCollection = this.userPageService.addUserPageToCollectionIfMissing<IUserPage>(
-      this.userPagesSharedCollection,
-      approvedVolunteers.userPage
+    this.charityHubUsersSharedCollection = this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
+      this.charityHubUsersSharedCollection,
+      approvedVolunteers.charityHubUser
     );
-    this.charityProfilesSharedCollection = this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
-      this.charityProfilesSharedCollection,
-      approvedVolunteers.charityProfile
+    this.charityAdminsSharedCollection = this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
+      this.charityAdminsSharedCollection,
+      approvedVolunteers.charityAdmin
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.volunteerApplicationsService
-      .query({ filter: 'approvedvolunteers-is-null' })
-      .pipe(map((res: HttpResponse<IVolunteerApplications[]>) => res.body ?? []))
+    this.charityHubUserService
+      .query()
+      .pipe(map((res: HttpResponse<ICharityHubUser[]>) => res.body ?? []))
       .pipe(
-        map((volunteerApplications: IVolunteerApplications[]) =>
-          this.volunteerApplicationsService.addVolunteerApplicationsToCollectionIfMissing<IVolunteerApplications>(
-            volunteerApplications,
-            this.approvedVolunteers?.volunteerApplications
+        map((charityHubUsers: ICharityHubUser[]) =>
+          this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
+            charityHubUsers,
+            this.approvedVolunteers?.charityHubUser
           )
         )
       )
-      .subscribe((volunteerApplications: IVolunteerApplications[]) => (this.volunteerApplicationsCollection = volunteerApplications));
+      .subscribe((charityHubUsers: ICharityHubUser[]) => (this.charityHubUsersSharedCollection = charityHubUsers));
 
-    this.userPageService
+    this.charityAdminService
       .query()
-      .pipe(map((res: HttpResponse<IUserPage[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<ICharityAdmin[]>) => res.body ?? []))
       .pipe(
-        map((userPages: IUserPage[]) =>
-          this.userPageService.addUserPageToCollectionIfMissing<IUserPage>(userPages, this.approvedVolunteers?.userPage)
+        map((charityAdmins: ICharityAdmin[]) =>
+          this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(charityAdmins, this.approvedVolunteers?.charityAdmin)
         )
       )
-      .subscribe((userPages: IUserPage[]) => (this.userPagesSharedCollection = userPages));
-
-    this.charityProfileService
-      .query()
-      .pipe(map((res: HttpResponse<ICharityProfile[]>) => res.body ?? []))
-      .pipe(
-        map((charityProfiles: ICharityProfile[]) =>
-          this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
-            charityProfiles,
-            this.approvedVolunteers?.charityProfile
-          )
-        )
-      )
-      .subscribe((charityProfiles: ICharityProfile[]) => (this.charityProfilesSharedCollection = charityProfiles));
+      .subscribe((charityAdmins: ICharityAdmin[]) => (this.charityAdminsSharedCollection = charityAdmins));
   }
 }

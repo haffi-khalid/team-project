@@ -79,25 +79,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_location">Location</label>
-          <input type="text" class="form-control" name="location" id="field_location" data-cy="location" formControlName="location" />
-          <div *ngIf="editForm.get('location')!.invalid && (editForm.get('location')!.dirty || editForm.get('location')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('location')?.errors?.required"> This field is required. </small>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_charityType">Charity Type</label>
-          <select class="form-control" name="charityType" formControlName="charityType" id="field_charityType" data-cy="charityType">
-            <option [ngValue]="null"></option>
-            <option *ngFor="let eventType of eventTypeValues" [value]="eventType">eventType</option>
-          </select>
-          <div *ngIf="editForm.get('charityType')!.invalid && (editForm.get('charityType')!.dirty || editForm.get('charityType')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('charityType')?.errors?.required"> This field is required. </small>
-          </div>
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" for="field_charityProfile">Charity Profile</label>
           <select
             class="form-control"

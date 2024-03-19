@@ -21,9 +21,8 @@ type ApprovedVolunteersFormGroupContent = {
   volunteerStatus: FormControl<IApprovedVolunteers['volunteerStatus']>;
   volunteerHoursCompletedInCharity: FormControl<IApprovedVolunteers['volunteerHoursCompletedInCharity']>;
   currentEventVolunteeringIn: FormControl<IApprovedVolunteers['currentEventVolunteeringIn']>;
-  volunteerApplications: FormControl<IApprovedVolunteers['volunteerApplications']>;
-  userPage: FormControl<IApprovedVolunteers['userPage']>;
-  charityProfile: FormControl<IApprovedVolunteers['charityProfile']>;
+  charityHubUser: FormControl<IApprovedVolunteers['charityHubUser']>;
+  charityAdmin: FormControl<IApprovedVolunteers['charityAdmin']>;
 };
 
 export type ApprovedVolunteersFormGroup = FormGroup<ApprovedVolunteersFormGroupContent>;
@@ -46,9 +45,8 @@ export class ApprovedVolunteersFormService {
       volunteerStatus: new FormControl(approvedVolunteersRawValue.volunteerStatus),
       volunteerHoursCompletedInCharity: new FormControl(approvedVolunteersRawValue.volunteerHoursCompletedInCharity),
       currentEventVolunteeringIn: new FormControl(approvedVolunteersRawValue.currentEventVolunteeringIn),
-      volunteerApplications: new FormControl(approvedVolunteersRawValue.volunteerApplications),
-      userPage: new FormControl(approvedVolunteersRawValue.userPage),
-      charityProfile: new FormControl(approvedVolunteersRawValue.charityProfile),
+      charityHubUser: new FormControl(approvedVolunteersRawValue.charityHubUser),
+      charityAdmin: new FormControl(approvedVolunteersRawValue.charityAdmin),
     });
   }
 

@@ -8,11 +8,11 @@
     -->
     <changeSet id="20240307130404-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="user_page_id"
+        <addForeignKeyConstraint baseColumnNames="charity_hub_user_id"
                                  baseTableName="review_comments"
-                                 constraintName="fk_review_comments__user_page_id"
+                                 constraintName="fk_review_comments__charity_hub_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="user_page"/>
+                                 referencedTableName="charity_hub_user"/>
 
         <addForeignKeyConstraint baseColumnNames="charity_profile_id"
                                  baseTableName="review_comments"

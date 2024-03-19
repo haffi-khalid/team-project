@@ -26,7 +26,6 @@ describe('CharityProfile Form Service', () => {
             emailAddress: expect.any(Object),
             logo: expect.any(Object),
             pictures: expect.any(Object),
-            budgetPlanner: expect.any(Object),
             socialFeed: expect.any(Object),
           })
         );
@@ -44,7 +43,6 @@ describe('CharityProfile Form Service', () => {
             emailAddress: expect.any(Object),
             logo: expect.any(Object),
             pictures: expect.any(Object),
-            budgetPlanner: expect.any(Object),
             socialFeed: expect.any(Object),
           })
         );

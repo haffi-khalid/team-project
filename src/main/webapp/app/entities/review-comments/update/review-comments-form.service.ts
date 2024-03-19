@@ -35,8 +35,7 @@ type ReviewCommentsFormGroupContent = {
   content: FormControl<ReviewCommentsFormRawValue['content']>;
   timestamp: FormControl<ReviewCommentsFormRawValue['timestamp']>;
   status: FormControl<ReviewCommentsFormRawValue['status']>;
-  likeCount: FormControl<ReviewCommentsFormRawValue['likeCount']>;
-  userPage: FormControl<ReviewCommentsFormRawValue['userPage']>;
+  charityHubUser: FormControl<ReviewCommentsFormRawValue['charityHubUser']>;
   charityProfile: FormControl<ReviewCommentsFormRawValue['charityProfile']>;
 };
 
@@ -61,8 +60,7 @@ export class ReviewCommentsFormService {
       content: new FormControl(reviewCommentsRawValue.content),
       timestamp: new FormControl(reviewCommentsRawValue.timestamp),
       status: new FormControl(reviewCommentsRawValue.status),
-      likeCount: new FormControl(reviewCommentsRawValue.likeCount),
-      userPage: new FormControl(reviewCommentsRawValue.userPage),
+      charityHubUser: new FormControl(reviewCommentsRawValue.charityHubUser),
       charityProfile: new FormControl(reviewCommentsRawValue.charityProfile),
     });
   }

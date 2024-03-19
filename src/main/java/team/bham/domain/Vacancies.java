@@ -55,24 +55,11 @@ public class Vacancies implements Serializable {
 
     @OneToMany(mappedBy = "vacancies")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "charityProfile", "approvedVolunteers", "userPage", "vacancies" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "charityAdmin", "charityHubUser", "vacancies" }, allowSetters = true)
     private Set<VolunteerApplications> volunteerApplications = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "socialFeed",
-            "reviewComments",
-            "donatorPages",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
-        allowSetters = true
-    )
+    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
     private CharityProfile charityProfile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

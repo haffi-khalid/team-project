@@ -8,22 +8,16 @@
     -->
     <changeSet id="20240307130416-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="volunteer_applications_id"
+        <addForeignKeyConstraint baseColumnNames="charity_hub_user_id"
                                  baseTableName="approved_volunteers"
-                                 constraintName="fk_approved_volunteers__volunteer_applications_id"
+                                 constraintName="fk_approved_volunteers__charity_hub_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="volunteer_applications"/>
+                                 referencedTableName="charity_hub_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="user_page_id"
+        <addForeignKeyConstraint baseColumnNames="charity_admin_id"
                                  baseTableName="approved_volunteers"
-                                 constraintName="fk_approved_volunteers__user_page_id"
+                                 constraintName="fk_approved_volunteers__charity_admin_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="user_page"/>
-
-        <addForeignKeyConstraint baseColumnNames="charity_profile_id"
-                                 baseTableName="approved_volunteers"
-                                 constraintName="fk_approved_volunteers__charity_profile_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="charity_profile"/>
+                                 referencedTableName="charity_admin"/>
     </changeSet>
 </databaseChangeLog>

@@ -26,17 +26,6 @@
     {
       "fieldName": "duration",
       "fieldType": "Integer"
-    },
-    {
-      "fieldName": "location",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "charityType",
-      "fieldType": "EventType",
-      "fieldValidateRules": ["required"],
-      "fieldValues": "CHILDCARE,HUMANRIGHT,HEALTH,HOMELESSNESS,OTHER"
     }
   ],
   "fluentMethods": true,

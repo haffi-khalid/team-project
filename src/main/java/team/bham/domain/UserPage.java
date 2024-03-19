@@ -2,8 +2,6 @@ package team.bham.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,23 +24,13 @@ public class UserPage implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Lob
-    @Column(name = "profile_picture")
-    private byte[] profilePicture;
-
-    @Column(name = "profile_picture_content_type")
-    private String profilePictureContentType;
-
-    @Column(name = "name")
-    private String name;
+    @Column(name = "volunteer_hours")
+    private Integer volunteerHours;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "user_bio")
     private String userBio;
-
-    @Column(name = "volunteer_hours")
-    private Integer volunteerHours;
 
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -55,24 +43,12 @@ public class UserPage implements Serializable {
     @Column(name = "skills")
     private String skills;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private User user;
-
-    @OneToMany(mappedBy = "userPage")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "charityProfile", "approvedVolunteers", "userPage", "vacancies" }, allowSetters = true)
-    private Set<VolunteerApplications> volunteerApplications = new HashSet<>();
-
-    @OneToMany(mappedBy = "userPage")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "userPage", "charityProfile" }, allowSetters = true)
-    private Set<ReviewComments> reviewComments = new HashSet<>();
-
-    @OneToMany(mappedBy = "userPage")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "volunteerApplications", "userPage", "charityProfile" }, allowSetters = true)
-    private Set<ApprovedVolunteers> approvedVolunteers = new HashSet<>();
+    @JsonIgnoreProperties(
+        value = { "user", "userPage", "authentication", "volunteerApplications", "reviewComments", "approvedVolunteers" },
+        allowSetters = true
+    )
+    @OneToOne(mappedBy = "userPage")
+    private CharityHubUser charityHubUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -89,43 +65,17 @@ public class UserPage implements Serializable {
         this.id = id;
     }
 
-    public byte[] getProfilePicture() {
-        return this.profilePicture;
+    public Integer getVolunteerHours() {
+        return this.volunteerHours;
     }
 
-    public UserPage profilePicture(byte[] profilePicture) {
-        this.setProfilePicture(profilePicture);
+    public UserPage volunteerHours(Integer volunteerHours) {
+        this.setVolunteerHours(volunteerHours);
         return this;
     }
 
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
-    public String getProfilePictureContentType() {
-        return this.profilePictureContentType;
-    }
-
-    public UserPage profilePictureContentType(String profilePictureContentType) {
-        this.profilePictureContentType = profilePictureContentType;
-        return this;
-    }
-
-    public void setProfilePictureContentType(String profilePictureContentType) {
-        this.profilePictureContentType = profilePictureContentType;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public UserPage name(String name) {
-        this.setName(name);
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setVolunteerHours(Integer volunteerHours) {
+        this.volunteerHours = volunteerHours;
     }
 
     public String getUserBio() {
@@ -139,19 +89,6 @@ public class UserPage implements Serializable {
 
     public void setUserBio(String userBio) {
         this.userBio = userBio;
-    }
-
-    public Integer getVolunteerHours() {
-        return this.volunteerHours;
-    }
-
-    public UserPage volunteerHours(Integer volunteerHours) {
-        this.setVolunteerHours(volunteerHours);
-        return this;
-    }
-
-    public void setVolunteerHours(Integer volunteerHours) {
-        this.volunteerHours = volunteerHours;
     }
 
     public String getReviewComment() {
@@ -193,109 +130,22 @@ public class UserPage implements Serializable {
         this.skills = skills;
     }
 
-    public User getUser() {
-        return this.user;
+    public CharityHubUser getCharityHubUser() {
+        return this.charityHubUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public UserPage user(User user) {
-        this.setUser(user);
-        return this;
-    }
-
-    public Set<VolunteerApplications> getVolunteerApplications() {
-        return this.volunteerApplications;
-    }
-
-    public void setVolunteerApplications(Set<VolunteerApplications> volunteerApplications) {
-        if (this.volunteerApplications != null) {
-            this.volunteerApplications.forEach(i -> i.setUserPage(null));
+    public void setCharityHubUser(CharityHubUser charityHubUser) {
+        if (this.charityHubUser != null) {
+            this.charityHubUser.setUserPage(null);
         }
-        if (volunteerApplications != null) {
-            volunteerApplications.forEach(i -> i.setUserPage(this));
+        if (charityHubUser != null) {
+            charityHubUser.setUserPage(this);
         }
-        this.volunteerApplications = volunteerApplications;
+        this.charityHubUser = charityHubUser;
     }
 
-    public UserPage volunteerApplications(Set<VolunteerApplications> volunteerApplications) {
-        this.setVolunteerApplications(volunteerApplications);
-        return this;
-    }
-
-    public UserPage addVolunteerApplications(VolunteerApplications volunteerApplications) {
-        this.volunteerApplications.add(volunteerApplications);
-        volunteerApplications.setUserPage(this);
-        return this;
-    }
-
-    public UserPage removeVolunteerApplications(VolunteerApplications volunteerApplications) {
-        this.volunteerApplications.remove(volunteerApplications);
-        volunteerApplications.setUserPage(null);
-        return this;
-    }
-
-    public Set<ReviewComments> getReviewComments() {
-        return this.reviewComments;
-    }
-
-    public void setReviewComments(Set<ReviewComments> reviewComments) {
-        if (this.reviewComments != null) {
-            this.reviewComments.forEach(i -> i.setUserPage(null));
-        }
-        if (reviewComments != null) {
-            reviewComments.forEach(i -> i.setUserPage(this));
-        }
-        this.reviewComments = reviewComments;
-    }
-
-    public UserPage reviewComments(Set<ReviewComments> reviewComments) {
-        this.setReviewComments(reviewComments);
-        return this;
-    }
-
-    public UserPage addReviewComments(ReviewComments reviewComments) {
-        this.reviewComments.add(reviewComments);
-        reviewComments.setUserPage(this);
-        return this;
-    }
-
-    public UserPage removeReviewComments(ReviewComments reviewComments) {
-        this.reviewComments.remove(reviewComments);
-        reviewComments.setUserPage(null);
-        return this;
-    }
-
-    public Set<ApprovedVolunteers> getApprovedVolunteers() {
-        return this.approvedVolunteers;
-    }
-
-    public void setApprovedVolunteers(Set<ApprovedVolunteers> approvedVolunteers) {
-        if (this.approvedVolunteers != null) {
-            this.approvedVolunteers.forEach(i -> i.setUserPage(null));
-        }
-        if (approvedVolunteers != null) {
-            approvedVolunteers.forEach(i -> i.setUserPage(this));
-        }
-        this.approvedVolunteers = approvedVolunteers;
-    }
-
-    public UserPage approvedVolunteers(Set<ApprovedVolunteers> approvedVolunteers) {
-        this.setApprovedVolunteers(approvedVolunteers);
-        return this;
-    }
-
-    public UserPage addApprovedVolunteers(ApprovedVolunteers approvedVolunteers) {
-        this.approvedVolunteers.add(approvedVolunteers);
-        approvedVolunteers.setUserPage(this);
-        return this;
-    }
-
-    public UserPage removeApprovedVolunteers(ApprovedVolunteers approvedVolunteers) {
-        this.approvedVolunteers.remove(approvedVolunteers);
-        approvedVolunteers.setUserPage(null);
+    public UserPage charityHubUser(CharityHubUser charityHubUser) {
+        this.setCharityHubUser(charityHubUser);
         return this;
     }
 
@@ -323,11 +173,8 @@ public class UserPage implements Serializable {
     public String toString() {
         return "UserPage{" +
             "id=" + getId() +
-            ", profilePicture='" + getProfilePicture() + "'" +
-            ", profilePictureContentType='" + getProfilePictureContentType() + "'" +
-            ", name='" + getName() + "'" +
-            ", userBio='" + getUserBio() + "'" +
             ", volunteerHours=" + getVolunteerHours() +
+            ", userBio='" + getUserBio() + "'" +
             ", reviewComment='" + getReviewComment() + "'" +
             ", course='" + getCourse() + "'" +
             ", skills='" + getSkills() + "'" +

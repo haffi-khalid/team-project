@@ -26,7 +26,7 @@ describe('FundraisingIdea Form Service', () => {
             location: expect.any(Object),
             expectedCost: expect.any(Object),
             expectedAttendance: expect.any(Object),
-            charityProfile: expect.any(Object),
+            charityAdmin: expect.any(Object),
           })
         );
       });
@@ -43,7 +43,7 @@ describe('FundraisingIdea Form Service', () => {
             location: expect.any(Object),
             expectedCost: expect.any(Object),
             expectedAttendance: expect.any(Object),
-            charityProfile: expect.any(Object),
+            charityAdmin: expect.any(Object),
           })
         );
       });

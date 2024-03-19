@@ -1,4 +1,4 @@
-import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
+import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
 import { LocationCategory } from 'app/entities/enumerations/location-category.model';
 
 export interface IFundraisingIdea {
@@ -9,7 +9,7 @@ export interface IFundraisingIdea {
   location?: LocationCategory | null;
   expectedCost?: number | null;
   expectedAttendance?: number | null;
-  charityProfile?: Pick<ICharityProfile, 'id' | 'charityName'> | null;
+  charityAdmin?: Pick<ICharityAdmin, 'id'> | null;
 }
 
 export type NewFundraisingIdea = Omit<IFundraisingIdea, 'id'> & { id: null };

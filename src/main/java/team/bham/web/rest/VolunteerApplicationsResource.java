@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -146,28 +144,12 @@ public class VolunteerApplicationsResource {
     /**
      * {@code GET  /volunteer-applications} : get all the volunteerApplications.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of volunteerApplications in body.
      */
     @GetMapping("/volunteer-applications")
-    public List<VolunteerApplications> getAllVolunteerApplications(
-        @RequestParam(required = false) String filter,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
-    ) {
-        if ("approvedvolunteers-is-null".equals(filter)) {
-            log.debug("REST request to get all VolunteerApplicationss where approvedVolunteers is null");
-            return StreamSupport
-                .stream(volunteerApplicationsRepository.findAll().spliterator(), false)
-                .filter(volunteerApplications -> volunteerApplications.getApprovedVolunteers() == null)
-                .collect(Collectors.toList());
-        }
+    public List<VolunteerApplications> getAllVolunteerApplications() {
         log.debug("REST request to get all VolunteerApplications");
-        if (eagerload) {
-            return volunteerApplicationsRepository.findAllWithEagerRelationships();
-        } else {
-            return volunteerApplicationsRepository.findAll();
-        }
+        return volunteerApplicationsRepository.findAll();
     }
 
     /**
@@ -179,7 +161,7 @@ public class VolunteerApplicationsResource {
     @GetMapping("/volunteer-applications/{id}")
     public ResponseEntity<VolunteerApplications> getVolunteerApplications(@PathVariable Long id) {
         log.debug("REST request to get VolunteerApplications : {}", id);
-        Optional<VolunteerApplications> volunteerApplications = volunteerApplicationsRepository.findOneWithEagerRelationships(id);
+        Optional<VolunteerApplications> volunteerApplications = volunteerApplicationsRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(volunteerApplications);
     }
 

@@ -77,13 +77,6 @@ public class CacheConfiguration {
             createCache(cm, team.bham.domain.BudgetPlanner.class.getName());
             createCache(cm, team.bham.domain.ApprovedVolunteers.class.getName());
             createCache(cm, team.bham.domain.Authentication.class.getName());
-            createCache(cm, team.bham.domain.UserPage.class.getName() + ".volunteerApplications");
-            createCache(cm, team.bham.domain.UserPage.class.getName() + ".reviewComments");
-            createCache(cm, team.bham.domain.UserPage.class.getName() + ".approvedVolunteers");
-            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".fundraisingIdeas");
-            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".approvedVolunteers");
-            createCache(cm, team.bham.domain.CharityProfile.class.getName() + ".volunteerApplications");
-            createCache(cm, team.bham.domain.GroupDonatorCollector.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -22,6 +22,9 @@ describe('CharityHubUser Form Service', () => {
             id: expect.any(Object),
             username: expect.any(Object),
             email: expect.any(Object),
+            user: expect.any(Object),
+            userPage: expect.any(Object),
+            authentication: expect.any(Object),
           })
         );
       });
@@ -34,6 +37,9 @@ describe('CharityHubUser Form Service', () => {
             id: expect.any(Object),
             username: expect.any(Object),
             email: expect.any(Object),
+            user: expect.any(Object),
+            userPage: expect.any(Object),
+            authentication: expect.any(Object),
           })
         );
       });

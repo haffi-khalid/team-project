@@ -100,7 +100,7 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_vacancyDuration">Vacancy Duration</label>
+          <label class="form-label" for="field_vacancyDuration">Vacancy Duration in Hours</label>
           <input
             type="number"
             class="form-control"
@@ -121,7 +121,7 @@
             data-cy="vacancyLocation"
           >
             <option [ngValue]="null"></option>
-            <option *ngFor="let locationCategory of locationCategoryValues" [value]="locationCategory">locationCategory</option>
+            <option *ngFor="let locationCategory of locationCategoryValues" [value]="locationCategory">{{ locationCategory }}</option>
           </select>
         </div>
 

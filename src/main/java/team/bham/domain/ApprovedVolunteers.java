@@ -32,31 +32,19 @@ public class ApprovedVolunteers implements Serializable {
     @Column(name = "current_event_volunteering_in")
     private String currentEventVolunteeringIn;
 
-    @JsonIgnoreProperties(value = { "charityProfile", "approvedVolunteers", "userPage", "vacancies" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private VolunteerApplications volunteerApplications;
-
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "volunteerApplications", "reviewComments", "approvedVolunteers" }, allowSetters = true)
-    private UserPage userPage;
+    @JsonIgnoreProperties(
+        value = { "user", "userPage", "authentication", "volunteerApplications", "reviewComments", "approvedVolunteers" },
+        allowSetters = true
+    )
+    private CharityHubUser charityHubUser;
 
     @ManyToOne
     @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "socialFeed",
-            "reviewComments",
-            "donatorPages",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
+        value = { "budgetPlanner", "charityProfile", "fundraisingIdeas", "approvedVolunteers", "volunteerApplications" },
         allowSetters = true
     )
-    private CharityProfile charityProfile;
+    private CharityAdmin charityAdmin;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -112,42 +100,29 @@ public class ApprovedVolunteers implements Serializable {
         this.currentEventVolunteeringIn = currentEventVolunteeringIn;
     }
 
-    public VolunteerApplications getVolunteerApplications() {
-        return this.volunteerApplications;
+    public CharityHubUser getCharityHubUser() {
+        return this.charityHubUser;
     }
 
-    public void setVolunteerApplications(VolunteerApplications volunteerApplications) {
-        this.volunteerApplications = volunteerApplications;
+    public void setCharityHubUser(CharityHubUser charityHubUser) {
+        this.charityHubUser = charityHubUser;
     }
 
-    public ApprovedVolunteers volunteerApplications(VolunteerApplications volunteerApplications) {
-        this.setVolunteerApplications(volunteerApplications);
+    public ApprovedVolunteers charityHubUser(CharityHubUser charityHubUser) {
+        this.setCharityHubUser(charityHubUser);
         return this;
     }
 
-    public UserPage getUserPage() {
-        return this.userPage;
+    public CharityAdmin getCharityAdmin() {
+        return this.charityAdmin;
     }
 
-    public void setUserPage(UserPage userPage) {
-        this.userPage = userPage;
+    public void setCharityAdmin(CharityAdmin charityAdmin) {
+        this.charityAdmin = charityAdmin;
     }
 
-    public ApprovedVolunteers userPage(UserPage userPage) {
-        this.setUserPage(userPage);
-        return this;
-    }
-
-    public CharityProfile getCharityProfile() {
-        return this.charityProfile;
-    }
-
-    public void setCharityProfile(CharityProfile charityProfile) {
-        this.charityProfile = charityProfile;
-    }
-
-    public ApprovedVolunteers charityProfile(CharityProfile charityProfile) {
-        this.setCharityProfile(charityProfile);
+    public ApprovedVolunteers charityAdmin(CharityAdmin charityAdmin) {
+        this.setCharityAdmin(charityAdmin);
         return this;
     }
 

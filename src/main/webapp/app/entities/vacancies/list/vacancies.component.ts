@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { combineLatest, filter, forkJoin, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { NgbDate, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IVacancies } from '../vacancies.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
-import { EntityArrayResponseType, VacanciesService } from '../service/vacancies.service';
+import { EntityArrayResponseType, EntityResponseType, VacanciesService } from '../service/vacancies.service';
 import { VacanciesDeleteDialogComponent } from '../delete/vacancies-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { SortService } from 'app/shared/sort/sort.service';
+import { AccountService } from '../../../core/auth/account.service';
+import { LoginPopUpCheckComponent } from '../../../login-pop-up-check/login-pop-up-check.component';
+import dayjs from 'dayjs/esm';
+import { VolunteerApplicationsComponent } from '../../volunteer-applications/list/volunteer-applications.component';
 
 @Component({
   selector: 'jhi-vacancies',
   templateUrl: './vacancies.component.html',
+  styleUrls: ['./vacancies.component.scss'],
 })
 export class VacanciesComponent implements OnInit {
   vacancies?: IVacancies[];
@@ -20,6 +25,14 @@ export class VacanciesComponent implements OnInit {
 
   predicate = 'id';
   ascending = true;
+  charityNames: Observable<string[]>;
+  filteredCharityNames: string[] = [];
+  searchText: string = '';
+  filteredCharityId: number[] = [];
+  remote: boolean = false;
+  person: boolean = false;
+  filteredVacancies: IVacancies[] | undefined;
+  dateSelector: dayjs.Dayjs | undefined;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -27,17 +40,82 @@ export class VacanciesComponent implements OnInit {
     public router: Router,
     protected sortService: SortService,
     protected dataUtils: DataUtils,
-    protected modalService: NgbModal
-  ) {}
+    protected modalService: NgbModal,
+    protected accountService: AccountService
+  ) {
+    this.charityNames = this.vacanciesService.getAllCharityNames();
+  }
 
   trackId = (_index: number, item: IVacancies): number => this.vacanciesService.getVacanciesIdentifier(item);
 
   ngOnInit(): void {
     this.load();
   }
-
+  applyFilters() {
+    this.filteredVacancies = this.vacancies;
+    if (this.vacancies != null) {
+      if (this.remote && this.person && this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(
+          home =>
+            (home.vacancyLocation?.includes('REMOTE') || home.vacancyLocation?.includes('INPERSON')) &&
+            home.vacancyStartDate?.isSame(this.dateSelector)
+        );
+      }
+      if (this.person && !this.remote && this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(
+          home => home.vacancyLocation?.includes('INPERSON') && home.vacancyStartDate?.isSame(this.dateSelector)
+        );
+      }
+      if (this.person && !this.remote && !this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(home => home.vacancyLocation?.includes('INPERSON'));
+      }
+      if (this.remote && !this.person && !this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(home => home.vacancyLocation?.includes('REMOTE'));
+      }
+      if (this.remote && !this.person && this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(
+          home => home.vacancyLocation?.includes('REMOTE') && home.vacancyStartDate?.isSame(this.dateSelector)
+        );
+      }
+      if (!this.remote && !this.person && !this.dateSelector) {
+        this.filteredVacancies = undefined;
+      }
+      if (!this.remote && !this.person && this.dateSelector) {
+        this.filteredVacancies = this.vacancies.filter(home => home.vacancyStartDate?.isSame(this.dateSelector));
+      }
+    }
+  }
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
+  }
+  filterResults(search: string) {
+    if (this.searchText.trim() === '') {
+      this.filteredCharityId = [];
+      this.filteredCharityNames = [];
+    } else {
+      this.charityNames.subscribe(charityNames => {
+        this.filteredCharityNames = charityNames.filter(charityName => charityName.toLowerCase().includes(search.toLowerCase()));
+        const forLoop = this.filteredCharityNames.map(name => this.vacanciesService.getCharityId(name));
+        forkJoin(forLoop).subscribe(charityIds => {
+          this.filteredCharityId = charityIds;
+        });
+      });
+    }
+  }
+
+  cleanFilterVariables(text: string) {
+    if (text == '') {
+      this.filteredCharityNames = [];
+      this.filteredCharityId = [];
+    }
+  }
+  openLoginCheckDialog(vacancies: IVacancies) {
+    const modalRef = this.modalService.open(LoginPopUpCheckComponent, { size: 'xl' });
+    modalRef.componentInstance.vacancies = vacancies;
+  }
+  openVolunteerTrackerDialog() {
+    this.modalService.open(VolunteerApplicationsComponent, { size: 'xl' });
+    // modalRef.componentInstance.vacancies = vacancies;
   }
 
   openFile(base64String: string, contentType: string | null | undefined): void {

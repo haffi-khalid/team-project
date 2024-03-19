@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,7 +46,7 @@ public class CharityEventResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/charity-events")
-    public ResponseEntity<CharityEvent> createCharityEvent(@Valid @RequestBody CharityEvent charityEvent) throws URISyntaxException {
+    public ResponseEntity<CharityEvent> createCharityEvent(@RequestBody CharityEvent charityEvent) throws URISyntaxException {
         log.debug("REST request to save CharityEvent : {}", charityEvent);
         if (charityEvent.getId() != null) {
             throw new BadRequestAlertException("A new charityEvent cannot already have an ID", ENTITY_NAME, "idexists");
@@ -73,7 +71,7 @@ public class CharityEventResource {
     @PutMapping("/charity-events/{id}")
     public ResponseEntity<CharityEvent> updateCharityEvent(
         @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody CharityEvent charityEvent
+        @RequestBody CharityEvent charityEvent
     ) throws URISyntaxException {
         log.debug("REST request to update CharityEvent : {}, {}", id, charityEvent);
         if (charityEvent.getId() == null) {
@@ -108,7 +106,7 @@ public class CharityEventResource {
     @PatchMapping(value = "/charity-events/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<CharityEvent> partialUpdateCharityEvent(
         @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody CharityEvent charityEvent
+        @RequestBody CharityEvent charityEvent
     ) throws URISyntaxException {
         log.debug("REST request to partial update CharityEvent partially : {}, {}", id, charityEvent);
         if (charityEvent.getId() == null) {
@@ -142,12 +140,6 @@ public class CharityEventResource {
                 }
                 if (charityEvent.getDuration() != null) {
                     existingCharityEvent.setDuration(charityEvent.getDuration());
-                }
-                if (charityEvent.getLocation() != null) {
-                    existingCharityEvent.setLocation(charityEvent.getLocation());
-                }
-                if (charityEvent.getCharityType() != null) {
-                    existingCharityEvent.setCharityType(charityEvent.getCharityType());
                 }
 
                 return existingCharityEvent;

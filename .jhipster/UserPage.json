@@ -6,22 +6,13 @@
   "entityTableName": "user_page",
   "fields": [
     {
-      "fieldName": "profilePicture",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image"
-    },
-    {
-      "fieldName": "name",
-      "fieldType": "String"
+      "fieldName": "volunteerHours",
+      "fieldType": "Integer"
     },
     {
       "fieldName": "userBio",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "text"
-    },
-    {
-      "fieldName": "volunteerHours",
-      "fieldType": "Integer"
     },
     {
       "fieldName": "reviewComment",
@@ -44,29 +35,11 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "user",
+      "otherEntityName": "charityHubUser",
       "otherEntityRelationshipName": "userPage",
-      "ownerSide": true,
-      "relationshipName": "user",
+      "ownerSide": false,
+      "relationshipName": "charityHubUser",
       "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "volunteerApplications",
-      "otherEntityRelationshipName": "userPage",
-      "relationshipName": "volunteerApplications",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "reviewComments",
-      "otherEntityRelationshipName": "userPage",
-      "relationshipName": "reviewComments",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "approvedVolunteers",
-      "otherEntityRelationshipName": "userPage",
-      "relationshipName": "approvedVolunteers",
-      "relationshipType": "one-to-many"
     }
   ],
   "service": "no"

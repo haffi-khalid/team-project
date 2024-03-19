@@ -34,10 +34,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "charityProfile",
+      "otherEntityName": "charityAdmin",
       "otherEntityRelationshipName": "budgetPlanner",
       "ownerSide": false,
-      "relationshipName": "charityProfile",
+      "relationshipName": "charityAdmin",
       "relationshipType": "one-to-one"
     }
   ],

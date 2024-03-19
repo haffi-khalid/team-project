@@ -56,21 +56,15 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="volunteerApplications.id">
+          <th scope="col" jhiSortBy="charityHubUser.id">
             <div class="d-flex">
-              <span>Volunteer Applications</span>
+              <span>Charity Hub User</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="userPage.id">
+          <th scope="col" jhiSortBy="charityAdmin.id">
             <div class="d-flex">
-              <span>User Page</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="charityProfile.charityName">
-            <div class="d-flex">
-              <span>Charity Profile</span>
+              <span>Charity Admin</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -86,22 +80,15 @@
           <td>{{ approvedVolunteers.volunteerHoursCompletedInCharity }}</td>
           <td>{{ approvedVolunteers.currentEventVolunteeringIn }}</td>
           <td>
-            <div *ngIf="approvedVolunteers.volunteerApplications">
-              <a [routerLink]="['/volunteer-applications', approvedVolunteers.volunteerApplications.id, 'view']">{{
-                approvedVolunteers.volunteerApplications.id
+            <div *ngIf="approvedVolunteers.charityHubUser">
+              <a [routerLink]="['/charity-hub-user', approvedVolunteers.charityHubUser.id, 'view']">{{
+                approvedVolunteers.charityHubUser.id
               }}</a>
             </div>
           </td>
           <td>
-            <div *ngIf="approvedVolunteers.userPage">
-              <a [routerLink]="['/user-page', approvedVolunteers.userPage.id, 'view']">{{ approvedVolunteers.userPage.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="approvedVolunteers.charityProfile">
-              <a [routerLink]="['/charity-profile', approvedVolunteers.charityProfile.id, 'view']">{{
-                approvedVolunteers.charityProfile.charityName
-              }}</a>
+            <div *ngIf="approvedVolunteers.charityAdmin">
+              <a [routerLink]="['/charity-admin', approvedVolunteers.charityAdmin.id, 'view']">{{ approvedVolunteers.charityAdmin.id }}</a>
             </div>
           </td>
           <td class="text-end">

@@ -9,10 +9,10 @@ import { of, Subject, from } from 'rxjs';
 import { VolunteerApplicationsFormService } from './volunteer-applications-form.service';
 import { VolunteerApplicationsService } from '../service/volunteer-applications.service';
 import { IVolunteerApplications } from '../volunteer-applications.model';
-import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
-import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
-import { IUserPage } from 'app/entities/user-page/user-page.model';
-import { UserPageService } from 'app/entities/user-page/service/user-page.service';
+import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
+import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
+import { ICharityHubUser } from 'app/entities/charity-hub-user/charity-hub-user.model';
+import { CharityHubUserService } from 'app/entities/charity-hub-user/service/charity-hub-user.service';
 import { IVacancies } from 'app/entities/vacancies/vacancies.model';
 import { VacanciesService } from 'app/entities/vacancies/service/vacancies.service';
 
@@ -24,8 +24,8 @@ describe('VolunteerApplications Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let volunteerApplicationsFormService: VolunteerApplicationsFormService;
   let volunteerApplicationsService: VolunteerApplicationsService;
-  let charityProfileService: CharityProfileService;
-  let userPageService: UserPageService;
+  let charityAdminService: CharityAdminService;
+  let charityHubUserService: CharityHubUserService;
   let vacanciesService: VacanciesService;
 
   beforeEach(() => {
@@ -49,56 +49,56 @@ describe('VolunteerApplications Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     volunteerApplicationsFormService = TestBed.inject(VolunteerApplicationsFormService);
     volunteerApplicationsService = TestBed.inject(VolunteerApplicationsService);
-    charityProfileService = TestBed.inject(CharityProfileService);
-    userPageService = TestBed.inject(UserPageService);
+    charityAdminService = TestBed.inject(CharityAdminService);
+    charityHubUserService = TestBed.inject(CharityHubUserService);
     vacanciesService = TestBed.inject(VacanciesService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call CharityProfile query and add missing value', () => {
+    it('Should call CharityAdmin query and add missing value', () => {
       const volunteerApplications: IVolunteerApplications = { id: 456 };
-      const charityProfile: ICharityProfile = { id: 77112 };
-      volunteerApplications.charityProfile = charityProfile;
+      const charityAdmin: ICharityAdmin = { id: 1888 };
+      volunteerApplications.charityAdmin = charityAdmin;
 
-      const charityProfileCollection: ICharityProfile[] = [{ id: 48938 }];
-      jest.spyOn(charityProfileService, 'query').mockReturnValue(of(new HttpResponse({ body: charityProfileCollection })));
-      const additionalCharityProfiles = [charityProfile];
-      const expectedCollection: ICharityProfile[] = [...additionalCharityProfiles, ...charityProfileCollection];
-      jest.spyOn(charityProfileService, 'addCharityProfileToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const charityAdminCollection: ICharityAdmin[] = [{ id: 72627 }];
+      jest.spyOn(charityAdminService, 'query').mockReturnValue(of(new HttpResponse({ body: charityAdminCollection })));
+      const additionalCharityAdmins = [charityAdmin];
+      const expectedCollection: ICharityAdmin[] = [...additionalCharityAdmins, ...charityAdminCollection];
+      jest.spyOn(charityAdminService, 'addCharityAdminToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ volunteerApplications });
       comp.ngOnInit();
 
-      expect(charityProfileService.query).toHaveBeenCalled();
-      expect(charityProfileService.addCharityProfileToCollectionIfMissing).toHaveBeenCalledWith(
-        charityProfileCollection,
-        ...additionalCharityProfiles.map(expect.objectContaining)
+      expect(charityAdminService.query).toHaveBeenCalled();
+      expect(charityAdminService.addCharityAdminToCollectionIfMissing).toHaveBeenCalledWith(
+        charityAdminCollection,
+        ...additionalCharityAdmins.map(expect.objectContaining)
       );
-      expect(comp.charityProfilesSharedCollection).toEqual(expectedCollection);
+      expect(comp.charityAdminsSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call UserPage query and add missing value', () => {
+    it('Should call CharityHubUser query and add missing value', () => {
       const volunteerApplications: IVolunteerApplications = { id: 456 };
-      const userPage: IUserPage = { id: 61435 };
-      volunteerApplications.userPage = userPage;
+      const charityHubUser: ICharityHubUser = { id: 34483 };
+      volunteerApplications.charityHubUser = charityHubUser;
 
-      const userPageCollection: IUserPage[] = [{ id: 80017 }];
-      jest.spyOn(userPageService, 'query').mockReturnValue(of(new HttpResponse({ body: userPageCollection })));
-      const additionalUserPages = [userPage];
-      const expectedCollection: IUserPage[] = [...additionalUserPages, ...userPageCollection];
-      jest.spyOn(userPageService, 'addUserPageToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const charityHubUserCollection: ICharityHubUser[] = [{ id: 5110 }];
+      jest.spyOn(charityHubUserService, 'query').mockReturnValue(of(new HttpResponse({ body: charityHubUserCollection })));
+      const additionalCharityHubUsers = [charityHubUser];
+      const expectedCollection: ICharityHubUser[] = [...additionalCharityHubUsers, ...charityHubUserCollection];
+      jest.spyOn(charityHubUserService, 'addCharityHubUserToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ volunteerApplications });
       comp.ngOnInit();
 
-      expect(userPageService.query).toHaveBeenCalled();
-      expect(userPageService.addUserPageToCollectionIfMissing).toHaveBeenCalledWith(
-        userPageCollection,
-        ...additionalUserPages.map(expect.objectContaining)
+      expect(charityHubUserService.query).toHaveBeenCalled();
+      expect(charityHubUserService.addCharityHubUserToCollectionIfMissing).toHaveBeenCalledWith(
+        charityHubUserCollection,
+        ...additionalCharityHubUsers.map(expect.objectContaining)
       );
-      expect(comp.userPagesSharedCollection).toEqual(expectedCollection);
+      expect(comp.charityHubUsersSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Vacancies query and add missing value', () => {
@@ -125,18 +125,18 @@ describe('VolunteerApplications Management Update Component', () => {
 
     it('Should update editForm', () => {
       const volunteerApplications: IVolunteerApplications = { id: 456 };
-      const charityProfile: ICharityProfile = { id: 14184 };
-      volunteerApplications.charityProfile = charityProfile;
-      const userPage: IUserPage = { id: 25737 };
-      volunteerApplications.userPage = userPage;
+      const charityAdmin: ICharityAdmin = { id: 5301 };
+      volunteerApplications.charityAdmin = charityAdmin;
+      const charityHubUser: ICharityHubUser = { id: 97106 };
+      volunteerApplications.charityHubUser = charityHubUser;
       const vacancies: IVacancies = { id: 84454 };
       volunteerApplications.vacancies = vacancies;
 
       activatedRoute.data = of({ volunteerApplications });
       comp.ngOnInit();
 
-      expect(comp.charityProfilesSharedCollection).toContain(charityProfile);
-      expect(comp.userPagesSharedCollection).toContain(userPage);
+      expect(comp.charityAdminsSharedCollection).toContain(charityAdmin);
+      expect(comp.charityHubUsersSharedCollection).toContain(charityHubUser);
       expect(comp.vacanciesSharedCollection).toContain(vacancies);
       expect(comp.volunteerApplications).toEqual(volunteerApplications);
     });
@@ -211,23 +211,23 @@ describe('VolunteerApplications Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareCharityProfile', () => {
-      it('Should forward to charityProfileService', () => {
+    describe('compareCharityAdmin', () => {
+      it('Should forward to charityAdminService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(charityProfileService, 'compareCharityProfile');
-        comp.compareCharityProfile(entity, entity2);
-        expect(charityProfileService.compareCharityProfile).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(charityAdminService, 'compareCharityAdmin');
+        comp.compareCharityAdmin(entity, entity2);
+        expect(charityAdminService.compareCharityAdmin).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('compareUserPage', () => {
-      it('Should forward to userPageService', () => {
+    describe('compareCharityHubUser', () => {
+      it('Should forward to charityHubUserService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(userPageService, 'compareUserPage');
-        comp.compareUserPage(entity, entity2);
-        expect(userPageService.compareUserPage).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(charityHubUserService, 'compareCharityHubUser');
+        comp.compareCharityHubUser(entity, entity2);
+        expect(charityHubUserService.compareCharityHubUser).toHaveBeenCalledWith(entity, entity2);
       });
     });
 

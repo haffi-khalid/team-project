@@ -25,8 +25,6 @@ describe('CharityEvent Form Service', () => {
             description: expect.any(Object),
             images: expect.any(Object),
             duration: expect.any(Object),
-            location: expect.any(Object),
-            charityType: expect.any(Object),
             charityProfile: expect.any(Object),
           })
         );
@@ -43,8 +41,6 @@ describe('CharityEvent Form Service', () => {
             description: expect.any(Object),
             images: expect.any(Object),
             duration: expect.any(Object),
-            location: expect.any(Object),
-            charityType: expect.any(Object),
             charityProfile: expect.any(Object),
           })
         );

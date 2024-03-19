@@ -20,6 +20,15 @@
             <column name="email" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_charity_hub_user__user_id" />
+            </column>
+            <column name="user_page_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_charity_hub_user__user_page_id" />
+            </column>
+            <column name="authentication_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_charity_hub_user__authentication_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

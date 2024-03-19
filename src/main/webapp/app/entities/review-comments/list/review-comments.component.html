@@ -1,140 +1,76 @@
-<div>
-  <h2 id="page-heading" data-cy="ReviewCommentsHeading">
-    <span>Review Comments</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh list</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-review-comments"
-        [routerLink]="['/review-comments/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Review Comments </span>
-      </button>
+<div class="comments-container">
+  <h2>Comments</h2>
+  <ng-container *ngFor="let comment of comments; let i = index">
+    <!-- Top-level comments -->
+    <div *ngIf="!comment.parentID" class="comment-entry">
+      <div class="user-info">
+        <div class="user-id">User ID: {{ comment.charityHubUser?.id }}</div>
+        <div *ngIf="editCommentId !== comment.id" class="comment-content">{{ comment.content }}</div>
+        <div *ngIf="editCommentId === comment.id" class="edit-input-section">
+          <input
+            type="text"
+            [(ngModel)]="editCommentContent[comment.id]"
+            class="edit-input"
+            placeholder="Edit your comment..."
+            (keyup.enter)="updateComment(comment.id)"
+          />
+          <button (click)="updateComment(comment.id)" class="edit-save-button">Save</button>
+        </div>
+      </div>
+      <div class="comment-actions">
+        <button (click)="toggleReply(comment.id)" class="reply-button">Reply</button>
+        <button (click)="deleteComment(comment.id)" class="delete-button">Delete</button>
+        <button *ngIf="editCommentId !== comment.id" (click)="toggleEdit(comment.id)" class="edit-button">Edit</button>
+      </div>
+      <!-- Reply input -->
+      <div *ngIf="showReply[comment.id]" class="reply-input-section">
+        <input
+          type="text"
+          [(ngModel)]="newReply[comment.id]"
+          name="replyInput{{ i }}"
+          class="reply-input"
+          placeholder="Write a reply..."
+          (keyup.enter)="addReply(comment.id, newReply[comment.id])"
+        />
+        <button (click)="addReply(comment.id, newReply[comment.id])" class="reply-post-button">Post</button>
+      </div>
+      <!-- Replies section -->
+      <div class="replies">
+        <ng-container *ngFor="let reply of comments; let j = index">
+          <div *ngIf="reply.parentID === comment.id" class="reply-entry">
+            <div class="user-info">
+              <div class="user-id">User ID: {{ reply.charityHubUser?.id }}</div>
+              <div *ngIf="editCommentId !== reply.id" class="comment-content">{{ reply.content }}</div>
+              <div *ngIf="editCommentId === reply.id" class="edit-input-section">
+                <input
+                  type="text"
+                  [(ngModel)]="editCommentContent[reply.id]"
+                  class="edit-input"
+                  placeholder="Edit your reply..."
+                  (keyup.enter)="updateComment(reply.id, comment.id)"
+                />
+                <button (click)="updateComment(reply.id, comment.id)" class="edit-save-button">Save</button>
+              </div>
+            </div>
+            <button (click)="deleteComment(reply.id, comment.id)" class="delete-reply-button">Delete</button>
+            <button *ngIf="editCommentId !== reply.id" (click)="toggleEdit(reply.id)" class="edit-button">Edit</button>
+            <!-- Use 'edit-button' for consistency -->
+          </div>
+        </ng-container>
+      </div>
     </div>
-  </h2>
+  </ng-container>
 
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="reviewComments?.length === 0">
-    <span>No Review Comments found</span>
-  </div>
-
-  <div class="table-responsive table-entities" id="entities" *ngIf="reviewComments && reviewComments.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span>ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="parentID">
-            <div class="d-flex">
-              <span>Parent ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="content">
-            <div class="d-flex">
-              <span>Content</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="timestamp">
-            <div class="d-flex">
-              <span>Timestamp</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="status">
-            <div class="d-flex">
-              <span>Status</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="likeCount">
-            <div class="d-flex">
-              <span>Like Count</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="userPage.user">
-            <div class="d-flex">
-              <span>User Page</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="charityProfile.charityName">
-            <div class="d-flex">
-              <span>Charity Profile</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let reviewComments of reviewComments; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/review-comments', reviewComments.id, 'view']">{{ reviewComments.id }}</a>
-          </td>
-          <td>{{ reviewComments.parentID }}</td>
-          <td>{{ reviewComments.content }}</td>
-          <td>{{ reviewComments.timestamp | formatMediumDatetime }}</td>
-          <td>{{ reviewComments.status }}</td>
-          <td>{{ reviewComments.likeCount }}</td>
-          <td>
-            <div *ngIf="reviewComments.userPage">
-              <a [routerLink]="['/user-page', reviewComments.userPage.id, 'view']">{{ reviewComments.userPage.user }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="reviewComments.charityProfile">
-              <a [routerLink]="['/charity-profile', reviewComments.charityProfile.id, 'view']">{{
-                reviewComments.charityProfile.charityName
-              }}</a>
-            </div>
-          </td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/review-comments', reviewComments.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/review-comments', reviewComments.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(reviewComments)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Add new comment section -->
+  <div class="new-comment-section">
+    <input
+      type="text"
+      [(ngModel)]="newComment"
+      name="newComment"
+      class="new-comment-input"
+      placeholder="Add a new comment..."
+      (keyup.enter)="addComment()"
+    />
+    <button (click)="addComment()" class="add-comment-button">Add Comment</button>
   </div>
 </div>

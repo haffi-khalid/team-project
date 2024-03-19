@@ -22,6 +22,22 @@
         <dd>
           <span>{{ charityHubUser.email }}</span>
         </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ charityHubUser.user?.id }}</span>
+        </dd>
+        <dt><span>User Page</span></dt>
+        <dd>
+          <div *ngIf="charityHubUser.userPage">
+            <a [routerLink]="['/user-page', charityHubUser.userPage.id, 'view']">{{ charityHubUser.userPage.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Authentication</span></dt>
+        <dd>
+          <div *ngIf="charityHubUser.authentication">
+            <a [routerLink]="['/authentication', charityHubUser.authentication.id, 'view']">{{ charityHubUser.authentication.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

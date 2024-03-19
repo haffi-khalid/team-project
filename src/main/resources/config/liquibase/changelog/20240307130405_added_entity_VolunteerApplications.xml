@@ -20,10 +20,10 @@
             <column name="volunteer_status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="charity_profile_id" type="bigint">
+            <column name="charity_admin_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="user_page_id" type="bigint">
+            <column name="charity_hub_user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="vacancies_id" type="bigint">

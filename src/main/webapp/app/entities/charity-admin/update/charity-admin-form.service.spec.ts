@@ -21,6 +21,8 @@ describe('CharityAdmin Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             isCharityAdmin: expect.any(Object),
+            budgetPlanner: expect.any(Object),
+            charityProfile: expect.any(Object),
           })
         );
       });
@@ -32,6 +34,8 @@ describe('CharityAdmin Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             isCharityAdmin: expect.any(Object),
+            budgetPlanner: expect.any(Object),
+            charityProfile: expect.any(Object),
           })
         );
       });

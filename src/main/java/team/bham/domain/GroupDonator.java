@@ -34,10 +34,6 @@ public class GroupDonator implements Serializable {
     @JoinColumn(unique = true)
     private DonatorPage donatorPage;
 
-    @JsonIgnoreProperties(value = { "groupDonator" }, allowSetters = true)
-    @OneToOne(mappedBy = "groupDonator")
-    private GroupDonatorCollector groupDonatorCollector;
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "groupDonators", "charityProfile" }, allowSetters = true)
     private CharityEvent charityEvent;
@@ -93,25 +89,6 @@ public class GroupDonator implements Serializable {
 
     public GroupDonator donatorPage(DonatorPage donatorPage) {
         this.setDonatorPage(donatorPage);
-        return this;
-    }
-
-    public GroupDonatorCollector getGroupDonatorCollector() {
-        return this.groupDonatorCollector;
-    }
-
-    public void setGroupDonatorCollector(GroupDonatorCollector groupDonatorCollector) {
-        if (this.groupDonatorCollector != null) {
-            this.groupDonatorCollector.setGroupDonator(null);
-        }
-        if (groupDonatorCollector != null) {
-            groupDonatorCollector.setGroupDonator(this);
-        }
-        this.groupDonatorCollector = groupDonatorCollector;
-    }
-
-    public GroupDonator groupDonatorCollector(GroupDonatorCollector groupDonatorCollector) {
-        this.setGroupDonatorCollector(groupDonatorCollector);
         return this;
     }
 

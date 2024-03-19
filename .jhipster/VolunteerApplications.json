@@ -22,23 +22,15 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "charityProfile",
+      "otherEntityName": "charityAdmin",
       "otherEntityRelationshipName": "volunteerApplications",
-      "relationshipName": "charityProfile",
+      "relationshipName": "charityAdmin",
       "relationshipType": "many-to-one"
     },
     {
-      "otherEntityName": "approvedVolunteers",
+      "otherEntityName": "charityHubUser",
       "otherEntityRelationshipName": "volunteerApplications",
-      "ownerSide": false,
-      "relationshipName": "approvedVolunteers",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityField": "user",
-      "otherEntityName": "userPage",
-      "otherEntityRelationshipName": "volunteerApplications",
-      "relationshipName": "userPage",
+      "relationshipName": "charityHubUser",
       "relationshipType": "many-to-one"
     },
     {

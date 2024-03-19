@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -123,20 +125,11 @@ public class UserPageResource {
         Optional<UserPage> result = userPageRepository
             .findById(userPage.getId())
             .map(existingUserPage -> {
-                if (userPage.getProfilePicture() != null) {
-                    existingUserPage.setProfilePicture(userPage.getProfilePicture());
-                }
-                if (userPage.getProfilePictureContentType() != null) {
-                    existingUserPage.setProfilePictureContentType(userPage.getProfilePictureContentType());
-                }
-                if (userPage.getName() != null) {
-                    existingUserPage.setName(userPage.getName());
+                if (userPage.getVolunteerHours() != null) {
+                    existingUserPage.setVolunteerHours(userPage.getVolunteerHours());
                 }
                 if (userPage.getUserBio() != null) {
                     existingUserPage.setUserBio(userPage.getUserBio());
-                }
-                if (userPage.getVolunteerHours() != null) {
-                    existingUserPage.setVolunteerHours(userPage.getVolunteerHours());
                 }
                 if (userPage.getReviewComment() != null) {
                     existingUserPage.setReviewComment(userPage.getReviewComment());
@@ -161,10 +154,18 @@ public class UserPageResource {
     /**
      * {@code GET  /user-pages} : get all the userPages.
      *
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userPages in body.
      */
     @GetMapping("/user-pages")
-    public List<UserPage> getAllUserPages() {
+    public List<UserPage> getAllUserPages(@RequestParam(required = false) String filter) {
+        if ("charityhubuser-is-null".equals(filter)) {
+            log.debug("REST request to get all UserPages where charityHubUser is null");
+            return StreamSupport
+                .stream(userPageRepository.findAll().spliterator(), false)
+                .filter(userPage -> userPage.getCharityHubUser() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all UserPages");
         return userPageRepository.findAll();
     }

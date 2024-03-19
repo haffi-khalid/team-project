@@ -106,11 +106,11 @@ export class NewApplicationsComponent implements OnInit {
 
     this.charityAdminsSharedCollection = this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
       this.charityAdminsSharedCollection,
-      volunteerApplications.charityProfile
+      volunteerApplications.charityAdmin
     );
     this.charityHubUsersSharedCollection = this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
       this.charityHubUsersSharedCollection,
-      volunteerApplications.charityProfile
+      volunteerApplications.charityHubUser
     );
     this.vacanciesSharedCollection = this.vacanciesService.addVacanciesToCollectionIfMissing<IVacancies>(
       this.vacanciesSharedCollection,
@@ -126,7 +126,7 @@ export class NewApplicationsComponent implements OnInit {
         map((charityAdmins: ICharityAdmin[]) =>
           this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
             charityAdmins,
-            this.volunteerApplications?.charityProfile
+            this.volunteerApplications?.charityAdmin
           )
         )
       )
@@ -139,7 +139,7 @@ export class NewApplicationsComponent implements OnInit {
         map((charityHubUsers: ICharityHubUser[]) =>
           this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
             charityHubUsers,
-            this.volunteerApplications?.charityProfile
+            this.volunteerApplications?.charityHubUser
           )
         )
       )

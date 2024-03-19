@@ -140,12 +140,17 @@ public class CharityAdminResource {
     /**
      * {@code GET  /charity-admins} : get all the charityAdmins.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of charityAdmins in body.
      */
     @GetMapping("/charity-admins")
-    public List<CharityAdmin> getAllCharityAdmins() {
+    public List<CharityAdmin> getAllCharityAdmins(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all CharityAdmins");
-        return charityAdminRepository.findAll();
+        if (eagerload) {
+            return charityAdminRepository.findAllWithEagerRelationships();
+        } else {
+            return charityAdminRepository.findAll();
+        }
     }
 
     /**
@@ -157,7 +162,7 @@ public class CharityAdminResource {
     @GetMapping("/charity-admins/{id}")
     public ResponseEntity<CharityAdmin> getCharityAdmin(@PathVariable Long id) {
         log.debug("REST request to get CharityAdmin : {}", id);
-        Optional<CharityAdmin> charityAdmin = charityAdminRepository.findById(id);
+        Optional<CharityAdmin> charityAdmin = charityAdminRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(charityAdmin);
     }
 

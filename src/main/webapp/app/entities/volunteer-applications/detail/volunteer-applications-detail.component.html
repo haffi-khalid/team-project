@@ -22,18 +22,20 @@
         <dd>
           <span>{{ volunteerApplications.volunteerStatus }}</span>
         </dd>
-        <dt><span>Charity Profile</span></dt>
+        <dt><span>Charity Admin</span></dt>
         <dd>
-          <div *ngIf="volunteerApplications.charityProfile">
-            <a [routerLink]="['/charity-profile', volunteerApplications.charityProfile.id, 'view']">{{
-              volunteerApplications.charityProfile.id
+          <div *ngIf="volunteerApplications.charityAdmin">
+            <a [routerLink]="['/charity-admin', volunteerApplications.charityAdmin.id, 'view']">{{
+              volunteerApplications.charityAdmin.id
             }}</a>
           </div>
         </dd>
-        <dt><span>User Page</span></dt>
+        <dt><span>Charity Hub User</span></dt>
         <dd>
-          <div *ngIf="volunteerApplications.userPage">
-            <a [routerLink]="['/user-page', volunteerApplications.userPage.id, 'view']">{{ volunteerApplications.userPage.user }}</a>
+          <div *ngIf="volunteerApplications.charityHubUser">
+            <a [routerLink]="['/charity-hub-user', volunteerApplications.charityHubUser.id, 'view']">{{
+              volunteerApplications.charityHubUser.id
+            }}</a>
           </div>
         </dd>
         <dt><span>Vacancies</span></dt>

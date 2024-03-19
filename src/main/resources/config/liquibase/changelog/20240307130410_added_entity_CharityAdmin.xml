@@ -17,6 +17,12 @@
             <column name="is_charity_admin" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="budget_planner_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_charity_admin__budget_planner_id" />
+            </column>
+            <column name="charity_profile_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_charity_admin__charity_profile_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

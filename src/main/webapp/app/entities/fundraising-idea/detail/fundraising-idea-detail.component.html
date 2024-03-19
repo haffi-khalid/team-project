@@ -38,12 +38,10 @@
         <dd>
           <span>{{ fundraisingIdea.expectedAttendance }}</span>
         </dd>
-        <dt><span>Charity Profile</span></dt>
+        <dt><span>Charity Admin</span></dt>
         <dd>
-          <div *ngIf="fundraisingIdea.charityProfile">
-            <a [routerLink]="['/charity-profile', fundraisingIdea.charityProfile.id, 'view']">{{
-              fundraisingIdea.charityProfile.charityName
-            }}</a>
+          <div *ngIf="fundraisingIdea.charityAdmin">
+            <a [routerLink]="['/charity-admin', fundraisingIdea.charityAdmin.id, 'view']">{{ fundraisingIdea.charityAdmin.id }}</a>
           </div>
         </dd>
       </dl>

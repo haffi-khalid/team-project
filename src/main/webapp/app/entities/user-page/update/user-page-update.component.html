@@ -12,62 +12,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_profilePicture">Profile Picture</label>
-          <div>
-            <img
-              [src]="'data:' + editForm.get('profilePictureContentType')!.value + ';base64,' + editForm.get('profilePicture')!.value"
-              style="max-height: 100px"
-              *ngIf="editForm.get('profilePicture')!.value"
-              alt="userPage image"
-            />
-            <div *ngIf="editForm.get('profilePicture')!.value" class="form-text text-danger clearfix">
-              <span class="pull-start"
-                >{{ editForm.get('profilePictureContentType')!.value }}, {{ byteSize(editForm.get('profilePicture')!.value!) }}</span
-              >
-              <button
-                type="button"
-                (click)="clearInputImage('profilePicture', 'profilePictureContentType', 'file_profilePicture')"
-                class="btn btn-secondary btn-xs pull-end"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input
-              type="file"
-              id="file_profilePicture"
-              data-cy="profilePicture"
-              (change)="setFileData($event, 'profilePicture', true)"
-              accept="image/*"
-            />
-          </div>
-          <input
-            type="hidden"
-            class="form-control"
-            name="profilePicture"
-            id="field_profilePicture"
-            data-cy="profilePicture"
-            formControlName="profilePicture"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            name="profilePictureContentType"
-            id="field_profilePictureContentType"
-            formControlName="profilePictureContentType"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_name">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_userBio">User Bio</label>
-          <textarea class="form-control" name="userBio" id="field_userBio" data-cy="userBio" formControlName="userBio"></textarea>
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" for="field_volunteerHours">Volunteer Hours</label>
           <input
             type="number"
@@ -77,6 +21,11 @@
             data-cy="volunteerHours"
             formControlName="volunteerHours"
           />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_userBio">User Bio</label>
+          <textarea class="form-control" name="userBio" id="field_userBio" data-cy="userBio" formControlName="userBio"></textarea>
         </div>
 
         <div class="row mb-3">
@@ -98,14 +47,6 @@
         <div class="row mb-3">
           <label class="form-label" for="field_skills">Skills</label>
           <input type="text" class="form-control" name="skills" id="field_skills" data-cy="skills" formControlName="skills" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_user">User</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
-            <option [ngValue]="null"></option>
-            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
-          </select>
         </div>
       </div>
 

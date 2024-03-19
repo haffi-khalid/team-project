@@ -1,82 +1,82 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    <div *ngIf="charityProfile">
-      <h2 data-cy="charityProfileDetailsHeading"><span>Charity Profile</span></h2>
-
-      <hr />
-
-      <jhi-alert-error></jhi-alert-error>
-
-      <jhi-alert></jhi-alert>
-
-      <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
-        <dd>
-          <span>{{ charityProfile.id }}</span>
-        </dd>
-        <dt><span>Charity Name</span></dt>
-        <dd>
-          <span>{{ charityProfile.charityName }}</span>
-        </dd>
-        <dt><span>Purpose</span></dt>
-        <dd>
-          <span>{{ charityProfile.purpose }}</span>
-        </dd>
-        <dt><span>Aim</span></dt>
-        <dd>
-          <span>{{ charityProfile.aim }}</span>
-        </dd>
-        <dt><span>Email Address</span></dt>
-        <dd>
-          <span>{{ charityProfile.emailAddress }}</span>
-        </dd>
-        <dt><span>Logo</span></dt>
-        <dd>
-          <div *ngIf="charityProfile.logo">
-            <a (click)="openFile(charityProfile.logo, charityProfile.logoContentType)">
-              <img
-                [src]="'data:' + charityProfile.logoContentType + ';base64,' + charityProfile.logo"
-                style="max-width: 100%"
-                alt="charityProfile image"
-              />
-            </a>
-            {{ charityProfile.logoContentType }}, {{ byteSize(charityProfile.logo) }}
-          </div>
-        </dd>
-        <dt><span>Pictures</span></dt>
-        <dd>
-          <div *ngIf="charityProfile.pictures">
-            <a (click)="openFile(charityProfile.pictures, charityProfile.picturesContentType)">
-              <img
-                [src]="'data:' + charityProfile.picturesContentType + ';base64,' + charityProfile.pictures"
-                style="max-width: 100%"
-                alt="charityProfile image"
-              />
-            </a>
-            {{ charityProfile.picturesContentType }}, {{ byteSize(charityProfile.pictures) }}
-          </div>
-        </dd>
-        <dt><span>Budget Planner</span></dt>
-        <dd>
-          <div *ngIf="charityProfile.budgetPlanner">
-            <a [routerLink]="['/budget-planner', charityProfile.budgetPlanner.id, 'view']">{{ charityProfile.budgetPlanner.id }}</a>
-          </div>
-        </dd>
-        <dt><span>Social Feed</span></dt>
-        <dd>
-          <div *ngIf="charityProfile.socialFeed">
-            <a [routerLink]="['/social-feed', charityProfile.socialFeed.id, 'view']">{{ charityProfile.socialFeed.id }}</a>
-          </div>
-        </dd>
-      </dl>
-
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
-      </button>
-
-      <button type="button" [routerLink]="['/charity-profile', charityProfile.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
-      </button>
+<div
+  class="background-container"
+  [style.background-image]="
+    'linear-gradient(rgba(4, 9, 30, 0.5), rgba(4, 9, 30, 0.5)), url(data:image/png;base64,' + charityProfile?.pictures + ')'
+  "
+>
+  <div class="background-overlay"></div>
+  <div class="d-flex justify-content-center align-items-center text-center h-100">
+    <div class="charity-info">
+      <h2 class="charity-name">{{ charityProfile?.charityName }}</h2>
+      <img [src]="'data:' + charityProfile?.logoContentType + ';base64,' + charityProfile?.logo" alt="Charity Logo" class="charity-logo" />
+      <div class="edit-button-container">
+        <button *ngIf="charityProfile" type="button" [routerLink]="['/charity-profile', charityProfile.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="container1">
+  <div class="slash"></div>
+  <div class="purpose-aim">
+    <div class="purpose">
+      <h3 class="section-title" style="text-align: center">Our Purpose</h3>
+      <p>{{ charityProfile?.purpose }}</p>
+    </div>
+    <div class="aim">
+      <p>Our Email Address:</p>
+      <p>{{ charityProfile?.emailAddress }}</p>
+      <h3 class="section-title" style="text-align: center; padding-top: 20px">Our Progress:</h3>
+      <div class="circle-container">
+        <div class="circle">
+          <div class="inner-circle">
+            <span class="donators">100 donators</span>
+          </div>
+        </div>
+        <div class="circle1">
+          <div class="inner-circle">
+            <span class="donators">30 volunteers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center; padding-top: 10px">
+    <!--    <button type="button" class="btn btn-lg btn-outline-white" style="color: #ffffff" routerLink="/vacancies">-->
+    <!--      <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Contact us-->
+    <!--    </button>-->
+  </div>
+</div>
+
+<div class="container2">
+  <h3 class="section-title" style="text-align: center">Recent Photos</h3>
+  <div class="photo-gallery">
+    <img src="/../../../content/images/download (11).jpeg" alt="Photo 1" class="photo" />
+    <img src="/../../../content/images/download (13).jpeg" alt="Photo 2" class="photo" />
+    <img src="/../../../content/images/download (12).jpeg" alt="Photo 3" class="photo" />
+  </div>
+  <button type="button" class="btn btn-lg btn-outline" style="color: #3b2f1f; border: none" routerLink="/social-feed">
+    <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See more...
+  </button>
+</div>
+
+<div class="container3">
+  <h3 class="section-title" style="text-align: center">Help us to meet our goal!</h3>
+
+  <div class="aim" style="margin-top: 20px; color: #3b2f1f">
+    <p>Our aim: {{ charityProfile?.aim }}</p>
+  </div>
+  <div class="button-container">
+    <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/donator-page">
+      <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Donate
+    </button>
+    <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/vacancies">
+      <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Volunteer
+    </button>
+    <!--    <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">-->
+    <!--      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>-->
+    <!--    </button>-->
   </div>
 </div>

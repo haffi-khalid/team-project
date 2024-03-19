@@ -28,14 +28,6 @@
       "relationshipType": "one-to-one"
     },
     {
-      "otherEntityName": "groupDonatorCollector",
-      "otherEntityRelationshipName": "groupDonator",
-      "ownerSide": false,
-      "relationshipName": "groupDonatorCollector",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityField": "eventName",
       "otherEntityName": "charityEvent",
       "otherEntityRelationshipName": "groupDonator",
       "relationshipName": "charityEvent",

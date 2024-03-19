@@ -30,19 +30,11 @@ import team.bham.repository.UserPageRepository;
 @WithMockUser
 class UserPageResourceIT {
 
-    private static final byte[] DEFAULT_PROFILE_PICTURE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_PROFILE_PICTURE = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_PROFILE_PICTURE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_PROFILE_PICTURE_CONTENT_TYPE = "image/png";
-
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
+    private static final Integer DEFAULT_VOLUNTEER_HOURS = 1;
+    private static final Integer UPDATED_VOLUNTEER_HOURS = 2;
 
     private static final String DEFAULT_USER_BIO = "AAAAAAAAAA";
     private static final String UPDATED_USER_BIO = "BBBBBBBBBB";
-
-    private static final Integer DEFAULT_VOLUNTEER_HOURS = 1;
-    private static final Integer UPDATED_VOLUNTEER_HOURS = 2;
 
     private static final String DEFAULT_REVIEW_COMMENT = "AAAAAAAAAA";
     private static final String UPDATED_REVIEW_COMMENT = "BBBBBBBBBB";
@@ -78,11 +70,8 @@ class UserPageResourceIT {
      */
     public static UserPage createEntity(EntityManager em) {
         UserPage userPage = new UserPage()
-            .profilePicture(DEFAULT_PROFILE_PICTURE)
-            .profilePictureContentType(DEFAULT_PROFILE_PICTURE_CONTENT_TYPE)
-            .name(DEFAULT_NAME)
-            .userBio(DEFAULT_USER_BIO)
             .volunteerHours(DEFAULT_VOLUNTEER_HOURS)
+            .userBio(DEFAULT_USER_BIO)
             .reviewComment(DEFAULT_REVIEW_COMMENT)
             .course(DEFAULT_COURSE)
             .skills(DEFAULT_SKILLS);
@@ -97,11 +86,8 @@ class UserPageResourceIT {
      */
     public static UserPage createUpdatedEntity(EntityManager em) {
         UserPage userPage = new UserPage()
-            .profilePicture(UPDATED_PROFILE_PICTURE)
-            .profilePictureContentType(UPDATED_PROFILE_PICTURE_CONTENT_TYPE)
-            .name(UPDATED_NAME)
-            .userBio(UPDATED_USER_BIO)
             .volunteerHours(UPDATED_VOLUNTEER_HOURS)
+            .userBio(UPDATED_USER_BIO)
             .reviewComment(UPDATED_REVIEW_COMMENT)
             .course(UPDATED_COURSE)
             .skills(UPDATED_SKILLS);
@@ -126,11 +112,8 @@ class UserPageResourceIT {
         List<UserPage> userPageList = userPageRepository.findAll();
         assertThat(userPageList).hasSize(databaseSizeBeforeCreate + 1);
         UserPage testUserPage = userPageList.get(userPageList.size() - 1);
-        assertThat(testUserPage.getProfilePicture()).isEqualTo(DEFAULT_PROFILE_PICTURE);
-        assertThat(testUserPage.getProfilePictureContentType()).isEqualTo(DEFAULT_PROFILE_PICTURE_CONTENT_TYPE);
-        assertThat(testUserPage.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testUserPage.getUserBio()).isEqualTo(DEFAULT_USER_BIO);
         assertThat(testUserPage.getVolunteerHours()).isEqualTo(DEFAULT_VOLUNTEER_HOURS);
+        assertThat(testUserPage.getUserBio()).isEqualTo(DEFAULT_USER_BIO);
         assertThat(testUserPage.getReviewComment()).isEqualTo(DEFAULT_REVIEW_COMMENT);
         assertThat(testUserPage.getCourse()).isEqualTo(DEFAULT_COURSE);
         assertThat(testUserPage.getSkills()).isEqualTo(DEFAULT_SKILLS);
@@ -166,11 +149,8 @@ class UserPageResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userPage.getId().intValue())))
-            .andExpect(jsonPath("$.[*].profilePictureContentType").value(hasItem(DEFAULT_PROFILE_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].profilePicture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PROFILE_PICTURE))))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].userBio").value(hasItem(DEFAULT_USER_BIO.toString())))
             .andExpect(jsonPath("$.[*].volunteerHours").value(hasItem(DEFAULT_VOLUNTEER_HOURS)))
+            .andExpect(jsonPath("$.[*].userBio").value(hasItem(DEFAULT_USER_BIO.toString())))
             .andExpect(jsonPath("$.[*].reviewComment").value(hasItem(DEFAULT_REVIEW_COMMENT.toString())))
             .andExpect(jsonPath("$.[*].course").value(hasItem(DEFAULT_COURSE)))
             .andExpect(jsonPath("$.[*].skills").value(hasItem(DEFAULT_SKILLS)));
@@ -188,11 +168,8 @@ class UserPageResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userPage.getId().intValue()))
-            .andExpect(jsonPath("$.profilePictureContentType").value(DEFAULT_PROFILE_PICTURE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.profilePicture").value(Base64Utils.encodeToString(DEFAULT_PROFILE_PICTURE)))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.userBio").value(DEFAULT_USER_BIO.toString()))
             .andExpect(jsonPath("$.volunteerHours").value(DEFAULT_VOLUNTEER_HOURS))
+            .andExpect(jsonPath("$.userBio").value(DEFAULT_USER_BIO.toString()))
             .andExpect(jsonPath("$.reviewComment").value(DEFAULT_REVIEW_COMMENT.toString()))
             .andExpect(jsonPath("$.course").value(DEFAULT_COURSE))
             .andExpect(jsonPath("$.skills").value(DEFAULT_SKILLS));
@@ -218,11 +195,8 @@ class UserPageResourceIT {
         // Disconnect from session so that the updates on updatedUserPage are not directly saved in db
         em.detach(updatedUserPage);
         updatedUserPage
-            .profilePicture(UPDATED_PROFILE_PICTURE)
-            .profilePictureContentType(UPDATED_PROFILE_PICTURE_CONTENT_TYPE)
-            .name(UPDATED_NAME)
-            .userBio(UPDATED_USER_BIO)
             .volunteerHours(UPDATED_VOLUNTEER_HOURS)
+            .userBio(UPDATED_USER_BIO)
             .reviewComment(UPDATED_REVIEW_COMMENT)
             .course(UPDATED_COURSE)
             .skills(UPDATED_SKILLS);
@@ -239,11 +213,8 @@ class UserPageResourceIT {
         List<UserPage> userPageList = userPageRepository.findAll();
         assertThat(userPageList).hasSize(databaseSizeBeforeUpdate);
         UserPage testUserPage = userPageList.get(userPageList.size() - 1);
-        assertThat(testUserPage.getProfilePicture()).isEqualTo(UPDATED_PROFILE_PICTURE);
-        assertThat(testUserPage.getProfilePictureContentType()).isEqualTo(UPDATED_PROFILE_PICTURE_CONTENT_TYPE);
-        assertThat(testUserPage.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUserPage.getUserBio()).isEqualTo(UPDATED_USER_BIO);
         assertThat(testUserPage.getVolunteerHours()).isEqualTo(UPDATED_VOLUNTEER_HOURS);
+        assertThat(testUserPage.getUserBio()).isEqualTo(UPDATED_USER_BIO);
         assertThat(testUserPage.getReviewComment()).isEqualTo(UPDATED_REVIEW_COMMENT);
         assertThat(testUserPage.getCourse()).isEqualTo(UPDATED_COURSE);
         assertThat(testUserPage.getSkills()).isEqualTo(UPDATED_SKILLS);
@@ -317,7 +288,7 @@ class UserPageResourceIT {
         UserPage partialUpdatedUserPage = new UserPage();
         partialUpdatedUserPage.setId(userPage.getId());
 
-        partialUpdatedUserPage.name(UPDATED_NAME).reviewComment(UPDATED_REVIEW_COMMENT).skills(UPDATED_SKILLS);
+        partialUpdatedUserPage.userBio(UPDATED_USER_BIO).skills(UPDATED_SKILLS);
 
         restUserPageMockMvc
             .perform(
@@ -331,12 +302,9 @@ class UserPageResourceIT {
         List<UserPage> userPageList = userPageRepository.findAll();
         assertThat(userPageList).hasSize(databaseSizeBeforeUpdate);
         UserPage testUserPage = userPageList.get(userPageList.size() - 1);
-        assertThat(testUserPage.getProfilePicture()).isEqualTo(DEFAULT_PROFILE_PICTURE);
-        assertThat(testUserPage.getProfilePictureContentType()).isEqualTo(DEFAULT_PROFILE_PICTURE_CONTENT_TYPE);
-        assertThat(testUserPage.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUserPage.getUserBio()).isEqualTo(DEFAULT_USER_BIO);
         assertThat(testUserPage.getVolunteerHours()).isEqualTo(DEFAULT_VOLUNTEER_HOURS);
-        assertThat(testUserPage.getReviewComment()).isEqualTo(UPDATED_REVIEW_COMMENT);
+        assertThat(testUserPage.getUserBio()).isEqualTo(UPDATED_USER_BIO);
+        assertThat(testUserPage.getReviewComment()).isEqualTo(DEFAULT_REVIEW_COMMENT);
         assertThat(testUserPage.getCourse()).isEqualTo(DEFAULT_COURSE);
         assertThat(testUserPage.getSkills()).isEqualTo(UPDATED_SKILLS);
     }
@@ -354,11 +322,8 @@ class UserPageResourceIT {
         partialUpdatedUserPage.setId(userPage.getId());
 
         partialUpdatedUserPage
-            .profilePicture(UPDATED_PROFILE_PICTURE)
-            .profilePictureContentType(UPDATED_PROFILE_PICTURE_CONTENT_TYPE)
-            .name(UPDATED_NAME)
-            .userBio(UPDATED_USER_BIO)
             .volunteerHours(UPDATED_VOLUNTEER_HOURS)
+            .userBio(UPDATED_USER_BIO)
             .reviewComment(UPDATED_REVIEW_COMMENT)
             .course(UPDATED_COURSE)
             .skills(UPDATED_SKILLS);
@@ -375,11 +340,8 @@ class UserPageResourceIT {
         List<UserPage> userPageList = userPageRepository.findAll();
         assertThat(userPageList).hasSize(databaseSizeBeforeUpdate);
         UserPage testUserPage = userPageList.get(userPageList.size() - 1);
-        assertThat(testUserPage.getProfilePicture()).isEqualTo(UPDATED_PROFILE_PICTURE);
-        assertThat(testUserPage.getProfilePictureContentType()).isEqualTo(UPDATED_PROFILE_PICTURE_CONTENT_TYPE);
-        assertThat(testUserPage.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUserPage.getUserBio()).isEqualTo(UPDATED_USER_BIO);
         assertThat(testUserPage.getVolunteerHours()).isEqualTo(UPDATED_VOLUNTEER_HOURS);
+        assertThat(testUserPage.getUserBio()).isEqualTo(UPDATED_USER_BIO);
         assertThat(testUserPage.getReviewComment()).isEqualTo(UPDATED_REVIEW_COMMENT);
         assertThat(testUserPage.getCourse()).isEqualTo(UPDATED_COURSE);
         assertThat(testUserPage.getSkills()).isEqualTo(UPDATED_SKILLS);

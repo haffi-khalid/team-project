@@ -1,24 +1,25 @@
 <div>
-  <h2 id="page-heading" data-cy="BudgetPlannerHeading">
-    <span>Budget Planners</span>
+  <div class="banner-area">
+    <h2 class="page-heading">Charity Hub Budgeter</h2>
+    <span class="banner-img"></span>
+  </div>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh list</span>
-      </button>
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+      <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+      <span>Refresh list</span>
+    </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-budget-planner"
-        [routerLink]="['/budget-planner/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Budget Planner </span>
-      </button>
-    </div>
-  </h2>
+    <button
+      id="jh-create-entity"
+      data-cy="entityCreateButton"
+      class="btn btn-primary jh-create-entity create-budget-planner"
+      [routerLink]="['/budget-planner/new']"
+    >
+      <fa-icon icon="plus"></fa-icon>
+      <span> Create a new Budget Planner </span>
+    </button>
+  </div>
 
   <jhi-alert-error></jhi-alert-error>
 

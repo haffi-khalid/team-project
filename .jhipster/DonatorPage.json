@@ -36,7 +36,6 @@
       "relationshipType": "one-to-one"
     },
     {
-      "otherEntityField": "charityName",
       "otherEntityName": "charityProfile",
       "otherEntityRelationshipName": "donatorPage",
       "relationshipName": "charityProfile",

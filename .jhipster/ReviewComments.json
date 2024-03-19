@@ -21,10 +21,6 @@
     {
       "fieldName": "status",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "likeCount",
-      "fieldType": "Integer"
     }
   ],
   "fluentMethods": true,
@@ -34,14 +30,12 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "user",
-      "otherEntityName": "userPage",
+      "otherEntityName": "charityHubUser",
       "otherEntityRelationshipName": "reviewComments",
-      "relationshipName": "userPage",
+      "relationshipName": "charityHubUser",
       "relationshipType": "many-to-one"
     },
     {
-      "otherEntityField": "charityName",
       "otherEntityName": "charityProfile",
       "otherEntityRelationshipName": "reviewComments",
       "relationshipName": "charityProfile",

@@ -10,9 +10,6 @@ import { UserPageFormService } from './user-page-form.service';
 import { UserPageService } from '../service/user-page.service';
 import { IUserPage } from '../user-page.model';
 
-import { IUser } from 'app/entities/user/user.model';
-import { UserService } from 'app/entities/user/user.service';
-
 import { UserPageUpdateComponent } from './user-page-update.component';
 
 describe('UserPage Management Update Component', () => {
@@ -21,7 +18,6 @@ describe('UserPage Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let userPageFormService: UserPageFormService;
   let userPageService: UserPageService;
-  let userService: UserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,43 +40,17 @@ describe('UserPage Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     userPageFormService = TestBed.inject(UserPageFormService);
     userPageService = TestBed.inject(UserPageService);
-    userService = TestBed.inject(UserService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call User query and add missing value', () => {
-      const userPage: IUserPage = { id: 456 };
-      const user: IUser = { id: 31004 };
-      userPage.user = user;
-
-      const userCollection: IUser[] = [{ id: 34137 }];
-      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
-      const additionalUsers = [user];
-      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
-      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ userPage });
-      comp.ngOnInit();
-
-      expect(userService.query).toHaveBeenCalled();
-      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
-        userCollection,
-        ...additionalUsers.map(expect.objectContaining)
-      );
-      expect(comp.usersSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const userPage: IUserPage = { id: 456 };
-      const user: IUser = { id: 89927 };
-      userPage.user = user;
 
       activatedRoute.data = of({ userPage });
       comp.ngOnInit();
 
-      expect(comp.usersSharedCollection).toContain(user);
       expect(comp.userPage).toEqual(userPage);
     });
   });
@@ -150,18 +120,6 @@ describe('UserPage Management Update Component', () => {
       expect(userPageService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Compare relationships', () => {
-    describe('compareUser', () => {
-      it('Should forward to userService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(userService, 'compareUser');
-        comp.compareUser(entity, entity2);
-        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
-      });
     });
   });
 });

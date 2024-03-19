@@ -10,8 +10,8 @@ import { FundraisingIdeaService } from '../service/fundraising-idea.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
-import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
-import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
+import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
+import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
 import { LocationCategory } from 'app/entities/enumerations/location-category.model';
 
 @Component({
@@ -23,7 +23,7 @@ export class FundraisingIdeaUpdateComponent implements OnInit {
   fundraisingIdea: IFundraisingIdea | null = null;
   locationCategoryValues = Object.keys(LocationCategory);
 
-  charityProfilesSharedCollection: ICharityProfile[] = [];
+  charityAdminsSharedCollection: ICharityAdmin[] = [];
 
   editForm: FundraisingIdeaFormGroup = this.fundraisingIdeaFormService.createFundraisingIdeaFormGroup();
 
@@ -32,12 +32,12 @@ export class FundraisingIdeaUpdateComponent implements OnInit {
     protected eventManager: EventManager,
     protected fundraisingIdeaService: FundraisingIdeaService,
     protected fundraisingIdeaFormService: FundraisingIdeaFormService,
-    protected charityProfileService: CharityProfileService,
+    protected charityAdminService: CharityAdminService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareCharityProfile = (o1: ICharityProfile | null, o2: ICharityProfile | null): boolean =>
-    this.charityProfileService.compareCharityProfile(o1, o2);
+  compareCharityAdmin = (o1: ICharityAdmin | null, o2: ICharityAdmin | null): boolean =>
+    this.charityAdminService.compareCharityAdmin(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ fundraisingIdea }) => {
@@ -102,24 +102,21 @@ export class FundraisingIdeaUpdateComponent implements OnInit {
     this.fundraisingIdea = fundraisingIdea;
     this.fundraisingIdeaFormService.resetForm(this.editForm, fundraisingIdea);
 
-    this.charityProfilesSharedCollection = this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
-      this.charityProfilesSharedCollection,
-      fundraisingIdea.charityProfile
+    this.charityAdminsSharedCollection = this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
+      this.charityAdminsSharedCollection,
+      fundraisingIdea.charityAdmin
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.charityProfileService
+    this.charityAdminService
       .query()
-      .pipe(map((res: HttpResponse<ICharityProfile[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<ICharityAdmin[]>) => res.body ?? []))
       .pipe(
-        map((charityProfiles: ICharityProfile[]) =>
-          this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
-            charityProfiles,
-            this.fundraisingIdea?.charityProfile
-          )
+        map((charityAdmins: ICharityAdmin[]) =>
+          this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(charityAdmins, this.fundraisingIdea?.charityAdmin)
         )
       )
-      .subscribe((charityProfiles: ICharityProfile[]) => (this.charityProfilesSharedCollection = charityProfiles));
+      .subscribe((charityAdmins: ICharityAdmin[]) => (this.charityAdminsSharedCollection = charityAdmins));
   }
 }

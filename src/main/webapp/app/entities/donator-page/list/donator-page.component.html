@@ -1,120 +1,159 @@
 <div>
-  <h2 id="page-heading" data-cy="DonatorPageHeading">
-    <span>Donator Pages</span>
+  <div class="banner-area">
+    <span class="banner-img"></span>
+    <div class="banner-text-section">
+      <h1 id="page-heading" data-cy="DonatorPageHeading" class="banner-heading">Make a Donation</h1>
+      <div class="donate-description">
+        Make a difference today! Your generous donation can transform lives. Your contribution matters – help us save lives and build a
+        brighter future for communities around the world. Support organizations like:
+        <span class="charity-item"> UNICEF </span>
+        <span class="charity-item"> Amnesty International </span>
+        <span class="charity-item"> Action Against Homelessnes (AAH) </span>
+        <span class="charity-item"> Beat UOB </span>
+        <span class="charity-item"> Make a Smile </span>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh list</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-donator-page"
-        [routerLink]="['/donator-page/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Donator Page </span>
-      </button>
+        <button id="jh-create-entity" data-cy="entityCreateButton" class="donate-now-button" [routerLink]="['/donator-page/new']">
+          <span> DONATE NOW </span>
+        </button>
+      </div>
     </div>
-  </h2>
-
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
-  <div class="alert alert-warning" id="no-result" *ngIf="donatorPages?.length === 0">
-    <span>No Donator Pages found</span>
   </div>
 
-  <div class="table-responsive table-entities" id="entities" *ngIf="donatorPages && donatorPages.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span>ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="name">
-            <div class="d-flex">
-              <span>Name</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="anonymous">
-            <div class="d-flex">
-              <span>Anonymous</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="amount">
-            <div class="d-flex">
-              <span>Amount</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="groupDonation">
-            <div class="d-flex">
-              <span>Group Donation</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="charityProfile.charityName">
-            <div class="d-flex">
-              <span>Charity Profile</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let donatorPage of donatorPages; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/donator-page', donatorPage.id, 'view']">{{ donatorPage.id }}</a>
-          </td>
-          <td>{{ donatorPage.name }}</td>
-          <td>{{ donatorPage.anonymous }}</td>
-          <td>{{ donatorPage.amount }}</td>
-          <td>{{ donatorPage.groupDonation }}</td>
-          <td>
-            <div *ngIf="donatorPage.charityProfile">
-              <a [routerLink]="['/charity-profile', donatorPage.charityProfile.id, 'view']">{{ donatorPage.charityProfile.charityName }}</a>
-            </div>
-          </td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/donator-page', donatorPage.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
-              </button>
+  <!--  <h2 id="page-heading" data-cy="DonatorPageHeading">-->
+  <!--    <span>Make a Donation</span>-->
+  <div class="section-2">
+    <div class="group-donator-section">
+      <h2 class="section-2-headings">Why your Donation Matters to Us?</h2>
+      <div class="text">
+        Your generous donation is a lifeline for our mission, enabling us to make a profound impact on lives around the world. With your
+        support, we can continue to drive positive change, uplift communities, and create a brighter, more hopeful future.
+      </div>
+      <h2 class="section-2-headings">Consider Group Donations for Your Event:</h2>
+      <div class="text text-btn-gap">
+        Planning an event? Amplify your impact by creating a group donation! Unite your community in giving, making your event not only
+        memorable but also a powerful force for good. Together, we can make a difference that resonates far beyond the confines of any
+        single occasion.
+      </div>
+      <div class="group-donation-btn">Make a Group Donation</div>
+    </div>
 
-              <button
-                type="submit"
-                [routerLink]="['/donator-page', donatorPage.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
+    <div class="live-tracker-section">
+      <div class="live-tracker-header">
+        <h1 class="header-heading">Live Donations Tracker</h1>
 
-              <button type="submit" (click)="delete(donatorPage)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+            <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+            <span>Refresh list</span>
+          </button>
+        </div>
+      </div>
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="alert alert-warning" id="no-result" *ngIf="donatorPages?.length === 0">
+        <span>No Donators found</span>
+      </div>
+
+      <div class="table-responsive table-entities" id="entities" *ngIf="donatorPages && donatorPages.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <!--      <thead>-->
+          <!--        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">-->
+          <!--&lt;!&ndash;          <th scope="col" jhiSortBy="id">&ndash;&gt;-->
+          <!--&lt;!&ndash;            <div class="d-flex">&ndash;&gt;-->
+          <!--&lt;!&ndash;              <span>ID</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;              <fa-icon class="p-1" icon="sort"></fa-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;            </div>&ndash;&gt;-->
+          <!--&lt;!&ndash;          </th>&ndash;&gt;-->
+          <!--          <th scope="col" jhiSortBy="name">-->
+          <!--            <div class="d-flex">-->
+          <!--              <span>Name</span>-->
+          <!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+          <!--            </div>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="anonymous">-->
+          <!--            <div class="d-flex">-->
+          <!--              <span>Anonymous</span>-->
+          <!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+          <!--            </div>-->
+          <!--          </th>-->
+          <!--          <th scope="col" jhiSortBy="amount">-->
+          <!--            <div class="d-flex">-->
+          <!--              <span>Amount</span>-->
+          <!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+          <!--            </div>-->
+          <!--          </th>-->
+          <!--&lt;!&ndash;          <th scope="col" jhiSortBy="groupDonation">&ndash;&gt;-->
+          <!--&lt;!&ndash;            <div class="d-flex">&ndash;&gt;-->
+          <!--&lt;!&ndash;              <span>Group Donation</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;              <fa-icon class="p-1" icon="sort"></fa-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;            </div>&ndash;&gt;-->
+          <!--&lt;!&ndash;          </th>&ndash;&gt;-->
+          <!--          <th scope="col" jhiSortBy="charityProfile.id">-->
+          <!--            <div class="d-flex">-->
+          <!--              <span>Charity Profile</span>-->
+          <!--              <fa-icon class="p-1" icon="sort"></fa-icon>-->
+          <!--            </div>-->
+          <!--          </th>-->
+          <!--          <th scope="col"></th>-->
+          <!--        </tr>-->
+          <!--      </thead>-->
+          <tbody>
+            <tr *ngFor="let donatorPage of donatorPages; trackBy: trackId" data-cy="entityTable">
+              <!--          <td>-->
+              <!--            <a [routerLink]="['/donator-page', donatorPage.id, 'view']">{{ donatorPage.id }}</a>-->
+              <!--          </td>-->
+
+              <td>
+                <div *ngIf="!donatorPage.anonymous; else anonymousText">
+                  {{ donatorPage.name }} donated £{{ donatorPage.amount }} to {{ donatorPage.charityProfile }}
+                </div>
+                <ng-template #anonymousText> Anonymous donated £{{ donatorPage.amount }} to {{ donatorPage.charityProfile }} </ng-template>
+              </td>
+              <!--          <td>{{ donatorPage.name }}</td>-->
+              <!--          <td>{{ donatorPage.anonymous }}</td>-->
+              <!--          <td>{{ donatorPage.amount }}</td>-->
+              <!--          <td>-->
+              <!--            <div *ngIf="donatorPage.charityProfile">-->
+              <!--              <a [routerLink]="['/charity-profile', donatorPage.charityProfile.id, 'view']">{{ donatorPage.charityProfile }}</a>-->
+              <!--            </div>-->
+              <!--          </td>-->
+              <!--          <td>{{ donatorPage.groupDonation }}</td>-->
+
+              <td class="text-end">
+                <div class="btn-group">
+                  <!--              <button-->
+                  <!--                type="submit"-->
+                  <!--                [routerLink]="['/donator-page', donatorPage.id, 'view']"-->
+                  <!--                class="btn btn-info btn-sm"-->
+                  <!--                data-cy="entityDetailsButton"-->
+                  <!--              >-->
+                  <!--                <fa-icon icon="eye"></fa-icon>-->
+                  <!--                <span class="d-none d-md-inline">View</span>-->
+                  <!--              </button>-->
+
+                  <!--              <button-->
+                  <!--                type="submit"-->
+                  <!--                [routerLink]="['/donator-page', donatorPage.id, 'edit']"-->
+                  <!--                class="btn btn-primary btn-sm"-->
+                  <!--                data-cy="entityEditButton"-->
+                  <!--              >-->
+                  <!--                <fa-icon icon="pencil-alt"></fa-icon>-->
+                  <!--                <span class="d-none d-md-inline">Edit</span>-->
+                  <!--              </button>-->
+
+                  <!--              <button type="submit" (click)="delete(donatorPage)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">-->
+                  <!--                <fa-icon icon="times"></fa-icon>-->
+                  <!--                <span class="d-none d-md-inline">Delete</span>-->
+                  <!--              </button>-->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

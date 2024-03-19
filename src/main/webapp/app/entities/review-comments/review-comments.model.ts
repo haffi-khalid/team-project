@@ -1,5 +1,5 @@
 import dayjs from 'dayjs/esm';
-import { IUserPage } from 'app/entities/user-page/user-page.model';
+import { ICharityHubUser } from 'app/entities/charity-hub-user/charity-hub-user.model';
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 
 export interface IReviewComments {
@@ -8,9 +8,8 @@ export interface IReviewComments {
   content?: string | null;
   timestamp?: dayjs.Dayjs | null;
   status?: string | null;
-  likeCount?: number | null;
-  userPage?: Pick<IUserPage, 'id' | 'user'> | null;
-  charityProfile?: Pick<ICharityProfile, 'id' | 'charityName'> | null;
+  charityHubUser?: Pick<ICharityHubUser, 'id'> | null;
+  charityProfile?: Pick<ICharityProfile, 'id'> | null;
 }
 
 export type NewReviewComments = Omit<IReviewComments, 'id'> & { id: null };

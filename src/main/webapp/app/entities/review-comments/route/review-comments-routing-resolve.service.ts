@@ -15,9 +15,9 @@ export class ReviewCommentsRoutingResolveService implements Resolve<IReviewComme
     const id = route.params['id'];
     if (id) {
       return this.service.find(id).pipe(
-        mergeMap((reviewComments: HttpResponse<IReviewComments>) => {
-          if (reviewComments.body) {
-            return of(reviewComments.body);
+        mergeMap((reviewComments: IReviewComments) => {
+          if (reviewComments) {
+            return of(reviewComments);
           } else {
             this.router.navigate(['404']);
             return EMPTY;

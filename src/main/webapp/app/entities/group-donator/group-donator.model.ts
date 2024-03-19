@@ -6,7 +6,7 @@ export interface IGroupDonator {
   groupName?: string | null;
   totalCollectedAmount?: number | null;
   donatorPage?: Pick<IDonatorPage, 'id'> | null;
-  charityEvent?: Pick<ICharityEvent, 'id' | 'eventName'> | null;
+  charityEvent?: Pick<ICharityEvent, 'id'> | null;
 }
 
 export type NewGroupDonator = Omit<IGroupDonator, 'id'> & { id: null };

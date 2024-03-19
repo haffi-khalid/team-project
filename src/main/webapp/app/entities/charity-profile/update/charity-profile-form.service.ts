@@ -26,7 +26,6 @@ type CharityProfileFormGroupContent = {
   logoContentType: FormControl<ICharityProfile['logoContentType']>;
   pictures: FormControl<ICharityProfile['pictures']>;
   picturesContentType: FormControl<ICharityProfile['picturesContentType']>;
-  budgetPlanner: FormControl<ICharityProfile['budgetPlanner']>;
   socialFeed: FormControl<ICharityProfile['socialFeed']>;
 };
 
@@ -55,7 +54,6 @@ export class CharityProfileFormService {
       logoContentType: new FormControl(charityProfileRawValue.logoContentType),
       pictures: new FormControl(charityProfileRawValue.pictures),
       picturesContentType: new FormControl(charityProfileRawValue.picturesContentType),
-      budgetPlanner: new FormControl(charityProfileRawValue.budgetPlanner),
       socialFeed: new FormControl(charityProfileRawValue.socialFeed),
     });
   }

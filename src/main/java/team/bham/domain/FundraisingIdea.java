@@ -48,20 +48,10 @@ public class FundraisingIdea implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(
-        value = {
-            "budgetPlanner",
-            "socialFeed",
-            "reviewComments",
-            "donatorPages",
-            "vacancies",
-            "charityEvents",
-            "fundraisingIdeas",
-            "approvedVolunteers",
-            "volunteerApplications",
-        },
+        value = { "budgetPlanner", "charityProfile", "fundraisingIdeas", "approvedVolunteers", "volunteerApplications" },
         allowSetters = true
     )
-    private CharityProfile charityProfile;
+    private CharityAdmin charityAdmin;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -156,16 +146,16 @@ public class FundraisingIdea implements Serializable {
         this.expectedAttendance = expectedAttendance;
     }
 
-    public CharityProfile getCharityProfile() {
-        return this.charityProfile;
+    public CharityAdmin getCharityAdmin() {
+        return this.charityAdmin;
     }
 
-    public void setCharityProfile(CharityProfile charityProfile) {
-        this.charityProfile = charityProfile;
+    public void setCharityAdmin(CharityAdmin charityAdmin) {
+        this.charityAdmin = charityAdmin;
     }
 
-    public FundraisingIdea charityProfile(CharityProfile charityProfile) {
-        this.setCharityProfile(charityProfile);
+    public FundraisingIdea charityAdmin(CharityAdmin charityAdmin) {
+        this.setCharityAdmin(charityAdmin);
         return this;
     }
 
