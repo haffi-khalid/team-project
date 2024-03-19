@@ -20,9 +20,6 @@ type CharityHubUserFormGroupContent = {
   id: FormControl<ICharityHubUser['id'] | NewCharityHubUser['id']>;
   username: FormControl<ICharityHubUser['username']>;
   email: FormControl<ICharityHubUser['email']>;
-  user: FormControl<ICharityHubUser['user']>;
-  userPage: FormControl<ICharityHubUser['userPage']>;
-  authentication: FormControl<ICharityHubUser['authentication']>;
 };
 
 export type CharityHubUserFormGroup = FormGroup<CharityHubUserFormGroupContent>;
@@ -44,9 +41,6 @@ export class CharityHubUserFormService {
       ),
       username: new FormControl(charityHubUserRawValue.username),
       email: new FormControl(charityHubUserRawValue.email),
-      user: new FormControl(charityHubUserRawValue.user),
-      userPage: new FormControl(charityHubUserRawValue.userPage),
-      authentication: new FormControl(charityHubUserRawValue.authentication),
     });
   }
 

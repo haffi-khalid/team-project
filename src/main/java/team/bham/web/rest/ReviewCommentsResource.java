@@ -135,6 +135,9 @@ public class ReviewCommentsResource {
                 if (reviewComments.getStatus() != null) {
                     existingReviewComments.setStatus(reviewComments.getStatus());
                 }
+                if (reviewComments.getLikeCount() != null) {
+                    existingReviewComments.setLikeCount(reviewComments.getLikeCount());
+                }
 
                 return existingReviewComments;
             })
@@ -149,12 +152,17 @@ public class ReviewCommentsResource {
     /**
      * {@code GET  /review-comments} : get all the reviewComments.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of reviewComments in body.
      */
     @GetMapping("/review-comments")
-    public List<ReviewComments> getAllReviewComments() {
+    public List<ReviewComments> getAllReviewComments(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all ReviewComments");
-        return reviewCommentsRepository.findAll();
+        if (eagerload) {
+            return reviewCommentsRepository.findAllWithEagerRelationships();
+        } else {
+            return reviewCommentsRepository.findAll();
+        }
     }
 
     /**
@@ -166,7 +174,7 @@ public class ReviewCommentsResource {
     @GetMapping("/review-comments/{id}")
     public ResponseEntity<ReviewComments> getReviewComments(@PathVariable Long id) {
         log.debug("REST request to get ReviewComments : {}", id);
-        Optional<ReviewComments> reviewComments = reviewCommentsRepository.findById(id);
+        Optional<ReviewComments> reviewComments = reviewCommentsRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(reviewComments);
     }
 

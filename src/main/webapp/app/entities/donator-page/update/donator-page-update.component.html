@@ -1,12 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <div class="add-donator-header">
-        <h2 class="add-donator-heading" id="jhi-donator-page-heading" data-cy="DonatorPageCreateUpdateHeading">
-          Step 1 of 2: Donation Details
-        </h2>
-        <div class="text">(Step 2: The payment step has not been implemented due to legal reasons.)</div>
-      </div>
+      <h2 id="jhi-donator-page-heading" data-cy="DonatorPageCreateUpdateHeading">Create or edit a Donator Page</h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
@@ -16,44 +11,37 @@
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3 input-field">
-          <label class="form-label label" for="field_name">Enter your Name (to be displayed on Live Tracker)</label>
-          <input type="text" class="form-control input-bar" name="name" id="field_name" data-cy="name" formControlName="name" />
+        <div class="row mb-3">
+          <label class="form-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
         </div>
 
-        <div class="row mb-3 input-field">
-          <label class="form-label label" for="field_anonymous">Do you want to make your donation Anonymous?</label>
+        <div class="row mb-3">
+          <label class="form-label" for="field_anonymous">Anonymous</label>
+          <input type="checkbox" class="form-check" name="anonymous" id="field_anonymous" data-cy="anonymous" formControlName="anonymous" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_groupDonation">Group Donation</label>
           <input
             type="checkbox"
-            class="form-check checkbox-style"
-            name="anonymous"
-            id="field_anonymous"
-            data-cy="anonymous"
-            formControlName="anonymous"
+            class="form-check"
+            name="groupDonation"
+            id="field_groupDonation"
+            data-cy="groupDonation"
+            formControlName="groupDonation"
           />
         </div>
 
-        <div class="row mb-3 input-field">
-          <label class="form-label label" for="field_amount">Enter an amount (in £)</label>
-          <input type="number" class="form-control input-bar" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
-        </div>
-
-        <!--        <div class="row mb-3">-->
-        <!--          <label class="form-label" for="field_groupDonation">Group Donation</label>-->
-        <!--          <input-->
-        <!--            type="checkbox"-->
-        <!--            class="form-check"-->
-        <!--            name="groupDonation"-->
-        <!--            id="field_groupDonation"-->
-        <!--            data-cy="groupDonation"-->
-        <!--            formControlName="groupDonation"-->
-        <!--          />-->
-        <!--        </div>-->
-
-        <div class="row mb-3 input-field">
-          <label class="form-label label" for="field_charityProfile">Pick a Charity</label>
+        <div class="row mb-3">
+          <label class="form-label" for="field_charityProfile">Charity Profile</label>
           <select
-            class="form-control input-bar"
+            class="form-control"
             id="field_charityProfile"
             data-cy="charityProfile"
             name="charityProfile"
@@ -68,14 +56,8 @@
         </div>
       </div>
 
-      <div class="button-section">
-        <button
-          type="button"
-          id="cancel-save"
-          data-cy="entityCreateCancelButton"
-          class="btn btn-primary cancel-button"
-          (click)="previousState()"
-        >
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
         </button>
 
@@ -84,9 +66,9 @@
           id="save-entity"
           data-cy="entityCreateSaveButton"
           [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary donate-now-button"
+          class="btn btn-primary"
         >
-          <span>Donate</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
         </button>
       </div>
     </form>

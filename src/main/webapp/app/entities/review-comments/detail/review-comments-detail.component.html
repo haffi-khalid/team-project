@@ -30,16 +30,22 @@
         <dd>
           <span>{{ reviewComments.status }}</span>
         </dd>
-        <dt><span>Charity Hub User</span></dt>
+        <dt><span>Like Count</span></dt>
         <dd>
-          <div *ngIf="reviewComments.charityHubUser">
-            <a [routerLink]="['/charity-hub-user', reviewComments.charityHubUser.id, 'view']">{{ reviewComments.charityHubUser.id }}</a>
+          <span>{{ reviewComments.likeCount }}</span>
+        </dd>
+        <dt><span>User Page</span></dt>
+        <dd>
+          <div *ngIf="reviewComments.userPage">
+            <a [routerLink]="['/user-page', reviewComments.userPage.id, 'view']">{{ reviewComments.userPage.user }}</a>
           </div>
         </dd>
         <dt><span>Charity Profile</span></dt>
         <dd>
           <div *ngIf="reviewComments.charityProfile">
-            <a [routerLink]="['/charity-profile', reviewComments.charityProfile.id, 'view']">{{ reviewComments.charityProfile.id }}</a>
+            <a [routerLink]="['/charity-profile', reviewComments.charityProfile.id, 'view']">{{
+              reviewComments.charityProfile.charityName
+            }}</a>
           </div>
         </dd>
       </dl>

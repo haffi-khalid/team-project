@@ -1,9 +1,6 @@
 package team.bham.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,31 +24,6 @@ public class CharityAdmin implements Serializable {
 
     @Column(name = "is_charity_admin")
     private Boolean isCharityAdmin;
-
-    @JsonIgnoreProperties(value = { "charityAdmin" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private BudgetPlanner budgetPlanner;
-
-    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private CharityProfile charityProfile;
-
-    @OneToMany(mappedBy = "charityAdmin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "charityAdmin" }, allowSetters = true)
-    private Set<FundraisingIdea> fundraisingIdeas = new HashSet<>();
-
-    @OneToMany(mappedBy = "charityAdmin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "charityHubUser", "charityAdmin" }, allowSetters = true)
-    private Set<ApprovedVolunteers> approvedVolunteers = new HashSet<>();
-
-    @OneToMany(mappedBy = "charityAdmin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "charityAdmin", "charityHubUser", "vacancies" }, allowSetters = true)
-    private Set<VolunteerApplications> volunteerApplications = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -79,125 +51,6 @@ public class CharityAdmin implements Serializable {
 
     public void setIsCharityAdmin(Boolean isCharityAdmin) {
         this.isCharityAdmin = isCharityAdmin;
-    }
-
-    public BudgetPlanner getBudgetPlanner() {
-        return this.budgetPlanner;
-    }
-
-    public void setBudgetPlanner(BudgetPlanner budgetPlanner) {
-        this.budgetPlanner = budgetPlanner;
-    }
-
-    public CharityAdmin budgetPlanner(BudgetPlanner budgetPlanner) {
-        this.setBudgetPlanner(budgetPlanner);
-        return this;
-    }
-
-    public CharityProfile getCharityProfile() {
-        return this.charityProfile;
-    }
-
-    public void setCharityProfile(CharityProfile charityProfile) {
-        this.charityProfile = charityProfile;
-    }
-
-    public CharityAdmin charityProfile(CharityProfile charityProfile) {
-        this.setCharityProfile(charityProfile);
-        return this;
-    }
-
-    public Set<FundraisingIdea> getFundraisingIdeas() {
-        return this.fundraisingIdeas;
-    }
-
-    public void setFundraisingIdeas(Set<FundraisingIdea> fundraisingIdeas) {
-        if (this.fundraisingIdeas != null) {
-            this.fundraisingIdeas.forEach(i -> i.setCharityAdmin(null));
-        }
-        if (fundraisingIdeas != null) {
-            fundraisingIdeas.forEach(i -> i.setCharityAdmin(this));
-        }
-        this.fundraisingIdeas = fundraisingIdeas;
-    }
-
-    public CharityAdmin fundraisingIdeas(Set<FundraisingIdea> fundraisingIdeas) {
-        this.setFundraisingIdeas(fundraisingIdeas);
-        return this;
-    }
-
-    public CharityAdmin addFundraisingIdea(FundraisingIdea fundraisingIdea) {
-        this.fundraisingIdeas.add(fundraisingIdea);
-        fundraisingIdea.setCharityAdmin(this);
-        return this;
-    }
-
-    public CharityAdmin removeFundraisingIdea(FundraisingIdea fundraisingIdea) {
-        this.fundraisingIdeas.remove(fundraisingIdea);
-        fundraisingIdea.setCharityAdmin(null);
-        return this;
-    }
-
-    public Set<ApprovedVolunteers> getApprovedVolunteers() {
-        return this.approvedVolunteers;
-    }
-
-    public void setApprovedVolunteers(Set<ApprovedVolunteers> approvedVolunteers) {
-        if (this.approvedVolunteers != null) {
-            this.approvedVolunteers.forEach(i -> i.setCharityAdmin(null));
-        }
-        if (approvedVolunteers != null) {
-            approvedVolunteers.forEach(i -> i.setCharityAdmin(this));
-        }
-        this.approvedVolunteers = approvedVolunteers;
-    }
-
-    public CharityAdmin approvedVolunteers(Set<ApprovedVolunteers> approvedVolunteers) {
-        this.setApprovedVolunteers(approvedVolunteers);
-        return this;
-    }
-
-    public CharityAdmin addApprovedVolunteers(ApprovedVolunteers approvedVolunteers) {
-        this.approvedVolunteers.add(approvedVolunteers);
-        approvedVolunteers.setCharityAdmin(this);
-        return this;
-    }
-
-    public CharityAdmin removeApprovedVolunteers(ApprovedVolunteers approvedVolunteers) {
-        this.approvedVolunteers.remove(approvedVolunteers);
-        approvedVolunteers.setCharityAdmin(null);
-        return this;
-    }
-
-    public Set<VolunteerApplications> getVolunteerApplications() {
-        return this.volunteerApplications;
-    }
-
-    public void setVolunteerApplications(Set<VolunteerApplications> volunteerApplications) {
-        if (this.volunteerApplications != null) {
-            this.volunteerApplications.forEach(i -> i.setCharityAdmin(null));
-        }
-        if (volunteerApplications != null) {
-            volunteerApplications.forEach(i -> i.setCharityAdmin(this));
-        }
-        this.volunteerApplications = volunteerApplications;
-    }
-
-    public CharityAdmin volunteerApplications(Set<VolunteerApplications> volunteerApplications) {
-        this.setVolunteerApplications(volunteerApplications);
-        return this;
-    }
-
-    public CharityAdmin addVolunteerApplications(VolunteerApplications volunteerApplications) {
-        this.volunteerApplications.add(volunteerApplications);
-        volunteerApplications.setCharityAdmin(this);
-        return this;
-    }
-
-    public CharityAdmin removeVolunteerApplications(VolunteerApplications volunteerApplications) {
-        this.volunteerApplications.remove(volunteerApplications);
-        volunteerApplications.setCharityAdmin(null);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

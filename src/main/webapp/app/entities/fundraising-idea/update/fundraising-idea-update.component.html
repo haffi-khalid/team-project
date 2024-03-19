@@ -72,18 +72,18 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_charityAdmin">Charity Admin</label>
+          <label class="form-label" for="field_charityProfile">Charity Profile</label>
           <select
             class="form-control"
-            id="field_charityAdmin"
-            data-cy="charityAdmin"
-            name="charityAdmin"
-            formControlName="charityAdmin"
-            [compareWith]="compareCharityAdmin"
+            id="field_charityProfile"
+            data-cy="charityProfile"
+            name="charityProfile"
+            formControlName="charityProfile"
+            [compareWith]="compareCharityProfile"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="charityAdminOption" *ngFor="let charityAdminOption of charityAdminsSharedCollection">
-              {{ charityAdminOption.id }}
+            <option [ngValue]="charityProfileOption" *ngFor="let charityProfileOption of charityProfilesSharedCollection">
+              {{ charityProfileOption.charityName }}
             </option>
           </select>
         </div>

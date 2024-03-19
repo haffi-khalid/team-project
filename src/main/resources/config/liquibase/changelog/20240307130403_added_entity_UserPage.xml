@@ -14,10 +14,19 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="volunteer_hours" type="integer">
+            <column name="profile_picture" type="${blobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="profile_picture_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="user_bio" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="volunteer_hours" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="review_comment" type="${clobType}">
@@ -28,6 +37,9 @@
             </column>
             <column name="skills" type="varchar(255)">
                 <constraints nullable="true" />
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_user_page__user_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -50,8 +62,11 @@
                   tableName="user_page"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="volunteer_hours" type="numeric"/>
+            <column name="profile_picture" type="blob"/>
+            <column name="profile_picture_content_type" type="string"/>
+            <column name="name" type="string"/>
             <column name="user_bio" type="clob"/>
+            <column name="volunteer_hours" type="numeric"/>
             <column name="review_comment" type="clob"/>
             <column name="course" type="string"/>
             <column name="skills" type="string"/>

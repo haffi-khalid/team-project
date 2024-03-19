@@ -38,15 +38,27 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="volunteerHours">
+          <th scope="col" jhiSortBy="profilePicture">
             <div class="d-flex">
-              <span>Volunteer Hours</span>
+              <span>Profile Picture</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span>Name</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="userBio">
             <div class="d-flex">
               <span>User Bio</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="volunteerHours">
+            <div class="d-flex">
+              <span>Volunteer Hours</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -68,6 +80,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="user.id">
+            <div class="d-flex">
+              <span>User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -76,11 +94,25 @@
           <td>
             <a [routerLink]="['/user-page', userPage.id, 'view']">{{ userPage.id }}</a>
           </td>
-          <td>{{ userPage.volunteerHours }}</td>
+          <td>
+            <a *ngIf="userPage.profilePicture" (click)="openFile(userPage.profilePicture, userPage.profilePictureContentType)">
+              <img
+                [src]="'data:' + userPage.profilePictureContentType + ';base64,' + userPage.profilePicture"
+                style="max-height: 30px"
+                alt="userPage image"
+              />
+            </a>
+            <span *ngIf="userPage.profilePicture">{{ userPage.profilePictureContentType }}, {{ byteSize(userPage.profilePicture) }}</span>
+          </td>
+          <td>{{ userPage.name }}</td>
           <td>{{ userPage.userBio }}</td>
+          <td>{{ userPage.volunteerHours }}</td>
           <td>{{ userPage.reviewComment }}</td>
           <td>{{ userPage.course }}</td>
           <td>{{ userPage.skills }}</td>
+          <td>
+            {{ userPage.user?.id }}
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

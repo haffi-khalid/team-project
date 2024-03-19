@@ -38,6 +38,9 @@
             <column name="pictures_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="budget_planner_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_charity_profile__budget_planner_id" />
+            </column>
             <column name="social_feed_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_charity_profile__social_feed_id" />
             </column>

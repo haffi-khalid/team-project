@@ -20,46 +20,6 @@
           <label class="form-label" for="field_email">Email</label>
           <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
         </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_user">User</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
-            <option [ngValue]="null"></option>
-            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_userPage">User Page</label>
-          <select
-            class="form-control"
-            id="field_userPage"
-            data-cy="userPage"
-            name="userPage"
-            formControlName="userPage"
-            [compareWith]="compareUserPage"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="userPageOption" *ngFor="let userPageOption of userPagesCollection">{{ userPageOption.id }}</option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_authentication">Authentication</label>
-          <select
-            class="form-control"
-            id="field_authentication"
-            data-cy="authentication"
-            name="authentication"
-            formControlName="authentication"
-            [compareWith]="compareAuthentication"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="authenticationOption" *ngFor="let authenticationOption of authenticationsCollection">
-              {{ authenticationOption.id }}
-            </option>
-          </select>
-        </div>
       </div>
 
       <div>

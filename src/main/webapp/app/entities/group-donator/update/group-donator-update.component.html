@@ -28,22 +28,22 @@
           />
         </div>
 
-        <!--        <div class="row mb-3">-->
-        <!--          <label class="form-label" for="field_donatorPage">Donator Page</label>-->
-        <!--          <select-->
-        <!--            class="form-control"-->
-        <!--            id="field_donatorPage"-->
-        <!--            data-cy="donatorPage"-->
-        <!--            name="donatorPage"-->
-        <!--            formControlName="donatorPage"-->
-        <!--            [compareWith]="compareDonatorPage"-->
-        <!--          >-->
-        <!--            <option [ngValue]="null"></option>-->
-        <!--            <option [ngValue]="donatorPageOption" *ngFor="let donatorPageOption of donatorPagesCollection">-->
-        <!--              {{ donatorPageOption.id }}-->
-        <!--            </option>-->
-        <!--          </select>-->
-        <!--        </div>-->
+        <div class="row mb-3">
+          <label class="form-label" for="field_donatorPage">Donator Page</label>
+          <select
+            class="form-control"
+            id="field_donatorPage"
+            data-cy="donatorPage"
+            name="donatorPage"
+            formControlName="donatorPage"
+            [compareWith]="compareDonatorPage"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="donatorPageOption" *ngFor="let donatorPageOption of donatorPagesCollection">
+              {{ donatorPageOption.id }}
+            </option>
+          </select>
+        </div>
 
         <div class="row mb-3">
           <label class="form-label" for="field_charityEvent">Charity Event</label>

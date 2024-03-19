@@ -18,18 +18,6 @@
         <dd>
           <span>{{ charityAdmin.isCharityAdmin }}</span>
         </dd>
-        <dt><span>Budget Planner</span></dt>
-        <dd>
-          <div *ngIf="charityAdmin.budgetPlanner">
-            <a [routerLink]="['/budget-planner', charityAdmin.budgetPlanner.id, 'view']">{{ charityAdmin.budgetPlanner.id }}</a>
-          </div>
-        </dd>
-        <dt><span>Charity Profile</span></dt>
-        <dd>
-          <div *ngIf="charityAdmin.charityProfile">
-            <a [routerLink]="['/charity-profile', charityAdmin.charityProfile.id, 'view']">{{ charityAdmin.charityProfile.charityName }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

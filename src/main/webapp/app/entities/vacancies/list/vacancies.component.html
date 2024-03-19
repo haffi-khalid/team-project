@@ -1,17 +1,7 @@
-<div class="page">
-  <div class="d-flex justify-content-start">
-    <input
-      class="searchbar"
-      type="text"
-      placeholder="Filter by Society"
-      [(ngModel)]="searchText"
-      (ngModelChange)="cleanFilterVariables(searchText)"
-    />
-    <button class="primary" type="button" (click)="filterResults(searchText)">Search</button>
-    <!--<h4 *ngIf="searchText&&toggled">Vacancies Best Matching: {{searchText}}</h4>-->
-  </div>
-
+<div>
   <h2 id="page-heading" data-cy="VacanciesHeading">
+    <span>Vacancies</span>
+
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
@@ -23,7 +13,6 @@
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-vacancies"
         [routerLink]="['/vacancies/new']"
-        *jhiHasAnyAuthority="'ROLE_ADMIN'"
       >
         <fa-icon icon="plus"></fa-icon>
         <span> Create a new Vacancies </span>
@@ -31,51 +20,19 @@
     </div>
   </h2>
 
+  <jhi-alert-error></jhi-alert-error>
+
   <jhi-alert></jhi-alert>
-  <div class="filterBox">
-    <div class="inputBox">
-      <label>In-Person</label>
-      <input type="checkbox" [(ngModel)]="person" />
-    </div>
-    <div class="inputBox">
-      <label>Remote</label>
-      <input type="checkbox" [(ngModel)]="remote" />
-    </div>
-    <div class="inputBox">
-      <label>Start Date</label>
-      <input
-        id="field_vacancyStartDate"
-        data-cy="vacancyStartDate"
-        type="text"
-        name="vacancyStartDate"
-        ngbDatepicker
-        [(ngModel)]="dateSelector"
-        #vacancyStartDateDp="ngbDatepicker"
-      />
-      <button type="button" class="btn btn-secondary" (click)="vacancyStartDateDp.toggle()">
-        <fa-icon icon="calendar-alt"></fa-icon>
-      </button>
-    </div>
-    <div class="applyFilter">
-      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="applyFilters()">
-        Apply Filters
-      </button>
-    </div>
-  </div>
-  <div class="volunteerTracker">
-    <button type="submit" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="openVolunteerTrackerDialog()">
-      Volunteer Tracker
-    </button>
-  </div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="vacancies?.length === 0">
     <span>No Vacancies found</span>
   </div>
+
   <div class="table-responsive table-entities" id="entities" *ngIf="vacancies && vacancies.length > 0">
-    <table [ngClass]="accountService.hasAnyAuthority('ROLE_ADMIN') ? 'admin-table' : 'user-table'" aria-describedby="page-heading">
+    <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+          <th scope="col" jhiSortBy="id">
             <div class="d-flex">
               <span>ID</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
@@ -83,60 +40,81 @@
           </th>
           <th scope="col" jhiSortBy="vacancyTitle">
             <div class="d-flex">
-              <span>Charity Society</span>
+              <span>Vacancy Title</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="vacancyDescription">
             <div class="d-flex">
-              <span>Vacancy</span>
+              <span>Vacancy Description</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="vacancyStartDate">
             <div class="d-flex">
-              <span>Vacancy Description</span>
+              <span>Vacancy Start Date</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" class="shrink"></th>
+          <th scope="col" jhiSortBy="vacancyLogo">
+            <div class="d-flex">
+              <span>Vacancy Logo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyDuration">
+            <div class="d-flex">
+              <span>Vacancy Duration</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vacancyLocation">
+            <div class="d-flex">
+              <span>Vacancy Location</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="charityProfile.charityName">
+            <div class="d-flex">
+              <span>Charity Profile</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
         </tr>
       </thead>
-      <tbody *ngIf="searchText == '' && filteredVacancies">
-        <tr *ngFor="let vacancies of filteredVacancies; trackBy: trackId" data-cy="entityTable">
-          <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="id-field">
+      <tbody>
+        <tr *ngFor="let vacancies of vacancies; trackBy: trackId" data-cy="entityTable">
+          <td>
             <a [routerLink]="['/vacancies', vacancies.id, 'view']">{{ vacancies.id }}</a>
           </td>
-          <td class="small-cell" style="text-align: center">
+          <td>{{ vacancies.vacancyTitle }}</td>
+          <td>{{ vacancies.vacancyDescription }}</td>
+          <td>{{ vacancies.vacancyStartDate | formatMediumDate }}</td>
+          <td>
             <a *ngIf="vacancies.vacancyLogo" (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
               <img
                 [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
-                style="max-height: 100px"
+                style="max-height: 30px"
                 alt="vacancies image"
               />
             </a>
+            <span *ngIf="vacancies.vacancyLogo">{{ vacancies.vacancyLogoContentType }}, {{ byteSize(vacancies.vacancyLogo) }}</span>
+          </td>
+          <td>{{ vacancies.vacancyDuration }}</td>
+          <td>{{ vacancies.vacancyLocation }}</td>
+          <td>
             <div *ngIf="vacancies.charityProfile">
-              <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']" style="color: #140d07; font-weight: bold">{{
-                vacancies.charityProfile.charityName
-              }}</a>
+              <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']">{{ vacancies.charityProfile.charityName }}</a>
             </div>
           </td>
-          <td class="main">
-            <span style="font-weight: bold">Job: </span>{{ vacancies.vacancyTitle }}<br /><span style="font-weight: bold">Start Date: </span
-            >{{ vacancies.vacancyStartDate | formatMediumDate }}<br /><span style="font-weight: bold">Location: </span
-            >{{ vacancies.vacancyLocation }}<br /><span style="font-weight: bold">Duration: </span>{{ vacancies.vacancyDuration
-            }}<span> Hours</span>
-          </td>
-          <td class="last">{{ vacancies.vacancyDescription }}</td>
-
           <td class="text-end">
             <div class="btn-group">
               <button
                 type="submit"
                 [routerLink]="['/vacancies', vacancies.id, 'view']"
-                class="btn btn-info btn-sm2"
+                class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
               >
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline">View</span>
@@ -145,259 +123,19 @@
               <button
                 type="submit"
                 [routerLink]="['/vacancies', vacancies.id, 'edit']"
-                class="btn btn-primary btn-sm2"
+                class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline">Edit</span>
               </button>
-              <button
-                type="submit"
-                (click)="delete(vacancies)"
-                class="btn btn-danger btn-sm2"
-                data-cy="entityDeleteButton"
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
-              >
+
+              <button type="submit" (click)="delete(vacancies)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline">Delete</span>
               </button>
             </div>
-            <div class="btn-group2">
-              <button
-                type="submit"
-                (click)="openLoginCheckDialog(vacancies)"
-                class="btn btn-sm1"
-                *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
-              >
-                <span class="d-none d-md-inline">Apply Now</span>
-              </button>
-            </div>
           </td>
-        </tr>
-      </tbody>
-      <tbody *ngIf="searchText != '' && filteredVacancies">
-        <tr *ngFor="let vacancies of filteredVacancies; trackBy: trackId" data-cy="entityTable">
-          <ng-container *ngIf="vacancies.charityProfile && filteredCharityId.includes(vacancies.charityProfile.id)">
-            <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="id-field">
-              <a [routerLink]="['/vacancies', vacancies.id, 'view']">{{ vacancies.id }}</a>
-            </td>
-            <td class="small-cell" style="text-align: center">
-              <a *ngIf="vacancies.vacancyLogo" (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
-                <img
-                  [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
-                  style="max-height: 100px"
-                  alt="vacancies image"
-                />
-              </a>
-              <div *ngIf="vacancies.charityProfile">
-                <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']" style="color: #140d07; font-weight: bold">{{
-                  vacancies.charityProfile.charityName
-                }}</a>
-              </div>
-            </td>
-            <td class="main">
-              <span style="font-weight: bold">Job: </span>{{ vacancies.vacancyTitle }}<br /><span style="font-weight: bold"
-                >Start Date: </span
-              >{{ vacancies.vacancyStartDate | formatMediumDate }}<br /><span style="font-weight: bold">Location: </span
-              >{{ vacancies.vacancyLocation }}<br /><span style="font-weight: bold">Duration: </span>{{ vacancies.vacancyDuration
-              }}<span> Hours</span>
-            </td>
-            <td class="last">{{ vacancies.vacancyDescription }}</td>
-            <td class="text-end">
-              <div class="btn-group">
-                <button
-                  type="submit"
-                  [routerLink]="['/vacancies', vacancies.id, 'view']"
-                  class="btn btn-info btn-sm2"
-                  data-cy="entityDetailsButton"
-                  *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                >
-                  <fa-icon icon="eye"></fa-icon>
-                  <span class="d-none d-md-inline">View</span>
-                </button>
-                <button
-                  type="submit"
-                  [routerLink]="['/vacancies', vacancies.id, 'edit']"
-                  class="btn btn-primary btn-sm2"
-                  data-cy="entityEditButton"
-                  *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                >
-                  <fa-icon icon="pencil-alt"></fa-icon>
-                  <span class="d-none d-md-inline">Edit</span>
-                </button>
-                <button
-                  type="submit"
-                  (click)="delete(vacancies)"
-                  class="btn btn-danger btn-sm2"
-                  data-cy="entityDeleteButton"
-                  *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                >
-                  <fa-icon icon="times"></fa-icon>
-                  <span class="d-none d-md-inline">Delete</span>
-                </button>
-              </div>
-              <div class="btn-group2">
-                <button
-                  type="submit"
-                  (click)="openLoginCheckDialog(vacancies)"
-                  class="btn btn-sm1"
-                  *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
-                >
-                  <span class="d-none d-md-inline">Apply Now</span>
-                </button>
-              </div>
-            </td>
-          </ng-container>
-        </tr>
-      </tbody>
-      <tbody *ngIf="searchText == '' && !filteredVacancies">
-        <tr *ngFor="let vacancies of vacancies; trackBy: trackId" data-cy="entityTable">
-          <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="id-field">
-            <a [routerLink]="['/vacancies', vacancies.id, 'view']">{{ vacancies.id }}</a>
-          </td>
-          <td class="small-cell" style="text-align: center">
-            <a *ngIf="vacancies.vacancyLogo" (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
-              <img
-                [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
-                style="max-height: 100px"
-                alt="vacancies image"
-              />
-            </a>
-            <div *ngIf="vacancies.charityProfile">
-              <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']" style="color: #140d07; font-weight: bold">{{
-                vacancies.charityProfile.charityName
-              }}</a>
-            </div>
-          </td>
-          <td class="main">
-            <span style="font-weight: bold">Job: </span>{{ vacancies.vacancyTitle }}<br /><span style="font-weight: bold">Start Date: </span
-            >{{ vacancies.vacancyStartDate | formatMediumDate }}<br /><span style="font-weight: bold">Location: </span
-            >{{ vacancies.vacancyLocation }}<br /><span style="font-weight: bold">Duration: </span>{{ vacancies.vacancyDuration
-            }}<span> Hours</span>
-          </td>
-          <td class="last">{{ vacancies.vacancyDescription }}</td>
-
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/vacancies', vacancies.id, 'view']"
-                class="btn btn-info btn-sm2"
-                data-cy="entityDetailsButton"
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/vacancies', vacancies.id, 'edit']"
-                class="btn btn-primary btn-sm2"
-                data-cy="entityEditButton"
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
-              <button
-                type="submit"
-                (click)="delete(vacancies)"
-                class="btn btn-danger btn-sm2"
-                data-cy="entityDeleteButton"
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
-              >
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
-            </div>
-            <div class="btn-group2">
-              <button
-                type="submit"
-                (click)="openLoginCheckDialog(vacancies)"
-                class="btn btn-sm1"
-                *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
-              >
-                <span class="d-none d-md-inline">Apply Now</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-      <tbody *ngIf="searchText != '' && !filteredVacancies">
-        <tr *ngFor="let vacancies of vacancies; trackBy: trackId" data-cy="entityTable">
-          <ng-container *ngIf="vacancies.charityProfile && filteredCharityId.includes(vacancies.charityProfile.id)">
-            <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="id-field">
-              <a [routerLink]="['/vacancies', vacancies.id, 'view']">{{ vacancies.id }}</a>
-            </td>
-            <td class="small-cell" style="text-align: center">
-              <a *ngIf="vacancies.vacancyLogo" (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
-                <img
-                  [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
-                  style="max-height: 100px"
-                  alt="vacancies image"
-                />
-              </a>
-              <div *ngIf="vacancies.charityProfile">
-                <a [routerLink]="['/charity-profile', vacancies.charityProfile.id, 'view']" style="color: #140d07; font-weight: bold">{{
-                  vacancies.charityProfile.charityName
-                }}</a>
-              </div>
-            </td>
-            <td class="main">
-              <span style="font-weight: bold">Job: </span>{{ vacancies.vacancyTitle }}<br /><span style="font-weight: bold"
-                >Start Date: </span
-              >{{ vacancies.vacancyStartDate | formatMediumDate }}<br /><span style="font-weight: bold">Location: </span
-              >{{ vacancies.vacancyLocation }}<br /><span style="font-weight: bold">Duration: </span>{{ vacancies.vacancyDuration
-              }}<span> Hours</span>
-            </td>
-            <td class="last">{{ vacancies.vacancyDescription }}</td>
-            <td class="text-end">
-              <div class="btn-group">
-                <button
-                  type="submit"
-                  [routerLink]="['/vacancies', vacancies.id, 'view']"
-                  class="btn btn-info btn-sm2"
-                  data-cy="entityDetailsButton"
-                  *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                >
-                  <fa-icon icon="eye"></fa-icon>
-                  <span class="d-none d-md-inline">View</span>
-                </button>
-                <button
-                  type="submit"
-                  [routerLink]="['/vacancies', vacancies.id, 'edit']"
-                  class="btn btn-primary btn-sm2"
-                  data-cy="entityEditButton"
-                  *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                >
-                  <fa-icon icon="pencil-alt"></fa-icon>
-                  <span class="d-none d-md-inline">Edit</span>
-                </button>
-                <button
-                  type="submit"
-                  (click)="delete(vacancies)"
-                  class="btn btn-danger btn-sm2"
-                  data-cy="entityDeleteButton"
-                  *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                >
-                  <fa-icon icon="times"></fa-icon>
-                  <span class="d-none d-md-inline">Delete</span>
-                </button>
-              </div>
-              <div class="btn-group2">
-                <button
-                  type="submit"
-                  (click)="openLoginCheckDialog(vacancies)"
-                  class="btn btn-sm1"
-                  *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
-                >
-                  <span class="d-none d-md-inline">Apply Now</span>
-                </button>
-              </div>
-            </td>
-          </ng-container>
         </tr>
       </tbody>
     </table>

@@ -34,7 +34,20 @@ public class SocialFeed implements Serializable {
     @JsonIgnoreProperties(value = { "socialFeed" }, allowSetters = true)
     private Set<Posts> posts = new HashSet<>();
 
-    @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = {
+            "budgetPlanner",
+            "socialFeed",
+            "reviewComments",
+            "donatorPages",
+            "vacancies",
+            "charityEvents",
+            "fundraisingIdeas",
+            "approvedVolunteers",
+            "volunteerApplications",
+        },
+        allowSetters = true
+    )
     @OneToOne(mappedBy = "socialFeed")
     private CharityProfile charityProfile;
 

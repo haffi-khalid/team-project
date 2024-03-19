@@ -7,14 +7,13 @@ import { finalize, map } from 'rxjs/operators';
 import { VolunteerApplicationsFormService, VolunteerApplicationsFormGroup } from './volunteer-applications-form.service';
 import { IVolunteerApplications } from '../volunteer-applications.model';
 import { VolunteerApplicationsService } from '../service/volunteer-applications.service';
-import { ICharityAdmin } from 'app/entities/charity-admin/charity-admin.model';
-import { CharityAdminService } from 'app/entities/charity-admin/service/charity-admin.service';
-import { ICharityHubUser } from 'app/entities/charity-hub-user/charity-hub-user.model';
-import { CharityHubUserService } from 'app/entities/charity-hub-user/service/charity-hub-user.service';
+import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
+import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
+import { IUserPage } from 'app/entities/user-page/user-page.model';
+import { UserPageService } from 'app/entities/user-page/service/user-page.service';
 import { IVacancies } from 'app/entities/vacancies/vacancies.model';
 import { VacanciesService } from 'app/entities/vacancies/service/vacancies.service';
 import { ApplicationCategory } from 'app/entities/enumerations/application-category.model';
-import { AccountService } from '../../../core/auth/account.service';
 
 @Component({
   selector: 'jhi-volunteer-applications-update',
@@ -25,8 +24,8 @@ export class VolunteerApplicationsUpdateComponent implements OnInit {
   volunteerApplications: IVolunteerApplications | null = null;
   applicationCategoryValues = Object.keys(ApplicationCategory);
 
-  charityAdminsSharedCollection: ICharityAdmin[] = [];
-  charityHubUsersSharedCollection: ICharityHubUser[] = [];
+  charityProfilesSharedCollection: ICharityProfile[] = [];
+  userPagesSharedCollection: IUserPage[] = [];
   vacanciesSharedCollection: IVacancies[] = [];
 
   editForm: VolunteerApplicationsFormGroup = this.volunteerApplicationsFormService.createVolunteerApplicationsFormGroup();
@@ -34,18 +33,16 @@ export class VolunteerApplicationsUpdateComponent implements OnInit {
   constructor(
     protected volunteerApplicationsService: VolunteerApplicationsService,
     protected volunteerApplicationsFormService: VolunteerApplicationsFormService,
-    protected charityAdminService: CharityAdminService,
-    protected charityHubUserService: CharityHubUserService,
+    protected charityProfileService: CharityProfileService,
+    protected userPageService: UserPageService,
     protected vacanciesService: VacanciesService,
-    protected activatedRoute: ActivatedRoute,
-    protected accountService: AccountService
+    protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareCharityAdmin = (o1: ICharityAdmin | null, o2: ICharityAdmin | null): boolean =>
-    this.charityAdminService.compareCharityAdmin(o1, o2);
+  compareCharityProfile = (o1: ICharityProfile | null, o2: ICharityProfile | null): boolean =>
+    this.charityProfileService.compareCharityProfile(o1, o2);
 
-  compareCharityHubUser = (o1: ICharityHubUser | null, o2: ICharityHubUser | null): boolean =>
-    this.charityHubUserService.compareCharityHubUser(o1, o2);
+  compareUserPage = (o1: IUserPage | null, o2: IUserPage | null): boolean => this.userPageService.compareUserPage(o1, o2);
 
   compareVacancies = (o1: IVacancies | null, o2: IVacancies | null): boolean => this.vacanciesService.compareVacancies(o1, o2);
 
@@ -97,13 +94,13 @@ export class VolunteerApplicationsUpdateComponent implements OnInit {
     this.volunteerApplications = volunteerApplications;
     this.volunteerApplicationsFormService.resetForm(this.editForm, volunteerApplications);
 
-    this.charityAdminsSharedCollection = this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
-      this.charityAdminsSharedCollection,
-      volunteerApplications.charityAdmin
+    this.charityProfilesSharedCollection = this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
+      this.charityProfilesSharedCollection,
+      volunteerApplications.charityProfile
     );
-    this.charityHubUsersSharedCollection = this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
-      this.charityHubUsersSharedCollection,
-      volunteerApplications.charityHubUser
+    this.userPagesSharedCollection = this.userPageService.addUserPageToCollectionIfMissing<IUserPage>(
+      this.userPagesSharedCollection,
+      volunteerApplications.userPage
     );
     this.vacanciesSharedCollection = this.vacanciesService.addVacanciesToCollectionIfMissing<IVacancies>(
       this.vacanciesSharedCollection,
@@ -112,31 +109,28 @@ export class VolunteerApplicationsUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
-    this.charityAdminService
+    this.charityProfileService
       .query()
-      .pipe(map((res: HttpResponse<ICharityAdmin[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<ICharityProfile[]>) => res.body ?? []))
       .pipe(
-        map((charityAdmins: ICharityAdmin[]) =>
-          this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
-            charityAdmins,
-            this.volunteerApplications?.charityAdmin
+        map((charityProfiles: ICharityProfile[]) =>
+          this.charityProfileService.addCharityProfileToCollectionIfMissing<ICharityProfile>(
+            charityProfiles,
+            this.volunteerApplications?.charityProfile
           )
         )
       )
-      .subscribe((charityAdmins: ICharityAdmin[]) => (this.charityAdminsSharedCollection = charityAdmins));
+      .subscribe((charityProfiles: ICharityProfile[]) => (this.charityProfilesSharedCollection = charityProfiles));
 
-    this.charityHubUserService
+    this.userPageService
       .query()
-      .pipe(map((res: HttpResponse<ICharityHubUser[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IUserPage[]>) => res.body ?? []))
       .pipe(
-        map((charityHubUsers: ICharityHubUser[]) =>
-          this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
-            charityHubUsers,
-            this.volunteerApplications?.charityHubUser
-          )
+        map((userPages: IUserPage[]) =>
+          this.userPageService.addUserPageToCollectionIfMissing<IUserPage>(userPages, this.volunteerApplications?.userPage)
         )
       )
-      .subscribe((charityHubUsers: ICharityHubUser[]) => (this.charityHubUsersSharedCollection = charityHubUsers));
+      .subscribe((userPages: IUserPage[]) => (this.userPagesSharedCollection = userPages));
 
     this.vacanciesService
       .query()

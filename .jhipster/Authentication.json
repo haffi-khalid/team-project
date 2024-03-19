@@ -15,14 +15,6 @@
   "name": "Authentication",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityName": "charityHubUser",
-      "otherEntityRelationshipName": "authentication",
-      "ownerSide": false,
-      "relationshipName": "charityHubUser",
-      "relationshipType": "one-to-one"
-    }
-  ],
+  "relationships": [],
   "service": "no"
 }

@@ -33,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import team.bham.IntegrationTest;
 import team.bham.domain.CharityEvent;
+import team.bham.domain.enumeration.EventType;
 import team.bham.repository.CharityEventRepository;
 
 /**
@@ -60,6 +61,12 @@ class CharityEventResourceIT {
 
     private static final Integer DEFAULT_DURATION = 1;
     private static final Integer UPDATED_DURATION = 2;
+
+    private static final String DEFAULT_LOCATION = "AAAAAAAAAA";
+    private static final String UPDATED_LOCATION = "BBBBBBBBBB";
+
+    private static final EventType DEFAULT_CHARITY_TYPE = EventType.CHILDCARE;
+    private static final EventType UPDATED_CHARITY_TYPE = EventType.HUMANRIGHT;
 
     private static final String ENTITY_API_URL = "/api/charity-events";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -94,7 +101,9 @@ class CharityEventResourceIT {
             .description(DEFAULT_DESCRIPTION)
             .images(DEFAULT_IMAGES)
             .imagesContentType(DEFAULT_IMAGES_CONTENT_TYPE)
-            .duration(DEFAULT_DURATION);
+            .duration(DEFAULT_DURATION)
+            .location(DEFAULT_LOCATION)
+            .charityType(DEFAULT_CHARITY_TYPE);
         return charityEvent;
     }
 
@@ -111,7 +120,9 @@ class CharityEventResourceIT {
             .description(UPDATED_DESCRIPTION)
             .images(UPDATED_IMAGES)
             .imagesContentType(UPDATED_IMAGES_CONTENT_TYPE)
-            .duration(UPDATED_DURATION);
+            .duration(UPDATED_DURATION)
+            .location(UPDATED_LOCATION)
+            .charityType(UPDATED_CHARITY_TYPE);
         return charityEvent;
     }
 
@@ -139,6 +150,8 @@ class CharityEventResourceIT {
         assertThat(testCharityEvent.getImages()).isEqualTo(DEFAULT_IMAGES);
         assertThat(testCharityEvent.getImagesContentType()).isEqualTo(DEFAULT_IMAGES_CONTENT_TYPE);
         assertThat(testCharityEvent.getDuration()).isEqualTo(DEFAULT_DURATION);
+        assertThat(testCharityEvent.getLocation()).isEqualTo(DEFAULT_LOCATION);
+        assertThat(testCharityEvent.getCharityType()).isEqualTo(DEFAULT_CHARITY_TYPE);
     }
 
     @Test
@@ -161,6 +174,40 @@ class CharityEventResourceIT {
 
     @Test
     @Transactional
+    void checkLocationIsRequired() throws Exception {
+        int databaseSizeBeforeTest = charityEventRepository.findAll().size();
+        // set the field null
+        charityEvent.setLocation(null);
+
+        // Create the CharityEvent, which fails.
+
+        restCharityEventMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(charityEvent)))
+            .andExpect(status().isBadRequest());
+
+        List<CharityEvent> charityEventList = charityEventRepository.findAll();
+        assertThat(charityEventList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkCharityTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = charityEventRepository.findAll().size();
+        // set the field null
+        charityEvent.setCharityType(null);
+
+        // Create the CharityEvent, which fails.
+
+        restCharityEventMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(charityEvent)))
+            .andExpect(status().isBadRequest());
+
+        List<CharityEvent> charityEventList = charityEventRepository.findAll();
+        assertThat(charityEventList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllCharityEvents() throws Exception {
         // Initialize the database
         charityEventRepository.saveAndFlush(charityEvent);
@@ -176,7 +223,9 @@ class CharityEventResourceIT {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].imagesContentType").value(hasItem(DEFAULT_IMAGES_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].images").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGES))))
-            .andExpect(jsonPath("$.[*].duration").value(hasItem(DEFAULT_DURATION)));
+            .andExpect(jsonPath("$.[*].duration").value(hasItem(DEFAULT_DURATION)))
+            .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION)))
+            .andExpect(jsonPath("$.[*].charityType").value(hasItem(DEFAULT_CHARITY_TYPE.toString())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -213,7 +262,9 @@ class CharityEventResourceIT {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.imagesContentType").value(DEFAULT_IMAGES_CONTENT_TYPE))
             .andExpect(jsonPath("$.images").value(Base64Utils.encodeToString(DEFAULT_IMAGES)))
-            .andExpect(jsonPath("$.duration").value(DEFAULT_DURATION));
+            .andExpect(jsonPath("$.duration").value(DEFAULT_DURATION))
+            .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION))
+            .andExpect(jsonPath("$.charityType").value(DEFAULT_CHARITY_TYPE.toString()));
     }
 
     @Test
@@ -241,7 +292,9 @@ class CharityEventResourceIT {
             .description(UPDATED_DESCRIPTION)
             .images(UPDATED_IMAGES)
             .imagesContentType(UPDATED_IMAGES_CONTENT_TYPE)
-            .duration(UPDATED_DURATION);
+            .duration(UPDATED_DURATION)
+            .location(UPDATED_LOCATION)
+            .charityType(UPDATED_CHARITY_TYPE);
 
         restCharityEventMockMvc
             .perform(
@@ -261,6 +314,8 @@ class CharityEventResourceIT {
         assertThat(testCharityEvent.getImages()).isEqualTo(UPDATED_IMAGES);
         assertThat(testCharityEvent.getImagesContentType()).isEqualTo(UPDATED_IMAGES_CONTENT_TYPE);
         assertThat(testCharityEvent.getDuration()).isEqualTo(UPDATED_DURATION);
+        assertThat(testCharityEvent.getLocation()).isEqualTo(UPDATED_LOCATION);
+        assertThat(testCharityEvent.getCharityType()).isEqualTo(UPDATED_CHARITY_TYPE);
     }
 
     @Test
@@ -351,6 +406,8 @@ class CharityEventResourceIT {
         assertThat(testCharityEvent.getImages()).isEqualTo(DEFAULT_IMAGES);
         assertThat(testCharityEvent.getImagesContentType()).isEqualTo(DEFAULT_IMAGES_CONTENT_TYPE);
         assertThat(testCharityEvent.getDuration()).isEqualTo(DEFAULT_DURATION);
+        assertThat(testCharityEvent.getLocation()).isEqualTo(DEFAULT_LOCATION);
+        assertThat(testCharityEvent.getCharityType()).isEqualTo(DEFAULT_CHARITY_TYPE);
     }
 
     @Test
@@ -371,7 +428,9 @@ class CharityEventResourceIT {
             .description(UPDATED_DESCRIPTION)
             .images(UPDATED_IMAGES)
             .imagesContentType(UPDATED_IMAGES_CONTENT_TYPE)
-            .duration(UPDATED_DURATION);
+            .duration(UPDATED_DURATION)
+            .location(UPDATED_LOCATION)
+            .charityType(UPDATED_CHARITY_TYPE);
 
         restCharityEventMockMvc
             .perform(
@@ -391,6 +450,8 @@ class CharityEventResourceIT {
         assertThat(testCharityEvent.getImages()).isEqualTo(UPDATED_IMAGES);
         assertThat(testCharityEvent.getImagesContentType()).isEqualTo(UPDATED_IMAGES_CONTENT_TYPE);
         assertThat(testCharityEvent.getDuration()).isEqualTo(UPDATED_DURATION);
+        assertThat(testCharityEvent.getLocation()).isEqualTo(UPDATED_LOCATION);
+        assertThat(testCharityEvent.getCharityType()).isEqualTo(UPDATED_CHARITY_TYPE);
     }
 
     @Test

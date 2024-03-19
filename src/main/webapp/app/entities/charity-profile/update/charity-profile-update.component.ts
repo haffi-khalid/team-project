@@ -10,6 +10,8 @@ import { CharityProfileService } from '../service/charity-profile.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { IBudgetPlanner } from 'app/entities/budget-planner/budget-planner.model';
+import { BudgetPlannerService } from 'app/entities/budget-planner/service/budget-planner.service';
 import { ISocialFeed } from 'app/entities/social-feed/social-feed.model';
 import { SocialFeedService } from 'app/entities/social-feed/service/social-feed.service';
 
@@ -21,6 +23,7 @@ export class CharityProfileUpdateComponent implements OnInit {
   isSaving = false;
   charityProfile: ICharityProfile | null = null;
 
+  budgetPlannersCollection: IBudgetPlanner[] = [];
   socialFeedsCollection: ISocialFeed[] = [];
 
   editForm: CharityProfileFormGroup = this.charityProfileFormService.createCharityProfileFormGroup();
@@ -30,10 +33,14 @@ export class CharityProfileUpdateComponent implements OnInit {
     protected eventManager: EventManager,
     protected charityProfileService: CharityProfileService,
     protected charityProfileFormService: CharityProfileFormService,
+    protected budgetPlannerService: BudgetPlannerService,
     protected socialFeedService: SocialFeedService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareBudgetPlanner = (o1: IBudgetPlanner | null, o2: IBudgetPlanner | null): boolean =>
+    this.budgetPlannerService.compareBudgetPlanner(o1, o2);
 
   compareSocialFeed = (o1: ISocialFeed | null, o2: ISocialFeed | null): boolean => this.socialFeedService.compareSocialFeed(o1, o2);
 
@@ -110,6 +117,10 @@ export class CharityProfileUpdateComponent implements OnInit {
     this.charityProfile = charityProfile;
     this.charityProfileFormService.resetForm(this.editForm, charityProfile);
 
+    this.budgetPlannersCollection = this.budgetPlannerService.addBudgetPlannerToCollectionIfMissing<IBudgetPlanner>(
+      this.budgetPlannersCollection,
+      charityProfile.budgetPlanner
+    );
     this.socialFeedsCollection = this.socialFeedService.addSocialFeedToCollectionIfMissing<ISocialFeed>(
       this.socialFeedsCollection,
       charityProfile.socialFeed
@@ -117,6 +128,19 @@ export class CharityProfileUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
+    this.budgetPlannerService
+      .query({ filter: 'charityprofile-is-null' })
+      .pipe(map((res: HttpResponse<IBudgetPlanner[]>) => res.body ?? []))
+      .pipe(
+        map((budgetPlanners: IBudgetPlanner[]) =>
+          this.budgetPlannerService.addBudgetPlannerToCollectionIfMissing<IBudgetPlanner>(
+            budgetPlanners,
+            this.charityProfile?.budgetPlanner
+          )
+        )
+      )
+      .subscribe((budgetPlanners: IBudgetPlanner[]) => (this.budgetPlannersCollection = budgetPlanners));
+
     this.socialFeedService
       .query({ filter: 'charityprofile-is-null' })
       .pipe(map((res: HttpResponse<ISocialFeed[]>) => res.body ?? []))

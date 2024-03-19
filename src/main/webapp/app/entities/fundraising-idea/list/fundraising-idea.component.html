@@ -1,9 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="FundraisingIdeaHeading">
-    <div class="banner-area">
-      <h2 class="page-heading">Generate Ideas!</h2>
-      <span class="banner-img"></span>
-    </div>
+    <span>Fundraising Ideas</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
@@ -18,7 +15,7 @@
         [routerLink]="['/fundraising-idea/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Add a new Fundraising Idea </span>
+        <span> Create a new Fundraising Idea </span>
       </button>
     </div>
   </h2>
@@ -31,32 +28,80 @@
     <span>No Fundraising Ideas found</span>
   </div>
 
-  <h2 class="subheading">My Fundraiser Ideas</h2>
   <div class="table-responsive table-entities" id="entities" *ngIf="fundraisingIdeas && fundraisingIdeas.length > 0">
-    <div class="row">
-      <div class="col-md-4" *ngFor="let fundraisingIdea of fundraisingIdeas; trackBy: trackId">
-        <div class="card mb-3">
-          <div class="card-header">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
             <div class="d-flex">
-              <span>ID: {{ fundraisingIdea.id }}</span>
+              <span>ID</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">{{ fundraisingIdea.ideaName }}</h5>
-            <p class="card-text">{{ fundraisingIdea.ideaDescription }}</p>
-            <p class="card-text">Number Of Volunteers: {{ fundraisingIdea.numberOfVolunteers }}</p>
-            <p class="card-text">Location: {{ fundraisingIdea.location }}</p>
-            <p class="card-text">Expected Cost: {{ fundraisingIdea.expectedCost }}</p>
-            <p class="card-text">Expected Attendance: {{ fundraisingIdea.expectedAttendance }}</p>
-            <p class="card-text">
-              Charity Admin:
-              <span *ngIf="fundraisingIdea.charityAdmin">
-                <a [routerLink]="['/charity-admin', fundraisingIdea.charityAdmin.id, 'view']">{{ fundraisingIdea.charityAdmin.id }}</a>
-              </span>
-            </p>
-          </div>
-          <div class="card-footer text-end">
+          </th>
+          <th scope="col" jhiSortBy="ideaName">
+            <div class="d-flex">
+              <span>Idea Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ideaDescription">
+            <div class="d-flex">
+              <span>Idea Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="numberOfVolunteers">
+            <div class="d-flex">
+              <span>Number Of Volunteers</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="location">
+            <div class="d-flex">
+              <span>Location</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="expectedCost">
+            <div class="d-flex">
+              <span>Expected Cost</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="expectedAttendance">
+            <div class="d-flex">
+              <span>Expected Attendance</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="charityProfile.charityName">
+            <div class="d-flex">
+              <span>Charity Profile</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fundraisingIdea of fundraisingIdeas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/fundraising-idea', fundraisingIdea.id, 'view']">{{ fundraisingIdea.id }}</a>
+          </td>
+          <td>{{ fundraisingIdea.ideaName }}</td>
+          <td>{{ fundraisingIdea.ideaDescription }}</td>
+          <td>{{ fundraisingIdea.numberOfVolunteers }}</td>
+          <td>{{ fundraisingIdea.location }}</td>
+          <td>{{ fundraisingIdea.expectedCost }}</td>
+          <td>{{ fundraisingIdea.expectedAttendance }}</td>
+          <td>
+            <div *ngIf="fundraisingIdea.charityProfile">
+              <a [routerLink]="['/charity-profile', fundraisingIdea.charityProfile.id, 'view']">{{
+                fundraisingIdea.charityProfile.charityName
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
             <div class="btn-group">
               <button
                 type="submit"
@@ -83,58 +128,9 @@
                 <span class="d-none d-md-inline">Delete</span>
               </button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <h2 class="subheading">Idea Generator</h2>
-  <p class="body-text">Feeling a bit lost on ideas? Try out our idea generator!</p>
-
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-      <div class="idea-box" id="popular-ideas">
-        <h3>Popular Ideas</h3>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="idea-box" id="random-ideas">
-        <h3>Random Ideas</h3>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="idea-box" (click)="openForm()">
-        <h3>Get a Particular Idea</h3>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Popup form -->
-<div id="idea-popup-form" class="popup-form" *ngIf="isFormOpen">
-  <div class="popup-content">
-    <span class="close-btn" (click)="closeForm()">&times;</span>
-    <form id="particular-idea-form">
-      <div class="mb-3">
-        <label for="budget">Budget</label>
-        <input type="text" id="budget" name="budget" class="form-control" placeholder="Enter budget" />
-      </div>
-      <div class="mb-3">
-        <label for="location">Location (outdoor or indoor)</label><br />
-        <input type="radio" id="outdoor" name="location" value="outdoor" />
-        <label for="outdoor">Outdoor</label>
-        <input type="radio" id="indoor" name="location" value="indoor" />
-        <label for="indoor">Indoor</label>
-      </div>
-      <div class="mb-3">
-        <label for="volunteers">Number of Volunteers</label>
-        <input type="number" id="volunteers" name="volunteers" class="form-control" placeholder="Enter number of volunteers" />
-      </div>
-      <div class="mb-3">
-        <label for="attendants">Expected Attendants</label>
-        <input type="number" id="attendants" name="attendants" class="form-control" placeholder="Enter expected attendants" />
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

@@ -19,46 +19,6 @@
   "name": "CharityHubUser",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityName": "user",
-      "otherEntityRelationshipName": "charityHubUser",
-      "ownerSide": true,
-      "relationshipName": "user",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "userPage",
-      "otherEntityRelationshipName": "charityHubUser",
-      "ownerSide": true,
-      "relationshipName": "userPage",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "authentication",
-      "otherEntityRelationshipName": "charityHubUser",
-      "ownerSide": true,
-      "relationshipName": "authentication",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "volunteerApplications",
-      "otherEntityRelationshipName": "charityHubUser",
-      "relationshipName": "volunteerApplications",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "reviewComments",
-      "otherEntityRelationshipName": "charityHubUser",
-      "relationshipName": "reviewComments",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "approvedVolunteers",
-      "otherEntityRelationshipName": "charityHubUser",
-      "relationshipName": "approvedVolunteers",
-      "relationshipType": "one-to-many"
-    }
-  ],
+  "relationships": [],
   "service": "no"
 }

@@ -1,11 +1,11 @@
-id;parent_id;content;timestamp;status
-1;64562;../fake-data/blob/hipster.txt;2024-03-06T13:04:55;Central
-2;11638;../fake-data/blob/hipster.txt;2024-03-06T16:18:16;mission-critical
-3;43398;../fake-data/blob/hipster.txt;2024-03-07T07:48:00;Awesome lavender
-4;83302;../fake-data/blob/hipster.txt;2024-03-06T15:35:12;Marketing Outdoors Table
-5;88520;../fake-data/blob/hipster.txt;2024-03-06T14:36:19;Savings
-6;70108;../fake-data/blob/hipster.txt;2024-03-07T01:55:41;blockchains
-7;36417;../fake-data/blob/hipster.txt;2024-03-07T06:34:11;SMTP
-8;42154;../fake-data/blob/hipster.txt;2024-03-07T04:44:30;copying Gorgeous Avon
-9;4851;../fake-data/blob/hipster.txt;2024-03-06T16:48:55;extensible indexing
-10;19684;../fake-data/blob/hipster.txt;2024-03-07T06:48:33;Chips deposit
+id;parent_id;content;timestamp;status;like_count
+1;64562;../fake-data/blob/hipster.txt;2024-03-06T13:04:55;Central;11638
+2;86513;../fake-data/blob/hipster.txt;2024-03-07T05:44:05;tan olive;54248
+3;27450;../fake-data/blob/hipster.txt;2024-03-07T00:07:58;lavender;83302
+4;89503;../fake-data/blob/hipster.txt;2024-03-06T17:08:23;Car RAM Plaza;93592
+5;31614;../fake-data/blob/hipster.txt;2024-03-06T22:08:30;neutral;1612
+6;42775;../fake-data/blob/hipster.txt;2024-03-06T13:19:43;global SMTP;42154
+7;34691;../fake-data/blob/hipster.txt;2024-03-06T20:41:34;structure demand-driven Small;84385
+8;62213;../fake-data/blob/hipster.txt;2024-03-07T05:02:09;Soft teal;38541
+9;15908;../fake-data/blob/hipster.txt;2024-03-06T13:10:50;deposit array;87910
+10;44856;../fake-data/blob/hipster.txt;2024-03-06T19:47:22;drive;32714

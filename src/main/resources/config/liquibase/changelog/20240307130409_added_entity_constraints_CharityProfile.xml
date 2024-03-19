@@ -8,6 +8,12 @@
     -->
     <changeSet id="20240307130409-2" author="jhipster">
 
+        <addForeignKeyConstraint baseColumnNames="budget_planner_id"
+                                 baseTableName="charity_profile"
+                                 constraintName="fk_charity_profile__budget_planner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="budget_planner"/>
+
         <addForeignKeyConstraint baseColumnNames="social_feed_id"
                                  baseTableName="charity_profile"
                                  constraintName="fk_charity_profile__social_feed_id"

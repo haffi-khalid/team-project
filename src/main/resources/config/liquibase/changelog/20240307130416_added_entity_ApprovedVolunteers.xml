@@ -23,10 +23,13 @@
             <column name="current_event_volunteering_in" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="charity_hub_user_id" type="bigint">
+            <column name="volunteer_applications_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_approved_volunteers__volunteer_applications_id" />
+            </column>
+            <column name="user_page_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="charity_admin_id" type="bigint">
+            <column name="charity_profile_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

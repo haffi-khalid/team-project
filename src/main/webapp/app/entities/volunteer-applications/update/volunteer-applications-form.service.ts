@@ -33,8 +33,8 @@ type VolunteerApplicationsFormGroupContent = {
   id: FormControl<VolunteerApplicationsFormRawValue['id'] | NewVolunteerApplications['id']>;
   timeStamp: FormControl<VolunteerApplicationsFormRawValue['timeStamp']>;
   volunteerStatus: FormControl<VolunteerApplicationsFormRawValue['volunteerStatus']>;
-  charityAdmin: FormControl<VolunteerApplicationsFormRawValue['charityAdmin']>;
-  charityHubUser: FormControl<VolunteerApplicationsFormRawValue['charityHubUser']>;
+  charityProfile: FormControl<VolunteerApplicationsFormRawValue['charityProfile']>;
+  userPage: FormControl<VolunteerApplicationsFormRawValue['userPage']>;
   vacancies: FormControl<VolunteerApplicationsFormRawValue['vacancies']>;
 };
 
@@ -59,8 +59,8 @@ export class VolunteerApplicationsFormService {
       ),
       timeStamp: new FormControl(volunteerApplicationsRawValue.timeStamp),
       volunteerStatus: new FormControl(volunteerApplicationsRawValue.volunteerStatus),
-      charityAdmin: new FormControl(volunteerApplicationsRawValue.charityAdmin),
-      charityHubUser: new FormControl(volunteerApplicationsRawValue.charityHubUser),
+      charityProfile: new FormControl(volunteerApplicationsRawValue.charityProfile),
+      userPage: new FormControl(volunteerApplicationsRawValue.userPage),
       vacancies: new FormControl(volunteerApplicationsRawValue.vacancies),
     });
   }

@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20240319140212",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "group_donator_collector",
+  "fields": [
+    {
+      "fieldName": "donatorName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "donationAmount",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GroupDonatorCollector",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "groupDonator",
+      "otherEntityRelationshipName": "groupDonatorCollector",
+      "ownerSide": true,
+      "relationshipName": "groupDonator",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}
