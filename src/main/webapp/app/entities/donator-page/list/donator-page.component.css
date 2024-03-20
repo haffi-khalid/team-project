@@ -1,6 +1,7 @@
 .banner-area {
-  background-image: url('content/images/home page hero.jpg');
+  background-image: url('content/images/pexels-hitesh-choudhary-1739842.jpg');
   background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   position: relative;
   background-size: cover;

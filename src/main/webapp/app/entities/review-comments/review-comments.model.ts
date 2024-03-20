@@ -8,7 +8,7 @@ export interface IReviewComments {
   content?: string | null;
   timestamp?: dayjs.Dayjs | null;
   status?: string | null;
-  charityHubUser?: Pick<ICharityHubUser, 'id'> | null;
+  charityHubUser?: Pick<ICharityHubUser, 'id' | 'username'> | null;
   charityProfile?: Pick<ICharityProfile, 'id'> | null;
 }
 
