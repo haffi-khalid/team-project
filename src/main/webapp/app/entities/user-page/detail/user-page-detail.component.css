@@ -73,7 +73,7 @@
   position: absolute;
   left: 1300px;
   cursor: pointer;
-  background-image: url('content/images/pencil.png');
+  /*background-image: url('content/images/pencil.png');*/
   background-repeat: no-repeat;
   background-size: cover;
 }
