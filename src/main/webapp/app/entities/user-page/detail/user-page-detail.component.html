@@ -1,48 +1,89 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    <div *ngIf="userPage">
-      <h2 data-cy="userPageDetailsHeading"><span>User Page</span></h2>
+<div>
+  <div class="yellow">
+    <div class="personal-details-section">
+      <div class="profile-pic"></div>
+      <div>
+        <h2 class="name">Haffi Khalid</h2>
+        <h6>they/them</h6>
+        <h6>20 years</h6>
+      </div>
+    </div>
 
-      <hr />
-
-      <jhi-alert-error></jhi-alert-error>
-
-      <jhi-alert></jhi-alert>
-
-      <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
-        <dd>
-          <span>{{ userPage.id }}</span>
-        </dd>
-        <dt><span>Volunteer Hours</span></dt>
-        <dd>
-          <span>{{ userPage.volunteerHours }}</span>
-        </dd>
-        <dt><span>User Bio</span></dt>
-        <dd>
-          <span>{{ userPage.userBio }}</span>
-        </dd>
-        <dt><span>Review Comment</span></dt>
-        <dd>
-          <span>{{ userPage.reviewComment }}</span>
-        </dd>
-        <dt><span>Course</span></dt>
-        <dd>
-          <span>{{ userPage.course }}</span>
-        </dd>
-        <dt><span>Skills</span></dt>
-        <dd>
-          <span>{{ userPage.skills }}</span>
-        </dd>
-      </dl>
-
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
-      </button>
-
-      <button type="button" [routerLink]="['/user-page', userPage.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
-      </button>
+    <div class="profile-details-section">
+      <div>
+        <div class="detail-row">
+          <h6 class="field-name">Username:</h6>
+          <input type="text" class="bar form-control input-bar" value="HaffMan26" />
+        </div>
+        <div class="detail-row">
+          <h6 class="field-name">Course Details:</h6>
+          <input type="text" class="bar form-control input-bar" value="Computer Science Student" />
+          <div class="pencil"></div>
+        </div>
+        <div class="detail-row">
+          <h6 class="field-name">Bio:</h6>
+          <input type="text" class="bar form-control input-bar" value="Passionate about educating kids" />
+          <div class="pencil"></div>
+        </div>
+        <div class="detail-row">
+          <h6 class="field-name">Volunteer Skills:</h6>
+          <input type="text" class="bar form-control input-bar" value="Communication, Time Management" />
+          <div class="pencil"></div>
+        </div>
+        <div class="detail-row">
+          <h6 class="field-name">Social Media Links:</h6>
+          <input type="text" class="bar form-control input-bar" value="Link1" />
+          <div class="pencil"></div>
+        </div>
+      </div>
     </div>
   </div>
+  <!--  <div class="d-flex justify-content-center">-->
+  <!--    <div class="col-8">-->
+  <!--      <div *ngIf="userPage">-->
+  <!--        <h2 data-cy="userPageDetailsHeading"><span>User Page</span></h2>-->
+
+  <!--        <hr />-->
+
+  <!--        <jhi-alert-error></jhi-alert-error>-->
+
+  <!--        <jhi-alert></jhi-alert>-->
+
+  <!--        <dl class="row-md jh-entity-details">-->
+  <!--          <dt><span>ID</span></dt>-->
+  <!--          <dd>-->
+  <!--            <span>{{ userPage.id }}</span>-->
+  <!--          </dd>-->
+  <!--          <dt><span>Volunteer Hours</span></dt>-->
+  <!--          <dd>-->
+  <!--            <span>{{ userPage.volunteerHours }}</span>-->
+  <!--          </dd>-->
+  <!--          <dt><span>User Bio</span></dt>-->
+  <!--          <dd>-->
+  <!--            <span>{{ userPage.userBio }}</span>-->
+  <!--          </dd>-->
+  <!--          <dt><span>Review Comment</span></dt>-->
+  <!--          <dd>-->
+  <!--            <span>{{ userPage.reviewComment }}</span>-->
+  <!--          </dd>-->
+  <!--          <dt><span>Course</span></dt>-->
+  <!--          <dd>-->
+  <!--            <span>{{ userPage.course }}</span>-->
+  <!--          </dd>-->
+  <!--          <dt><span>Skills</span></dt>-->
+  <!--          <dd>-->
+  <!--            <span>{{ userPage.skills }}</span>-->
+  <!--          </dd>-->
+  <!--        </dl>-->
+
+  <!--        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">-->
+  <!--          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>-->
+  <!--        </button>-->
+
+  <!--        <button type="button" [routerLink]="['/user-page', userPage.id, 'edit']" class="btn btn-primary">-->
+  <!--          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>-->
+  <!--        </button>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
 </div>

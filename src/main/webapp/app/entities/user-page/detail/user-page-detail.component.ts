@@ -7,6 +7,7 @@ import { DataUtils } from 'app/core/util/data-util.service';
 @Component({
   selector: 'jhi-user-page-detail',
   templateUrl: './user-page-detail.component.html',
+  styleUrls: ['./user-page-detail.component.css'],
 })
 export class UserPageDetailComponent implements OnInit {
   userPage: IUserPage | null = null;
