@@ -1,4 +1,5 @@
-<div class="page">
+<div [ngClass]="{ dark: darkTheme }">
+  <button (click)="toggleContrast()">Contrast</button>
   <div class="d-flex justify-content-start">
     <input
       class="searchbar"
