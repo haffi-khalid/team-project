@@ -33,7 +33,6 @@ export class VacanciesComponent implements OnInit {
   person: boolean = false;
   filteredVacancies: IVacancies[] | undefined;
   dateSelector: dayjs.Dayjs | undefined;
-  darkTheme: boolean = false;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -122,9 +121,7 @@ export class VacanciesComponent implements OnInit {
   openFile(base64String: string, contentType: string | null | undefined): void {
     return this.dataUtils.openFile(base64String, contentType);
   }
-  toggleContrast() {
-    this.darkTheme = !this.darkTheme;
-  }
+
   delete(vacancies: IVacancies): void {
     const modalRef = this.modalService.open(VacanciesDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.vacancies = vacancies;
