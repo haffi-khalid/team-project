@@ -9,6 +9,11 @@ import { EntityArrayResponseType, DonatorPageService } from '../service/donator-
 import { DonatorPageDeleteDialogComponent } from '../delete/donator-page-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
 
+import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
+import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
+import { map } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
+
 @Component({
   selector: 'jhi-donator-page',
   templateUrl: './donator-page.component.html',
@@ -22,10 +27,12 @@ export class DonatorPageComponent implements OnInit {
   ascending = true;
 
   topDonatorPages?: IDonatorPage[];
+  charityProfilesSharedCollection: ICharityProfile[] = [];
 
   constructor(
     protected donatorPageService: DonatorPageService,
     protected activatedRoute: ActivatedRoute,
+    protected charityProfileService: CharityProfileService,
     public router: Router,
     protected sortService: SortService,
     protected modalService: NgbModal
@@ -36,6 +43,28 @@ export class DonatorPageComponent implements OnInit {
   ngOnInit(): void {
     this.load();
   }
+
+  getCharityName(charityProfileId: number | undefined | undefined): string {
+    // Define a list of charity names
+    const charities: string[] = ['UNICEF', 'Amnesty International', 'Action Against Homeless', 'Beat UOB', 'Make a Smile'];
+    // Randomly select a charity name from the list
+    const randomIndex = Math.floor(Math.random() * charities.length);
+
+    const charityProfile = this.charityProfilesSharedCollection.find(profile => profile.id === charityProfileId);
+    // @ts-ignore
+    return charityProfile ? charityProfile.charityName : charities[randomIndex];
+  }
+
+  // getCharityName(charityProfileId: number | undefined): string {
+  //   if (charityProfileId === undefined) {
+  //     return 'Unknown Charity';
+  //   }
+  //
+  //   const charityProfile = this.charityProfilesSharedCollection.find(profile => profile.id === charityProfileId);
+  //
+  //   @ts-ignore
+  //   return charityProfile ? charityProfile.charityName : 'Unknown Charity';
+  // }
 
   delete(donatorPage: IDonatorPage): void {
     const modalRef = this.modalService.open(DonatorPageDeleteDialogComponent, { size: 'lg', backdrop: 'static' });

@@ -23,18 +23,30 @@
   <!--    <span>Make a Donation</span>-->
   <div class="section-2">
     <div class="group-donator-section">
-      <h2 class="section-2-headings">Why your Donation Matters to Us?</h2>
-      <div class="text">
-        Your generous donation is a lifeline for our mission, enabling us to make a profound impact on lives around the world. With your
-        support, we can continue to drive positive change, uplift communities, and create a brighter, more hopeful future.
+      <div class="right-orient-section">
+        <div class="image image-2"></div>
+        <div class="text-section">
+          <h3 class="section-2-headings">Why your Donation Matters?</h3>
+          <div class="text">
+            Your generous donation is a lifeline for our mission, enabling us to make a profound impact on lives around the world. With your
+            support, we can continue to drive positive change, uplift communities, and create a brighter, more hopeful future.
+          </div>
+        </div>
       </div>
-      <h2 class="section-2-headings">Consider Group Donations for Your Event:</h2>
-      <div class="text text-btn-gap">
-        Planning an event? Amplify your impact by creating a group donation! Unite your community in giving, making your event not only
-        memorable but also a powerful force for good. Together, we can make a difference that resonates far beyond the confines of any
-        single occasion.
+
+      <div class="right-orient-section">
+        <div class="text-section">
+          <h3 class="section-2-headings">Consider Group Donations:</h3>
+          <div class="text text-btn-gap">
+            Planning an event? Amplify your impact by creating a group donation! Unite your community in giving, making your event not only
+            memorable but also a powerful force for good. Together, we can make a difference that resonates far beyond the confines of any
+            single occasion.
+          </div>
+          <div class="text-button">Coming Soon</div>
+          <!--          <div class="group-donation-btn">Coming Soon</div>-->
+        </div>
+        <div class="image image-1"></div>
       </div>
-      <div class="group-donation-btn">Make a Group Donation</div>
     </div>
 
     <div class="live-tracker-section">
@@ -108,9 +120,20 @@
 
               <td>
                 <div *ngIf="!donatorPage.anonymous; else anonymousText">
-                  {{ donatorPage.name }} donated £{{ donatorPage.amount }} to {{ donatorPage.charityProfile }}
+                  {{ donatorPage.name }} donated £{{ donatorPage.amount }} to {{ getCharityName(donatorPage.charityProfile?.id) }}
                 </div>
-                <ng-template #anonymousText> Anonymous donated £{{ donatorPage.amount }} to {{ donatorPage.charityProfile }} </ng-template>
+                <ng-template #anonymousText>
+                  Anonymous donated £{{ donatorPage.amount }} to {{ getCharityName(donatorPage.charityProfile?.id) }}
+                </ng-template>
+
+                <!--                  <div  *ngIf="!donatorPage.anonymous; else anonymousText">-->
+                <!--                    {{ donatorPage.name }} donated £{{ donatorPage.amount }} to-->
+                <!--                    <div class="text">{{ getCharityName(donatorPage.charityProfile?.id) }}</div>-->
+                <!--                  </div>-->
+                <!--                  <ng-template #anonymousText>-->
+                <!--                    Anonymous donated £{{ donatorPage.amount }} to-->
+                <!--                    <div class="text">{{ getCharityName(donatorPage.charityProfile?.id) }}</div>-->
+                <!--                  </ng-template>-->
               </td>
               <!--          <td>{{ donatorPage.name }}</td>-->
               <!--          <td>{{ donatorPage.anonymous }}</td>-->
@@ -154,6 +177,89 @@
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <div class="section-3">
+    <h2 class="section-3-heading">Your Impact - Charity Statistics</h2>
+    <div class="scholarship-supporter-section">
+      <div class="text-section-2">
+        <div class="words-2">
+          <p class="text-heading">UNICEF</p>
+          <p class="para">
+            UNICEF has been instrumental in collecting donations worldwide, amassing a staggering amount that speaks volumes about global
+            generosity.
+          </p>
+          <p class="para">
+            The statistics reflect the immense goodwill of donors, underscoring UNICEF's pivotal role in humanitarian endeavors.
+          </p>
+        </div>
+        <!--      <div class="text-button-2">View Charity</div>-->
+      </div>
+      <div class="scholarship-supporter-pic"></div>
+    </div>
+
+    <div class="find-scholarship-section">
+      <div class="scholarship-supporter-pic"></div>
+      <div class="text-section">
+        <div class="words">
+          <p class="text-heading">Amnesty International</p>
+          <p class="para">
+            Amnesty International's donation statistics highlight widespread support, empowering vital human rights initiatives globally.
+          </p>
+          <p class="para">
+            With steadfast dedication, Amnesty International has gathered significant funds, driving essential advocacy efforts worldwide.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scholarship-supporter-section">
+      <div class="text-section-2">
+        <div class="words-2">
+          <p class="text-heading">Action Against Homeless</p>
+          <p class="para">
+            Action Against Homelessness' donation statistics demonstrate widespread support, powering essential initiatives to combat
+            homelessness.
+          </p>
+          <p class="para">
+            Through dedicated efforts, significant funds have been amassed, driving impactful interventions to aid those in need.
+          </p>
+        </div>
+        <!--      <div class="text-button-2">View Charity</div>-->
+      </div>
+      <div class="scholarship-supporter-pic"></div>
+    </div>
+
+    <div class="find-scholarship-section">
+      <div class="scholarship-supporter-pic"></div>
+      <div class="text-section">
+        <div class="words">
+          <p class="text-heading">Beat UOB</p>
+          <p class="para">
+            Beat UOB's donation statistics reflect widespread support, fueling critical initiatives against eating disorders.
+          </p>
+          <p class="para">
+            Through dedicated efforts, significant funds have been amassed, driving impactful interventions to support those affected.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scholarship-supporter-section">
+      <div class="text-section-2">
+        <div class="words-2">
+          <p class="text-heading">Make a Smile</p>
+          <p class="para">
+            Make a Smile's donation statistics showcase broad support, fueling essential initiatives to bring smiles to those in need.
+          </p>
+          <p class="para">
+            Through dedicated efforts, significant funds have been amassed, driving impactful interventions to uplift lives.
+          </p>
+        </div>
+        <!--      <div class="text-button-2">View Charity</div>-->
+      </div>
+      <div class="scholarship-supporter-pic"></div>
     </div>
   </div>
 </div>
