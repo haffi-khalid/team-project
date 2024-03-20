@@ -1,14 +1,42 @@
 $primary-color: #065fd4;
 $border-color: #ccc;
-$background-color: #fff;
+$background-color: #e8e0d5;
 $font-family: 'Arial', sans-serif;
 $box-shadow-color: rgba(0, 0, 0, 0.1);
+@media (min-width: 600px) {
+  .container {
+    width: 80%;
+  }
+}
 
+/* Tablet - apply when the viewport width is greater than or equal to 768px */
+@media (min-width: 768px) {
+  .container {
+    width: 75%;
+  }
+}
+
+/* Desktop - apply when the viewport width is greater than or equal to 992px */
+@media (min-width: 992px) {
+  .container {
+    width: 70%;
+  }
+}
+
+/* Large Desktop - apply when the viewport width is greater than or equal to 1200px */
+@media (min-width: 1200px) {
+  .container {
+    width: 60%;
+  }
+}
 .comments-container {
   font-family: $font-family;
   max-width: 800px;
   margin: 0 auto;
   padding-bottom: 10px;
+}
+button:focus {
+  outline: 2px solid blue; /* Example focus style */
 }
 
 .comment-entry,
@@ -47,7 +75,8 @@ $box-shadow-color: rgba(0, 0, 0, 0.1);
     margin-top: 4px;
   }
   .delete-button {
-    padding-left: 590px;
+    margin-left: 585px;
+    padding-left: 5px;
     background: none;
     border: none;
     color: $primary-color;

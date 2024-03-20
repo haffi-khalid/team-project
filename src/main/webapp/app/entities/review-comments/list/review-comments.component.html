@@ -1,16 +1,16 @@
-<div class="comments-container">
-  <h2>Comments</h2>
+<div class="comments-container" tabindex="0">
+  <h2>Reviews</h2>
   <ng-container *ngFor="let comment of comments; let i = index">
-    <!-- Top-level comments -->
-    <div *ngIf="!comment.parentID" class="comment-entry">
+    <div *ngIf="!comment.parentID" class="comment-entry" tabindex="0">
       <div class="user-info">
-        <div class="user-id">User ID: {{ comment.charityHubUser?.id }}</div>
+        <div class="user-name">Username: {{ comment.charityHubUser?.username }}</div>
         <div *ngIf="editCommentId !== comment.id" class="comment-content">{{ comment.content }}</div>
         <div *ngIf="editCommentId === comment.id" class="edit-input-section">
           <input
             type="text"
             [(ngModel)]="editCommentContent[comment.id]"
             class="edit-input"
+            id="editInput{{ comment.id }}"
             placeholder="Edit your comment..."
             (keyup.enter)="updateComment(comment.id)"
           />
@@ -18,59 +18,60 @@
         </div>
       </div>
       <div class="comment-actions">
-        <button (click)="toggleReply(comment.id)" class="reply-button">Reply</button>
-        <button (click)="deleteComment(comment.id)" class="delete-button">Delete</button>
-        <button *ngIf="editCommentId !== comment.id" (click)="toggleEdit(comment.id)" class="edit-button">Edit</button>
+        <button (click)="toggleReply(comment.id)" class="reply-button" tabindex="0">Reply</button>
+        <button (click)="deleteComment(comment.id)" class="delete-button" tabindex="0">Delete</button>
+        <button *ngIf="editCommentId !== comment.id" (click)="toggleEdit(comment.id)" class="edit-button" tabindex="0">Edit</button>
       </div>
-      <!-- Reply input -->
       <div *ngIf="showReply[comment.id]" class="reply-input-section">
         <input
           type="text"
           [(ngModel)]="newReply[comment.id]"
           name="replyInput{{ i }}"
+          id="replyInput{{ comment.id }}"
           class="reply-input"
           placeholder="Write a reply..."
           (keyup.enter)="addReply(comment.id, newReply[comment.id])"
+          tabindex="0"
         />
-        <button (click)="addReply(comment.id, newReply[comment.id])" class="reply-post-button">Post</button>
+        <button (click)="addReply(comment.id, newReply[comment.id])" class="reply-post-button" tabindex="0">Post</button>
       </div>
-      <!-- Replies section -->
       <div class="replies">
         <ng-container *ngFor="let reply of comments; let j = index">
-          <div *ngIf="reply.parentID === comment.id" class="reply-entry">
+          <div *ngIf="reply.parentID === comment.id" class="reply-entry" tabindex="0">
             <div class="user-info">
-              <div class="user-id">User ID: {{ reply.charityHubUser?.id }}</div>
+              <div class="user-name">Username: {{ comment.charityHubUser?.username }}</div>
               <div *ngIf="editCommentId !== reply.id" class="comment-content">{{ reply.content }}</div>
               <div *ngIf="editCommentId === reply.id" class="edit-input-section">
                 <input
                   type="text"
                   [(ngModel)]="editCommentContent[reply.id]"
                   class="edit-input"
+                  id="editInput{{ reply.id }}"
                   placeholder="Edit your reply..."
                   (keyup.enter)="updateComment(reply.id, comment.id)"
+                  tabindex="0"
                 />
-                <button (click)="updateComment(reply.id, comment.id)" class="edit-save-button">Save</button>
+                <button (click)="updateComment(reply.id, comment.id)" class="edit-save-button" tabindex="0">Save</button>
               </div>
             </div>
-            <button (click)="deleteComment(reply.id, comment.id)" class="delete-reply-button">Delete</button>
-            <button *ngIf="editCommentId !== reply.id" (click)="toggleEdit(reply.id)" class="edit-button">Edit</button>
-            <!-- Use 'edit-button' for consistency -->
+            <button (click)="deleteComment(reply.id, comment.id)" class="delete-reply-button" tabindex="0">Delete</button>
+            <button *ngIf="editCommentId !== reply.id" (click)="toggleEdit(reply.id)" class="edit-button" tabindex="0">Edit</button>
           </div>
         </ng-container>
       </div>
     </div>
   </ng-container>
 
-  <!-- Add new comment section -->
   <div class="new-comment-section">
     <input
       type="text"
       [(ngModel)]="newComment"
       name="newComment"
       class="new-comment-input"
-      placeholder="Add a new comment..."
+      placeholder="Add a new review..."
       (keyup.enter)="addComment()"
+      tabindex="0"
     />
-    <button (click)="addComment()" class="add-comment-button">Add Comment</button>
+    <button (click)="addComment()" class="add-comment-button" tabindex="0">Add Review</button>
   </div>
 </div>

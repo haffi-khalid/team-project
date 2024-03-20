@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { ReviewCommentsService } from '../service/review-comments.service';
 import { IReviewComments, NewReviewComments } from '../review-comments.model';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-review-comments',
@@ -8,22 +8,16 @@ import { IReviewComments, NewReviewComments } from '../review-comments.model';
   styleUrls: ['./review-comments.component.scss'],
 })
 export class ReviewCommentsComponent implements OnInit {
-  searchQuery: string = '';
-  //
-  reviewComments?: IReviewComments[];
-  isLoading = false;
-
-  predicate = 'id';
-  ascending = true;
-
   comments: IReviewComments[] = [];
-  newComment: string = ''; // Use this for the new comment's text
-  newReply: { [key: number]: string } = {}; // To store the replies' texts, keyed by comment ID
-  showReply: { [key: number]: boolean } = {}; // To manage the visibility of reply inputs
+  newComment: string = '';
+  newReply: { [key: number]: string } = {};
+  showReply: { [key: number]: boolean } = {};
   editCommentId: number | null = null;
   editCommentContent: { [key: number]: string } = {};
+  currentFocus: HTMLElement | null = null;
+  navigatingActions: boolean = false; // New property to track if the user is navigating the comment actions
 
-  constructor(private reviewCommentsService: ReviewCommentsService) {}
+  constructor(private reviewCommentsService: ReviewCommentsService, private el: ElementRef) {}
 
   ngOnInit(): void {
     this.fetchComments();
@@ -39,6 +33,61 @@ export class ReviewCommentsComponent implements OnInit {
     });
   }
 
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    let focusableComments: NodeListOf<HTMLElement> = document.querySelectorAll('.comment-entry:not(.reply-entry)');
+    let focusableButtons: NodeListOf<HTMLElement>;
+    let index: number;
+
+    // ... other logic
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      // Navigating through comments
+      index = this.getIndexOfFocusedElement(focusableComments);
+      if (index !== -1) {
+        if (event.key === 'ArrowDown') {
+          index = (index + 1) % focusableComments.length;
+        } else if (event.key === 'ArrowUp') {
+          index = (index - 1 + focusableComments.length) % focusableComments.length;
+        }
+        focusableComments[index].focus();
+        event.preventDefault();
+      }
+    } else if (event.key === 'Enter' && document.activeElement?.classList.contains('comment-entry')) {
+      this.navigatingActions = !this.navigatingActions; // Toggle action navigation mode
+      if (this.navigatingActions) {
+        // Focus the first action button of the focused comment
+        focusableButtons = document.activeElement.querySelectorAll('button');
+        (focusableButtons[0] as HTMLElement).focus();
+        event.preventDefault();
+      }
+    } else if (this.navigatingActions && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+      // Navigating through action buttons of a comment
+      focusableButtons = (document.activeElement?.closest('.comment-actions') as HTMLElement).querySelectorAll('button');
+      this.handleActionNavigation(event, Array.from(focusableButtons)); // Convert NodeList to array
+    } else if (this.navigatingActions && event.key === 'Escape') {
+      this.navigatingActions = false; // Exit action navigation mode
+      // Return focus to the parent comment entry
+      (document.activeElement?.closest('.comment-entry') as HTMLElement)?.focus();
+    }
+  }
+
+  private getIndexOfFocusedElement(elements: NodeListOf<HTMLElement>): number {
+    return Array.from(elements).findIndex(element => element === document.activeElement);
+  }
+
+  private handleActionNavigation(event: KeyboardEvent, elements: HTMLElement[]): void {
+    let index = elements.findIndex(el => el === document.activeElement);
+    if (index !== -1) {
+      if (event.key === 'ArrowRight') {
+        index = (index + 1) % elements.length;
+      } else if (event.key === 'ArrowLeft') {
+        index = (index - 1 + elements.length) % elements.length;
+      }
+      elements[index].focus();
+      event.preventDefault();
+    }
+  }
   addComment(): void {
     if (!this.newComment.trim()) return;
 
@@ -92,10 +141,16 @@ export class ReviewCommentsComponent implements OnInit {
   }
   toggleReply(commentId: number): void {
     this.showReply[commentId] = !this.showReply[commentId];
+    if (this.showReply[commentId]) {
+      setTimeout(() => this.focusOnElement(`replyInput${commentId}`), 100);
+    }
   }
   toggleEdit(commentId: number): void {
     this.editCommentId = this.editCommentId === commentId ? null : commentId;
     this.editCommentContent[commentId] = this.comments.find(comment => comment.id === commentId)?.content || '';
+    if (this.editCommentId) {
+      setTimeout(() => this.focusOnElement(`editInput${commentId}`), 100);
+    }
   }
   updateComment(commentId: number, parentCommentId?: number): void {
     if (!this.editCommentContent[commentId].trim()) return;
@@ -120,6 +175,9 @@ export class ReviewCommentsComponent implements OnInit {
       });
     }
   }
-
+  private focusOnElement(elementId: string): void {
+    const element = document.getElementById(elementId);
+    if (element) element.focus();
+  }
   protected readonly parent = parent;
 }
