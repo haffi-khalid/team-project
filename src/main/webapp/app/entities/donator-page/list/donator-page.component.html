@@ -1,29 +1,29 @@
 <div>
-  <div class="banner-area">
-    <span class="banner-img"></span>
-    <div class="banner-text-section">
-      <h1 id="page-heading" data-cy="DonatorPageHeading" class="banner-heading">Make a Donation</h1>
-      <div class="donate-description">
-        Make a difference today! Your generous donation can transform lives. Your contribution matters – help us save lives and build a
-        brighter future for communities around the world. Support organizations like:
-        <span class="charity-item"> UNICEF </span>
-        <span class="charity-item"> Amnesty International </span>
-        <span class="charity-item"> Action Against Homelessnes (AAH) </span>
-        <span class="charity-item"> Beat UOB </span>
-        <span class="charity-item"> Make a Smile </span>
-
-        <button id="jh-create-entity" data-cy="entityCreateButton" class="donate-now-button" [routerLink]="['/donator-page/new']">
+  <header>
+    <div class="banner-area">
+      <div class="banner-text-section">
+        <h1 id="page-heading" data-cy="DonatorPageHeading" class="banner-heading">Make a Donation</h1>
+        <p class="donate-description">
+          Make a difference today! Your generous donation can transform lives. Your contribution matters – help us save lives and build a
+          brighter future for communities around the world. Support organizations like:
+          <span class="charity-item">UNICEF</span>
+          <span class="charity-item">Amnesty International</span>
+          <span class="charity-item">Action Against Homelessness (AAH)</span>
+          <span class="charity-item">Beat UOB</span>
+          <span class="charity-item">Make a Smile</span>
+        </p>
+        <button id="jh-create-entity" data-cy="entityCreateButton" class="donate-now-button key" [routerLink]="['/donator-page/new']">
           <span> DONATE NOW </span>
         </button>
       </div>
     </div>
-  </div>
+  </header>
 
   <!--  <h2 id="page-heading" data-cy="DonatorPageHeading">-->
   <!--    <span>Make a Donation</span>-->
-  <div class="section-2">
+  <section class="section-2">
     <div class="group-donator-section">
-      <div class="right-orient-section">
+      <article class="right-orient-section">
         <div class="image image-2"></div>
         <div class="text-section">
           <h3 class="section-2-headings">Why your Donation Matters?</h3>
@@ -32,9 +32,9 @@
             support, we can continue to drive positive change, uplift communities, and create a brighter, more hopeful future.
           </div>
         </div>
-      </div>
+      </article>
 
-      <div class="right-orient-section">
+      <article class="right-orient-section">
         <div class="text-section">
           <h3 class="section-2-headings">Consider Group Donations:</h3>
           <div class="text text-btn-gap">
@@ -46,10 +46,10 @@
           <!--          <div class="group-donation-btn">Coming Soon</div>-->
         </div>
         <div class="image image-1"></div>
-      </div>
+      </article>
     </div>
 
-    <div class="live-tracker-section">
+    <section class="live-tracker-section">
       <div class="live-tracker-header">
         <h1 class="header-heading">Live Donations Tracker</h1>
 
@@ -177,12 +177,13 @@
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
+    </section>
+  </section>
 
-  <div class="section-3">
+  <section class="section-3">
     <h2 class="section-3-heading">Your Impact - Charity Statistics</h2>
-    <div class="scholarship-supporter-section">
+
+    <article class="scholarship-supporter-section">
       <div class="text-section-2">
         <div class="words-2">
           <p class="text-heading">UNICEF</p>
@@ -197,9 +198,9 @@
         <!--      <div class="text-button-2">View Charity</div>-->
       </div>
       <div class="scholarship-supporter-pic"></div>
-    </div>
+    </article>
 
-    <div class="find-scholarship-section">
+    <article class="find-scholarship-section">
       <div class="scholarship-supporter-pic"></div>
       <div class="text-section">
         <div class="words">
@@ -212,9 +213,9 @@
           </p>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="scholarship-supporter-section">
+    <article class="scholarship-supporter-section">
       <div class="text-section-2">
         <div class="words-2">
           <p class="text-heading">Action Against Homeless</p>
@@ -229,9 +230,9 @@
         <!--      <div class="text-button-2">View Charity</div>-->
       </div>
       <div class="scholarship-supporter-pic"></div>
-    </div>
+    </article>
 
-    <div class="find-scholarship-section">
+    <article class="find-scholarship-section">
       <div class="scholarship-supporter-pic"></div>
       <div class="text-section">
         <div class="words">
@@ -244,9 +245,9 @@
           </p>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="scholarship-supporter-section">
+    <article class="scholarship-supporter-section">
       <div class="text-section-2">
         <div class="words-2">
           <p class="text-heading">Make a Smile</p>
@@ -260,6 +261,6 @@
         <!--      <div class="text-button-2">View Charity</div>-->
       </div>
       <div class="scholarship-supporter-pic"></div>
-    </div>
-  </div>
+    </article>
+  </section>
 </div>
