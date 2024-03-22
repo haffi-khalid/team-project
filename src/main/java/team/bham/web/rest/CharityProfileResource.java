@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import team.bham.domain.CharityAdmin;
 import team.bham.domain.CharityProfile;
+import team.bham.repository.CharityAdminRepository;
 import team.bham.repository.CharityProfileRepository;
 import team.bham.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
@@ -33,9 +35,12 @@ public class CharityProfileResource {
     private String applicationName;
 
     private final CharityProfileRepository charityProfileRepository;
+    private final CharityAdminRepository charityAdminRepository;
 
-    public CharityProfileResource(CharityProfileRepository charityProfileRepository) {
+
+    public CharityProfileResource(CharityProfileRepository charityProfileRepository, CharityAdminRepository charityAdminRepository) {
         this.charityProfileRepository = charityProfileRepository;
+        this.charityAdminRepository = charityAdminRepository;
     }
 
     /**
@@ -52,6 +57,10 @@ public class CharityProfileResource {
             throw new BadRequestAlertException("A new charityProfile cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CharityProfile result = charityProfileRepository.save(charityProfile);
+        CharityAdmin newAdmin = new CharityAdmin();
+        newAdmin.setCharityProfile(result);
+        newAdmin.setIsCharityAdmin(true);
+        charityAdminRepository.save(newAdmin);
         return ResponseEntity
             .created(new URI("/api/charity-profiles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))

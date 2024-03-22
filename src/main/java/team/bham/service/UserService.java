@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.bham.config.Constants;
 import team.bham.domain.Authority;
+import team.bham.domain.CharityHubUser;
 import team.bham.domain.User;
 import team.bham.repository.AuthorityRepository;
+import team.bham.repository.CharityHubUserRepository;
 import team.bham.repository.UserRepository;
 import team.bham.security.AuthoritiesConstants;
 import team.bham.security.SecurityUtils;
@@ -34,6 +36,8 @@ public class UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
+    private final CharityHubUserRepository charityHubUserRepository;
+
 
     private final PasswordEncoder passwordEncoder;
 
@@ -43,6 +47,7 @@ public class UserService {
 
     public UserService(
         UserRepository userRepository,
+        CharityHubUserRepository charityHubUserRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager
@@ -51,6 +56,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.charityHubUserRepository=charityHubUserRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -130,6 +136,9 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+        CharityHubUser hubUser = new CharityHubUser();
+        hubUser.setUser(newUser);
+        charityHubUserRepository.save(hubUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -175,6 +184,10 @@ public class UserService {
             user.setAuthorities(authorities);
         }
         userRepository.save(user);
+        userRepository.save(user);
+        CharityHubUser hubUser = new CharityHubUser();
+        hubUser.setUser(user);
+        charityHubUserRepository.save(hubUser);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
         return user;
