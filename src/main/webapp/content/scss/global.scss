@@ -225,8 +225,9 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 
 .edit-button-container {
   position: absolute;
-  top: -50px;
-  right: -540px;
+  top: 20px; /* Adjust top position as needed */
+  right: 20px; /* Adjust right position to move the container to the extreme right */
+  z-index: 1000;
 }
 
 .container1 {
