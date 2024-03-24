@@ -33,6 +33,7 @@ export class VacanciesComponent implements OnInit {
   person: boolean = false;
   filteredVacancies: IVacancies[] | undefined;
   dateSelector: dayjs.Dayjs | undefined;
+  toggled = false;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -110,8 +111,12 @@ export class VacanciesComponent implements OnInit {
     }
   }
   openLoginCheckDialog(vacancies: IVacancies) {
-    const modalRef = this.modalService.open(LoginPopUpCheckComponent, { size: 'xl' });
-    modalRef.componentInstance.vacancies = vacancies;
+    if (!this.accountService.isAuthenticated()) {
+      const modalRef = this.modalService.open(LoginPopUpCheckComponent, { size: 'xl' });
+      modalRef.componentInstance.vacancies = vacancies;
+    } else {
+      this.router.navigate(['/volunteer-applications/new/vacancy', vacancies?.id]);
+    }
   }
   openVolunteerTrackerDialog() {
     this.modalService.open(VolunteerApplicationsComponent, { size: 'xl' });

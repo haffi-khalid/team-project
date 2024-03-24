@@ -153,6 +153,13 @@ public class CharityAdminResource {
         }
     }
 
+    @GetMapping("/charity-admin/{id}")
+    public ResponseEntity<CharityAdmin> getCharityAdminByCharityProfile(@PathVariable Long id) {
+        log.debug("REST request to get CharityAdmin By CharityProfile ID");
+        Optional<CharityAdmin> charityAdmin = charityAdminRepository.findCharityAdminByCharityProfile(id);
+        return ResponseUtil.wrapOrNotFound(charityAdmin);
+    }
+
     /**
      * {@code GET  /charity-admins/:id} : get the "id" charityAdmin.
      *
