@@ -19,8 +19,6 @@ import { HttpResponse } from '@angular/common/http';
 import { finalize, map } from 'rxjs/operators';
 import { DataUtils } from '../core/util/data-util.service';
 import { ASC, DEFAULT_SORT_DATA, SORT } from '../config/navigation.constants';
-import { LoginPopUpCheckComponent } from '../login-pop-up-check/login-pop-up-check.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-new-applications',
@@ -31,13 +29,11 @@ export class NewApplicationsComponent implements OnInit {
   isSaving = false;
   volunteerApplications: IVolunteerApplications | null = null;
   vacancy: IVacancies | null = null;
+  applicationCategoryValues = Object.keys(ApplicationCategory);
 
   charityAdminsSharedCollection: ICharityAdmin[] = [];
   charityHubUsersSharedCollection: ICharityHubUser[] = [];
-  charityHubUser: ICharityHubUser | null = null;
-  charityAdmin: ICharityAdmin | null = null;
   vacanciesSharedCollection: IVacancies[] = [];
-  applicationCategoryValues = Object.keys(ApplicationCategory);
 
   editForm: VolunteerApplicationsFormGroup = this.volunteerApplicationsFormService.createVolunteerApplicationsFormGroup();
 
@@ -48,7 +44,6 @@ export class NewApplicationsComponent implements OnInit {
     protected charityHubUserService: CharityHubUserService,
     protected vacanciesService: VacanciesService,
     protected dataUtils: DataUtils,
-    protected modalService: NgbModal,
     protected activatedRoute: ActivatedRoute,
     protected accountService: AccountService
   ) {}
@@ -94,10 +89,7 @@ export class NewApplicationsComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    // this.previousState();
-    const modalRef = this.modalService.open(LoginPopUpCheckComponent, { size: 'xl' });
-    modalRef.componentInstance.toggled = true;
-    modalRef.componentInstance.vacancies = this.vacancy;
+    this.previousState();
   }
 
   protected onSaveError(): void {
@@ -128,34 +120,30 @@ export class NewApplicationsComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.charityAdminService
-      .findByCharityProfile(this.vacancy?.charityProfile?.id)
-      .subscribe((res: HttpResponse<ICharityAdmin>) => (this.charityAdmin = res.body));
-    // this.charityAdminService
-    //   .query()
-    //   .pipe(map((res: HttpResponse<ICharityAdmin[]>) => res.body ?? []))
-    //   .pipe(
-    //     map((charityAdmins: ICharityAdmin[]) =>
-    //       this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
-    //         charityAdmins,
-    //         this.volunteerApplications?.charityAdmin
-    //       )
-    //     )
-    //   )
-    //   .subscribe((charityAdmins: ICharityAdmin[]) => (this.charityAdminsSharedCollection = charityAdmins));
+      .query()
+      .pipe(map((res: HttpResponse<ICharityAdmin[]>) => res.body ?? []))
+      .pipe(
+        map((charityAdmins: ICharityAdmin[]) =>
+          this.charityAdminService.addCharityAdminToCollectionIfMissing<ICharityAdmin>(
+            charityAdmins,
+            this.volunteerApplications?.charityAdmin
+          )
+        )
+      )
+      .subscribe((charityAdmins: ICharityAdmin[]) => (this.charityAdminsSharedCollection = charityAdmins));
 
-    // this.charityHubUserService
-    //   .query()
-    //   .pipe(map((res: HttpResponse<ICharityHubUser[]>) => res.body ?? []))
-    //   .pipe(
-    //     map((charityHubUsers: ICharityHubUser[]) =>
-    //       this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
-    //         charityHubUsers,
-    //         this.volunteerApplications?.charityHubUser
-    //       )
-    //     )
-    //   )
-    //   .subscribe((charityHubUsers: ICharityHubUser[]) => (this.charityHubUsersSharedCollection = charityHubUsers));
-    this.charityHubUserService.findByUser().subscribe((res: HttpResponse<ICharityHubUser>) => (this.charityHubUser = res.body));
+    this.charityHubUserService
+      .query()
+      .pipe(map((res: HttpResponse<ICharityHubUser[]>) => res.body ?? []))
+      .pipe(
+        map((charityHubUsers: ICharityHubUser[]) =>
+          this.charityHubUserService.addCharityHubUserToCollectionIfMissing<ICharityHubUser>(
+            charityHubUsers,
+            this.volunteerApplications?.charityHubUser
+          )
+        )
+      )
+      .subscribe((charityHubUsers: ICharityHubUser[]) => (this.charityHubUsersSharedCollection = charityHubUsers));
 
     this.vacanciesService
       .query()

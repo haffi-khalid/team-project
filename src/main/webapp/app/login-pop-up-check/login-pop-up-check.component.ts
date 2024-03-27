@@ -12,7 +12,6 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 })
 export class LoginPopUpCheckComponent implements OnInit {
   vacancies?: IVacancies;
-  toggled?: boolean;
   constructor(
     protected activeModal: NgbActiveModal,
     protected accountService: AccountService,
@@ -34,9 +33,5 @@ export class LoginPopUpCheckComponent implements OnInit {
     // this.route.params.subscribe(object=>this.vacancies=object['vacancy'])
     this.router.navigate(['/volunteer-applications/new/vacancy', vacancy?.id]);
     this.activeModal.dismiss();
-  }
-  previousState(): void {
-    this.activeModal.dismiss();
-    window.history.back();
   }
 }

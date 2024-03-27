@@ -37,9 +37,6 @@ export class CharityAdminService {
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<ICharityAdmin>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
-  findByCharityProfile(id?: number): Observable<EntityResponseType> {
-    return this.http.get<ICharityAdmin>(`/api/charity-admin/${id}`, { observe: 'response' });
-  }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);

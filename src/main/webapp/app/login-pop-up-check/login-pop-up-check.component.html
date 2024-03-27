@@ -1,69 +1,23 @@
-<!--<div class="modal-body">-->
-<!--  <ng-template [ngIf]="!accountService.isAuthenticated()">-->
-<!--    <p>Please Login to continue with {{ vacancies?.vacancyTitle }} application...</p>-->
-<!--  </ng-template>-->
-<!--  <ng-template [ngIf]="accountService.isAuthenticated()">-->
-<!--    <p>Are you sure you want to continue {{ vacancies?.vacancyTitle }} application?</p>-->
-<!--  </ng-template>-->
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--  <button type="button" class="btn-sm1" data-dismiss="modal" (click)="cancel()">-->
-<!--    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Go Back</span>-->
-<!--  </button>-->
-<!--  <ng-template [ngIf]="!accountService.isAuthenticated()">-->
-<!--    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="login()">-->
-<!--      <span>Login/Register Now!</span>-->
-<!--    </button>-->
-<!--  </ng-template>-->
-<!--  <ng-template [ngIf]="accountService.isAuthenticated()">-->
-<!--    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="apply(vacancies)">-->
-<!--      <span>Yes</span>-->
-<!--    </button>-->
-<!--  </ng-template>-->
-<!--</div>-->
-
 <div class="modal-body">
   <ng-template [ngIf]="!accountService.isAuthenticated()">
     <p>Please Login to continue with {{ vacancies?.vacancyTitle }} application...</p>
   </ng-template>
-  <ng-template [ngIf]="toggled">
-    <p>Thank you for your Application to {{ vacancies?.vacancyTitle }}</p>
-    <div class="vacancyImage">
-      <a>
-        <img
-          class="vacancyLogo"
-          [src]="'data:' + vacancies?.vacancyLogoContentType + ';base64,' + vacancies?.vacancyLogo"
-          alt="vacancies image"
-        />
-      </a>
-    </div>
-    <div class="vacancyDetail">
-      <span style="font-weight: bold">Start Date: </span>
-      {{ vacancies?.vacancyStartDate | formatMediumDate }}<br />
-    </div>
-    <div class="vacancyDetail">
-      <span style="font-weight: bold">Location: </span>
-      {{ vacancies?.vacancyLocation }}<br />
-    </div>
-    <div class="vacancyDetail">
-      <span style="font-weight: bold">Duration: </span>
-      {{ vacancies?.vacancyDuration }}<span> Hours</span><br />
-    </div>
-    <div class="vacancyDescription">
-      <span style="font-weight: bold">Description:</span>
-      {{ vacancies?.vacancyDescription }}<br />
-    </div>
+  <ng-template [ngIf]="accountService.isAuthenticated()">
+    <p>Are you sure you want to continue {{ vacancies?.vacancyTitle }} application?</p>
   </ng-template>
 </div>
 <div class="modal-footer">
+  <button type="button" class="btn-sm1" data-dismiss="modal" (click)="cancel()">
+    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Go Back</span>
+  </button>
   <ng-template [ngIf]="!accountService.isAuthenticated()">
     <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="login()">
       <span>Login/Register Now!</span>
     </button>
   </ng-template>
-  <ng-template [ngIf]="toggled">
-    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="previousState()">
-      <span>Click to Return Back to Vacancy Page</span>
+  <ng-template [ngIf]="accountService.isAuthenticated()">
+    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="apply(vacancies)">
+      <span>Yes</span>
     </button>
   </ng-template>
 </div>

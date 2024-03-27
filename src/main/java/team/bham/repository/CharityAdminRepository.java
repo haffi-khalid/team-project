@@ -37,7 +37,4 @@ public interface CharityAdminRepository extends JpaRepository<CharityAdmin, Long
 
     @Query("select charityAdmin from CharityAdmin charityAdmin left join fetch charityAdmin.charityProfile where charityAdmin.id =:id")
     Optional<CharityAdmin> findOneWithToOneRelationships(@Param("id") Long id);
-
-    @Query("select charityAdmin from CharityAdmin charityAdmin where charityAdmin.charityProfile.id=:id")
-    Optional<CharityAdmin> findCharityAdminByCharityProfile(@Param("id") Long id);
 }

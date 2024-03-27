@@ -21,7 +21,6 @@ import team.bham.repository.CharityHubUserRepository;
 import team.bham.repository.UserRepository;
 import team.bham.security.SecurityUtils;
 import team.bham.service.UserService;
-import team.bham.service.UserService;
 import team.bham.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -43,16 +42,10 @@ public class CharityHubUserResource {
 
     private final CharityHubUserRepository charityHubUserRepository;
     private final UserRepository userRepository;
-    private final UserService userService;
 
-    public CharityHubUserResource(
-        CharityHubUserRepository charityHubUserRepository,
-        UserRepository userRepository,
-        UserService userService
-    ) {
+    public CharityHubUserResource(CharityHubUserRepository charityHubUserRepository, UserRepository userRepository) {
         this.charityHubUserRepository = charityHubUserRepository;
         this.userRepository = userRepository;
-        this.userService = userService;
     }
 
     /**
@@ -166,15 +159,6 @@ public class CharityHubUserResource {
     public List<CharityHubUser> getAllCharityHubUsers() {
         log.debug("REST request to get all CharityHubUsers");
         return charityHubUserRepository.findAll();
-    }
-
-    @GetMapping("/charity-hub-user")
-    public ResponseEntity<CharityHubUser> getHubUser() {
-        log.debug("REST request to get Charity Hub User From User");
-        Optional<User> isUser = userService.getUserWithAuthorities();
-        final User user = isUser.get();
-        Optional<CharityHubUser> charityHubUser = charityHubUserRepository.findCharityHubUserByUser(user.getId());
-        return ResponseUtil.wrapOrNotFound(charityHubUser);
     }
 
     /**
