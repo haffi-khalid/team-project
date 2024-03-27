@@ -33,11 +33,8 @@
   <div class="form-container">
     <div class="col-8">
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-        <h2 *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jhi-volunteer-applications-heading" data-cy="VolunteerApplicationsCreateUpdateHeading">
-          Create or edit a Volunteer Applications
-        </h2>
         <h2 *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')" data-cy="VolunteerApplicationsCreateUpdateHeading">
-          Please Fill The Application Form
+          Application for {{ vacancy?.vacancyTitle }}
         </h2>
 
         <div>
@@ -49,7 +46,7 @@
           </div>
 
           <div class="row mb-3">
-            <label class="form-label" for="field_timeStamp">Time Stamp</label>
+            <label class="form-label" for="field_timeStamp">Time of Application</label>
             <div class="d-flex">
               <input
                 id="field_timeStamp"
@@ -59,26 +56,22 @@
                 name="timeStamp"
                 formControlName="timeStamp"
                 placeholder="YYYY-MM-DD HH:mm"
+                [readOnly]="true"
               />
             </div>
           </div>
-
-          <!--          <div class="row mb-3">-->
-          <!--            <label class="form-label" for="field_volunteerStatus">Volunteer Status</label>-->
-          <!--            <select-->
-          <!--              class="form-control"-->
-          <!--              name="volunteerStatus"-->
-          <!--              formControlName="volunteerStatus"-->
-          <!--              id="field_volunteerStatus"-->
-          <!--              data-cy="volunteerStatus"-->
-          <!--            >-->
-          <!--              <option [ngValue]="null"></option>-->
-          <!--              <option *ngFor="let applicationCategory of applicationCategoryValues" [value]="applicationCategory">-->
-          <!--                {{ applicationCategory }}-->
-          <!--              </option>-->
-          <!--            </select>-->
-          <!--          </div>-->
-
+          <div class="row mb-3">
+            <label class="form-label" for="field_volunteerStatus">Volunteer Status</label>
+            <select
+              class="form-control"
+              name="volunteerStatus"
+              formControlName="volunteerStatus"
+              id="field_volunteerStatus"
+              data-cy="volunteerStatus"
+            >
+              <option selected>PENDING</option>
+            </select>
+          </div>
           <div class="row mb-3">
             <label class="form-label" for="field_charityAdmin">Charity Admin</label>
             <select
@@ -88,11 +81,9 @@
               name="charityAdmin"
               formControlName="charityAdmin"
               [compareWith]="compareCharityAdmin"
+              required
             >
-              <option [ngValue]="null"></option>
-              <option [ngValue]="charityAdminOption" *ngFor="let charityAdminOption of charityAdminsSharedCollection">
-                {{ charityAdminOption.id }}
-              </option>
+              <option [ngValue]="charityAdmin" *ngIf="charityAdmin?.id">{{ charityAdmin?.charityProfile?.charityName }}</option>
             </select>
           </div>
 
@@ -105,11 +96,10 @@
               name="charityHubUser"
               formControlName="charityHubUser"
               [compareWith]="compareCharityHubUser"
+              required
             >
-              <option [ngValue]="null"></option>
-              <option [ngValue]="charityHubUserOption" *ngFor="let charityHubUserOption of charityHubUsersSharedCollection">
-                {{ charityHubUserOption.id }}
-              </option>
+              <!--              <option [ngValue]="null"></option>-->
+              <option [ngValue]="charityHubUser" *ngIf="charityHubUser?.id">{{ charityHubUser?.user?.id }}</option>
             </select>
           </div>
 
@@ -122,8 +112,9 @@
               name="vacancies"
               formControlName="vacancies"
               [compareWith]="compareVacancies"
+              required
             >
-              <option *ngIf="vacancy?.id">{{ vacancy?.vacancyTitle }}</option>
+              <option [ngValue]="vacancy" *ngIf="vacancy?.id" selected>{{ vacancy?.vacancyTitle }}</option>
               <!--              <option [ngValue]="null"></option>-->
               <!--              <option [ngValue]="vacanciesOption" *ngFor="let vacanciesOption of vacanciesSharedCollection">{{ vacanciesOption.vacancyTitle }}</option>-->
             </select>

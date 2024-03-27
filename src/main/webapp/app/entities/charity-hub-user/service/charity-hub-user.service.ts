@@ -38,6 +38,10 @@ export class CharityHubUserService {
     return this.http.get<ICharityHubUser>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  findByUser(): Observable<EntityResponseType> {
+    return this.http.get<ICharityHubUser>(`api/charity-hub-user`, { observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<ICharityHubUser[]>(this.resourceUrl, { params: options, observe: 'response' });
