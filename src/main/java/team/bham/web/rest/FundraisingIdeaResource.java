@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +57,22 @@ public class FundraisingIdeaResource {
             .created(new URI("/api/fundraising-ideas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    //    @GetMapping("/api/fundraising-ideas/random")
+    //    public ResponseEntity<FundraisingIdea> getRandomIdea(){
+    //        FundraisingIdea randomIdea = fundraisingIdeaRepository.findSecondIdea();
+    //        if(randomIdea == null){
+    //            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    //        }
+    //
+    //        return ResponseEntity.ok().body(randomIdea);
+    //    }
+
+    @GetMapping("/random")
+    public ResponseEntity<FundraisingIdea> getSecondIdea() {
+        Optional<FundraisingIdea> secondIdea = fundraisingIdeaRepository.findSecondIdea();
+        return secondIdea.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     /**

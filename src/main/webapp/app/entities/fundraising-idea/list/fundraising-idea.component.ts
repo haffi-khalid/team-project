@@ -37,6 +37,18 @@ export class FundraisingIdeaComponent implements OnInit {
     this.load();
   }
 
+  randomIdea?: IFundraisingIdea;
+  showPopup = false;
+  getRandomIdea() {
+    this.fundraisingIdeaService.getRandomIdea().subscribe((idea: IFundraisingIdea) => {
+      this.randomIdea = idea;
+      this.showPopup = true;
+    });
+  }
+
+  hidePopup() {
+    this.showPopup = false; // Hide the popup
+  }
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
   }

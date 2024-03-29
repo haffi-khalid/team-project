@@ -98,7 +98,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="idea-box" id="random-ideas">
+      <div class="idea-box" (click)="getRandomIdea()">
         <h3>Random Ideas</h3>
       </div>
     </div>
@@ -110,6 +110,8 @@
   </div>
 </div>
 
+<!-- Show the custom popup component -->
+<app-idea-popup *ngIf="showPopup" [idea]="randomIdea" (clickOutside)="hidePopup()"></app-idea-popup>
 <!-- Popup form -->
 <div id="idea-popup-form" class="popup-form" *ngIf="isFormOpen">
   <div class="popup-content">

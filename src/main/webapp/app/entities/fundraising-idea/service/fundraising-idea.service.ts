@@ -55,6 +55,10 @@ export class FundraisingIdeaService {
     return o1 && o2 ? this.getFundraisingIdeaIdentifier(o1) === this.getFundraisingIdeaIdentifier(o2) : o1 === o2;
   }
 
+  getRandomIdea(): Observable<IFundraisingIdea> {
+    return this.http.get<IFundraisingIdea>(`api/random`);
+  }
+
   addFundraisingIdeaToCollectionIfMissing<Type extends Pick<IFundraisingIdea, 'id'>>(
     fundraisingIdeaCollection: Type[],
     ...fundraisingIdeasToCheck: (Type | null | undefined)[]
