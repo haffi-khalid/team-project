@@ -13,6 +13,10 @@ import { AccountService } from '../../../core/auth/account.service';
 import { LoginPopUpCheckComponent } from '../../../login-pop-up-check/login-pop-up-check.component';
 import dayjs from 'dayjs/esm';
 import { VolunteerApplicationsComponent } from '../../volunteer-applications/list/volunteer-applications.component';
+import { HttpResponse } from '@angular/common/http';
+import { ICharityHubUser } from '../../charity-hub-user/charity-hub-user.model';
+import { CharityHubUserService } from '../../charity-hub-user/service/charity-hub-user.service';
+import { VolunteerApplicationsService } from '../../volunteer-applications/service/volunteer-applications.service';
 
 @Component({
   selector: 'jhi-vacancies',
@@ -31,9 +35,11 @@ export class VacanciesComponent implements OnInit {
   filteredCharityId: number[] = [];
   remote: boolean = false;
   person: boolean = false;
+  charityHubUser?: ICharityHubUser | null;
   filteredVacancies: IVacancies[] | undefined;
   dateSelector: dayjs.Dayjs | undefined;
   toggled = false;
+  volunteerApplicationId: number = -1;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -42,6 +48,8 @@ export class VacanciesComponent implements OnInit {
     protected sortService: SortService,
     protected dataUtils: DataUtils,
     protected modalService: NgbModal,
+    protected charityHubUserService: CharityHubUserService,
+    protected volunteerApplicationService: VolunteerApplicationsService,
     protected accountService: AccountService
   ) {
     this.charityNames = this.vacanciesService.getAllCharityNames();
@@ -115,9 +123,29 @@ export class VacanciesComponent implements OnInit {
       const modalRef = this.modalService.open(LoginPopUpCheckComponent, { size: 'xl' });
       modalRef.componentInstance.vacancies = vacancies;
     } else {
+      this.charityHubUserService.findByUser().subscribe((res: HttpResponse<ICharityHubUser>) => {
+        this.charityHubUser = res.body;
+        this.checkUserApplications(vacancies);
+      });
+    }
+  }
+
+  checkUserApplications(vacancies: IVacancies) {
+    if (this.charityHubUser?.id) {
+      this.volunteerApplicationService.findByHubUser(this.charityHubUser?.id, vacancies.id).subscribe(applicationId => {
+        this.volunteerApplicationId = applicationId;
+        this.alertBox(vacancies);
+      });
+    }
+  }
+  alertBox(vacancies: IVacancies) {
+    if (this.volunteerApplicationId > 0) {
+      alert('You have already applied to the ' + vacancies.vacancyTitle + ' Vacancy. Please apply to another one!');
+    } else {
       this.router.navigate(['/volunteer-applications/new/vacancy', vacancies?.id]);
     }
   }
+
   openVolunteerTrackerDialog() {
     this.modalService.open(VolunteerApplicationsComponent, { size: 'xl' });
     // modalRef.componentInstance.vacancies = vacancies;

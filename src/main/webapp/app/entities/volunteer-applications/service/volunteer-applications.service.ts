@@ -60,6 +60,9 @@ export class VolunteerApplicationsService {
       .get<RestVolunteerApplications>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
+  findByHubUser(hubUserId: number, vacancyId: number): Observable<number> {
+    return this.http.get<number>(`api/check-volunteer-application/${hubUserId}/${vacancyId}`);
+  }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);

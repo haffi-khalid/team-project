@@ -165,6 +165,13 @@ public class VolunteerApplicationsResource {
         return ResponseUtil.wrapOrNotFound(volunteerApplications);
     }
 
+    @GetMapping("/check-volunteer-application/{hubUserId}/{vacancyId}")
+    public Optional<Long> getVolunteerApplicationsFromHubUser(@PathVariable Long hubUserId, @PathVariable Long vacancyId) {
+        log.debug("REST request to get VolunteerAppliccccccations : {}");
+        Optional<Long> volunteerApplications = volunteerApplicationsRepository.findByCharityHubUser(hubUserId, vacancyId);
+        return volunteerApplications;
+    }
+
     /**
      * {@code DELETE  /volunteer-applications/:id} : delete the "id" volunteerApplications.
      *
