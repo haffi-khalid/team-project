@@ -116,25 +116,46 @@
 <div id="idea-popup-form" class="popup-form" *ngIf="isFormOpen">
   <div class="popup-content">
     <span class="close-btn" (click)="closeForm()">&times;</span>
-    <form id="particular-idea-form">
+    <form (submit)="onSubmit()">
       <div class="mb-3">
-        <label for="budget">Budget</label>
-        <input type="text" id="budget" name="budget" class="form-control" placeholder="Enter budget" />
+        <label for="numberOfVolunteers">Number of Volunteers</label>
+        <input
+          type="number"
+          id="numberOfVolunteers"
+          name="numberOfVolunteers"
+          class="form-control"
+          [(ngModel)]="idea.numberOfVolunteers"
+          placeholder="Enter number of volunteers"
+        />
       </div>
       <div class="mb-3">
-        <label for="location">Location (outdoor or indoor)</label><br />
-        <input type="radio" id="outdoor" name="location" value="outdoor" />
-        <label for="outdoor">Outdoor</label>
-        <input type="radio" id="indoor" name="location" value="indoor" />
-        <label for="indoor">Indoor</label>
+        <label for="location">Location</label>
+        <select id="location" name="location" class="form-control" [(ngModel)]="idea.location">
+          <option value="INPERSON">In Person</option>
+          <option value="REMOTE">Remote</option>
+        </select>
       </div>
       <div class="mb-3">
-        <label for="volunteers">Number of Volunteers</label>
-        <input type="number" id="volunteers" name="volunteers" class="form-control" placeholder="Enter number of volunteers" />
+        <label for="expectedCost">Expected Cost</label>
+        <input
+          type="number"
+          id="expectedCost"
+          name="expectedCost"
+          class="form-control"
+          [(ngModel)]="idea.expectedCost"
+          placeholder="Enter expected cost"
+        />
       </div>
       <div class="mb-3">
-        <label for="attendants">Expected Attendants</label>
-        <input type="number" id="attendants" name="attendants" class="form-control" placeholder="Enter expected attendants" />
+        <label for="expectedAttendance">Expected Attendance</label>
+        <input
+          type="number"
+          id="expectedAttendance"
+          name="expectedAttendance"
+          class="form-control"
+          [(ngModel)]="idea.expectedAttendance"
+          placeholder="Enter expected attendance"
+        />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

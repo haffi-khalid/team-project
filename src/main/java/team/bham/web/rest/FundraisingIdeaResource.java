@@ -75,6 +75,12 @@ public class FundraisingIdeaResource {
         return secondIdea.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/search")
+    public ResponseEntity<List<FundraisingIdea>> searchIdeas(@RequestBody FundraisingIdea idea) {
+        List<FundraisingIdea> findResults = fundraisingIdeaRepository.getPreference(idea);
+        return ResponseEntity.status(HttpStatus.OK).body(findResults);
+    }
+
     /**
      * {@code PUT  /fundraising-ideas/:id} : Updates an existing fundraisingIdea.
      *

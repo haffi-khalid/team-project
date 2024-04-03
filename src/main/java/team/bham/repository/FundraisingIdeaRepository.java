@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import team.bham.domain.FundraisingIdea;
+import team.bham.repository.IdeaSimilarityFinder;
 
 /**
  * Spring Data JPA repository for the FundraisingIdea entity.
@@ -16,7 +17,6 @@ public interface FundraisingIdeaRepository extends JpaRepository<FundraisingIdea
     @Query(value = "SELECT fi FROM FundraisingIdea fi ORDER BY fi.id ASC")
     List<FundraisingIdea> findAllOrderedById();
 
-    // Define method to find the second idea
     default Optional<FundraisingIdea> findSecondIdea() {
         List<FundraisingIdea> ideas = findAllOrderedById();
         if (ideas.size() >= 2) {
@@ -24,5 +24,17 @@ public interface FundraisingIdeaRepository extends JpaRepository<FundraisingIdea
         } else {
             return Optional.empty();
         }
+    }
+
+    //Method for Idea Generator
+    default List<FundraisingIdea> getPreference(FundraisingIdea idea) {
+        List<FundraisingIdea> ideas = findAllOrderedById();
+        IdeaSimilarityFinder finder = new IdeaSimilarityFinder();
+        List<FundraisingIdea> similarIdeas = finder.findSimilarIdeas(idea, ideas);
+        System.out.println(similarIdeas.size());
+        if (similarIdeas.isEmpty()) {
+            return null;
+        }
+        return similarIdeas;
     }
 }

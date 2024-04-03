@@ -59,6 +59,10 @@ export class FundraisingIdeaService {
     return this.http.get<IFundraisingIdea>(`api/random`);
   }
 
+  searchIdeas(idea: IFundraisingIdea): Observable<IFundraisingIdea[]> {
+    return this.http.post<IFundraisingIdea[]>('/api/search', idea);
+  }
+
   addFundraisingIdeaToCollectionIfMissing<Type extends Pick<IFundraisingIdea, 'id'>>(
     fundraisingIdeaCollection: Type[],
     ...fundraisingIdeasToCheck: (Type | null | undefined)[]

@@ -58,6 +58,12 @@ export class FundraisingIdeaComponent implements OnInit {
   }
 
   isFormOpen: boolean = false;
+  formData = {
+    budget: '',
+    location: '',
+    volunteers: 0,
+    attendants: 0,
+  };
 
   openForm() {
     this.isFormOpen = true;
@@ -65,6 +71,37 @@ export class FundraisingIdeaComponent implements OnInit {
 
   closeForm() {
     this.isFormOpen = false;
+  }
+
+  idea: IFundraisingIdea = {
+    id: 0, // Assuming ID should be initialized to some default value
+    ideaName: null,
+    ideaDescription: null,
+    numberOfVolunteers: null,
+    location: null,
+    expectedCost: null,
+    expectedAttendance: null,
+    charityAdmin: null,
+  };
+  protected readonly onsubmit = onsubmit;
+
+  onSubmit() {
+    this.fundraisingIdeaService.searchIdeas(this.idea).subscribe(
+      response => {
+        if (response === null) {
+          // Handle case where no result is found
+          console.log('No result found');
+          // Display popup message or any other action
+        } else {
+          console.log('Found ', response.length);
+          // Handle response as needed
+        }
+      },
+      error => {
+        console.error('Error while searching for ideas:', error);
+        // Handle error
+      }
+    );
   }
 
   delete(fundraisingIdea: IFundraisingIdea): void {
