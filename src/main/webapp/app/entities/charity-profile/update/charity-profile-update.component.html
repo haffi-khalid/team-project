@@ -71,7 +71,7 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_pictures">Pictures</label>
+          <label class="form-label" for="field_pictures">Main Picture</label>
           <div>
             <img
               [src]="'data:' + editForm.get('picturesContentType')!.value + ';base64,' + editForm.get('pictures')!.value"
@@ -103,20 +103,59 @@
           />
         </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_socialFeed">Social Feed</label>
-          <select
-            class="form-control"
-            id="field_socialFeed"
-            data-cy="socialFeed"
-            name="socialFeed"
-            formControlName="socialFeed"
-            [compareWith]="compareSocialFeed"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="socialFeedOption" *ngFor="let socialFeedOption of socialFeedsCollection">{{ socialFeedOption.id }}</option>
-          </select>
-        </div>
+        <!--        <div class="row mb-3">-->
+        <!--          <label class="form-label" for="field_socialFeed">Social Feed</label>-->
+        <!--          <select-->
+        <!--            class="form-control"-->
+        <!--            id="field_socialFeed"-->
+        <!--            data-cy="socialFeed"-->
+        <!--            name="socialFeed"-->
+        <!--            formControlName="socialFeed"-->
+        <!--            [compareWith]="compareSocialFeed"-->
+        <!--          >-->
+        <!--            <option [ngValue]="null"></option>-->
+        <!--            <option [ngValue]="socialFeedOption" *ngFor="let socialFeedOption of socialFeedsCollection">{{ socialFeedOption.id }}</option>-->
+        <!--          </select>-->
+        <!--        </div>-->
+      </div>
+
+      <!--      <div class="row mb-3">-->
+      <!--        <label class="form-label">Recent Activity Photos</label>-->
+      <!--        <div class="d-flex">-->
+      <!--          <div class="col">-->
+      <!--            <input type="file" class="form-control" name="recentActivityPhoto1" id="field_recentActivityPhoto1" data-cy="recentActivityPhoto1" (change)="setFileData($event, 'recentActivityPhotos', true)" accept="image/*" />-->
+      <!--          </div>-->
+      <!--          <div class="col">-->
+      <!--            <input type="file" class="form-control" name="recentActivityPhoto2" id="field_recentActivityPhoto2" data-cy="recentActivityPhoto2" (change)="setFileData($event, 'recentActivityPhotos', true)" accept="image/*" />-->
+      <!--          </div>-->
+      <!--          <div class="col">-->
+      <!--            <input type="file" class="form-control" name="recentActivityPhoto3" id="field_recentActivityPhoto3" data-cy="recentActivityPhoto3" (change)="setFileData($event, 'recentActivityPhotos', true)" accept="image/*" />-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!-- Number of Volunteers -->
+      <div class="row mb-3">
+        <label class="form-label" for="field_numberOfVolunteers">Number of Volunteers</label>
+        <input
+          type="number"
+          class="form-control"
+          name="numberOfVolunteers"
+          id="field_numberOfVolunteers"
+          data-cy="numberOfVolunteers"
+          formControlName="numberOfVolunteers"
+        />
+      </div>
+      <!-- Number of Donators -->
+      <div class="row mb-3">
+        <label class="form-label" for="field_numberOfDonators">Number of Donators</label>
+        <input
+          type="number"
+          class="form-control"
+          name="numberOfDonators"
+          id="field_numberOfDonators"
+          data-cy="numberOfDonators"
+          formControlName="numberOfDonators"
+        />
       </div>
 
       <div>

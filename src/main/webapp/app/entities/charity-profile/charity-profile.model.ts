@@ -10,6 +10,11 @@ export interface ICharityProfile {
   logoContentType?: string | null;
   pictures?: string | null;
   picturesContentType?: string | null;
+  photos?: string | null;
+  photosContentType?: string | null;
+  recentActivityPhotos?: string | null;
+  numberOfVolunteers?: number | null;
+  numberOfDonators?: number | null;
   socialFeed?: Pick<ISocialFeed, 'id'> | null;
 }
 

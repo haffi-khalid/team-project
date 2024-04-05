@@ -56,6 +56,15 @@ public class CharityProfile implements Serializable {
     @Column(name = "pictures_content_type")
     private String picturesContentType;
 
+    @Column(name = "recent_activity_photos")
+    private String recentActivityPhotos; // Assuming URLs or a serialized form of multiple URLs
+
+    @Column(name = "number_of_volunteers", nullable = false)
+    private Integer numberOfVolunteers;
+
+    @Column(name = "number_of_donators", nullable = false)
+    private Integer numberOfDonators;
+
     @JsonIgnoreProperties(value = { "posts", "charityProfile" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
@@ -198,6 +207,30 @@ public class CharityProfile implements Serializable {
 
     public void setPicturesContentType(String picturesContentType) {
         this.picturesContentType = picturesContentType;
+    }
+
+    public String getRecentActivityPhotos() {
+        return recentActivityPhotos;
+    }
+
+    public void setRecentActivityPhotos(String recentActivityPhotos) {
+        this.recentActivityPhotos = recentActivityPhotos;
+    }
+
+    public Integer getNumberOfVolunteers() {
+        return numberOfVolunteers;
+    }
+
+    public void setNumberOfVolunteers(Integer numberOfVolunteers) {
+        this.numberOfVolunteers = numberOfVolunteers;
+    }
+
+    public Integer getNumberOfDonators() {
+        return numberOfDonators;
+    }
+
+    public void setNumberOfDonators(Integer numberOfDonators) {
+        this.numberOfDonators = numberOfDonators;
     }
 
     public SocialFeed getSocialFeed() {
@@ -369,6 +402,9 @@ public class CharityProfile implements Serializable {
             ", logoContentType='" + getLogoContentType() + "'" +
             ", pictures='" + getPictures() + "'" +
             ", picturesContentType='" + getPicturesContentType() + "'" +
+            ", recentActivityPhotos='" + getRecentActivityPhotos() + "'" +
+            ", numberOfVolunteers='" + getNumberOfVolunteers() + "'" +
+            ", numberOfDonators='" + getNumberOfDonators() + "'" +
             "}";
     }
 }

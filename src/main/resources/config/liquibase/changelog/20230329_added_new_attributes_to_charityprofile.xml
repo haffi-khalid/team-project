@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- Adding new attributes to CharityProfile -->
+    <changeSet id="20230329-1" author="yourName">
+        <addColumn tableName="charity_profile">
+            <column name="recent_activity_photos" type="text"/>
+            <column name="number_of_volunteers" type="integer"/>
+            <column name="number_of_donators" type="integer"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

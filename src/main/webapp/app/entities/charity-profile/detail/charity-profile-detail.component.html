@@ -10,7 +10,7 @@
       <h2 class="charity-name">Welcome to {{ charityProfile?.charityName }} !</h2>
       <img [src]="'data:' + charityProfile?.logoContentType + ';base64,' + charityProfile?.logo" alt="Charity Logo" class="charity-logo" />
     </div>
-    <div class="edit-button-container">
+    <div class="edit-button-container" *jhiHasAnyAuthority="'ROLE_ADMIN'">
       <button *ngIf="charityProfile" type="button" [routerLink]="['/charity-profile', charityProfile.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
@@ -32,12 +32,12 @@
       <div class="circle-container">
         <div class="circle">
           <div class="inner-circle">
-            <span class="donators">100 donators</span>
+            <span class="donators">{{ charityProfile?.numberOfDonators }} donators</span>
           </div>
         </div>
         <div class="circle1">
           <div class="inner-circle">
-            <span class="donators">30 volunteers</span>
+            <span class="volunteers">{{ charityProfile?.numberOfVolunteers }} volunteers</span>
           </div>
         </div>
       </div>
@@ -52,6 +52,7 @@
 
 <div class="container2">
   <h3 class="section-title" style="text-align: center">Recent Photos</h3>
+
   <div class="photo-gallery">
     <img src="/../../../content/images/download (11).jpeg" alt="Photo 1" class="photo" />
     <img src="/../../../content/images/download (13).jpeg" alt="Photo 2" class="photo" />
@@ -63,6 +64,7 @@
 </div>
 
 <div class="container3">
+  c
   <h3 class="section-title" style="text-align: center">Help us to meet our goal!</h3>
 
   <div class="aim" style="margin-top: 20px; color: #3b2f1f">
