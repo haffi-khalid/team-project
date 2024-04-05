@@ -21,6 +21,7 @@ export class FundraisingIdeaComponent implements OnInit {
 
   predicate = 'id';
   ascending = true;
+  showSearchResults: boolean = false;
 
   constructor(
     protected fundraisingIdeaService: FundraisingIdeaService,
@@ -84,17 +85,18 @@ export class FundraisingIdeaComponent implements OnInit {
     charityAdmin: null,
   };
   protected readonly onsubmit = onsubmit;
-
+  searchResults: IFundraisingIdea[] = [];
   onSubmit() {
     this.fundraisingIdeaService.searchIdeas(this.idea).subscribe(
       response => {
-        if (response === null) {
-          // Handle case where no result is found
+        if (response === null || response.length === 0) {
           console.log('No result found');
-          // Display popup message or any other action
+          this.isFormOpen = false;
+          this.fundraisingIdeas = [];
         } else {
           console.log('Found ', response.length);
-          // Handle response as needed
+          this.fundraisingIdeas = response;
+          this.isFormOpen = false;
         }
       },
       error => {

@@ -27,67 +27,6 @@
 
   <jhi-alert></jhi-alert>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="fundraisingIdeas?.length === 0">
-    <span>No Fundraising Ideas found</span>
-  </div>
-
-  <h2 class="subheading">My Fundraiser Ideas</h2>
-  <div class="table-responsive table-entities" id="entities" *ngIf="fundraisingIdeas && fundraisingIdeas.length > 0">
-    <div class="row">
-      <div class="col-md-4" *ngFor="let fundraisingIdea of fundraisingIdeas; trackBy: trackId">
-        <div class="card mb-3">
-          <div class="card-header">
-            <div class="d-flex">
-              <span>ID: {{ fundraisingIdea.id }}</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">{{ fundraisingIdea.ideaName }}</h5>
-            <p class="card-text">{{ fundraisingIdea.ideaDescription }}</p>
-            <p class="card-text">Number Of Volunteers: {{ fundraisingIdea.numberOfVolunteers }}</p>
-            <p class="card-text">Location: {{ fundraisingIdea.location }}</p>
-            <p class="card-text">Expected Cost: {{ fundraisingIdea.expectedCost }}</p>
-            <p class="card-text">Expected Attendance: {{ fundraisingIdea.expectedAttendance }}</p>
-            <p class="card-text">
-              Charity Admin:
-              <span *ngIf="fundraisingIdea.charityAdmin">
-                <a [routerLink]="['/charity-admin', fundraisingIdea.charityAdmin.id, 'view']">{{ fundraisingIdea.charityAdmin.id }}</a>
-              </span>
-            </p>
-          </div>
-          <div class="card-footer text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/fundraising-idea', fundraisingIdea.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/fundraising-idea', fundraisingIdea.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(fundraisingIdea)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <h2 class="subheading">Idea Generator</h2>
   <p class="body-text">Feeling a bit lost on ideas? Try out our idea generator!</p>
 
@@ -131,8 +70,8 @@
       <div class="mb-3">
         <label for="location">Location</label>
         <select id="location" name="location" class="form-control" [(ngModel)]="idea.location">
-          <option value="INPERSON">In Person</option>
-          <option value="REMOTE">Remote</option>
+          <option value="INPERSON">Indoor</option>
+          <option value="REMOTE">Outdoor</option>
         </select>
       </div>
       <div class="mb-3">
@@ -159,5 +98,67 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+  </div>
+</div>
+
+<div class="alert alert-warning" id="no-result" *ngIf="fundraisingIdeas?.length === 0">
+  <span>No Fundraising Ideas found</span>
+</div>
+
+<h2 class="subheading">My Fundraiser Ideas</h2>
+<div class="table-responsive table-entities" id="entities" *ngIf="fundraisingIdeas && fundraisingIdeas.length > 0">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let fundraisingIdea of fundraisingIdeas; trackBy: trackId">
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="d-flex">
+            <span>ID: {{ fundraisingIdea.id }}</span>
+            <fa-icon class="p-1" icon="sort"></fa-icon>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ fundraisingIdea.ideaName }}</h5>
+          <p class="card-text">{{ fundraisingIdea.ideaDescription }}</p>
+          <p class="card-text">Number Of Volunteers: {{ fundraisingIdea.numberOfVolunteers }}</p>
+          <p class="card-text">Location: {{ fundraisingIdea.location }}</p>
+          <p class="card-text">Expected Cost: {{ fundraisingIdea.expectedCost }}</p>
+          <p class="card-text">Expected Attendance: {{ fundraisingIdea.expectedAttendance }}</p>
+          <p class="card-text">
+            Charity Admin:
+            <span *ngIf="fundraisingIdea.charityAdmin">
+              <a [routerLink]="['/charity-admin', fundraisingIdea.charityAdmin.id, 'view']">{{ fundraisingIdea.charityAdmin.id }}</a>
+            </span>
+          </p>
+        </div>
+        <div class="card-footer text-end">
+          <div class="btn-group">
+            <button
+              type="submit"
+              [routerLink]="['/fundraising-idea', fundraisingIdea.id, 'view']"
+              class="btn btn-info btn-sm"
+              data-cy="entityDetailsButton"
+            >
+              <fa-icon icon="eye"></fa-icon>
+              <span class="d-none d-md-inline">View</span>
+            </button>
+
+            <button
+              type="submit"
+              [routerLink]="['/fundraising-idea', fundraisingIdea.id, 'edit']"
+              class="btn btn-primary btn-sm"
+              data-cy="entityEditButton"
+            >
+              <fa-icon icon="pencil-alt"></fa-icon>
+              <span class="d-none d-md-inline">Edit</span>
+            </button>
+
+            <button type="submit" (click)="delete(fundraisingIdea)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <fa-icon icon="times"></fa-icon>
+              <span class="d-none d-md-inline">Delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
