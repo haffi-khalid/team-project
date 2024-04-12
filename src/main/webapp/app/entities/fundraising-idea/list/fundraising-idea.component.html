@@ -72,6 +72,7 @@
         <select id="location" name="location" class="form-control" [(ngModel)]="idea.location">
           <option value="INPERSON">Indoor</option>
           <option value="REMOTE">Outdoor</option>
+          <option value="null">Any</option>
         </select>
       </div>
       <div class="mb-3">
@@ -105,29 +106,29 @@
   <span>No Fundraising Ideas found</span>
 </div>
 
-<h2 class="subheading">My Fundraiser Ideas</h2>
+<div class="horizontal-line"></div>
 <div class="table-responsive table-entities" id="entities" *ngIf="fundraisingIdeas && fundraisingIdeas.length > 0">
   <div class="row">
     <div class="col-md-4" *ngFor="let fundraisingIdea of fundraisingIdeas; trackBy: trackId">
       <div class="card mb-3">
         <div class="card-header">
           <div class="d-flex">
-            <span>ID: {{ fundraisingIdea.id }}</span>
-            <fa-icon class="p-1" icon="sort"></fa-icon>
+            <span class="card-subheading">{{ fundraisingIdea.ideaName }}</span>
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ fundraisingIdea.ideaName }}</h5>
           <p class="card-text">{{ fundraisingIdea.ideaDescription }}</p>
-          <p class="card-text">Number Of Volunteers: {{ fundraisingIdea.numberOfVolunteers }}</p>
-          <p class="card-text">Location: {{ fundraisingIdea.location }}</p>
-          <p class="card-text">Expected Cost: {{ fundraisingIdea.expectedCost }}</p>
-          <p class="card-text">Expected Attendance: {{ fundraisingIdea.expectedAttendance }}</p>
-          <p class="card-text">
-            Charity Admin:
-            <span *ngIf="fundraisingIdea.charityAdmin">
-              <a [routerLink]="['/charity-admin', fundraisingIdea.charityAdmin.id, 'view']">{{ fundraisingIdea.charityAdmin.id }}</a>
-            </span>
+          <p class="card-text-heading">
+            Volunteers Required: <span class="card-text"> {{ fundraisingIdea.numberOfVolunteers }}</span>
+          </p>
+          <p class="card-text-heading">
+            Location: <span class="card-text">{{ fundraisingIdea.location }}</span>
+          </p>
+          <p class="card-text-heading">
+            Expected Cost: <span class="card-text">{{ fundraisingIdea.expectedCost }}</span>
+          </p>
+          <p class="card-text-heading">
+            Expected Attendance: <span class="card-text"> {{ fundraisingIdea.expectedAttendance }}</span>
           </p>
         </div>
         <div class="card-footer text-end">

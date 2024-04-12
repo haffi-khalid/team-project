@@ -122,6 +122,12 @@
   color: black;
 }
 
+.card-subheading {
+  font-size: 20px;
+  font-family: Monaco, serif;
+  font-weight: bolder;
+}
+
 .search-box {
   padding: 6px;
   border: none;
@@ -132,7 +138,7 @@
 .card {
   width: 100%;
   padding: 10px;
-  background-color: #d2b48c;
+  background-color: #f4e5db;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -185,19 +191,25 @@ table {
   border-collapse: collapse;
 }
 
+.horizontal-line {
+  border-top: 10px solid #000000;
+  margin-bottom: 5px;
+}
+
 .idea-box {
-  background-color: #d2b48c;
-  color: black;
+  background-color: #000000;
+  color: #d2b48c;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .card-text {
   font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
 }
 
 .popup-form {
@@ -266,6 +278,15 @@ table {
   top: 10px;
   right: 10px;
   cursor: pointer;
+}
+
+.h3 {
+  font-family: Monaco, serif;
+}
+
+.card-text-heading {
+  font-weight: bold;
+  color: #107896;
 }
 
 /* Title */
