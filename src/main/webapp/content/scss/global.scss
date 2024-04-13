@@ -213,7 +213,7 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   }
 }
 /* jhipster-needle-scss-add-main JHipster will add new css style */
-
+//  @media screen and (max-width:100px)
 .background-container {
   background-size: cover;
   background-position: center;
@@ -225,8 +225,8 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 
 .edit-button-container {
   position: absolute;
-  top: 20px; /* Adjust top position as needed */
-  right: 20px; /* Adjust right position to move the container to the extreme right */
+  top: 20px;
+  right: 20px;
   z-index: 1000;
 }
 
@@ -238,7 +238,7 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   min-height: 50vh;
   position: relative;
   z-index: 1;
-  display: flex; /* Use flexbox to align items horizontally */
+  display: flex;
   justify-content: center;
   background-color: #9d7e5f;
   //charityProfile color dont change
@@ -338,15 +338,15 @@ button:hover {
   left: 50%;
   width: 2px;
   height: 60%;
-  background-color: antiquewhite; /* Adjust color as needed */
-  transform: translateX(-50%); /* Center the slash horizontally */
+  background-color: antiquewhite;
+  transform: translateX(-50%);
   margin-top: 35px;
 }
 .circle {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: conic-gradient(#e5bb89 80%, #d8c3a9 20%); /* Gradient to change color halfway */
+  background: conic-gradient(#e5bb89 80%, #d8c3a9 20%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -357,7 +357,7 @@ button:hover {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: conic-gradient(#e5bb89 60%, #d8c3a9 40%); /* Gradient to change color halfway */
+  background: conic-gradient(#e5bb89 60%, #d8c3a9 40%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -365,10 +365,10 @@ button:hover {
   margin: 0 10px;
 }
 .inner-circle {
-  width: 150px; /* Adjust the size of the inner circle */
+  width: 150px;
   height: 150px;
   border-radius: 50%;
-  background-color: #9d7e5f; /* Background color for the inner circle */
+  background-color: #9d7e5f;
   display: flex;
   justify-content: center;
   align-items: center;

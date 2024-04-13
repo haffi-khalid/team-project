@@ -38,7 +38,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   goToCharityProfile(charityId: string): void {
     // Navigates to the detail view of the charity profile with the given charity ID.
-    this.router.navigate(['/charity-profile', charityId, 'view']);
+    //this.router.navigate(['/charity-profile', charityId, 'view']);
+    this.router.navigate(['/charity-profile', charityId, 'view']).then(() => {
+      // This code runs after the navigation has finished
+      setTimeout(() => {
+        document.getElementById('top')?.scrollIntoView();
+      }, 0);
+    });
   }
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {

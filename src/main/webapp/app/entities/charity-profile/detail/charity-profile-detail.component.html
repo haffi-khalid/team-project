@@ -1,3 +1,6 @@
+<!-- charity-profile.component.html -->
+<div id="top"></div>
+<!-- Anchor for scrolling to the top -->
 <div
   class="background-container"
   [style.background-image]="
@@ -10,7 +13,7 @@
       <h2 class="charity-name">Welcome to {{ charityProfile?.charityName }} !</h2>
       <img [src]="'data:' + charityProfile?.logoContentType + ';base64,' + charityProfile?.logo" alt="Charity Logo" class="charity-logo" />
     </div>
-    <div class="edit-button-container" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+    <div class="edit-button-container">
       <button *ngIf="charityProfile" type="button" [routerLink]="['/charity-profile', charityProfile.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
@@ -64,7 +67,6 @@
 </div>
 
 <div class="container3">
-  c
   <h3 class="section-title" style="text-align: center">Help us to meet our goal!</h3>
 
   <div class="aim" style="margin-top: 20px; color: #3b2f1f">
@@ -77,8 +79,5 @@
     <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/vacancies">
       <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Volunteer
     </button>
-    <!--    <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">-->
-    <!--      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>-->
-    <!--    </button>-->
   </div>
 </div>
