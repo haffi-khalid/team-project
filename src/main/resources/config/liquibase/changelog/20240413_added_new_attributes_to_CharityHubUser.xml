@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<!-- Added extended attributes to entity CharityHubUser. -->
+<changeSet id="20240307130402-2" author="jhipster">
+    <addColumn tableName="charity_hub_user">
+        <column name="volunteer_hours" type="integer">
+            <constraints nullable="true" />
+        </column>
+        <column name="user_bio" type="clob">
+            <constraints nullable="true" />
+        </column>
+        <column name="review_comment" type="clob">
+            <constraints nullable="true" />
+        </column>
+        <column name="course" type="varchar(255)">
+            <constraints nullable="true" />
+        </column>
+        <column name="skills" type="varchar(255)">
+            <constraints nullable="true" />
+        </column>
+        <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+    </addColumn>
+</changeSet>
+
+<!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+<!--
+    Load sample data for extended attributes of CharityHubUser
+    - This data should be located in the 'src/main/resources/config/liquibase/fake-data' directory
+-->
+<changeSet id="20240307130402-2-data" author="jhipster" context="faker">
+    <loadData
+        file="config/liquibase/fake-data/charity_hub_user.csv"
+        separator=";"
+        tableName="charity_hub_user"
+        usePreparedStatements="true">
+        <column name="id" type="numeric"/>
+        <column name="volunteer_hours" type="numeric"/>
+        <column name="user_bio" type="string"/>
+        <column name="review_comment" type="string"/>
+        <column name="course" type="string"/>
+        <column name="skills" type="string"/>
+        <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+    </loadData>
+</changeSet>
+</databaseChangeLog>

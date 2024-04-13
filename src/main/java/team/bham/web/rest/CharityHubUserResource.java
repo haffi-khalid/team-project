@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import team.bham.domain.CharityHubUser;
 import team.bham.domain.User;
+import team.bham.domain.UserPage;
 import team.bham.repository.CharityHubUserRepository;
 import team.bham.repository.UserRepository;
 import team.bham.security.SecurityUtils;

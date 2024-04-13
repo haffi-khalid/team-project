@@ -14,24 +14,54 @@
         <dd>
           <span>{{ charityHubUser.id }}</span>
         </dd>
+
         <dt><span>Username</span></dt>
         <dd>
           <span>{{ charityHubUser.username }}</span>
         </dd>
+
         <dt><span>Email</span></dt>
         <dd>
           <span>{{ charityHubUser.email }}</span>
         </dd>
+
+        <dt><span>Volunteer Hours</span></dt>
+        <dd>
+          <span>{{ charityHubUser.volunteerHours }}</span>
+        </dd>
+
+        <dt><span>User Bio</span></dt>
+        <dd>
+          <span>{{ charityHubUser.userBio }}</span>
+        </dd>
+
+        <dt><span>Review Comment</span></dt>
+        <dd>
+          <span>{{ charityHubUser.reviewComment }}</span>
+        </dd>
+
+        <dt><span>Course</span></dt>
+        <dd>
+          <span>{{ charityHubUser.course }}</span>
+        </dd>
+
+        <dt><span>Skills</span></dt>
+        <dd>
+          <span>{{ charityHubUser.skills }}</span>
+        </dd>
+
         <dt><span>User</span></dt>
         <dd>
           <span>{{ charityHubUser.user?.id }}</span>
         </dd>
+
         <dt><span>User Page</span></dt>
         <dd>
           <div *ngIf="charityHubUser.userPage">
             <a [routerLink]="['/user-page', charityHubUser.userPage.id, 'view']">{{ charityHubUser.userPage.id }}</a>
           </div>
         </dd>
+
         <dt><span>Authentication</span></dt>
         <dd>
           <div *ngIf="charityHubUser.authentication">

@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A CharityHubUser.
@@ -30,6 +31,25 @@ public class CharityHubUser implements Serializable {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "volunteer_hours")
+    private Integer volunteerHours;
+
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "user_bio")
+    private String userBio;
+
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "review_comment")
+    private String reviewComment;
+
+    @Column(name = "course")
+    private String course;
+
+    @Column(name = "skills")
+    private String skills;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -61,6 +81,51 @@ public class CharityHubUser implements Serializable {
     private Set<ApprovedVolunteers> approvedVolunteers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    // Getter and setter for volunteerHours
+    public Integer getVolunteerHours() {
+        return volunteerHours;
+    }
+
+    public void setVolunteerHours(Integer volunteerHours) {
+        this.volunteerHours = volunteerHours;
+    }
+
+    // Getter and setter for userBio
+    public String getUserBio() {
+        return userBio;
+    }
+
+    public void setUserBio(String userBio) {
+        this.userBio = userBio;
+    }
+
+    // Getter and setter for reviewComment
+    public String getReviewComment() {
+        return reviewComment;
+    }
+
+    public void setReviewComment(String reviewComment) {
+        this.reviewComment = reviewComment;
+    }
+
+    // Getter and setter for course
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    // Getter and setter for skills
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
 
     public Long getId() {
         return this.id;
@@ -253,12 +318,25 @@ public class CharityHubUser implements Serializable {
     }
 
     // prettier-ignore
+//    @Override
+//    public String toString() {
+//        return "CharityHubUser{" +
+//            "id=" + getId() +
+//            ", username='" + getUsername() + "'" +
+//            ", email='" + getEmail() + "'" +
+//            "}";
+//    }
     @Override
     public String toString() {
         return "CharityHubUser{" +
-            "id=" + getId() +
-            ", username='" + getUsername() + "'" +
-            ", email='" + getEmail() + "'" +
-            "}";
+            "id=" + id +
+            ", username='" + username + '\'' +
+            ", email='" + email + '\'' +
+            ", volunteerHours=" + volunteerHours +
+            ", userBio='" + userBio + '\'' +
+            ", reviewComment='" + reviewComment + '\'' +
+            ", course='" + course + '\'' +
+            ", skills='" + skills + '\'' +
+            '}';
     }
 }

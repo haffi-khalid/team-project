@@ -38,7 +38,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final CharityHubUserRepository charityHubUserRepository;
 
-
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
@@ -56,7 +55,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
-        this.charityHubUserRepository=charityHubUserRepository;
+        this.charityHubUserRepository = charityHubUserRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -138,6 +137,8 @@ public class UserService {
         userRepository.save(newUser);
         CharityHubUser hubUser = new CharityHubUser();
         hubUser.setUser(newUser);
+        hubUser.setEmail(newUser.getEmail());
+        hubUser.setUsername(newUser.getLogin());
         charityHubUserRepository.save(hubUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
