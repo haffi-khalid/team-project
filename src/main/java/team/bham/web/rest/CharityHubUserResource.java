@@ -178,6 +178,15 @@ public class CharityHubUserResource {
         return ResponseUtil.wrapOrNotFound(charityHubUser);
     }
 
+    @GetMapping("/user-login")
+    public ResponseEntity<User> getUseFromLogin() {
+        log.debug("REST request to get Charddddddddity Hub User From User");
+        Optional<User> isUser = userService.getUserWithAuthorities();
+        //        final User user = isUser.get();
+        //        Optional<CharityHubUser> charityHubUser = charityHubUserRepository.findCharityHubUserByUser(user.getId());
+        return ResponseUtil.wrapOrNotFound(isUser);
+    }
+
     /**
      * {@code GET  /charity-hub-users/:id} : get the "id" charityHubUser.
      *

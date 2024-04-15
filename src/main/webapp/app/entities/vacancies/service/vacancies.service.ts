@@ -58,6 +58,17 @@ export class VacanciesService {
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
+  findVacanciesByCharityHubUser(hubUserId: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<RestVacancies[]>(`api/vacancies-volunteer-applications/${hubUserId}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
+  findVacanciesRec(hubUserId: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<RestVacancies[]>(`api/vacanciesForUser/${hubUserId}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     // const url = id ? `${this.resourceUrl}/${id}` : this.resourceUrl;

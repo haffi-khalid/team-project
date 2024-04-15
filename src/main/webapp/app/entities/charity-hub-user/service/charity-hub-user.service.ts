@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { ICharityHubUser, NewCharityHubUser } from '../charity-hub-user.model';
+import { IUser } from '../../user/user.model';
 
 export type PartialUpdateCharityHubUser = Partial<ICharityHubUser> & Pick<ICharityHubUser, 'id'>;
 
@@ -40,6 +41,9 @@ export class CharityHubUserService {
 
   findByUser(): Observable<EntityResponseType> {
     return this.http.get<ICharityHubUser>(`api/charity-hub-user`, { observe: 'response' });
+  }
+  findUser(): Observable<EntityResponseType> {
+    return this.http.get<IUser>(`api/user-login`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

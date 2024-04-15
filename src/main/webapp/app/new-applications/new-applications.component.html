@@ -99,12 +99,12 @@
               required
             >
               <!--              <option [ngValue]="null"></option>-->
-              <option [ngValue]="charityHubUser" *ngIf="charityHubUser?.id">{{ charityHubUser?.user?.id }}</option>
+              <option [ngValue]="charityHubUser" *ngIf="charityHubUser?.id">{{ charityHubUser?.username }}</option>
             </select>
           </div>
 
           <div class="row mb-3">
-            <label class="form-label" for="field_vacancies">Vacancies</label>
+            <label class="form-label" for="field_vacancies">Vacancy</label>
             <select
               class="form-control"
               id="field_vacancies"

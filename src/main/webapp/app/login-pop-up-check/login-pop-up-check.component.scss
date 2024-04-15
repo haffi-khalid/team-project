@@ -2,7 +2,7 @@
   border-radius: 80px;
   margin-top: 1px;
   margin-left: 1px;
-  background-color: green;
+  background-color: #e5bb89;
   border-color: #ffffff;
   color: black;
   font-size: 15px;
@@ -12,9 +12,98 @@
   border-radius: 80px;
   margin-top: 1px;
   margin-left: 1px;
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: black;
+  font-size: 15px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.title {
+  text-align: center;
+  font-size: 30px;
+  padding-bottom: -5000px;
+  top: -20px;
+  height: 50px;
+}
+
+.th {
+  border-right: 5px solid black;
+}
+
+.small-cell {
+  width: 200px;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
+}
+.main {
+  width: 200px;
+  text-align: center;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
+}
+.last {
+  width: 300px;
+  height: 1px;
+  text-align: center;
+  border-bottom: 5px solid black;
+}
+.first {
+  text-align: center;
+  width: 100px;
+  border: 5px solid black;
+}
+.table-entities {
+  text-align: center;
+  flex-basis: 48%;
+  color: antiquewhite;
+  padding-left: 30px;
+  margin-top: -35px;
+  font-size: 20px;
+}
+
+.live-tracker-table {
+  width: 100%;
+  box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+}
+.containerModal {
+  width: 100%;
+  text-align: left;
+  min-height: 50vh;
+  position: relative;
+  background-color: #d8c3a9;
+}
+.modal-body {
+  background-color: #d8c3a9;
+}
+.title {
+  text-align: center;
+  background-color: #d8c3a9;
+  width: 100%;
+  margin-top: -35px;
+}
+.modal-footer {
+  background-color: #d8c3a9;
+}
+.exitBtn {
+  margin-top: -35px;
+  border-radius: 30px;
+  margin-left: 1px;
   background-color: red;
   border-color: #ffffff;
   color: black;
   font-size: 15px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.bodyTitle {
+  text-align: center;
+  flex-basis: 48%;
+  color: antiquewhite;
+  padding-left: 30px;
+  margin-top: -35px;
+  font-size: 20px;
+}
+.space {
+  margin: 50px;
+  width: 95%;
 }

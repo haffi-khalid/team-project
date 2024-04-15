@@ -184,11 +184,22 @@ public class VacanciesResource {
         return ResponseUtil.wrapOrNotFound(vacancies);
     }
 
+    @GetMapping("/vacanciesForUser/{id}")
+    public List<Vacancies> getVacanciesForUser(@PathVariable Long id) {
+        List<Vacancies> vacancies = vacanciesRepository.findVacanciesFromCharityHubUser(id);
+        return vacanciesRepository.getSimilarVacancies(vacancies);
+    }
+
     @GetMapping("/vacanciesByCharity/{charityId}")
     public ResponseEntity<Vacancies> getVacanciesByCharityID(@PathVariable Long charityId) {
         log.debug("REST request to get Vacancies : {}", charityId);
         Optional<Vacancies> vacancies = vacanciesRepository.charityVacancies(charityId);
         return ResponseUtil.wrapOrNotFound(vacancies);
+    }
+
+    @GetMapping("/vacancies-volunteer-applications/{id}")
+    public List<Vacancies> getVolunteerApplicationsFromCharityHubUser(@PathVariable Long id) {
+        return vacanciesRepository.findVacanciesFromCharityHubUser(id);
     }
 
     /**

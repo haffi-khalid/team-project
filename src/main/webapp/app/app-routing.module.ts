@@ -34,7 +34,7 @@ import { VolunteerApplicationsUpdateComponent } from './entities/volunteer-appli
           component: PrivacyPolicyComponent,
         },
         {
-          path: 'volunteer-applications/new/vacancy', // Add the privacy policy route
+          path: 'volunteer-applications/new/vacancy',
           component: VolunteerApplicationsUpdateComponent,
         },
         {

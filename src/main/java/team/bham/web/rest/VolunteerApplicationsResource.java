@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import team.bham.domain.Vacancies;
 import team.bham.domain.VolunteerApplications;
 import team.bham.repository.VolunteerApplicationsRepository;
 import team.bham.web.rest.errors.BadRequestAlertException;
@@ -167,7 +168,7 @@ public class VolunteerApplicationsResource {
 
     @GetMapping("/check-volunteer-application/{hubUserId}/{vacancyId}")
     public Optional<Long> getVolunteerApplicationsFromHubUser(@PathVariable Long hubUserId, @PathVariable Long vacancyId) {
-        log.debug("REST request to get VolunteerAppliccccccations : {}");
+        log.debug("REST request to get Volunteer Applications made by Charity Hub User: {}");
         Optional<Long> volunteerApplications = volunteerApplicationsRepository.findByCharityHubUser(hubUserId, vacancyId);
         return volunteerApplications;
     }

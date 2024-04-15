@@ -8,6 +8,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IVolunteerApplications, NewVolunteerApplications } from '../volunteer-applications.model';
+import { IVacancies } from '../../vacancies/vacancies.model';
 
 export type PartialUpdateVolunteerApplications = Partial<IVolunteerApplications> & Pick<IVolunteerApplications, 'id'>;
 
@@ -77,6 +78,9 @@ export class VolunteerApplicationsService {
 
   getVolunteerApplicationsIdentifier(volunteerApplications: Pick<IVolunteerApplications, 'id'>): number {
     return volunteerApplications.id;
+  }
+  gestVolunteerApplicationsIdentifier(volunteerApplications: Pick<IVolunteerApplications, 'vacancies'>): number {
+    return <number>volunteerApplications.vacancies?.id;
   }
 
   compareVolunteerApplications(o1: Pick<IVolunteerApplications, 'id'> | null, o2: Pick<IVolunteerApplications, 'id'> | null): boolean {

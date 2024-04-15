@@ -15,7 +15,6 @@ export class NewApplicationsRoutingResolveService {
   resolve(route: ActivatedRouteSnapshot): Observable<IVacancies | null | never> {
     const id = route.params['vacancyID'];
     if (id) {
-      console.log('Ello');
       return this.service.find(id).pipe(
         mergeMap((vacancy: HttpResponse<IVacancies>) => {
           if (vacancy.body) {

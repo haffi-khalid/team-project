@@ -17,6 +17,8 @@ import { HttpResponse } from '@angular/common/http';
 import { ICharityHubUser } from '../../charity-hub-user/charity-hub-user.model';
 import { CharityHubUserService } from '../../charity-hub-user/service/charity-hub-user.service';
 import { VolunteerApplicationsService } from '../../volunteer-applications/service/volunteer-applications.service';
+import { User } from '../../user/user.model';
+import { IVolunteerApplications } from '../../volunteer-applications/volunteer-applications.model';
 
 @Component({
   selector: 'jhi-vacancies',
@@ -40,6 +42,8 @@ export class VacanciesComponent implements OnInit {
   dateSelector: dayjs.Dayjs | undefined;
   toggled = false;
   volunteerApplicationId: number = -1;
+  tracker: boolean = false;
+  trackerWithLogin: boolean = false;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -147,8 +151,20 @@ export class VacanciesComponent implements OnInit {
   }
 
   openVolunteerTrackerDialog() {
-    this.modalService.open(VolunteerApplicationsComponent, { size: 'xl' });
-    // modalRef.componentInstance.vacancies = vacancies;
+    if (!this.accountService.isAuthenticated()) {
+      const modalRef = this.modalService.open(LoginPopUpCheckComponent, { size: 'sm' });
+      this.tracker = true;
+      console.log('Value of tracker and trackerlogin' + this.tracker + 'and' + this.trackerWithLogin);
+      modalRef.componentInstance.tracker = this.tracker;
+    } else {
+      this.charityHubUserService.findByUser().subscribe((res: HttpResponse<ICharityHubUser>) => {
+        this.charityHubUser = res.body;
+        const modalRef = this.modalService.open(LoginPopUpCheckComponent, { windowClass: 'volunteerTrackerModal' });
+        this.trackerWithLogin = true;
+        modalRef.componentInstance.charityHubUser = this.charityHubUser;
+        modalRef.componentInstance.trackerWithLogin = this.trackerWithLogin;
+      });
+    }
   }
 
   openFile(base64String: string, contentType: string | null | undefined): void {
