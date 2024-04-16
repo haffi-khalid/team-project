@@ -1,10 +1,10 @@
 package team.bham.web.rest;
 
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -151,6 +151,14 @@ public class VolunteerApplicationsResource {
     public List<VolunteerApplications> getAllVolunteerApplications() {
         log.debug("REST request to get all VolunteerApplications");
         return volunteerApplicationsRepository.findAll();
+    }
+
+    @GetMapping("/max-volunteer-applications")
+    public List<Integer> getMaxNumberOfApplications() {
+        List<Integer> list = new ArrayList<>();
+        list.add(this.volunteerApplicationsRepository.findMaxNumberOfApplications().get(0));
+        list.add(this.volunteerApplicationsRepository.findMaxHoursOfVolunteering().get(0));
+        return list;
     }
 
     /**

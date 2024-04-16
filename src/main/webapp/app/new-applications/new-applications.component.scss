@@ -40,11 +40,14 @@
 //  margin-top:100px;
 //}
 .form-container {
-  position: relative;
-  top: -350px;
+  top: -1500px;
   margin-left: 500px;
 }
 .form {
   border: solid #d2b48c;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: -600px;
+}
+.col-8 {
+  margin-top: -325px;
 }

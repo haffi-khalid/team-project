@@ -1,27 +1,3 @@
-<!--<div class="modal-body">-->
-<!--  <ng-template [ngIf]="!accountService.isAuthenticated()">-->
-<!--    <p>Please Login to continue with {{ vacancies?.vacancyTitle }} application...</p>-->
-<!--  </ng-template>-->
-<!--  <ng-template [ngIf]="accountService.isAuthenticated()">-->
-<!--    <p>Are you sure you want to continue {{ vacancies?.vacancyTitle }} application?</p>-->
-<!--  </ng-template>-->
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--  <button type="button" class="btn-sm1" data-dismiss="modal" (click)="cancel()">-->
-<!--    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Go Back</span>-->
-<!--  </button>-->
-<!--  <ng-template [ngIf]="!accountService.isAuthenticated()">-->
-<!--    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="login()">-->
-<!--      <span>Login/Register Now!</span>-->
-<!--    </button>-->
-<!--  </ng-template>-->
-<!--  <ng-template [ngIf]="accountService.isAuthenticated()">-->
-<!--    <button data-cy="entityConfirmDeleteButton" type="submit" class="btn-sm2" (click)="apply(vacancies)">-->
-<!--      <span>Yes</span>-->
-<!--    </button>-->
-<!--  </ng-template>-->
-<!--</div>-->
-
 <div class="modal-body">
   <ng-template [ngIf]="!accountService.isAuthenticated() && !tracker">
     <p>Please Login to continue with {{ vacancies?.vacancyTitle }} application...</p>
@@ -72,14 +48,6 @@
 </div>
 
 <div *ngIf="trackerWithLogin && accountService.isAuthenticated()">
-  <!--  <div>-->
-  <!--    <div class="background-overlay"></div>-->
-  <!--    <div class="d-flex justify-content-center align-items-center text-center h-100">-->
-  <!--      <div class="charity-info">-->
-  <!--        <h2 class="charity-name">Welggggggcome to!</h2>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
   <div class="title">
     <span>{{ charityHubUser?.username }}'s Tracker</span>
     <div class="d-flex justify-content-end">
@@ -91,21 +59,75 @@
   </div>
   <div class="container1">
     <div class="bodyTitle">
-      <h3 class="section-title" style="text-align: center; padding-top: 20px">Your Progress:</h3>
-      <ngb-progressbar
-        class="space"
-        type="success"
-        [max]="10"
-        [value]="noOfVacanciesApplied"
-        height="30px"
-        [striped]="true"
-        [animated]="true"
-        ><span class="skill">{{ noOfVacanciesApplied }} Vacancies Applied</span></ngb-progressbar
-      >
-
-      <ngb-progressbar type="success" class="space" [max]="60" [value]="hourTracker" height="60px" [striped]="true" [animated]="true"
-        ><span class="skill">{{ hourTracker }} Hours in Volunteering</span></ngb-progressbar
-      >
+      <h3 class="section-title" style="margin-right: 60px; padding-top: 20px">Your Progress:</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th *ngIf="noOfVacanciesApplied == maxNumberOfApplications">
+              <img src="content/images/firstBadge.png" alt="first badge" style="height: 100px" />
+            </th>
+            <th *ngIf="hourTracker == maxHoursOfVolunteering">
+              <img src="content/images/firstBadge.png" alt="first badge" style="height: 100px" />
+            </th>
+            <ng-template [ngIf]="maxHoursOfVolunteering">
+              <ngb-progressbar
+                type="success"
+                class="space"
+                [max]="maxHoursOfVolunteering"
+                [value]="hourTracker"
+                height="30px"
+                [striped]="true"
+                [animated]="true"
+                *ngIf="maxHoursOfVolunteering != hourTracker"
+                ><span class="skill">{{ (hourTracker / maxHoursOfVolunteering) * 100 }}%</span>
+              </ngb-progressbar>
+            </ng-template>
+            <ng-template [ngIf]="maxHoursOfVolunteering"
+              ><span class="stats" *ngIf="hourTracker != maxHoursOfVolunteering"
+                >You are {{ maxHoursOfVolunteering - hourTracker }} Volunteering Hours away from Joint Top!</span
+              >
+            </ng-template>
+            <ng-template [ngIf]="maxNumberOfApplications">
+              <ngb-progressbar
+                type="success"
+                class="space"
+                [max]="maxNumberOfApplications"
+                [value]="noOfVacanciesApplied"
+                height="30px"
+                [striped]="true"
+                [animated]="true"
+                *ngIf="noOfVacanciesApplied != maxNumberOfApplications"
+                ><span class="skill">{{ (noOfVacanciesApplied / maxNumberOfApplications) * 100 }}%</span>
+              </ngb-progressbar>
+            </ng-template>
+            <ng-template [ngIf]="maxNumberOfApplications"
+              ><span class="stats" *ngIf="noOfVacanciesApplied != maxNumberOfApplications"
+                >You are {{ maxNumberOfApplications - noOfVacanciesApplied }} Applications away from Joint Top!</span
+              ></ng-template
+            >
+          </tr>
+          <tr>
+            <td *ngIf="noOfVacanciesApplied == maxNumberOfApplications">
+              <span>Well Done<br />You Are Ranked No.1<br />in Number of Vacancies Applied</span>
+            </td>
+            <td *ngIf="hourTracker == maxHoursOfVolunteering" style="padding: 40px">
+              <span>Well Done<br />You Are Ranked No.1<br />in Number of Volunteering Hours</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--      <ngb-progressbar-->
+      <!--        class="space"-->
+      <!--        type="success"-->
+      <!--        [max]="100"-->
+      <!--        [value]="noOfVacanciesApplied"-->
+      <!--        height="30px"-->
+      <!--        [striped]="true"-->
+      <!--        [animated]="true"-->
+      <!--        *ngIf="maxNumberOfApplications!=noOfVacanciesApplied"-->
+      <!--        >-->
+      <!--        <span class="skill">{{ noOfVacanciesApplied }} Vacancies Applied</span>-->
+      <!--      </ngb-progressbar>-->
     </div>
     <div class="table-responsive table-entities" id="entities" *ngIf="userVacancies && userVacancies.length > 0">
       <div class="live-tracker-header">
@@ -158,7 +180,10 @@
   </div>
   <div class="containerModal">
     <h3 style="padding-top: 20px; color: black">Based on your applications, we recommend:</h3>
-    <table class="live-tracker-table" aria-describedby="page-heading">
+    <h3 style="text-align: center; padding-top: 50px" *ngIf="recommendedVacancies == null">
+      You have applied to all vacancy opportunities. Come Back Later!
+    </h3>
+    <table class="live-tracker-table" aria-describedby="page-heading" *ngIf="recommendedVacancies != null">
       <thead>
         <tr>
           <th>
@@ -183,7 +208,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let vacancies of recommendedVacancies">
-          <td>
+          <td style="text-align: center">
             <a *ngIf="vacancies.vacancyLogo" (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
               <img
                 [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
@@ -208,7 +233,7 @@
           </td>
           <td>
             <div class="btn-group2">
-              <button type="submit" class="btn btn-sm1">
+              <button type="submit" class="btn btn-sm1" (click)="apply(vacancies)">
                 <span class="d-none d-md-inline">Apply Now</span>
               </button>
             </div>
@@ -216,42 +241,5 @@
         </tr>
       </tbody>
     </table>
-
-    <!--    <h3 style="color:antiquewhite">Based on your applications, this want we recommend to you to apply for</h3>-->
-    <!--    <div class="recommendation" *ngFor="let vacancy of vacancies2ForUser">-->
-    <!--      <span>{{vacancy.vacancyTitle}}</span>-->
-    <!--    </div>-->
   </div>
 </div>
-
-<!--  <div class="container2">-->
-<!--    <h3 class="section-title" style="text-align: center">Recent}</h3>-->
-<!--    <div class="photo-gallery">-->
-<!--      <img src="/../../../content/images/download (11).jpeg" alt="Photo 1" class="photo" />-->
-<!--      <img src="/../../../content/images/download (13).jpeg" alt="Photo 2" class="photo" />-->
-<!--      <img src="/../../../content/images/download (12).jpeg" alt="Photo 3" class="photo" />-->
-<!--    </div>-->
-<!--    <button type="button" class="btn btn-lg btn-outline" style="color: #3b2f1f; border: none" routerLink="/social-feed">-->
-<!--      <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See more...-->
-<!--    </button>-->
-<!--  </div>-->
-
-<!--  <div class="container3">-->
-<!--    <h3 class="section-title" style="text-align: center">Help us to meet our goal!</h3>-->
-
-<!--    <div class="aim" style="margin-top: 20px; color: #3b2f1f">-->
-<!--      <p>Our aim:</p>-->
-<!--    </div>-->
-<!--    <div class="button-container">-->
-<!--      <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/donator-page">-->
-<!--        <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Donate-->
-<!--      </button>-->
-<!--      <button type="button" class="btn btn-lg btn-primary" style="color: #ffffff" routerLink="/vacancies">-->
-<!--        <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Volunteer-->
-<!--      </button>-->
-<!--    &lt;!&ndash;    <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">&ndash;&gt;-->
-<!--    &lt;!&ndash;      <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>&ndash;&gt;-->
-<!--    &lt;!&ndash;    </button>&ndash;&gt;-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->

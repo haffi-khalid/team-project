@@ -37,6 +37,9 @@ public interface VacanciesRepository extends JpaRepository<Vacancies, Long> {
                 vacanciesList.remove(vacanciesList.get(i));
                 i--;
             }
+            if (vacanciesList.isEmpty()) {
+                return similarVacancies;
+            }
         }
         for (int i = 0; i < vacanciesList.size(); i++) {
             for (int j = 0; j < userVacancies.size(); j++) {

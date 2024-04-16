@@ -28,6 +28,8 @@ export class LoginPopUpCheckComponent implements OnInit {
   userVacancies?: IVacancies[] | null;
   recommendedVacancies?: IVacancies[] | null;
   noOfVacanciesApplied: number = 0;
+  maxNumberOfApplications?: number | null;
+  maxHoursOfVolunteering?: number | null;
   hourTracker = 0;
   volunteerApplications: IVolunteerApplications[] = [];
 
@@ -56,6 +58,10 @@ export class LoginPopUpCheckComponent implements OnInit {
             this.onResponseSuccess(res);
             this.volunteerTrackerUpdate();
             this.recommendation();
+            this.volunteerApplicationService.findMaxNumberOfApplications().subscribe(res => {
+              this.maxHoursOfVolunteering = res.pop();
+              this.maxNumberOfApplications = res.pop();
+            });
           });
         }
       });
@@ -79,6 +85,13 @@ export class LoginPopUpCheckComponent implements OnInit {
             this.volunteerApplicationService.find(res).subscribe(result => {
               if (result.body) {
                 this.volunteerApplications.push(result.body);
+                if (result.body.volunteerStatus != 'ACCEPTED') {
+                  // @ts-ignore
+                  this.hourTracker = this.hourTracker - vacancy.vacancyDuration;
+                  if (this.hourTracker < 0) {
+                    this.hourTracker = 0;
+                  }
+                }
               }
             });
           });

@@ -1,5 +1,9 @@
 <div class="page">
   <div class="d-flex justify-content-start">
+    <button class="primary" type="button">Access</button>
+    <!--<h4 *ngIf="searchText&&toggled">Vacancies Best Matching: {{searchText}}</h4>-->
+  </div>
+  <div class="d-flex justify-content-center">
     <input
       class="searchbar"
       type="text"
@@ -13,9 +17,8 @@
 
   <h2 id="page-heading" data-cy="VacanciesHeading">
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh list</span>
+      <button type="submit" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="openVolunteerTrackerDialog()">
+        Volunteer Tracker
       </button>
 
       <button
@@ -62,9 +65,10 @@
       </button>
     </div>
   </div>
-  <div class="volunteerTracker">
-    <button type="submit" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="openVolunteerTrackerDialog()">
-      Volunteer Tracker
+  <div class="refresh">
+    <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+      <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+      <span>Refresh list</span>
     </button>
   </div>
 

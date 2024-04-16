@@ -9,6 +9,8 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { IVolunteerApplications, NewVolunteerApplications } from '../volunteer-applications.model';
 import { IVacancies } from '../../vacancies/vacancies.model';
+import { Key } from '@ng-bootstrap/ng-bootstrap/util/key';
+import { KeyValue } from '@angular/common';
 
 export type PartialUpdateVolunteerApplications = Partial<IVolunteerApplications> & Pick<IVolunteerApplications, 'id'>;
 
@@ -63,6 +65,9 @@ export class VolunteerApplicationsService {
   }
   findByHubUser(hubUserId: number, vacancyId: number): Observable<number> {
     return this.http.get<number>(`api/check-volunteer-application/${hubUserId}/${vacancyId}`);
+  }
+  findMaxNumberOfApplications(): Observable<[]> {
+    return this.http.get<[]>(`api/max-volunteer-applications/`);
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

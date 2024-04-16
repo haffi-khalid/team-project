@@ -83,7 +83,7 @@
               [compareWith]="compareCharityAdmin"
               required
             >
-              <option [ngValue]="charityAdmin" *ngIf="charityAdmin?.id">{{ charityAdmin?.charityProfile?.charityName }}</option>
+              <option [ngValue]="charityAdmin" selected *ngIf="charityAdmin?.id">{{ charityAdmin?.charityProfile?.charityName }}</option>
             </select>
           </div>
 

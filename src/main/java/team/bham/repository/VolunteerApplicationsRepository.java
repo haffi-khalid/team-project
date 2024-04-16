@@ -19,4 +19,14 @@ public interface VolunteerApplicationsRepository extends JpaRepository<Volunteer
         value = "select distinct volunteerApplication.id from VolunteerApplications volunteerApplication where volunteerApplication.charityHubUser.id=:hubUserId and volunteerApplication.vacancies.id=:vacancyId"
     )
     Optional<Long> findByCharityHubUser(@Param("hubUserId") Long hubUserId, @Param("vacancyId") Long vacancyId);
+
+    @Query(
+        value = "select count(*) from VolunteerApplications volunteerApplications group by volunteerApplications.charityHubUser.id order by count(*) desc"
+    )
+    List<Integer> findMaxNumberOfApplications();
+
+    @Query(
+        value = "select sum(vacancy.vacancyDuration) as total_duration from Vacancies vacancy right join VolunteerApplications volunteerApplications on vacancy.id=volunteerApplications.vacancies.id where volunteerApplications.volunteerStatus='ACCEPTED' group by volunteerApplications.charityHubUser order by total_duration desc"
+    )
+    List<Integer> findMaxHoursOfVolunteering();
 }
