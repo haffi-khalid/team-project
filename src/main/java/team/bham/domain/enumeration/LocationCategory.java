@@ -6,4 +6,5 @@ package team.bham.domain.enumeration;
 public enum LocationCategory {
     INPERSON,
     REMOTE,
+    NULL,
 }

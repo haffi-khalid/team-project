@@ -21,7 +21,7 @@
     {
       "fieldName": "location",
       "fieldType": "LocationCategory",
-      "fieldValues": "INPERSON,REMOTE"
+      "fieldValues": "INPERSON,REMOTE,NULL"
     },
     {
       "fieldName": "expectedCost",

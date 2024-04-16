@@ -49,7 +49,13 @@ public class IdeaSimilarityFinder {
         double[] vector = new double[4];
         vector[0] = idea.getNumberOfVolunteers();
         vector[1] = idea.getLocation().ordinal();
-        vector[2] = idea.getExpectedCost();
+
+        if (idea.getLocation().toString().equals("NULL")) {
+            vector[2] = 0;
+        } else {
+            vector[2] = idea.getExpectedCost();
+        }
+
         vector[3] = idea.getExpectedAttendance();
         return vector;
     }

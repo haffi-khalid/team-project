@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -47,8 +47,16 @@ export class FundraisingIdeaComponent implements OnInit {
     });
   }
 
-  hidePopup() {
-    this.showPopup = false; // Hide the popup
+  hideRandomPopup() {
+    this.showPopup = false;
+  }
+
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const popup = document.querySelector('.popup-overlay') as HTMLElement;
+    if (this.showPopup && popup && !popup.contains(target)) {
+      this.hideRandomPopup();
+    }
   }
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
@@ -101,7 +109,6 @@ export class FundraisingIdeaComponent implements OnInit {
       },
       error => {
         console.error('Error while searching for ideas:', error);
-        // Handle error
       }
     );
   }

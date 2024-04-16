@@ -2,6 +2,7 @@ package team.bham.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -19,8 +20,11 @@ public interface FundraisingIdeaRepository extends JpaRepository<FundraisingIdea
 
     default Optional<FundraisingIdea> findSecondIdea() {
         List<FundraisingIdea> ideas = findAllOrderedById();
-        if (ideas.size() >= 2) {
-            return Optional.of(ideas.get(1)); // Second idea
+        int listSize = ideas.size();
+        if (listSize != 0) {
+            Random random = new Random();
+            int index = random.nextInt(listSize);
+            return Optional.of(ideas.get(index));
         } else {
             return Optional.empty();
         }
