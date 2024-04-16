@@ -3,7 +3,14 @@
     <h4 class="modal-title">Event Details</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
-  <div class="modal-body">
+  <div
+    class="modal-body"
+    tabindex="0"
+    (keydown.arrowright)="navigateModal('right')"
+    (keydown.arrowleft)="navigateModal('left')"
+    (keydown.arrowup)="navigateModal('up')"
+    (keydown.arrowdown)="navigateModal('down')"
+  >
     <!-- Display event details here -->
     <div *ngIf="selectedEvent">
       <img
@@ -13,35 +20,19 @@
         *ngIf="hasEventImage(selectedEvent)"
         style="width: 760px; height: 260px; margin-bottom: 2px; background-size: cover; display: flex; align-content: center"
       />
-      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>
-      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>
+      <p class="eventModal">{{ selectedEvent.eventName }}</p>
+      <p>
+        <strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}
+        <span class="durationModal"> DURATION:{{ selectedEvent.duration }}</span>
+      </p>
       <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>
-
-      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>
-
-      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
-      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
-      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
-
-      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
-
-      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
-      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
-      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
-
-      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
-
-      <!--      <p><strong>Event Name:</strong> {{ selectedEvent.eventName }}</p>-->
-      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}</p>-->
-      <!--      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>-->
-
-      <!--      <p><strong>Date & Time:</strong> {{ selectedEvent.duration }}</p>-->
-
-      <!-- Add more details as needed -->
+      <div class="charity-logo-Modal" *ngIf="selectedEvent.charityProfile">
+        <a [routerLink]="['/charity-profile', selectedEvent.charityProfile.id, 'view']">{{ selectedEvent.charityProfile.charityName }}</a>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')" (keydown.enter)="c('Close click')">Close</button>
   </div>
 </ng-template>
 
@@ -92,16 +83,72 @@
       <div class="component3">
         <div class="filter-container">
           <select class="mighty-filter" [(ngModel)]="selectedFilter">
-            <option value="none">Filters</option>
-            <option value="dateTime">Date & Time</option>
+            <option value="none">Choose Filter...</option>
+            <option value="startDate">Start Date</option>
+            <option value="charityName">Charity Name</option>
+            <!-- Additional filter options can be added here -->
           </select>
-          <div *ngIf="selectedFilter == 'dateTime'">
-            <input type="datetime-local" [(ngModel)]="selectedDateTime" class="date-time-picker" />
-            <button class="filter-button" (click)="filterEventsByDateTime()">Filter</button>
+          <!--          <div *ngIf="selectedFilter == 'dateTime'">-->
+          <!--            <input type="datetime-local" [(ngModel)]="selectedDateTime" class="date-time-picker" />-->
+          <!--            <button class="filter-button" (click)="filterEventsByDateTime()">Filter</button>-->
+          <!--          </div>-->
+
+          <div *ngIf="selectedFilter === 'startDate'" class="inputBox">
+            <label for="field_CharityEventStartDate">Start Date</label>
+            <div class="input-group">
+              <input
+                id="field_CharityEventStartDate"
+                data-cy="charityEventStartDate"
+                type="text"
+                class="form-control"
+                name="charityEventStartDate"
+                placeholder="yyyy-mm-dd"
+                ngbDatepicker
+                #startDate="ngbDatepicker"
+                [(ngModel)]="dateSelector"
+                (click)="startDate.toggle()"
+              />
+              <button type="button" class="btn btn-secondary" (click)="startDate.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </div>
+
+            <div class="applyFilter">
+              <button type="button" id="apply-filter" data-cy="applyFilterButton" class="btn btn-primary" (click)="applyFilters()">
+                Apply Filters
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="selectedFilter === 'charityName'" class="inputBox">
+            <label for="field_CharityEventCharityName">Charity Name</label>
+            <input
+              id="field_CharityEventCharityName"
+              data-cy="charityEventCharityName"
+              type="text"
+              class="form-control"
+              name="charityEventCharityName"
+              placeholder="Enter Charity Name"
+              [(ngModel)]="charityNameSelector"
+            />
+
+            <button
+              type="button"
+              id="apply-charity-name-filter"
+              data-cy="applyCharityNameFilterButton"
+              class="btn btn-primary"
+              (click)="applyFilters()"
+            >
+              Apply Filters
+            </button>
           </div>
         </div>
 
-        /////////////
+        <!-- charity-event.component.html -->
+
+        <!-- Container for the date selection -->
+
+        <!-- Button to apply the selected date as a filter -->
 
         <!--      <div class="component3">-->
         <!--        <div class="filter-container">-->
@@ -130,73 +177,6 @@
     <span>No Charity Events found</span>
   </div>
 
-  <!--  <div class="row" *ngIf="charityEvents && charityEvents.length > 0">-->
-  <!--    <div class="col-4" *ngFor="let charityEvent of charityEvents">-->
-  <!--      <div class="event-box">-->
-  <!--        <img-->
-  <!--          [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"-->
-  <!--          alt="Imange"-->
-  <!--          class="event-box"-->
-  <!--          style="width: 350px; height: 260px; margin-bottom: 2px"-->
-  <!--        />-->
-
-  <!--        <div class="event-text-section">-->
-  <!--          <div class="event-name">-->
-  <!--            <span-->
-  <!--              ><a>{{ charityEvent.eventName }}</a></span-->
-  <!--            >-->
-  <!--          </div>-->
-  <!--          <div class="timings">-->
-  <!--            {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}<a> hr</a></span>-->
-  <!--          </div>-->
-  <!--          &lt;!&ndash;          <div class="event-type"><a> Event-Type : </a>{{ charityEvent.eventType | json }}</div>&ndash;&gt;-->
-  <!--          &lt;!&ndash;          <div class="event-type"><span><a [routerLink]="['/event-type']">{{ charityEvent.eventType }}</a></span></div>&ndash;&gt;-->
-  <!--          &lt;!&ndash;          <div class="location"><span class = "location"><a> Location:</a>{{ charityEvent.location}}</span></div>&ndash;&gt;-->
-  <!--          <div class="description">{{ charityEvent.description }}</div>-->
-  <!--          &lt;!&ndash;          <div class="charity-name">{{ charityEvent?.charityProfile }}</div>&ndash;&gt;-->
-  <!--          <div class="charity-logo" *ngIf="charityEvent.charityProfile">-->
-  <!--            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>-->
-  <!--          </div>-->
-  <!--        </div>-->
-
-  <!--        <div class="text-end">-->
-  <!--          <div class="btn-group">-->
-  <!--            <button-->
-  <!--              type="submit"-->
-  <!--              [routerLink]="['/charity-event', charityEvent.id, 'view']"-->
-  <!--              class="btn btn-info btn-sm"-->
-  <!--              data-cy="entityDetailsButton"-->
-  <!--            >-->
-  <!--              <fa-icon icon="eye"></fa-icon>-->
-  <!--              <span class="d-none d-md-inline">View</span>-->
-  <!--            </button>-->
-
-  <!--            <button-->
-  <!--              type="submit"-->
-  <!--              [routerLink]="['/charity-event', charityEvent.id, 'edit']"-->
-  <!--              *jhiHasAnyAuthority="'ROLE_ADMIN'"-->
-  <!--              class="btn btn-primary btn-sm"-->
-  <!--              data-cy="entityEditButton"-->
-  <!--            >-->
-  <!--              <fa-icon icon="pencil-alt"></fa-icon>-->
-  <!--              <span class="d-none d-md-inline">Edit</span>-->
-  <!--            </button>-->
-
-  <!--            <button-->
-  <!--              type="submit"-->
-  <!--              (click)="delete(charityEvent)"-->
-  <!--              class="btn btn-danger btn-sm"-->
-  <!--              data-cy="entityDeleteButton"-->
-  <!--              *jhiHasAnyAuthority="'ROLE_ADMIN'"-->
-  <!--            >-->
-  <!--              <fa-icon icon="times"></fa-icon>-->
-  <!--              <span class="d-none d-md-inline">Delete</span>-->
-  <!--            </button>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
   <div class="row" *ngIf="filteredEvents && filteredEvents.length > 0">
     <div class="col-4" *ngFor="let charityEvent of filteredEvents">
       <div class="event-box" (click)="showEventDetails(charityEvent)">
@@ -221,6 +201,7 @@
           <div class="charity-logo" *ngIf="charityEvent.charityProfile">
             <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>
           </div>
+          <div class="event-type">{{ charityEvent.duration }}</div>
         </div>
 
         <div class="text-end">

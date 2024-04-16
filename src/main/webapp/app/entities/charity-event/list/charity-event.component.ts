@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,7 @@ import { SortService } from 'app/shared/sort/sort.service';
 
 //
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
+import dayjs from 'dayjs/esm';
 //
 
 @Component({
@@ -29,11 +30,15 @@ export class CharityEventComponent implements OnInit {
   predicate = 'id';
   ascending = true;
 
+  charityNameSelector: string = '';
+
   selectedDateTime: string = '';
   selectedFilter: string = 'dateTime';
   ////pop up for event-box
   //  selectedEvent property to store the selected event
   selectedEvent: ICharityEvent | null = null;
+
+  dateSelector: dayjs.Dayjs | undefined;
 
   //
 
@@ -196,7 +201,10 @@ export class CharityEventComponent implements OnInit {
   //   this.modalService.open('eventDetailsModal', { size: 'lg' }); // Open the modal
   // }
 
+  // Modify showEventDetails method to set isOpen to true
   showEventDetails(event: ICharityEvent): void {
+    this.selectedEvent = event;
+    this.isModalOpen = true;
     this.selectedEvent = event; // Store the selected event
     if (this.eventDetailsModal) {
       this.modalService.open(this.eventDetailsModal, { size: 'lg' }); // Open the modal
@@ -215,4 +223,195 @@ export class CharityEventComponent implements OnInit {
     //   }
     // }
   }
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    // Check if the modal is open and handle keyboard events accordingly
+    if (this.selectedEvent && this.isModalOpen) {
+      switch (event.key) {
+        case 'ArrowLeft':
+          this.navigateModal('left');
+          break;
+        case 'ArrowRight':
+          this.navigateModal('right');
+          break;
+        case 'ArrowUp':
+          this.navigateModal('up');
+          break;
+        case 'ArrowDown':
+          this.navigateModal('down');
+          break;
+        case 'Enter':
+          this.closeModal();
+          break;
+      }
+    }
+  }
+  // Add isOpen property to track modal open state
+  isModalOpen = false;
+
+  // Add closeModal method to close the modal
+  closeModal(): void {
+    this.selectedEvent = null;
+    this.isModalOpen = false;
+  }
+
+  navigateModal(direction: 'left' | 'right' | 'up' | 'down'): void {
+    // Implement logic to navigate within the modal based on the direction
+    // For example, you can focus on different elements within the modal or change content
+    // This method will depend on the specific layout and structure of your modal content
+    if (!this.selectedEvent || !this.filteredEvents) {
+      return; // Return if no event is selected or if filteredEvents is undefined
+    }
+
+    const eventIndex = this.filteredEvents.findIndex(event => event === this.selectedEvent);
+    let newIndex = eventIndex;
+
+    switch (direction) {
+      case 'left':
+        newIndex = (eventIndex - 1 + this.filteredEvents.length) % this.filteredEvents.length;
+        break;
+      case 'right':
+        newIndex = (eventIndex + 1) % this.filteredEvents.length;
+        break;
+      case 'up':
+        // Handle up navigation if needed
+        break;
+      case 'down':
+        // Handle down navigation if needed
+        break;
+    }
+
+    if (newIndex !== eventIndex) {
+      this.selectedEvent = this.filteredEvents[newIndex];
+    }
+  }
+
+  // applyFilters() {
+  //   // Make sure there are events to filter
+  //   if (!this.charityEvents) {
+  //     this.filteredEvents = [];
+  //     return;
+  //   }
+  //
+  //   // If dateSelector has a value, filter the events; otherwise, reset the filter
+  //   if (this.dateSelector) {
+  //     // Assuming eventTimeDate is a Day.js object and dateSelector is a compatible format
+  //     // Convert dateSelector to a Day.js object if it's a string
+  //     const selectedDate = dayjs(this.dateSelector);
+  //
+  //     // Filter based on the same date
+  //     this.filteredEvents = this.charityEvents.filter(event =>
+  //       event.eventTimeDate?.isSame(selectedDate, 'day')
+  //     );
+  //   } else {
+  //     // If no date is selected, don't apply any date filters
+  //     this.filteredEvents = [...this.charityEvents];
+  //   }
+  // }
+
+  applyFilters(): void {
+    if (!this.charityEvents.length) {
+      this.filteredEvents = [];
+      return;
+    }
+
+    switch (this.selectedFilter) {
+      case 'startDate':
+        // Ensure dateSelector is not null or undefined before calling toDate()
+        if (this.dateSelector) {
+          const filterDate = this.dateSelector.toDate();
+          filterDate.setHours(0, 0, 0, 0); // Normalize the date to start of day for comparison
+          this.filteredEvents = this.charityEvents.filter(event => {
+            if (event.eventTimeDate) {
+              const eventDate = new Date(event.eventTimeDate.toDate());
+              eventDate.setHours(0, 0, 0, 0);
+              return eventDate.getTime() === filterDate.getTime();
+            }
+            return false; // If event.eventTimeDate is undefined or null, filter out this event
+          });
+        }
+        break;
+
+      case 'charityName':
+        // Ensures that both charityName and charityNameSelector are treated safely.
+        if (this.charityNameSelector) {
+          // Ensure charityNameSelector is not null or undefined
+          this.filteredEvents = this.charityEvents.filter(event =>
+            event.charityProfile?.charityName?.toLowerCase().includes(this.charityNameSelector.toLowerCase())
+          );
+        }
+
+        break;
+
+      default:
+        this.filteredEvents = [...this.charityEvents];
+    }
+  }
 }
+
+// import { Component, OnInit } from '@angular/core';
+// import { HttpResponse } from '@angular/common/http';
+// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import dayjs from 'dayjs';
+//
+// import { ICharityEvent } from '../charity-event.model';
+// import { CharityEventService } from '../service/charity-event.service';
+// import { CharityEventDeleteDialogComponent } from '../delete/charity-event-delete-dialog.component';
+//
+// @Component({
+//   selector: 'jhi-charity-event',
+//   templateUrl: './charity-event.component.html',
+//   styleUrls: ['./charity-event.component.css']
+// })
+// export class CharityEventComponent implements OnInit {
+//   charityEvents: ICharityEvent[] = [];
+//   filteredEvents?: ICharityEvent[];
+//   isLoading = false;
+//   selectedFilter: string = '';
+//   dateSelector: dayjs.Dayjs | undefined;
+//   charityNameSelector: string = '';
+//
+//   constructor(
+//     private charityEventService: CharityEventService,
+//     private modalService: NgbModal
+//   ) {}
+//
+//   ngOnInit(): void {
+//     this.loadCharityEvents();
+//   }
+//
+//   loadCharityEvents(): void {
+//     this.isLoading = true;
+//     this.charityEventService.query().subscribe((response: HttpResponse<ICharityEvent[]>) => {
+//       this.charityEvents = response.body ?? [];
+//       this.filteredEvents = [...this.charityEvents];
+//       this.isLoading = false;
+//     }, error => {
+//       console.error('Error loading charity events:', error);
+//       this.isLoading = false;
+//     });
+//   }
+//
+//
+//
+//
+//
+//   showEventDetails(event: ICharityEvent): void {
+//     const modalRef = this.modalService.open(CharityEventDeleteDialogComponent, {
+//       size: 'lg',
+//       backdrop: 'static'
+//     });
+//     modalRef.componentInstance.event = event; // Pass 'event' directly to the modal's instance
+//   }
+//
+//
+//   deleteEvent(event: ICharityEvent): void {
+//     const modalRef = this.modalService.open(CharityEventDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+//     modalRef.componentInstance.charityEvent = event;
+//     modalRef.result.then((result) => {
+//       if (result === 'deleted') {
+//         this.loadCharityEvents();
+//       }
+//     });
+//   }
+// }

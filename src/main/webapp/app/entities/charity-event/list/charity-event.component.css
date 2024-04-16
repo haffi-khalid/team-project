@@ -107,6 +107,7 @@
   cursor: pointer;
   margin-bottom: 0px;
   font-color: white;
+  background-color: red;
 }
 .charity-name:hover {
   color: blue;
@@ -124,6 +125,7 @@
 }
 .charityProfile {
   color: black;
+  background-color: red;
 }
 
 /*.search-box {*/
@@ -202,4 +204,20 @@
 
 .modal-footer {
   background-color: #9d7e5f;
+}
+.eventModal {
+  justify-content: center;
+  display: flex;
+  align-content: center;
+  font-weight: bold;
+}
+.durationModal {
+  margin-left: 80px;
+}
+.charity-logo {
+  padding-top: 34px;
+}
+.mighty-filter {
+  border-radius: 10px;
+  height: 46px;
 }

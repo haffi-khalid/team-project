@@ -1,3 +1,4 @@
+
 entity CharityHubUser {
 username String,
 email String,
