@@ -1,6 +1,7 @@
-<!-- charity-profile.component.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <div id="top"></div>
-<!-- Anchor for scrolling to the top -->
+
 <div
   class="background-container"
   [style.background-image]="
@@ -14,7 +15,12 @@
       <img [src]="'data:' + charityProfile?.logoContentType + ';base64,' + charityProfile?.logo" alt="Charity Logo" class="charity-logo" />
     </div>
     <div class="edit-button-container">
-      <button *ngIf="charityProfile" type="button" [routerLink]="['/charity-profile', charityProfile.id, 'edit']" class="btn btn-primary">
+      <button
+        *jhiHasAnyAuthority="'ROLE_ADMIN'"
+        type="button"
+        [routerLink]="['/charity-profile', charityProfile?.id, 'edit']"
+        class="btn btn-primary"
+      >
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
     </div>
@@ -61,8 +67,8 @@
     <img src="/../../../content/images/download (13).jpeg" alt="Photo 2" class="photo" />
     <img src="/../../../content/images/download (12).jpeg" alt="Photo 3" class="photo" />
   </div>
-  <button type="button" class="btn btn-lg btn-outline" style="color: #3b2f1f; border: none" routerLink="/social-feed">
-    <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See more...
+  <button type="button" class="btn btn-lg btn-outline" style="color: #3b2f1f; border: none" routerLink="/charity-event">
+    <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See events...
   </button>
 </div>
 
