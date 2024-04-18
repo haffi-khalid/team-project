@@ -35,19 +35,4 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liqui
     Load sample data for extended attributes of CharityHubUser
     - This data should be located in the 'src/main/resources/config/liquibase/fake-data' directory
 -->
-<changeSet id="20240307130402-2-data" author="jhipster" context="faker">
-    <loadData
-        file="config/liquibase/fake-data/charity_hub_user.csv"
-        separator=";"
-        tableName="charity_hub_user"
-        usePreparedStatements="true">
-        <column name="id" type="numeric"/>
-        <column name="volunteer_hours" type="numeric"/>
-        <column name="user_bio" type="string"/>
-        <column name="review_comment" type="string"/>
-        <column name="course" type="string"/>
-        <column name="skills" type="string"/>
-        <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
-    </loadData>
-</changeSet>
 </databaseChangeLog>
