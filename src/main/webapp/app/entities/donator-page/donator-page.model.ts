@@ -6,7 +6,7 @@ export interface IDonatorPage {
   anonymous?: boolean | null;
   amount?: number | null;
   groupDonation?: boolean | null;
-  charityProfile?: Pick<ICharityProfile, 'id'> | null;
+  charityProfile?: Pick<ICharityProfile, 'id' | 'charityName'> | null;
 }
 
 export type NewDonatorPage = Omit<IDonatorPage, 'id'> & { id: null };

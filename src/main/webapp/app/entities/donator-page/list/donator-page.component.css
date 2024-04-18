@@ -262,3 +262,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.charity-link {
+  text-decoration-color: black;
+}

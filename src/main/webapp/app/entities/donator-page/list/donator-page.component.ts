@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { of, catchError } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 import { IDonatorPage } from '../donator-page.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
@@ -12,7 +14,6 @@ import { SortService } from 'app/shared/sort/sort.service';
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 import { CharityProfileService } from 'app/entities/charity-profile/service/charity-profile.service';
 import { map } from 'rxjs/operators';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'jhi-donator-page',
@@ -44,32 +45,30 @@ export class DonatorPageComponent implements OnInit {
     this.load();
   }
 
-  getCharityName(charityProfileId: number | undefined | undefined): string {
-    // Define a list of charity names
-    const charities: string[] = ['UNICEF', 'Amnesty International', 'Action Against Homeless', 'Beat UOB', 'Make a Smile'];
-    // Randomly select a charity name from the list
-    const randomIndex = Math.floor(Math.random() * charities.length);
+  getCharityName(charityProfileId: number | undefined): Observable<string> {
+    if (charityProfileId === undefined) {
+      return of('Unknown Charity');
+    }
 
-    const charityProfile = this.charityProfilesSharedCollection.find(profile => profile.id === charityProfileId);
-    // @ts-ignore
-    return charityProfile ? charityProfile.charityName : charities[randomIndex];
+    return this.charityProfileService.find(charityProfileId).pipe(
+      map((res: HttpResponse<ICharityProfile>) => {
+        console.log('Response body:', res.body); // Log the response body
+        const charityProfile = res.body;
+        if (charityProfile && charityProfile.charityName) {
+          return charityProfile.charityName;
+        } else {
+          console.warn('Charity name not found in response body:', res.body); // Log a warning if charity name is not found
+          return 'Unknown Charity';
+        }
+      }),
+
+      catchError(() => of('Unknown Charity'))
+    );
   }
-
-  // getCharityName(charityProfileId: number | undefined): string {
-  //   if (charityProfileId === undefined) {
-  //     return 'Unknown Charity';
-  //   }
-  //
-  //   const charityProfile = this.charityProfilesSharedCollection.find(profile => profile.id === charityProfileId);
-  //
-  //   @ts-ignore
-  //   return charityProfile ? charityProfile.charityName : 'Unknown Charity';
-  // }
 
   delete(donatorPage: IDonatorPage): void {
     const modalRef = this.modalService.open(DonatorPageDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.donatorPage = donatorPage;
-    // unsubscribe not needed because closed completes on modal close
     modalRef.closed
       .pipe(
         filter(reason => reason === ITEM_DELETED_EVENT),
