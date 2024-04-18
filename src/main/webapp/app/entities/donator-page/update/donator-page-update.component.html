@@ -37,8 +37,19 @@
         </div>
 
         <div class="row mb-3 input-field">
-          <label class="form-label label" for="field_amount">Enter an amount (in £)<span class="required-star">*</span></label>
-          <input type="number" class="form-control input-bar" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+          <label class="form-label label" for="field_amount"
+            >Enter an amount (in £)<span class="required-star">*</span><span class="required-star"> (Min Amount: £5)</span>
+          </label>
+          <input
+            type="number"
+            class="form-control input-bar"
+            name="amount"
+            id="field_amount"
+            data-cy="amount"
+            formControlName="amount"
+            required
+            min="5"
+          />
         </div>
 
         <!--        <div class="row mb-3">-->
