@@ -5,6 +5,7 @@
         <h2 class="add-donator-heading" id="jhi-donator-page-heading" data-cy="DonatorPageCreateUpdateHeading">
           Step 1 of 2: Donation Details
         </h2>
+        <h6><span class="required-star">*</span>indicates Required fields</h6>
         <div class="text">(Step 2: The payment step has not been implemented due to legal reasons.)</div>
       </div>
 
@@ -17,8 +18,10 @@
         </div>
 
         <div class="row mb-3 input-field">
-          <label class="form-label label" for="field_name">Enter your Name (to be displayed on Live Tracker)</label>
-          <input type="text" class="form-control input-bar" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <label class="form-label label" for="field_name"
+            >Enter your Name (to be displayed on Live Tracker) <span class="required-star">*</span></label
+          >
+          <input type="text" class="form-control input-bar" name="name" id="field_name" data-cy="name" formControlName="name" required />
         </div>
 
         <div class="row mb-3 input-field">
@@ -34,7 +37,7 @@
         </div>
 
         <div class="row mb-3 input-field">
-          <label class="form-label label" for="field_amount">Enter an amount (in £)</label>
+          <label class="form-label label" for="field_amount">Enter an amount (in £)<span class="required-star">*</span></label>
           <input type="number" class="form-control input-bar" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
         </div>
 
@@ -51,7 +54,7 @@
         <!--        </div>-->
 
         <div class="row mb-3 input-field">
-          <label class="form-label label" for="field_charityProfile">Pick a Charity</label>
+          <label class="form-label label" for="field_charityProfile">Pick a Charity<span class="required-star">*</span></label>
           <select
             class="form-control input-bar"
             id="field_charityProfile"
@@ -59,6 +62,7 @@
             name="charityProfile"
             formControlName="charityProfile"
             [compareWith]="compareCharityProfile"
+            required
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="charityProfileOption" *ngFor="let charityProfileOption of charityProfilesSharedCollection">

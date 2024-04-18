@@ -65,3 +65,7 @@
   font-size: 20px;
   width: 120px;
 }
+
+.required-star {
+  color: red;
+}
