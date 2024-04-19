@@ -45,6 +45,13 @@ public class CharityHubUser implements Serializable {
     @Column(name = "review_comment")
     private String reviewComment;
 
+    @Lob
+    @Column(name = "images")
+    private byte[] images;
+
+    @Column(name = "images_content_type")
+    private String imagesContentType;
+
     @Column(name = "course")
     private String course;
 
@@ -103,6 +110,32 @@ public class CharityHubUser implements Serializable {
     // Getter and setter for reviewComment
     public String getReviewComment() {
         return reviewComment;
+    }
+
+    public byte[] getImages() {
+        return this.images;
+    }
+
+    public CharityHubUser images(byte[] images) {
+        this.setImages(images);
+        return this;
+    }
+
+    public void setImages(byte[] images) {
+        this.images = images;
+    }
+
+    public String getImagesContentType() {
+        return this.imagesContentType;
+    }
+
+    public CharityHubUser imagesContentType(String imagesContentType) {
+        this.imagesContentType = imagesContentType;
+        return this;
+    }
+
+    public void setImagesContentType(String imagesContentType) {
+        this.imagesContentType = imagesContentType;
     }
 
     public void setReviewComment(String reviewComment) {
@@ -335,6 +368,8 @@ public class CharityHubUser implements Serializable {
             ", volunteerHours=" + volunteerHours +
             ", userBio='" + userBio + '\'' +
             ", reviewComment='" + reviewComment + '\'' +
+            ", images='" + getImages() + "'" +
+            ", imagesContentType='" + getImagesContentType() + "'" +
             ", course='" + course + '\'' +
             ", skills='" + skills + '\'' +
             '}';
