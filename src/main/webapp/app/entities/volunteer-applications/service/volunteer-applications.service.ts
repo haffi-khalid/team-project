@@ -141,4 +141,10 @@ export class VolunteerApplicationsService {
       body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
     });
   }
+
+  getVolunteerApplicationsByCharityAdmin(charityAdminId: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<HttpResponse<RestVolunteerApplications[]>>(`api/volunteer-applications/by-charity-admin/${charityAdminId}`)
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
 }

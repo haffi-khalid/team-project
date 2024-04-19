@@ -7,6 +7,7 @@ import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import team.bham.domain.Vacancies;
 import team.bham.domain.VolunteerApplications;
 
 /**
@@ -15,6 +16,9 @@ import team.bham.domain.VolunteerApplications;
 @SuppressWarnings("unused")
 @Repository
 public interface VolunteerApplicationsRepository extends JpaRepository<VolunteerApplications, Long> {
+    @Query("select va from VolunteerApplications va where va.charityAdmin.charityProfile.id = :id")
+    List<VolunteerApplications> findByCharityAdminId(@Param("id") Long id);
+
     @Query(
         value = "select distinct volunteerApplication.id from VolunteerApplications volunteerApplication where volunteerApplication.charityHubUser.id=:hubUserId and volunteerApplication.vacancies.id=:vacancyId"
     )

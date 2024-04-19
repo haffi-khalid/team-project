@@ -181,6 +181,15 @@ public class VolunteerApplicationsResource {
         return volunteerApplications;
     }
 
+    @GetMapping("/volunteer-applications/by-charity-admin/{charityAdminId}")
+    public ResponseEntity<List<VolunteerApplications>> getByCharityAdminId(@PathVariable Long charityAdminId) {
+        List<VolunteerApplications> applications = volunteerApplicationsRepository.findByCharityAdminId(charityAdminId);
+        if (applications.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(applications);
+    }
+
     /**
      * {@code DELETE  /volunteer-applications/:id} : delete the "id" volunteerApplications.
      *
