@@ -7,6 +7,7 @@ export interface ICharityHubUser {
   username?: string | null;
   email?: string | null;
   volunteerHours?: number | null; // Optional integer field for volunteer hours
+  name?: string | null;
   userBio?: string | null; // Optional string for user biography
   reviewComment?: string | null; // Optional string for review comments
   course?: string | null; // Optional string for course
