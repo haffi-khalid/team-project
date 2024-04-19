@@ -1,155 +1,105 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-charity-hub-user-heading" data-cy="CharityHubUserCreateUpdateHeading">Create or edit a Charity Hub User</h2>
-
-      <div>
-        <jhi-alert-error></jhi-alert-error>
-
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_username">Username</label>
-          <input type="text" class="form-control" name="username" id="field_username" data-cy="username" formControlName="username" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_name">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_email">Email</label>
-          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
-        </div>
-        <div class="row mb-3">
-          <label class="form-label" for="field_volunteerHours">Volunteer Hours</label>
-          <input
-            type="number"
-            class="form-control"
-            name="volunteerHours"
-            id="field_volunteerHours"
-            data-cy="volunteerHours"
-            formControlName="volunteerHours"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_userBio">User Bio</label>
-          <textarea class="form-control" name="userBio" id="field_userBio" data-cy="userBio" formControlName="userBio"></textarea>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_reviewComment">Review Comment</label>
-          <textarea
-            class="form-control"
-            name="reviewComment"
-            id="field_reviewComment"
-            data-cy="reviewComment"
-            formControlName="reviewComment"
-          ></textarea>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_course">Course</label>
-          <input type="text" class="form-control" name="course" id="field_course" data-cy="course" formControlName="course" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_skills">Skills</label>
-          <input type="text" class="form-control" name="skills" id="field_skills" data-cy="skills" formControlName="skills" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_user">User</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
-            <option [ngValue]="null"></option>
-            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_images">Images</label>
-          <div>
-            <img
-              [src]="'data:' + editForm.get('imagesContentType')!.value + ';base64,' + editForm.get('images')!.value"
-              style="max-height: 100px"
-              *ngIf="editForm.get('images')!.value"
-              alt="charityEvent image"
-            />
-            <div *ngIf="editForm.get('images')!.value" class="form-text text-danger clearfix">
-              <span class="pull-start">{{ editForm.get('imagesContentType')!.value }}, {{ byteSize(editForm.get('images')!.value!) }}</span>
-              <button
-                type="button"
-                (click)="clearInputImage('images', 'imagesContentType', 'file_images')"
-                class="btn btn-secondary btn-xs pull-end"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
+<div>
+  <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="yellow">
+      <div class="personal-details-section">
+        <div>
+          <div class="row mb-3">
+            <label class="form-label" for="field_images">Images</label>
+            <div>
+              <img
+                [src]="'data:' + editForm.get('imagesContentType')!.value + ';base64,' + editForm.get('images')!.value"
+                style="max-height: 100px"
+                *ngIf="editForm.get('images')!.value"
+                alt="charityEvent image"
+              />
+              <div *ngIf="editForm.get('images')!.value" class="form-text text-danger clearfix">
+                <span class="pull-start"
+                  >{{ editForm.get('imagesContentType')!.value }}, {{ byteSize(editForm.get('images')!.value!) }}</span
+                >
+                <button
+                  type="button"
+                  (click)="clearInputImage('images', 'imagesContentType', 'file_images')"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+              <input type="file" id="file_images" data-cy="images" (change)="setFileData($event, 'images', true)" accept="image/*" />
             </div>
-            <input type="file" id="file_images" data-cy="images" (change)="setFileData($event, 'images', true)" accept="image/*" />
+            <input type="hidden" class="form-control" name="images" id="field_images" data-cy="images" formControlName="images" />
+            <input
+              type="hidden"
+              class="form-control"
+              name="imagesContentType"
+              id="field_imagesContentType"
+              formControlName="imagesContentType"
+            />
           </div>
-          <input type="hidden" class="form-control" name="images" id="field_images" data-cy="images" formControlName="images" />
-          <input
-            type="hidden"
-            class="form-control"
-            name="imagesContentType"
-            id="field_imagesContentType"
-            formControlName="imagesContentType"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_userPage">User Page</label>
-          <select
-            class="form-control"
-            id="field_userPage"
-            data-cy="userPage"
-            name="userPage"
-            formControlName="userPage"
-            [compareWith]="compareUserPage"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="userPageOption" *ngFor="let userPageOption of userPagesCollection">{{ userPageOption.id }}</option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_authentication">Authentication</label>
-          <select
-            class="form-control"
-            id="field_authentication"
-            data-cy="authentication"
-            name="authentication"
-            formControlName="authentication"
-            [compareWith]="compareAuthentication"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="authenticationOption" *ngFor="let authenticationOption of authenticationsCollection">
-              {{ authenticationOption.id }}
-            </option>
-          </select>
         </div>
       </div>
 
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
-        </button>
+      <div class="profile-details-section">
+        <div>
+          <div class="detail-row">
+            <h6 class="field-name">Name:</h6>
+            <input type="text" class="bar form-control input-bar" name="name" id="field_name" data-cy="name" formControlName="name" />
+            <div class="pencil"></div>
+          </div>
+          <div class="detail-row">
+            <h6 class="field-name">Course Details:</h6>
+            <input
+              type="text"
+              class="bar form-control input-bar"
+              name="course"
+              id="field_course"
+              data-cy="course"
+              formControlName="course"
+            />
+            <div class="pencil"></div>
+          </div>
+          <div class="detail-row">
+            <h6 class="field-name">Bio:</h6>
+            <input
+              type="text"
+              class="bar form-control input-bar"
+              name="userBio"
+              id="field_userBio"
+              data-cy="userBio"
+              formControlName="userBio"
+              readonly
+            />
+            <div class="pencil"></div>
+          </div>
+          <div class="detail-row">
+            <h6 class="field-name">Skills:</h6>
+            <input
+              type="text"
+              class="bar form-control input-bar"
+              name="skills"
+              id="field_skills"
+              data-cy="skills"
+              formControlName="skills"
+            />
+            <div class="pencil"></div>
+          </div>
+        </div>
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div>
+      <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+      </button>
+
+      <button
+        type="submit"
+        id="save-entity"
+        data-cy="entityCreateSaveButton"
+        [disabled]="editForm.invalid || isSaving"
+        class="btn btn-primary"
+      >
+        <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+      </button>
+    </div>
+  </form>
 </div>

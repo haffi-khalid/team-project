@@ -69,11 +69,10 @@
   height: 30px;
   width: 30px;
   border-radius: 15px;
-  background-color: red;
   position: absolute;
   left: 1300px;
   cursor: pointer;
-  /*background-image: url('content/images/pencil.png');*/
+  background-image: url('content/images/pencil-edit-button-svgrepo-com.svg');
   background-repeat: no-repeat;
   background-size: cover;
 }

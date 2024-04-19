@@ -21,6 +21,7 @@ import { AlertError } from '../../../shared/alert/alert-error.model';
 @Component({
   selector: 'jhi-charity-hub-user-update',
   templateUrl: './charity-hub-user-update.component.html',
+  styleUrls: ['../detail/charity-hub-user-detail.component.css'],
 })
 export class CharityHubUserUpdateComponent implements OnInit {
   isSaving = false;
