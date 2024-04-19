@@ -24,6 +24,10 @@
             </div>
             <div>
               <h2 class="name">{{ charityHubUser.username }}</h2>
+              <h2 class="name">{{ charityHubUser.username }}</h2>
+              <h2 class="name">Name: {{ charityHubUser?.name }}</h2>
+              <h6>he/him</h6>
+              <h6>20 years</h6>
             </div>
           </div>
 
@@ -33,6 +37,10 @@
                 <h6 class="field-name">Name:</h6>
 
                 <input type="text" class="bar form-control input-bar" value="{{ charityHubUser.name }}" readonly />
+                <dt><span>Username</span></dt>
+                <dd>
+                  <input type="text" class="bar form-control input-bar" value="{{ charityHubUser.username }}" />
+                </dd>
               </div>
               <div class="detail-row">
                 <h6 class="field-name">Course Details:</h6>
