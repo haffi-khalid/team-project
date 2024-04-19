@@ -1,93 +1,138 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    <div *ngIf="charityHubUser">
-      <h2 data-cy="charityHubUserDetailsHeading"><span>Charity Hub User</span></h2>
+<div>
+  <div>
+    <div>
+      <div *ngIf="charityHubUser">
+        <div class="yellow">
+          <div class="personal-details-section">
+            <div class="profile-pic"></div>
+            <div>
+              <h2 class="name">Haffi Khalid</h2>
+              <h6>he/him</h6>
+              <h6>20 years</h6>
+            </div>
+          </div>
 
-      <!-- Displaying profile picture -->
-      <div class="d-flex justify-content-center">
-        <img
-          *ngIf="charityHubUser.images"
-          [src]="'data:' + charityHubUser.imagesContentType + ';base64,' + charityHubUser?.images"
-          alt="Profile Picture"
-          class="img-thumbnail"
-          style="max-width: 200px; max-height: 200px"
-        />
+          <div class="profile-details-section">
+            <div>
+              <div class="detail-row">
+                <h6 class="field-name">Username:</h6>
+                <dt><span>Username</span></dt>
+                <dd>
+                  <span>{{ charityHubUser.username }}</span>
+                </dd>
+              </div>
+              <div class="detail-row">
+                <h6 class="field-name">Course Details:</h6>
+                <input type="text" class="bar form-control input-bar" value="{{ charityHubUser.username }}" />
+                <div class="pencil"></div>
+              </div>
+              <div class="detail-row">
+                <h6 class="field-name">Bio:</h6>
+                <input type="text" class="bar form-control input-bar" value="Passionate about Photography, and helping people in need" />
+                <div class="pencil"></div>
+              </div>
+              <div class="detail-row">
+                <h6 class="field-name">Volunteer Skills:</h6>
+                <input type="text" class="bar form-control input-bar" value="Communication, Time Management" />
+                <div class="pencil"></div>
+              </div>
+              <div class="detail-row">
+                <h6 class="field-name">Social Media Links:</h6>
+                <input type="text" class="bar form-control input-bar" value="Instagram @haffi_khalid" />
+                <div class="pencil"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--      <h2 data-cy="charityHubUserDetailsHeading"><span>Charity Hub User</span></h2>-->
+
+        <!-- Displaying profile picture -->
+        <div class="d-flex justify-content-center">
+          <img
+            *ngIf="charityHubUser.images"
+            [src]="'data:' + charityHubUser.imagesContentType + ';base64,' + charityHubUser?.images"
+            alt="Profile Picture"
+            class="img-thumbnail"
+            style="max-width: 200px; max-height: 200px"
+          />
+        </div>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ charityHubUser.id }}</span>
+          </dd>
+
+          <dt><span>Username</span></dt>
+          <dd>
+            <span>{{ charityHubUser.username }}</span>
+          </dd>
+
+          <dt><span>Email</span></dt>
+          <dd>
+            <span>{{ charityHubUser.email }}</span>
+          </dd>
+
+          <dt><span>Volunteer Hours</span></dt>
+          <dd>
+            <span>{{ charityHubUser.volunteerHours }}</span>
+          </dd>
+
+          <dt><span>User Bio</span></dt>
+          <dd>
+            <span>{{ charityHubUser.userBio }}</span>
+          </dd>
+
+          <dt><span>Review Comment</span></dt>
+          <dd>
+            <span>{{ charityHubUser.reviewComment }}</span>
+          </dd>
+
+          <dt><span>Course</span></dt>
+          <dd>
+            <span>{{ charityHubUser.course }}</span>
+          </dd>
+
+          <dt><span>Skills</span></dt>
+          <dd>
+            <span>{{ charityHubUser.skills }}</span>
+          </dd>
+
+          <dt><span>User</span></dt>
+          <dd>
+            <span>{{ charityHubUser.user?.id }}</span>
+          </dd>
+
+          <dt><span>User Page</span></dt>
+          <dd>
+            <div *ngIf="charityHubUser.userPage">
+              <a [routerLink]="['/user-page', charityHubUser.userPage.id, 'view']">{{ charityHubUser.userPage.id }}</a>
+            </div>
+          </dd>
+
+          <dt><span>Authentication</span></dt>
+          <dd>
+            <div *ngIf="charityHubUser.authentication">
+              <a [routerLink]="['/authentication', charityHubUser.authentication.id, 'view']">{{ charityHubUser.authentication.id }}</a>
+            </div>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/charity-hub-user', charityHubUser.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
       </div>
-
-      <hr />
-
-      <jhi-alert-error></jhi-alert-error>
-
-      <jhi-alert></jhi-alert>
-
-      <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
-        <dd>
-          <span>{{ charityHubUser.id }}</span>
-        </dd>
-
-        <dt><span>Username</span></dt>
-        <dd>
-          <span>{{ charityHubUser.username }}</span>
-        </dd>
-
-        <dt><span>Email</span></dt>
-        <dd>
-          <span>{{ charityHubUser.email }}</span>
-        </dd>
-
-        <dt><span>Volunteer Hours</span></dt>
-        <dd>
-          <span>{{ charityHubUser.volunteerHours }}</span>
-        </dd>
-
-        <dt><span>User Bio</span></dt>
-        <dd>
-          <span>{{ charityHubUser.userBio }}</span>
-        </dd>
-
-        <dt><span>Review Comment</span></dt>
-        <dd>
-          <span>{{ charityHubUser.reviewComment }}</span>
-        </dd>
-
-        <dt><span>Course</span></dt>
-        <dd>
-          <span>{{ charityHubUser.course }}</span>
-        </dd>
-
-        <dt><span>Skills</span></dt>
-        <dd>
-          <span>{{ charityHubUser.skills }}</span>
-        </dd>
-
-        <dt><span>User</span></dt>
-        <dd>
-          <span>{{ charityHubUser.user?.id }}</span>
-        </dd>
-
-        <dt><span>User Page</span></dt>
-        <dd>
-          <div *ngIf="charityHubUser.userPage">
-            <a [routerLink]="['/user-page', charityHubUser.userPage.id, 'view']">{{ charityHubUser.userPage.id }}</a>
-          </div>
-        </dd>
-
-        <dt><span>Authentication</span></dt>
-        <dd>
-          <div *ngIf="charityHubUser.authentication">
-            <a [routerLink]="['/authentication', charityHubUser.authentication.id, 'view']">{{ charityHubUser.authentication.id }}</a>
-          </div>
-        </dd>
-      </dl>
-
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
-      </button>
-
-      <button type="button" [routerLink]="['/charity-hub-user', charityHubUser.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
-      </button>
     </div>
   </div>
 </div>

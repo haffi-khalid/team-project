@@ -7,6 +7,7 @@ import { DataUtils } from 'app/core/util/data-util.service';
 @Component({
   selector: 'jhi-charity-hub-user-detail',
   templateUrl: './charity-hub-user-detail.component.html',
+  styleUrls: ['./charity-hub-user-detail.component.css'],
 })
 export class CharityHubUserDetailComponent implements OnInit {
   charityHubUser: ICharityHubUser | null = null;
