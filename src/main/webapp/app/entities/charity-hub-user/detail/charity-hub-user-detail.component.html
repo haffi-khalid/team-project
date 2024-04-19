@@ -3,6 +3,17 @@
     <div *ngIf="charityHubUser">
       <h2 data-cy="charityHubUserDetailsHeading"><span>Charity Hub User</span></h2>
 
+      <!-- Displaying profile picture -->
+      <div class="d-flex justify-content-center">
+        <img
+          *ngIf="charityHubUser.images"
+          [src]="'data:' + charityHubUser.imagesContentType + ';base64,' + charityHubUser?.images"
+          alt="Profile Picture"
+          class="img-thumbnail"
+          style="max-width: 200px; max-height: 200px"
+        />
+      </div>
+
       <hr />
 
       <jhi-alert-error></jhi-alert-error>

@@ -67,6 +67,37 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" for="field_images">Images</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imagesContentType')!.value + ';base64,' + editForm.get('images')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('images')!.value"
+              alt="charityEvent image"
+            />
+            <div *ngIf="editForm.get('images')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('imagesContentType')!.value }}, {{ byteSize(editForm.get('images')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('images', 'imagesContentType', 'file_images')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_images" data-cy="images" (change)="setFileData($event, 'images', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="images" id="field_images" data-cy="images" formControlName="images" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imagesContentType"
+            id="field_imagesContentType"
+            formControlName="imagesContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" for="field_userPage">User Page</label>
           <select
             class="form-control"

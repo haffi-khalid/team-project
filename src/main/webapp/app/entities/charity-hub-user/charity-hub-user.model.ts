@@ -11,6 +11,8 @@ export interface ICharityHubUser {
   reviewComment?: string | null; // Optional string for review comments
   course?: string | null; // Optional string for course
   skills?: string | null; // Optional string for skills
+  images?: string | null; // Field for image data, using 'any' to accommodate file data
+  imagesContentType?: string | null; // Field for storing the MIME type of the image
   user?: Pick<IUser, 'id'> | null;
   userPage?: Pick<IUserPage, 'id'> | null;
   authentication?: Pick<IAuthentication, 'id'> | null;

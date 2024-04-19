@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,8 +11,12 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { IUserPage } from 'app/entities/user-page/user-page.model';
 import { UserPageService } from 'app/entities/user-page/service/user-page.service';
+import { EventManager } from 'app/core/util/event-manager.service';
 import { IAuthentication } from 'app/entities/authentication/authentication.model';
 import { AuthenticationService } from 'app/entities/authentication/service/authentication.service';
+import { DataUtils, FileLoadError } from '../../../core/util/data-util.service';
+import { EventWithContent } from '../../../core/util/event-manager.service';
+import { AlertError } from '../../../shared/alert/alert-error.model';
 
 @Component({
   selector: 'jhi-charity-hub-user-update',
@@ -29,12 +33,15 @@ export class CharityHubUserUpdateComponent implements OnInit {
   editForm: CharityHubUserFormGroup = this.charityHubUserFormService.createCharityHubUserFormGroup();
 
   constructor(
+    protected hubUserManager: EventManager,
+    protected dataUtils: DataUtils,
     protected charityHubUserService: CharityHubUserService,
     protected charityHubUserFormService: CharityHubUserFormService,
     protected userService: UserService,
     protected userPageService: UserPageService,
     protected authenticationService: AuthenticationService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    protected elementRef: ElementRef
   ) {}
 
   compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
@@ -57,6 +64,31 @@ export class CharityHubUserUpdateComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.hubUserManager.broadcast(new EventWithContent<AlertError>('teamprojectApp.error', { message: err.message })),
+    });
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
 
   save(): void {
