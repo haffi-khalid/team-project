@@ -10,6 +10,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .th {
+  display: flex;
   border-right: 5px solid black;
 }
 
@@ -103,11 +104,15 @@ tr:first-child th {
   width: 250px;
   height: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 .table-entities {
-  top: -400px;
-  position: relative;
+  top: -300px;
+  overflow-x: auto;
   margin-left: 300px;
+  position: relative;
+  width: 75%;
+  display: flex;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .page {
@@ -118,6 +123,9 @@ tr:first-child th {
 }
 .applyFilter {
   margin-left: 100px;
+  width: 200px;
+  height: 200px;
+  position: relative;
 }
 label {
   font-size: 20px;
@@ -125,17 +133,40 @@ label {
 }
 .applyButton {
   margin-right: 500px;
+  display: flex;
 }
 .refresh {
   margin-top: 30px;
+  margin-left: 100px;
 }
 .justify-content-center {
-  margin-top: -45px;
+  margin-left: 125px;
+  display: flex;
+  width: 100%;
 }
+
 .justify-content-start {
-  margin-top: 10px;
+  display: flex;
 }
-.justify-content-end {
-  margin-top: -45px;
-  margin-bottom: 45px;
+.btn-primary {
+  display: flex;
+}
+
+@media (max-width: 800px) {
+  .table-entities {
+    width: 100%;
+    margin-left: 200px;
+  }
+  .filterBox {
+    width: 50%;
+  }
+  .applyFilter {
+    width: 40%;
+  }
+  .primary {
+    width: 30%;
+  }
+  .searchbar {
+    width: 30%;
+  }
 }

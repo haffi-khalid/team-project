@@ -144,7 +144,7 @@ export class VolunteerApplicationsService {
 
   getVolunteerApplicationsByCharityAdmin(charityAdminId: number): Observable<EntityArrayResponseType> {
     return this.http
-      .get<HttpResponse<RestVolunteerApplications[]>>(`api/volunteer-applications/by-charity-admin/${charityAdminId}`)
+      .get<RestVolunteerApplications[]>(`api/volunteer-applications/by-charity-admin/${charityAdminId}`, { observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 }

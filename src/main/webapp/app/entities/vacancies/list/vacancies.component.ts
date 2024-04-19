@@ -44,6 +44,10 @@ export class VacanciesComponent implements OnInit {
   volunteerApplicationId: number = -1;
   tracker: boolean = false;
   trackerWithLogin: boolean = false;
+  fontSize: number = 1;
+  tableMargin: number = 18.75;
+  filterWidth: number = 15.625;
+  filterHeight: number = 18.75;
 
   constructor(
     protected vacanciesService: VacanciesService,
@@ -97,6 +101,18 @@ export class VacanciesComponent implements OnInit {
         this.filteredVacancies = this.vacancies.filter(home => home.vacancyStartDate?.isSame(this.dateSelector));
       }
     }
+  }
+  fontScaleIncrease() {
+    this.fontSize += 0.5;
+    this.tableMargin += 3;
+    this.filterWidth += 4;
+    this.filterHeight += 4;
+  }
+  fontScaleDecrease() {
+    this.fontSize -= 0.5;
+    this.tableMargin -= 3;
+    this.filterWidth -= 4;
+    this.filterHeight -= 4;
   }
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);

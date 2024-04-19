@@ -93,16 +93,16 @@
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
+        <th>User ID</th>
         <th>Status</th>
-        <th>Charity Admin</th>
+        <th>Vacancy</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let app of volunteerApplications">
-        <td>{{ charityAdminId }}</td>
+        <td>{{ app.charityHubUser?.id }}</td>
         <td>{{ app.volunteerStatus }}</td>
-        <td>{{ app.charityAdmin }}</td>
+        <td>{{ app.vacancies?.id }}</td>
       </tr>
     </tbody>
   </table>
