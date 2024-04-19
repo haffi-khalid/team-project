@@ -32,6 +32,9 @@ public class CharityHubUser implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "volunteer_hours")
     private Integer volunteerHours;
 
@@ -105,6 +108,15 @@ public class CharityHubUser implements Serializable {
 
     public void setUserBio(String userBio) {
         this.userBio = userBio;
+    }
+
+    // Getter and setter for name
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     // Getter and setter for reviewComment
@@ -350,28 +362,42 @@ public class CharityHubUser implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
-//    @Override
-//    public String toString() {
-//        return "CharityHubUser{" +
-//            "id=" + getId() +
-//            ", username='" + getUsername() + "'" +
-//            ", email='" + getEmail() + "'" +
-//            "}";
-//    }
     @Override
     public String toString() {
-        return "CharityHubUser{" +
-            "id=" + id +
-            ", username='" + username + '\'' +
-            ", email='" + email + '\'' +
-            ", volunteerHours=" + volunteerHours +
-            ", userBio='" + userBio + '\'' +
-            ", reviewComment='" + reviewComment + '\'' +
-            ", images='" + getImages() + "'" +
-            ", imagesContentType='" + getImagesContentType() + "'" +
-            ", course='" + course + '\'' +
-            ", skills='" + skills + '\'' +
-            '}';
+        return (
+            "CharityHubUser{" +
+            "id=" +
+            id +
+            ", username='" +
+            username +
+            '\'' +
+            ", email='" +
+            email +
+            '\'' +
+            ", name='" +
+            name +
+            '\'' +
+            ", volunteerHours=" +
+            volunteerHours +
+            ", userBio='" +
+            userBio +
+            '\'' +
+            ", reviewComment='" +
+            reviewComment +
+            '\'' +
+            ", images='" +
+            getImages() +
+            "'" +
+            ", imagesContentType='" +
+            getImagesContentType() +
+            "'" +
+            ", course='" +
+            course +
+            '\'' +
+            ", skills='" +
+            skills +
+            '\'' +
+            '}'
+        );
     }
 }

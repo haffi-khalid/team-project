@@ -51,4 +51,9 @@
     <include file="config/liquibase/changelog/20230329_added_new_attributes_to_charityprofile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240413_added_new_attributes_to_CharityHubUser.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240419_add_image_to_charityhubuser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240419_added_name_attribute_to_CharityHubUser.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
+
+
+
+
