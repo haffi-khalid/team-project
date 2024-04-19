@@ -1,22 +1,21 @@
-<div class="page">
+<div class="page" [ngStyle]="{ 'font-size.rem': fontSize }">
   <div class="d-flex justify-content-start">
-    <button class="primary" type="button">Access</button>
+    <!--    <button class="primary" type="button" (click)="fontScaleIncrease()" >A+</button>-->
+    <!--    <button class="primary" type="button" (click)="fontScaleDecrease()">A-</button>-->
     <!--<h4 *ngIf="searchText&&toggled">Vacancies Best Matching: {{searchText}}</h4>-->
   </div>
-  <div class="d-flex justify-content-center">
-    <input
-      class="searchbar"
-      type="text"
-      placeholder="Filter by Society"
-      [(ngModel)]="searchText"
-      (ngModelChange)="cleanFilterVariables(searchText)"
-    />
-    <button class="primary" type="button" (click)="filterResults(searchText)">Search</button>
-    <!--<h4 *ngIf="searchText&&toggled">Vacancies Best Matching: {{searchText}}</h4>-->
-  </div>
-
   <h2 id="page-heading" data-cy="VacanciesHeading">
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-center">
+      <input
+        class="searchbar"
+        type="text"
+        placeholder="Filter by Society"
+        [(ngModel)]="searchText"
+        (ngModelChange)="cleanFilterVariables(searchText)"
+      />
+      <button class="primary" type="button" (click)="filterResults(searchText)" [ngStyle]="{ 'font-size.rem': fontSize }">Search</button>
+    </div>
+    <div class="d-flex justify-content-start" *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')">
       <button type="submit" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="openVolunteerTrackerDialog()">
         Volunteer Tracker
       </button>
@@ -29,7 +28,7 @@
         *jhiHasAnyAuthority="'ROLE_ADMIN'"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Vacancies </span>
+        <span [ngStyle]="{ 'font-size.rem': fontSize }"> Create a new Vacancies </span>
       </button>
     </div>
   </h2>
@@ -37,15 +36,15 @@
   <jhi-alert></jhi-alert>
   <div class="filterBox">
     <div class="inputBox">
-      <label>In-Person</label>
+      <label [ngStyle]="{ 'font-size.rem': fontSize }">In-Person</label>
       <input type="checkbox" [(ngModel)]="person" />
     </div>
     <div class="inputBox">
-      <label>Remote</label>
+      <label [ngStyle]="{ 'font-size.rem': fontSize }">Remote</label>
       <input type="checkbox" [(ngModel)]="remote" />
     </div>
     <div class="inputBox">
-      <label>Start Date</label>
+      <label [ngStyle]="{ 'font-size.rem': fontSize }">Start Date</label>
       <input
         id="field_vacancyStartDate"
         data-cy="vacancyStartDate"
@@ -60,18 +59,19 @@
       </button>
     </div>
     <div class="applyFilter">
-      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="applyFilters()">
+      <button
+        [ngStyle]="{ 'font-size.rem': fontSize }"
+        style="position: relative"
+        type="submit"
+        id="save-entity"
+        data-cy="entityCreateSaveButton"
+        class="btn btn-primary"
+        (click)="applyFilters()"
+      >
         Apply Filters
       </button>
     </div>
   </div>
-  <div class="refresh">
-    <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-      <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-      <span>Refresh list</span>
-    </button>
-  </div>
-
   <div class="alert alert-warning" id="no-result" *ngIf="vacancies?.length === 0">
     <span>No Vacancies found</span>
   </div>
@@ -103,7 +103,17 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" class="shrink"></th>
+          <th scope="col" class="shrink">
+            <button
+              class="btn btn-info me-2"
+              (click)="load()"
+              [disabled]="isLoading"
+              [ngStyle]="{ 'font-size.rem': fontSize }"
+              style="margin-left: 200px"
+            >
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+            </button>
+          </th>
         </tr>
       </thead>
       <tbody *ngIf="searchText == '' && filteredVacancies">
@@ -174,7 +184,7 @@
                 class="btn btn-sm1"
                 *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
               >
-                <span class="d-none d-md-inline">Apply Now</span>
+                <span class="d-md-inline" [ngStyle]="{ 'font-size.rem': fontSize }">Apply Now</span>
               </button>
             </div>
           </td>
@@ -248,7 +258,7 @@
                   class="btn btn-sm1"
                   *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
                 >
-                  <span class="d-none d-md-inline">Apply Now</span>
+                  <span class="d-md-inline" [ngStyle]="{ 'font-size.rem': fontSize }">Apply Now</span>
                 </button>
               </div>
             </td>
@@ -294,11 +304,10 @@
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline">View</span>
               </button>
-
               <button
                 type="submit"
                 [routerLink]="['/vacancies', vacancies.id, 'edit']"
-                class="btn btn-primary btn-sm2"
+                class="btn btn-info btn-sm2"
                 data-cy="entityEditButton"
                 *jhiHasAnyAuthority="'ROLE_ADMIN'"
               >
@@ -323,7 +332,7 @@
                 class="btn btn-sm1"
                 *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
               >
-                <span class="d-none d-md-inline">Apply Now</span>
+                <span class="d-md-inline" [ngStyle]="{ 'font-size.rem': fontSize }">Apply Now</span>
               </button>
             </div>
           </td>
@@ -397,7 +406,7 @@
                   class="btn btn-sm1"
                   *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
                 >
-                  <span class="d-none d-md-inline">Apply Now</span>
+                  <span class="d-md-inline" [ngStyle]="{ 'font-size.rem': fontSize }">Apply Now</span>
                 </button>
               </div>
             </td>

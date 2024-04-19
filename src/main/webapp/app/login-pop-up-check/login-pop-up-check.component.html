@@ -129,7 +129,7 @@
       <!--        <span class="skill">{{ noOfVacanciesApplied }} Vacancies Applied</span>-->
       <!--      </ngb-progressbar>-->
     </div>
-    <div class="table-responsive table-entities" id="entities" *ngIf="userVacancies && userVacancies.length > 0">
+    <div class="table-responsive table-entities" id="entities" *ngIf="userVacancies">
       <div class="live-tracker-header">
         <h3 class="header-heading" style="text-align: center; padding-top: 20px; color: antiquewhite">Live Volunteer Applications</h3>
       </div>
@@ -156,7 +156,14 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <ng-template [ngIf]="userVacancies && userVacancies.length == 0">
+          <tbody>
+            <td></td>
+            <td>No Applications Made</td>
+            <td></td>
+          </tbody>
+        </ng-template>
+        <tbody *ngIf="userVacancies.length > 0">
           <tr *ngFor="let volunteer of volunteerApplications; let i = index">
             <td>
               <div>
@@ -179,9 +186,14 @@
     </div>
   </div>
   <div class="containerModal">
-    <h3 style="padding-top: 20px; color: black">Based on your applications, we recommend:</h3>
-    <h3 style="text-align: center; padding-top: 50px" *ngIf="recommendedVacancies == null">
+    <h3 style="padding-top: 20px; color: black" *ngIf="userVacancies && userVacancies.length == 0">
+      Why not apply for these opportunities? <span>Come back after to see you personalised reccomendations</span>
+    </h3>
+    <h3 style="text-align: center" *ngIf="recommendedVacancies && recommendedVacancies.length == 0">
       You have applied to all vacancy opportunities. Come Back Later!
+    </h3>
+    <h3 style="padding-top: 20px; color: black" *ngIf="userVacancies && userVacancies.length > 0">
+      Based on you application, why not apply for>
     </h3>
     <table class="live-tracker-table" aria-describedby="page-heading" *ngIf="recommendedVacancies != null">
       <thead>

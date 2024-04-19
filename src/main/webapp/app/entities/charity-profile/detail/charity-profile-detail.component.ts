@@ -15,7 +15,7 @@ import { SortService } from '../../../shared/sort/sort.service';
 export class CharityProfileDetailComponent implements OnInit {
   charityProfile: ICharityProfile | null = null;
   charityAdminId: number | null = null;
-  volunteerApplications?: IVolunteerApplications[];
+  volunteerApplications?: IVolunteerApplications[] | null;
   predicate = 'id';
   ascending = true;
   constructor(
@@ -28,23 +28,25 @@ export class CharityProfileDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ charityProfile }) => {
       this.charityProfile = charityProfile;
-      if (this.charityProfile)
-        this.volunteerApplicationService
-          .getVolunteerApplicationsByCharityAdmin(this.charityProfile?.id)
-          .subscribe(res => this.onResponseSuccess(res));
     });
+    this.volunteerApplicationCollect();
+  }
+  volunteerApplicationCollect() {
+    if (this.charityProfile?.id) {
+      console.log(this.volunteerApplicationService.getVolunteerApplicationsByCharityAdmin(this.charityProfile.id));
+      this.volunteerApplicationService.getVolunteerApplicationsByCharityAdmin(this.charityProfile.id).subscribe(res => {
+        this.onResponseSuccess(res);
+      });
+    }
   }
 
-  protected refineData(data: IVolunteerApplications[]): IVolunteerApplications[] {
-    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
-  }
   protected fillComponentAttributesFromResponseBody(data: IVolunteerApplications[] | null): IVolunteerApplications[] {
     return data ?? [];
   }
 
   protected onResponseSuccess(response: EntityArrayResponseType): void {
-    const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
-    this.volunteerApplications = this.refineData(dataFromBody);
+    console.log('Hello');
+    this.volunteerApplications = this.fillComponentAttributesFromResponseBody(response.body);
   }
 
   byteSize(base64String: string): string {

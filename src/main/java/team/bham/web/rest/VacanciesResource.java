@@ -187,6 +187,9 @@ public class VacanciesResource {
     @GetMapping("/vacanciesForUser/{id}")
     public List<Vacancies> getVacanciesForUser(@PathVariable Long id) {
         List<Vacancies> vacancies = vacanciesRepository.findVacanciesFromCharityHubUser(id);
+        if (vacancies.isEmpty()) {
+            return vacanciesRepository.findAll();
+        }
         return vacanciesRepository.getSimilarVacancies(vacancies);
     }
 

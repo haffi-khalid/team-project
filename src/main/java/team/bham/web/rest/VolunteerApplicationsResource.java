@@ -156,8 +156,16 @@ public class VolunteerApplicationsResource {
     @GetMapping("/max-volunteer-applications")
     public List<Integer> getMaxNumberOfApplications() {
         List<Integer> list = new ArrayList<>();
-        list.add(this.volunteerApplicationsRepository.findMaxNumberOfApplications().get(0));
-        list.add(this.volunteerApplicationsRepository.findMaxHoursOfVolunteering().get(0));
+        if (this.volunteerApplicationsRepository.findMaxNumberOfApplications().isEmpty()) {
+            list.add(0);
+        } else {
+            list.add(this.volunteerApplicationsRepository.findMaxNumberOfApplications().get(0));
+        }
+        if ((this.volunteerApplicationsRepository.findMaxHoursOfVolunteering().isEmpty())) {
+            list.add(0);
+        } else {
+            list.add(this.volunteerApplicationsRepository.findMaxHoursOfVolunteering().get(0));
+        }
         return list;
     }
 
@@ -182,12 +190,9 @@ public class VolunteerApplicationsResource {
     }
 
     @GetMapping("/volunteer-applications/by-charity-admin/{charityAdminId}")
-    public ResponseEntity<List<VolunteerApplications>> getByCharityAdminId(@PathVariable Long charityAdminId) {
+    public List<VolunteerApplications> getByCharityAdminId(@PathVariable Long charityAdminId) {
         List<VolunteerApplications> applications = volunteerApplicationsRepository.findByCharityAdminId(charityAdminId);
-        if (applications.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(applications);
+        return applications;
     }
 
     /**
