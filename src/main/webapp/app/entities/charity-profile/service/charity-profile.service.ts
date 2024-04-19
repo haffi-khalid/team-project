@@ -6,6 +6,8 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { ICharityProfile, NewCharityProfile } from '../charity-profile.model';
+import { RestVolunteerApplications } from '../../volunteer-applications/service/volunteer-applications.service';
+import { map } from 'rxjs/operators';
 
 export type PartialUpdateCharityProfile = Partial<ICharityProfile> & Pick<ICharityProfile, 'id'>;
 
