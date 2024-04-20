@@ -307,3 +307,69 @@
     margin-left: 0px;
   }
 }
+
+@media (max-width: 1000px) {
+  .section-3 {
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .scholarship-supporter-section,
+  .find-scholarship-section {
+    width: 100%; /* Full width for smaller screens */
+    margin-bottom: 25px; /* Add margin between articles */
+    display: flex;
+    flex-direction: column; /* Stack text and image vertically */
+    align-items: center; /* Center align items horizontally */
+    text-align: center; /* Center align text */
+    height: 500px;
+  }
+
+  .scholarship-supporter-pic {
+    width: 80%;
+  }
+
+  .text-section-2,
+  .text-section-3 {
+    width: 80%; /* Adjust width of the text container */
+    margin-top: 20px; /* Add margin between articles */
+  }
+
+  .words,
+  .words-2 {
+    width: 100%; /* Adjust width of the text container */
+    height: auto;
+  }
+
+  .text-heading {
+    font-weight: 700;
+    font-size: 24px; /* Adjust font size of heading */
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .para {
+    font-weight: 500;
+    font-size: 19px; /* Adjust font size of paragraph */
+    line-height: 1.5;
+    text-align: justify;
+    margin-bottom: 10px;
+  }
+}
+
+.section-3 {
+  display: none; /* Hide by default */
+}
+
+/*!* Styles for larger screens *!*/
+@media (min-width: 1001px) {
+  #large-screen-section {
+    display: flex; /* Show the section for larger screens */
+  }
+}
+
+/*Styles for smaller screens*/
+@media (max-width: 1000px) {
+  #small-screen-section {
+    display: flex; /* Show the section for smaller screens */
+  }
+}
