@@ -18,6 +18,7 @@ export class CharityProfileDetailComponent implements OnInit {
   volunteerApplications?: IVolunteerApplications[] | null;
   predicate = 'id';
   ascending = true;
+  acceptedCount: number = 0;
   constructor(
     protected dataUtils: DataUtils,
     protected sortService: SortService,
@@ -47,8 +48,12 @@ export class CharityProfileDetailComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     console.log('Hello');
     this.volunteerApplications = this.fillComponentAttributesFromResponseBody(response.body);
+    this.calculateAcceptedCount();
   }
-
+  calculateAcceptedCount() {
+    if (this.volunteerApplications)
+      this.acceptedCount = this.volunteerApplications.filter(app => app.volunteerStatus === 'ACCEPTED').length;
+  }
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
   }
