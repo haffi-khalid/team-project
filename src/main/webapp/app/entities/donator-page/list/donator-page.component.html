@@ -121,9 +121,9 @@
                 <div *ngIf="!donatorPage.anonymous; else anonymousText">
                   {{ donatorPage.name }} donated £{{ donatorPage.amount }} to
                   <span class="charity-link" *ngIf="donatorPage.charityProfile">
-                    <a [routerLink]="['/charity-profile', donatorPage.charityProfile.id, 'view']">{{
-                      donatorPage.charityProfile.charityName
-                    }}</a>
+                    <a [routerLink]="['/charity-profile', donatorPage.charityProfile.id, 'view']"
+                      >{{ donatorPage.charityProfile.charityName }}
+                    </a>
                   </span>
                 </div>
                 <ng-template #anonymousText>
@@ -309,7 +309,7 @@
       <div class="scholarship-supporter-pic"></div>
     </article>
 
-    <article class="scholarship-supporter-section">
+    <article class="scholarship-supporter-section" *ngFor="let donatorPage of donatorPages">
       <div class="text-section-2">
         <div class="words-2">
           <p class="text-heading">Action Against Homeless</p>
