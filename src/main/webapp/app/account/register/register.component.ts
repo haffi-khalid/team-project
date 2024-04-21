@@ -31,7 +31,7 @@ export class RegisterComponent implements AfterViewInit {
     }),
     email: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email],
+      validators: [Validators.required, Validators.pattern('[a-zA-Z]{3}[0-9]{3,4}@student\\.bham\\.ac\\.uk')],
     }),
     password: new FormControl('', {
       nonNullable: true,
@@ -41,6 +41,8 @@ export class RegisterComponent implements AfterViewInit {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(4), Validators.maxLength(50)],
     }),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
   });
 
   constructor(private registerService: RegisterService) {}
@@ -57,14 +59,14 @@ export class RegisterComponent implements AfterViewInit {
     this.errorEmailExists = false;
     this.errorUserExists = false;
 
-    const { password, confirmPassword } = this.registerForm.getRawValue();
+    const { password, confirmPassword, login, email, firstName, lastName } = this.registerForm.getRawValue();
     if (password !== confirmPassword) {
       this.doNotMatch = true;
     } else {
-      const { login, email } = this.registerForm.getRawValue();
-      this.registerService
-        .save({ login, email, password, langKey: 'en' })
-        .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
+      this.registerService.save({ login, email, password, firstName, lastName, langKey: 'en' }).subscribe({
+        next: () => (this.success = true),
+        error: response => this.processError(response),
+      });
     }
   }
 

@@ -42,6 +42,8 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
+    private final CharityHubUser hubUser;
+
     private final CacheManager cacheManager;
 
     public UserService(
@@ -56,6 +58,7 @@ public class UserService {
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
         this.charityHubUserRepository = charityHubUserRepository;
+        this.hubUser = new CharityHubUser();
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -128,7 +131,7 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(true);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
@@ -137,6 +140,7 @@ public class UserService {
         userRepository.save(newUser);
         CharityHubUser hubUser = new CharityHubUser();
         hubUser.setUser(newUser);
+        hubUser.setName(newUser.getFirstName() + ' ' + newUser.getLastName());
         hubUser.setEmail(newUser.getEmail());
         hubUser.setUsername(newUser.getLogin());
         charityHubUserRepository.save(hubUser);
@@ -186,7 +190,6 @@ public class UserService {
         }
         userRepository.save(user);
         userRepository.save(user);
-        CharityHubUser hubUser = new CharityHubUser();
         hubUser.setUser(user);
         charityHubUserRepository.save(hubUser);
         this.clearUserCaches(user);
@@ -236,6 +239,7 @@ public class UserService {
         userRepository
             .findOneByLogin(login)
             .ifPresent(user -> {
+                charityHubUserRepository.delete(hubUser);
                 userRepository.delete(user);
                 this.clearUserCaches(user);
                 log.debug("Deleted User: {}", user);

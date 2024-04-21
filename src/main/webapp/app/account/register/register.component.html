@@ -49,6 +49,46 @@
         </div>
 
         <div class="mb-3">
+          <label class="form-label" for="firstName">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            name="firstName"
+            placeholder="Your first name"
+            formControlName="firstName"
+            data-cy="firstName"
+          />
+          <div
+            *ngIf="
+              registerForm.get('firstName')!.invalid && (registerForm.get('firstName')!.dirty || registerForm.get('firstName')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="registerForm.get('firstName')?.errors?.required"
+              >Your first name is required.</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="lastName">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="lastName"
+            placeholder="Your last name"
+            formControlName="lastName"
+            data-cy="lastName"
+          />
+          <div
+            *ngIf="registerForm.get('lastName')!.invalid && (registerForm.get('lastName')!.dirty || registerForm.get('lastName')!.touched)"
+          >
+            <small class="form-text text-danger" *ngIf="registerForm.get('lastName')?.errors?.required">Your last name is required.</small>
+          </div>
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" for="email">Email</label>
           <input
             type="email"
@@ -61,17 +101,10 @@
           />
 
           <div *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)">
-            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.required"> Your email is required. </small>
-
-            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.invalid"> Your email is invalid. </small>
-
-            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.minlength">
-              Your email is required to be at least 5 characters.
-            </small>
-
-            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.maxlength">
-              Your email cannot be longer than 50 characters.
-            </small>
+            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.required">Your email is required.</small>
+            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.pattern"
+              >Your email is invalid. It must follow the format abc123@student.bham.ac.uk</small
+            >
           </div>
         </div>
 
