@@ -13,13 +13,7 @@
   >
     <!-- Display event details here -->
     <div *ngIf="selectedEvent">
-      <img
-        [src]="getEventImage(selectedEvent)"
-        alt="Event Image"
-        class="event-image"
-        *ngIf="hasEventImage(selectedEvent)"
-        style="width: 760px; height: 260px; margin-bottom: 2px; background-size: cover; display: flex; align-content: center"
-      />
+      <img [src]="getEventImage(selectedEvent)" alt="Event Image" class="event-image" *ngIf="hasEventImage(selectedEvent)" />
       <p class="eventModal">{{ selectedEvent.eventName }}</p>
       <p>
         <strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}
@@ -66,17 +60,15 @@
         <!--        <div class="search-box">-->
         <!--          <input type="text" placeholder="Search..." />-->
         <!--        </div>-->
-        <div class="search-box-container">
+        <div class="search-bar-container">
           <input
             type="text"
-            placeholder="Search the Event Name"
-            class="search-box-input"
-            [(ngModel)]="searchQuery"
-            (input)="performSearch()"
+            [(ngModel)]="searchTerm"
+            placeholder="Search events..."
+            (keydown.enter)="searchEvents(searchTerm)"
+            class="form-control"
           />
-          <!--          <button class="search-box-button" (click)="performSearch()">-->
-          <!--            <fa-icon icon="search"></fa-icon>-->
-          <!--          </button>-->
+          <button type="button" class="btn btn-primary" (click)="searchEvents(searchTerm)">Search</button>
         </div>
       </div>
 
@@ -86,12 +78,7 @@
             <option value="none">Choose Filter...</option>
             <option value="startDate">Start Date</option>
             <option value="charityName">Charity Name</option>
-            <!-- Additional filter options can be added here -->
           </select>
-          <!--          <div *ngIf="selectedFilter == 'dateTime'">-->
-          <!--            <input type="datetime-local" [(ngModel)]="selectedDateTime" class="date-time-picker" />-->
-          <!--            <button class="filter-button" (click)="filterEventsByDateTime()">Filter</button>-->
-          <!--          </div>-->
 
           <div *ngIf="selectedFilter === 'startDate'" class="inputBox">
             <label for="field_CharityEventStartDate">Start Date</label>
@@ -181,12 +168,7 @@
     <div class="col-4" *ngFor="let charityEvent of filteredEvents">
       <div class="event-box" (click)="showEventDetails(charityEvent)">
         <!-- Display event details -->
-        <img
-          [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images"
-          alt="Image"
-          class="event-box"
-          style="width: 350px; height: 260px; margin-bottom: 2px"
-        />
+        <img [src]="'data:' + charityEvent?.imagesContentType + ';base64,' + charityEvent?.images" alt="Image" class="event-image" />
 
         <div class="event-text-section">
           <div class="event-name">
@@ -201,21 +183,10 @@
           <div class="charity-logo" *ngIf="charityEvent.charityProfile">
             <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>
           </div>
-          <div class="event-type">{{ charityEvent.duration }}</div>
         </div>
 
         <div class="text-end">
           <div class="btn-group">
-            <button
-              type="submit"
-              [routerLink]="['/charity-event', charityEvent.id, 'view']"
-              class="btn btn-info btn-sm"
-              data-cy="entityDetailsButton"
-            >
-              <fa-icon icon="eye"></fa-icon>
-              <span class="d-none d-md-inline">View</span>
-            </button>
-
             <button
               type="submit"
               [routerLink]="['/charity-event', charityEvent.id, 'edit']"

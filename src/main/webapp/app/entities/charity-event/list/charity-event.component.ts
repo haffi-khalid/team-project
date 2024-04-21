@@ -13,6 +13,8 @@ import { SortService } from 'app/shared/sort/sort.service';
 //
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 import dayjs from 'dayjs/esm';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+
 //
 
 @Component({
@@ -21,6 +23,11 @@ import dayjs from 'dayjs/esm';
   styleUrls: ['./charity-event.component.css'],
 })
 export class CharityEventComponent implements OnInit {
+  searchCharityName: string = '';
+
+  searchEventName: string = '';
+  searchTerm: string = '';
+
   searchQuery: string = '';
   filteredEvents?: ICharityEvent[];
 
@@ -170,37 +177,6 @@ export class CharityEventComponent implements OnInit {
     }
   }
 
-  ///
-
-  performSearch(): void {
-    if (this.charityEvents) {
-      // Check if charityEvents is not null or undefined
-      // Filter charityEvents based on the search query
-      this.filteredEvents = this.charityEvents.filter(
-        (event: ICharityEvent) => event && event.eventName && event.eventName.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-
-      // If a charity profile is selected, further filter events by that profile
-    }
-  }
-
-  filterEventsByDateTime(): void {
-    if (!this.selectedDateTime) {
-      // Handle case when no date and time is selected
-      return;
-    }
-
-    const selectedDate = new Date(this.selectedDateTime).toISOString();
-
-    // Filter events based on selected date and time
-    this.filteredEvents = this.charityEvents.filter(event => event.eventTimeDate?.toISOString().includes(selectedDate));
-  }
-
-  // showEventDetails(event: ICharityEvent): void {
-  //   this.selectedEvent = event; // Store the selected event
-  //   this.modalService.open('eventDetailsModal', { size: 'lg' }); // Open the modal
-  // }
-
   // Modify showEventDetails method to set isOpen to true
   showEventDetails(event: ICharityEvent): void {
     this.selectedEvent = event;
@@ -211,17 +187,6 @@ export class CharityEventComponent implements OnInit {
     } else {
       console.error('Event details modal not found.');
     }
-
-    // filterByCharityProfile(charityProfile: CharityProfile | null): void {
-    //   if (charityProfile) {
-    //     this.filteredEvents = this.charityEvents.filter(event =>
-    //       event.charityProfile && event.charityProfile.id === charityProfile.id
-    //     );
-    //   } else {
-    //     // If no charity profile is selected, show all events
-    //     this.filteredEvents = this.charityEvents;
-    //   }
-    // }
   }
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -286,29 +251,6 @@ export class CharityEventComponent implements OnInit {
     }
   }
 
-  // applyFilters() {
-  //   // Make sure there are events to filter
-  //   if (!this.charityEvents) {
-  //     this.filteredEvents = [];
-  //     return;
-  //   }
-  //
-  //   // If dateSelector has a value, filter the events; otherwise, reset the filter
-  //   if (this.dateSelector) {
-  //     // Assuming eventTimeDate is a Day.js object and dateSelector is a compatible format
-  //     // Convert dateSelector to a Day.js object if it's a string
-  //     const selectedDate = dayjs(this.dateSelector);
-  //
-  //     // Filter based on the same date
-  //     this.filteredEvents = this.charityEvents.filter(event =>
-  //       event.eventTimeDate?.isSame(selectedDate, 'day')
-  //     );
-  //   } else {
-  //     // If no date is selected, don't apply any date filters
-  //     this.filteredEvents = [...this.charityEvents];
-  //   }
-  // }
-
   applyFilters(): void {
     if (!this.charityEvents.length) {
       this.filteredEvents = [];
@@ -347,71 +289,29 @@ export class CharityEventComponent implements OnInit {
         this.filteredEvents = [...this.charityEvents];
     }
   }
-}
 
-// import { Component, OnInit } from '@angular/core';
-// import { HttpResponse } from '@angular/common/http';
-// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-// import dayjs from 'dayjs';
-//
-// import { ICharityEvent } from '../charity-event.model';
-// import { CharityEventService } from '../service/charity-event.service';
-// import { CharityEventDeleteDialogComponent } from '../delete/charity-event-delete-dialog.component';
-//
-// @Component({
-//   selector: 'jhi-charity-event',
-//   templateUrl: './charity-event.component.html',
-//   styleUrls: ['./charity-event.component.css']
-// })
-// export class CharityEventComponent implements OnInit {
-//   charityEvents: ICharityEvent[] = [];
-//   filteredEvents?: ICharityEvent[];
-//   isLoading = false;
-//   selectedFilter: string = '';
-//   dateSelector: dayjs.Dayjs | undefined;
-//   charityNameSelector: string = '';
-//
-//   constructor(
-//     private charityEventService: CharityEventService,
-//     private modalService: NgbModal
-//   ) {}
-//
-//   ngOnInit(): void {
-//     this.loadCharityEvents();
-//   }
-//
-//   loadCharityEvents(): void {
-//     this.isLoading = true;
-//     this.charityEventService.query().subscribe((response: HttpResponse<ICharityEvent[]>) => {
-//       this.charityEvents = response.body ?? [];
-//       this.filteredEvents = [...this.charityEvents];
-//       this.isLoading = false;
-//     }, error => {
-//       console.error('Error loading charity events:', error);
-//       this.isLoading = false;
-//     });
-//   }
-//
-//
-//
-//
-//
-//   showEventDetails(event: ICharityEvent): void {
-//     const modalRef = this.modalService.open(CharityEventDeleteDialogComponent, {
-//       size: 'lg',
-//       backdrop: 'static'
-//     });
-//     modalRef.componentInstance.event = event; // Pass 'event' directly to the modal's instance
-//   }
-//
-//
-//   deleteEvent(event: ICharityEvent): void {
-//     const modalRef = this.modalService.open(CharityEventDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-//     modalRef.componentInstance.charityEvent = event;
-//     modalRef.result.then((result) => {
-//       if (result === 'deleted') {
-//         this.loadCharityEvents();
-//       }
-//     });
-//   }
-// }
+  // Updated function to handle filtering by both charity name and event name
+  searchEvents(term: string): void {
+    if (!term) {
+      // If no search term is provided, reset the filter
+      this.filteredEvents = [...this.charityEvents];
+    } else {
+      // Local filter for event names
+      const filteredByEventName = this.charityEvents.filter(event => event.eventName?.toLowerCase().includes(term.toLowerCase()));
+
+      // API call for charity profile names
+      this.charityEventService.findByCharityName(term).subscribe({
+        next: (res: HttpResponse<ICharityEvent[]>) => {
+          const filteredByCharityName = res.body ?? [];
+          // Combine the two filters, avoiding duplicates
+          this.filteredEvents = [...filteredByEventName, ...filteredByCharityName].filter(
+            (event, index, self) => index === self.findIndex(e => e.id === event.id)
+          );
+        },
+        error: (res: HttpErrorResponse) => {
+          console.error('There was an error retrieving the filtered events:', res.message);
+        },
+      });
+    }
+  }
+}
