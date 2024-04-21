@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <!-- Adding new columns for images and images_content_type -->
+    <changeSet id="20240421-1" author="yourName">
+        <addColumn tableName="charity_hub_user">
+            <column name="profile_image" type="${blobType}"/> <!-- Adjust the type as needed -->
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

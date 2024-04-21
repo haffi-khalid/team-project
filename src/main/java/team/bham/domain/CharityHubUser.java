@@ -50,7 +50,7 @@ public class CharityHubUser implements Serializable {
     private String reviewComment;
 
     @Lob
-    @Column(name = "images", columnDefinition = "OID")
+    @Column(name = "profile_image")
     private byte[] images;
 
     @Column(name = "images_content_type")
