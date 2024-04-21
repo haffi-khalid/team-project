@@ -193,7 +193,7 @@
     <h2 class="section-3-heading">Your Impact - Charity Statistics</h2>
 
     <article class="scholarship-supporter-section">
-      <div class="text-section-2">
+      <div class="text-section-2 charity-profile">
         <div class="words-2">
           <p class="text-heading">UNICEF</p>
           <p class="para">
@@ -204,13 +204,35 @@
             The statistics reflect the immense goodwill of donors, underscoring UNICEF's pivotal role in humanitarian endeavors.
           </p>
         </div>
-        <!--      <div class="text-button-2">View Charity</div>-->
+        <!-- Display number of donators for UNICEF -->
       </div>
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForUnicef() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
     </article>
 
     <article class="find-scholarship-section">
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForAmnestyInternational() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
       <div class="text-section text-section-3">
         <div class="words">
           <p class="text-heading">Amnesty International</p>
@@ -238,11 +260,35 @@
         </div>
         <!--      <div class="text-button-2">View Charity</div>-->
       </div>
-      <div class="scholarship-supporter-pic"></div>
+
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForActionAgainstHomeless() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
     </article>
 
     <article class="find-scholarship-section">
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForBeatUOB() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
+
       <div class="text-section text-section-3">
         <div class="words">
           <p class="text-heading">Beat UOB</p>
@@ -269,7 +315,18 @@
         </div>
         <!--      <div class="text-button-2">View Charity</div>-->
       </div>
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForMakeaSmile() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
     </article>
   </section>
 
@@ -291,7 +348,18 @@
         </div>
         <!--      <div class="text-button-2">View Charity</div>-->
       </div>
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForUnicef() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
     </article>
 
     <article class="find-scholarship-section">
@@ -306,10 +374,21 @@
           </p>
         </div>
       </div>
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForAmnestyInternational() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
     </article>
 
-    <article class="scholarship-supporter-section" *ngFor="let donatorPage of donatorPages">
+    <article class="scholarship-supporter-section">
       <div class="text-section-2">
         <div class="words-2">
           <p class="text-heading">Action Against Homeless</p>
@@ -323,7 +402,18 @@
         </div>
         <!--      <div class="text-button-2">View Charity</div>-->
       </div>
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForActionAgainstHomeless() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
     </article>
 
     <article class="find-scholarship-section">
@@ -338,7 +428,18 @@
           </p>
         </div>
       </div>
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForBeatUOB() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
     </article>
 
     <article class="scholarship-supporter-section">
@@ -354,7 +455,18 @@
         </div>
         <!--      <div class="text-button-2">View Charity</div>-->
       </div>
-      <div class="scholarship-supporter-pic"></div>
+      <div class="scholarship-supporter-pic">
+        <div class="ui-widgets">
+          <div class="ui-values">
+            <div *ngIf="donatorPages">
+              <p>
+                {{ getNumberOfDonatorsForMakeaSmile() }}
+              </p>
+            </div>
+          </div>
+          <div class="ui-labels">donators</div>
+        </div>
+      </div>
     </article>
   </section>
 </div>
