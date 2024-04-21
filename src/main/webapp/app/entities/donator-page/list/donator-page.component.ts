@@ -45,6 +45,45 @@ export class DonatorPageComponent implements OnInit {
     this.load();
   }
 
+  getNumberOfDonatorsForUnicef(): number | undefined {
+    // @ts-ignore
+    const unicefDonatorPage = this.donatorPages.find(donatorPage => donatorPage.charityProfile?.charityName == 'Unicef');
+    // @ts-ignore
+    return unicefDonatorPage?.charityProfile?.numberOfDonators;
+  }
+
+  getNumberOfDonatorsForAmnestyInternational(): number | undefined {
+    // @ts-ignore
+    const amnestyInternationalDonatorPage = this.donatorPages.find(
+      donatorPage => donatorPage.charityProfile?.charityName == 'Amnesty International'
+    );
+    // @ts-ignore
+    return amnestyInternationalDonatorPage?.charityProfile?.numberOfDonators;
+  }
+
+  getNumberOfDonatorsForActionAgainstHomeless(): number | undefined {
+    // @ts-ignore
+    const actionAgainstHomelessDonatorPage = this.donatorPages.find(
+      donatorPage => donatorPage.charityProfile?.charityName == 'Action Against Homeless'
+    );
+    // @ts-ignore
+    return actionAgainstHomelessDonatorPage?.charityProfile?.numberOfDonators;
+  }
+
+  getNumberOfDonatorsForBeatUOB(): number | undefined {
+    // @ts-ignore
+    const beatUOBDonatorPage = this.donatorPages.find(donatorPage => donatorPage.charityProfile?.charityName == 'Beat UOB');
+    // @ts-ignore
+    return beatUOBDonatorPage?.charityProfile?.numberOfDonators;
+  }
+
+  getNumberOfDonatorsForMakeaSmile(): number | undefined {
+    // @ts-ignore
+    const makeaSmileDonatorPage = this.donatorPages.find(donatorPage => donatorPage.charityProfile?.charityName == 'Make a Smile');
+    // @ts-ignore
+    return makeaSmileDonatorPage?.charityProfile?.numberOfDonators;
+  }
+
   getCharityName(charityProfileId: number | undefined): Observable<string> {
     if (charityProfileId === undefined) {
       return of('Unknown Charity');
