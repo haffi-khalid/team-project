@@ -30,6 +30,14 @@ export class CharityEventService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
+  findByCharityName(charityName: string, req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ICharityEvent[]>(`${this.resourceUrl}/by-charity-name`, {
+      params: { ...options, charityName: charityName },
+      observe: 'response',
+    });
+  }
+
   create(charityEvent: NewCharityEvent): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(charityEvent);
     return this.http

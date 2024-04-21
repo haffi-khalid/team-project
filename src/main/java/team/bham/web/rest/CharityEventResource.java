@@ -8,13 +8,20 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import team.bham.domain.CharityEvent;
 import team.bham.repository.CharityEventRepository;
 import team.bham.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -37,6 +44,17 @@ public class CharityEventResource {
     public CharityEventResource(CharityEventRepository charityEventRepository) {
         this.charityEventRepository = charityEventRepository;
     }
+
+    //page 2
+    @GetMapping("/charity-events/by-charity-name")
+    public ResponseEntity<List<CharityEvent>> getAllCharityEventsByCharityName(@RequestParam String charityName, Pageable pageable) {
+        log.debug("REST request to get all CharityEvents by charity name: {}", charityName);
+        Page<CharityEvent> page = charityEventRepository.findByCharityProfileNameContainingIgnoreCase(charityName, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /////////
 
     /**
      * {@code POST  /charity-events} : Create a new charityEvent.
@@ -187,6 +205,19 @@ public class CharityEventResource {
      * @param id the id of the charityEvent to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+
+    // page 2
+
+    //    @GetMapping("/charity-events/by-charity-name")
+    //    public ResponseEntity<List<CharityEvent>> getAllCharityEventsByCharityName(
+    //        @RequestParam String charityName,
+    //        Pageable pageable) {
+    //        log.debug("REST request to get all CharityEvents by charity name: {}", charityName);
+    //        Page<CharityEvent> page = charityEventRepository.findByCharityProfileNameContainingIgnoreCase(charityName, pageable);
+    //        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+    //        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    //    }
+
     @DeleteMapping("/charity-events/{id}")
     public ResponseEntity<Void> deleteCharityEvent(@PathVariable Long id) {
         log.debug("REST request to delete CharityEvent : {}", id);

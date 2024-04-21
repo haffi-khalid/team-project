@@ -15,8 +15,14 @@
       />
       <button class="primary" type="button" (click)="filterResults(searchText)" [ngStyle]="{ 'font-size.rem': fontSize }">Search</button>
     </div>
-    <div class="d-flex justify-content-start" *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')">
-      <button type="submit" data-cy="entityCreateSaveButton" class="btn btn-primary" (click)="openVolunteerTrackerDialog()">
+    <div class="d-flex justify-content-start">
+      <button
+        *ngIf="!accountService.hasAnyAuthority('ROLE_ADMIN')"
+        type="submit"
+        data-cy="entityCreateSaveButton"
+        class="btn btn-primary"
+        (click)="openVolunteerTrackerDialog()"
+      >
         Volunteer Tracker
       </button>
 
@@ -28,7 +34,7 @@
         *jhiHasAnyAuthority="'ROLE_ADMIN'"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span [ngStyle]="{ 'font-size.rem': fontSize }"> Create a new Vacancies </span>
+        <span> Create a new Vacancies </span>
       </button>
     </div>
   </h2>

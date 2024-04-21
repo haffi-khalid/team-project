@@ -37,4 +37,8 @@ public interface CharityEventRepository extends JpaRepository<CharityEvent, Long
 
     @Query("select charityEvent from CharityEvent charityEvent left join fetch charityEvent.charityProfile where charityEvent.id =:id")
     Optional<CharityEvent> findOneWithToOneRelationships(@Param("id") Long id);
+
+    /// just added page1
+    @Query("select ce from CharityEvent ce where lower(ce.charityProfile.charityName) like lower(concat('%', :charityName, '%'))")
+    Page<CharityEvent> findByCharityProfileNameContainingIgnoreCase(@Param("charityName") String charityName, Pageable pageable);
 }

@@ -1,10 +1,316 @@
+/*.banner-area {*/
+/*  background-image: url('content/images/events_banner_image.png');*/
+/*  background-repeat: no-repeat;*/
+/*  display: flex;*/
+/*  position: relative;*/
+/*  background-size: cover;*/
+/*  display: flex;*/
+/*  margin-bottom: 50px;*/
+/*}*/
+
+/*.page-heading {*/
+/*  margin-top: 150px;*/
+/*  margin-left: 25px;*/
+/*  width: 600px;*/
+/*  height: 50px;*/
+/*  color: white;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*.banner-img {*/
+/*  height: 300px;*/
+/*  width: 900px;*/
+/*  opacity: 0.9;*/
+/*}*/
+
+/*!* add event section *!*/
+/*.add-event-section {*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  justify-content: space-between;*/
+/*  margin-bottom: 50px;*/
+/*}*/
+
+/*.component1 {*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  justify-content: space-between;*/
+/*}*/
+
+/*!* event box section *!*/
+
+/*.event-box {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  border-radius: 12px;*/
+/*  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.25);*/
+/*  margin-bottom: 20px;*/
+/*  background-color: #9d7e5f;*/
+/*  transition: transform 0.3s ease;*/
+/*  overflow: hidden;*/
+/*  align-items: center;*/
+/*  width: 100%; !* Full width of the container *!*/
+/*  height: 600px; !* Fixed height for the event box *!*/
+/*}*/
+
+/*.event-image {*/
+/*  width: 100%; !* Full width of the container *!*/
+/*  height: 300px; !* Fixed height for the image *!*/
+/*  object-fit: cover; !* Ensures the image covers the area *!*/
+/*}*/
+
+/*.event-text-section {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  padding: 15px;*/
+/*  justify-content: space-between;*/
+/*  flex-grow: 1;*/
+/*  overflow: hidden; !* Hides content that overflows *!*/
+/*}*/
+
+/*.description {*/
+/*  text-size: small;*/
+/*  margin-bottom: 20px;*/
+/*  font-size: medium;*/
+/*  color: white;*/
+/*  overflow: hidden; !* Ensures text doesn't overflow *!*/
+/*  text-overflow: ellipsis; !* Adds an ellipsis to text that overflows *!*/
+/*  display: -webkit-box;*/
+/*  -webkit-line-clamp: 3; !* Number of lines allowed *!*/
+/*  -webkit-box-orient: vertical;*/
+/*  height: 72px; !* Adjust based on font size and line height *!*/
+/*}*/
+
+/*@media (max-width: 1200px) {*/
+/*  .row {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    justify-content: center; !* Centers the boxes when they are less than 3 in a row *!*/
+/*  }*/
+
+/*  .col-4 {*/
+/*    width: 45%; !* Slightly less than half the width to fit 2 per row with some space between *!*/
+/*    margin: 2.5%;*/
+/*  }*/
+/*  @media (max-width: 768px) {*/
+/*    .col-4 {*/
+/*      width: 90%; !* Full width for mobile view, with a little margin *!*/
+/*      margin: 5% auto; !* Centers the box in the viewport *!*/
+/*    }*/
+/*    .event-image{*/
+/*      height:300px;*/
+/*    }*/
+/*}*/
+
+/*.event-text-section {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+
+/*    !*padding-left: 10px;*!*/
+/*    !*padding-right: 15px;*!*/
+/*    padding: 15px;*/
+
+/*    height: 100%;*/
+
+/*  justify-content: space-between;*/
+/*  flex-grow: 1;*/
+/*  overflow: hidden;*/
+/*  }*/
+
+/*  .event-name {*/
+/*    display: flex;*/
+/*    align-content: center;*/
+/*    font-size: 24px;*/
+/*    color: white;*/
+/*    font-weight: 600;*/
+/*    margin-top: 1px;*/
+/*    justify-content: center;*/
+/*  }*/
+
+/*  .timings {*/
+/*    text-align: left;*/
+/*    font-weight: bold;*/
+/*    color: white;*/
+/*  }*/
+
+/*  .timings .duration {*/
+/*    font-size: 16px;*/
+/*    color: white; !* Adjust color as needed *!*/
+/*    display: block; !* This makes the duration appear on a new line *!*/
+/*    font-weight: bold;*/
+/*  }*/
+
+/*  .location {*/
+/*    font-size: 14px;*/
+/*    font-weight: 400;*/
+/*    color: rgba(0, 0, 0, 0.65);*/
+/*    cursor: pointer;*/
+/*    margin-bottom: 4px;*/
+/*  }*/
+
+/*  .location:hover {*/
+/*    color: blue;*/
+/*  }*/
+
+/*  .description {*/
+/*    text-size: small;*/
+/*    margin-bottom: 20px;*/
+/*    font-size: medium;*/
+/*    color: white;*/
+/*    height: 120px;*/
+/*    margin-bottom: 5px;*/
+/*    overflow: hidden;*/
+/*  }*/
+
+/*  .charity-name {*/
+/*    font-size: 14px;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*    margin-bottom: 0px;*/
+/*    font-color: white;*/
+/*    background-color: red;*/
+/*  }*/
+
+/*  .charity-name:hover {*/
+/*    color: blue;*/
+/*  }*/
+
+/*  .event-type {*/
+/*    font-size: 14px;*/
+/*    color: rgba(0, 0, 0, 0.65);*/
+/*    margin-top: 1px;*/
+/*  }*/
+
+/*  .add-event-section {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    margin-bottom: 50px;*/
+/*  }*/
+
+/*  .charityProfile {*/
+/*    color: black;*/
+/*    background-color: red;*/
+/*  }*/
+
+/*  !*.search-box {*!*/
+/*  !*  padding: 6px;*!*/
+/*  !*  border: none;*!*/
+/*  !*  font-size: 17px;*!*/
+/*  !*  border-radius: 8px;*!*/
+/*  !*}*!*/
+/*  .search-box-container {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*  }*/
+
+/*  .search-box-input {*/
+/*    padding: 8px 12px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 20px;*/
+/*    flex-grow: 1;*/
+/*    font-size: 16px;*/
+/*    margin-right: 8px;*/
+/*  }*/
+
+/*  .search-box-button {*/
+/*    background-color: #0073e6;*/
+/*    border: none;*/
+/*    border-radius: 20px;*/
+/*    color: white;*/
+/*    padding: 8px 12px;*/
+/*    cursor: pointer;*/
+/*  }*/
+
+/*  .search-box-button:hover {*/
+/*    background-color: #005aa7;*/
+/*  }*/
+
+/*  .search-box-button:focus {*/
+/*    outline: none;*/
+/*  }*/
+
+/*  .fa-icon {*/
+/*    font-size: 18px;*/
+/*  }*/
+
+/*  .Filter-event {*/
+/*    background-color: green;*/
+/*    height: 180px;*/
+/*  }*/
+
+/*  .component3 {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*  }*/
+
+/*  .filter-container {*/
+/*    margin-right: 10px; !* Add margin to create space between the input and the button *!*/
+/*  }*/
+
+/*  .filter-button {*/
+/*    background-color: #007bff; !* Set background color *!*/
+/*    color: #fff; !* Set text color *!*/
+/*    border: none; !* Remove border *!*/
+/*    padding: 8px 16px; !* Add padding *!*/
+/*    border-radius: 4px; !* Add border radius *!*/
+/*    cursor: pointer; !* Change cursor to pointer on hover *!*/
+/*  }*/
+
+/*  .filter-button:hover {*/
+/*    background-color: #0056b3; !* Change background color on hover *!*/
+/*  }*/
+
+/*  .modal-body {*/
+/*    background-color: #d2b48c;*/
+/*  }*/
+
+/*  .modal-header {*/
+/*    background-color: #9d7e5f;*/
+/*  }*/
+
+/*  .modal-footer {*/
+/*    background-color: #9d7e5f;*/
+/*  }*/
+
+/*  .eventModal {*/
+/*    justify-content: center;*/
+/*    display: flex;*/
+/*    align-content: center;*/
+/*    font-weight: bold;*/
+/*  }*/
+
+/*  .durationModal {*/
+/*    margin-left: 80px;*/
+/*  }*/
+
+/*  .charity-logo {*/
+/*    padding-top: 34px;*/
+/*  }*/
+
+/*  .mighty-filter {*/
+/*    border-radius: 10px;*/
+/*    height: 46px;*/
+/*  }*/
+
+/*}*/
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Background and heading */
 .banner-area {
   background-image: url('content/images/events_banner_image.png');
   background-repeat: no-repeat;
-  display: flex;
-  position: relative;
   background-size: cover;
   display: flex;
+  position: relative;
   margin-bottom: 50px;
 }
 
@@ -23,7 +329,7 @@
   opacity: 0.9;
 }
 
-/* add event section */
+/* Event section */
 .add-event-section {
   display: flex;
   flex-direction: row;
@@ -37,187 +343,126 @@
   justify-content: space-between;
 }
 
-/* event box section */
+/* Event box */
 .event-box {
-  width: 350px;
-  border-radius: 12px;
-  box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
-  margin-bottom: 50px;
-  background-color: #9d7e5f;
-}
-
-.event-text-section {
-  padding-left: 10px;
-  padding-right: 15px;
-  height: 200px;
-
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px; /* You can adjust this value to decrease the space */
-}
-
-.event-name {
   display: flex;
-  align-content: center;
-  font-size: 24px;
-  color: white;
-  font-weight: 600;
-  margin-top: 1px;
-  justify-content: center;
-}
-
-.timings {
-  text-align: left;
-  font-weight: bold;
-  color: white;
-}
-
-.timings .duration {
-  font-size: 16px;
-  color: white; /* Adjust color as needed */
-  display: block; /* This makes the duration appear on a new line */
-  font-weight: bold;
-}
-
-.location {
-  font-size: 14px;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.65);
-  cursor: pointer;
-  margin-bottom: 4px;
-}
-
-.location:hover {
-  color: blue;
-}
-
-.description {
-  text-size: small;
-  margin-bottom: 20px;
-  font-size: medium;
-  color: white;
-  height: 120px;
-  margin-bottom: 5px;
+  flex-direction: column;
+  border-radius: 12px;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.25);
+  background-color: #9d7e5f;
   overflow: hidden;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
 }
 
-.charity-name {
+/* Event image */
+.event-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+/* Event text */
+.event-text-section {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-name,
+.timings,
+.duration {
+  color: white;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 28px;
+}
+
+/* Description */
+.description {
+  color: white;
+  font-size: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  margin-bottom: 20px;
+}
+
+/* Charity name */
+.charity-logo {
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  margin-bottom: 0px;
-  font-color: white;
-  background-color: red;
+  color: white;
+  text-decoration: none;
+
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  align-content: center;
 }
+
 .charity-name:hover {
   color: blue;
 }
 
+/* Event type */
 .event-type {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.65);
   margin-top: 1px;
 }
-.add-event-section {
-  display: flex;
-  align-items: center;
-  margin-bottom: 50px;
-}
-.charityProfile {
-  color: black;
-  background-color: red;
-}
 
-/*.search-box {*/
-/*  padding: 6px;*/
-/*  border: none;*/
-/*  font-size: 17px;*/
-/*  border-radius: 8px;*/
-/*}*/
-
-.search-box-container {
-  display: flex;
-  align-items: center;
-}
-
-.search-box-input {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  flex-grow: 1;
-  font-size: 16px;
-  margin-right: 8px;
-}
-
-.search-box-button {
-  background-color: #0073e6;
-  border: none;
-  border-radius: 20px;
-  color: white;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.search-box-button:hover {
-  background-color: #005aa7;
-}
-
-.search-box-button:focus {
-  outline: none;
-}
-
-.fa-icon {
-  font-size: 18px;
-}
-
-.Filter-event {
+/* Filter section */
+.filter-event {
   background-color: green;
   height: 180px;
 }
 
-.component3 {
-  display: flex;
-  align-items: center;
+/* Media Queries */
+@media (max-width: 1200px) {
+  .col-4 {
+    width: calc(50% - 20px);
+    margin: 10px;
+  }
 }
 
-.filter-container {
-  margin-right: 10px; /* Add margin to create space between the input and the button */
+@media (max-width: 768px) {
+  .col-4 {
+    width: calc(100% - 20px);
+    margin: 10px auto;
+  }
+  .event-image {
+    height: 200px;
+  }
 }
 
-.filter-button {
-  background-color: #007bff; /* Set background color */
-  color: #fff; /* Set text color */
-  border: none; /* Remove border */
-  padding: 8px 16px; /* Add padding */
-  border-radius: 4px; /* Add border radius */
-  cursor: pointer; /* Change cursor to pointer on hover */
+/* Modal Styles */
+.modal-header,
+.modal-footer {
+  background-color: #9d7e5f;
+  color: white;
 }
-.filter-button:hover {
-  background-color: #0056b3; /* Change background color on hover */
-}
+
 .modal-body {
   background-color: #d2b48c;
 }
-.modal-header {
-  background-color: #9d7e5f;
+
+/* Utility classes for buttons */
+.btn-info,
+.btn-secondary,
+.btn-primary {
+  /* Button styling can go here */
 }
 
-.modal-footer {
-  background-color: #9d7e5f;
-}
-.eventModal {
-  justify-content: center;
-  display: flex;
-  align-content: center;
-  font-weight: bold;
-}
-.durationModal {
-  margin-left: 80px;
-}
-.charity-logo {
-  padding-top: 34px;
-}
-.mighty-filter {
-  border-radius: 10px;
-  height: 46px;
+.fa-icon {
+  /* FontAwesome icon styling */
 }
