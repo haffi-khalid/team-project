@@ -2,6 +2,7 @@ package team.bham.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -49,7 +50,7 @@ public class CharityHubUser implements Serializable {
     private String reviewComment;
 
     @Lob
-    @Column(name = "images")
+    @Column(name = "images", columnDefinition = "OID")
     private byte[] images;
 
     @Column(name = "images_content_type")
@@ -367,35 +368,35 @@ public class CharityHubUser implements Serializable {
         return (
             "CharityHubUser{" +
             "id=" +
-            id +
+            getId() +
             ", username='" +
-            username +
+            getUsername() +
             '\'' +
             ", email='" +
-            email +
+            getEmail() +
             '\'' +
             ", name='" +
-            name +
+            getName() +
             '\'' +
             ", volunteerHours=" +
-            volunteerHours +
+            getVolunteerHours() +
             ", userBio='" +
-            userBio +
+            getUserBio() +
             '\'' +
             ", reviewComment='" +
-            reviewComment +
+            getReviewComment() +
             '\'' +
             ", images='" +
             getImages() +
-            "'" +
+            '\'' +
             ", imagesContentType='" +
             getImagesContentType() +
-            "'" +
+            '\'' +
             ", course='" +
-            course +
+            getCourse() +
             '\'' +
             ", skills='" +
-            skills +
+            getSkills() +
             '\'' +
             '}'
         );
