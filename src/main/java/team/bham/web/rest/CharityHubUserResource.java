@@ -179,8 +179,8 @@ public class CharityHubUserResource {
     }
 
     @GetMapping("/user-login")
-    public ResponseEntity<User> getUseFromLogin() {
-        log.debug("REST request to get Charddddddddity Hub User From User");
+    public ResponseEntity<User> getUserFromLogin() {
+        log.debug("REST request to get User");
         Optional<User> isUser = userService.getUserWithAuthorities();
         //        final User user = isUser.get();
         //        Optional<CharityHubUser> charityHubUser = charityHubUserRepository.findCharityHubUserByUser(user.getId());
