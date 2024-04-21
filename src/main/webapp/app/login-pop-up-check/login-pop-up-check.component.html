@@ -47,7 +47,7 @@
   </ng-template>
 </div>
 
-<div *ngIf="trackerWithLogin && accountService.isAuthenticated()">
+<div class="mainBody" *ngIf="trackerWithLogin && accountService.isAuthenticated()">
   <div class="title">
     <span>{{ charityHubUser?.username }}'s Tracker</span>
     <div class="d-flex justify-content-end">
@@ -67,7 +67,7 @@
               <img src="content/images/firstBadge.png" alt="first badge" style="height: 100px" />
             </th>
             <th *ngIf="hourTracker == maxHoursOfVolunteering">
-              <img src="content/images/firstBadge.png" alt="first badge" style="height: 100px" />
+              <img src="content/images/firstBadge.png" alt="first badge" style="height: 100px; padding-left: 40px" />
             </th>
             <ng-template [ngIf]="maxHoursOfVolunteering">
               <ngb-progressbar
@@ -108,10 +108,10 @@
           </tr>
           <tr>
             <td *ngIf="noOfVacanciesApplied == maxNumberOfApplications">
-              <span>Well Done<br />You Are Ranked No.1<br />in Number of Vacancies Applied</span>
+              <span class="well-done-text">Well Done<br />You Are Ranked No.1<br />in Number of Vacancies Applied</span>
             </td>
-            <td *ngIf="hourTracker == maxHoursOfVolunteering" style="padding: 40px">
-              <span>Well Done<br />You Are Ranked No.1<br />in Number of Volunteering Hours</span>
+            <td *ngIf="hourTracker == maxHoursOfVolunteering" style="padding-left: 40px">
+              <span class="well-done-text">Well Done<br />You Are Ranked No.1<br />in Number of Volunteering Hours</span>
             </td>
           </tr>
         </tbody>
@@ -192,11 +192,14 @@
     <h3 style="text-align: center" *ngIf="recommendedVacancies && recommendedVacancies.length == 0">
       You have applied to all vacancy opportunities. Come Back Later!
     </h3>
-    <h3 style="padding-top: 20px; color: black" *ngIf="userVacancies && userVacancies.length > 0">
-      Based on you application, why not apply for>
+    <h3
+      style="padding-top: 20px; color: black"
+      *ngIf="userVacancies && userVacancies.length > 0 && recommendedVacancies && recommendedVacancies.length > 0"
+    >
+      Based on you application, why not apply for,
     </h3>
     <table class="live-tracker-table" aria-describedby="page-heading" *ngIf="recommendedVacancies != null">
-      <thead>
+      <thead style="border: 5px solid black">
         <tr>
           <th>
             <div>
@@ -220,7 +223,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let vacancies of recommendedVacancies">
-          <td style="text-align: center">
+          <td style="text-align: center; border: 5px solid black">
             <a *ngIf="vacancies.vacancyLogo" (click)="openFile(vacancies.vacancyLogo, vacancies.vacancyLogoContentType)">
               <img
                 [src]="'data:' + vacancies.vacancyLogoContentType + ';base64,' + vacancies.vacancyLogo"
@@ -234,19 +237,19 @@
               }}</a>
             </div>
           </td>
-          <td>
+          <td style="text-align: center; border: 5px solid black">
             <span style="font-weight: bold">Job: </span>{{ vacancies.vacancyTitle }}<br /><span style="font-weight: bold">Start Date: </span
             >{{ vacancies.vacancyStartDate | formatMediumDate }}<br /><span style="font-weight: bold">Location: </span
             >{{ vacancies.vacancyLocation }}<br /><span style="font-weight: bold">Duration: </span>{{ vacancies.vacancyDuration
             }}<span> Hours</span>
           </td>
-          <td>
+          <td style="border-bottom: 5px solid black">
             {{ vacancies.vacancyDescription }}
           </td>
-          <td>
+          <td style="border-bottom: 5px solid black">
             <div class="btn-group2">
               <button type="submit" class="btn btn-sm1" (click)="apply(vacancies)">
-                <span class="d-none d-md-inline">Apply Now</span>
+                <span class="d-md-inline">Apply Now</span>
               </button>
             </div>
           </td>
