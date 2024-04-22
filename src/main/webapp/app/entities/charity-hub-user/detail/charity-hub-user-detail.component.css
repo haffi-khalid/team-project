@@ -76,3 +76,32 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.badge-container {
+  width: 200px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Defines two columns of equal width */
+  grid-template-rows: 1fr 1fr; /* Defines two rows of equal height */
+  gap: 5px;
+}
+
+.grid-item {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.badge1 {
+  background-image: url('content/images/25 hours badge .png');
+}
+
+.badge2 {
+  background-image: url('content/images/50 hours BAdge.png');
+}
+.badge3 {
+  background-image: url('content/images/75 hours badge.png');
+}
+.badge4 {
+  background-image: url('content/images/100 hours badge.png');
+}
