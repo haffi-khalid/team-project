@@ -11,14 +11,13 @@ import {
 import { VolunteerApplicationsService } from '../entities/volunteer-applications/service/volunteer-applications.service';
 import { CharityAdminService } from '../entities/charity-admin/service/charity-admin.service';
 import { CharityHubUserService } from '../entities/charity-hub-user/service/charity-hub-user.service';
-import { EntityArrayResponseType, VacanciesService } from '../entities/vacancies/service/vacancies.service';
-import { ActivatedRoute, Data, ParamMap } from '@angular/router';
+import { VacanciesService } from '../entities/vacancies/service/vacancies.service';
+import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../core/auth/account.service';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { finalize, map } from 'rxjs/operators';
 import { DataUtils } from '../core/util/data-util.service';
-import { ASC, DEFAULT_SORT_DATA, SORT } from '../config/navigation.constants';
 import { LoginPopUpCheckComponent } from '../login-pop-up-check/login-pop-up-check.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -79,6 +78,7 @@ export class NewApplicationsComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const volunteerApplications = this.volunteerApplicationsFormService.getVolunteerApplications(this.editForm);
+    volunteerApplications.volunteerStatus = ApplicationCategory.PENDING;
     if (volunteerApplications.id !== null) {
       this.subscribeToSaveResponse(this.volunteerApplicationsService.update(volunteerApplications));
     } else {
