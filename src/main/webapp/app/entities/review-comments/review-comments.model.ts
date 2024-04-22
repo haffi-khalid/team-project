@@ -10,6 +10,7 @@ export interface IReviewComments {
   status?: string | null;
   charityHubUser?: Pick<ICharityHubUser, 'id' | 'username'> | null;
   charityProfile?: Pick<ICharityProfile, 'id'> | null;
+  login?: string | null; // Added login property
 }
 
 export type NewReviewComments = Omit<IReviewComments, 'id'> & { id: null };

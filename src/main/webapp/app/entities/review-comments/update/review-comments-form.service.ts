@@ -37,6 +37,7 @@ type ReviewCommentsFormGroupContent = {
   status: FormControl<ReviewCommentsFormRawValue['status']>;
   charityHubUser: FormControl<ReviewCommentsFormRawValue['charityHubUser']>;
   charityProfile: FormControl<ReviewCommentsFormRawValue['charityProfile']>;
+  login: FormControl<ReviewCommentsFormRawValue['login']>;
 };
 
 export type ReviewCommentsFormGroup = FormGroup<ReviewCommentsFormGroupContent>;
@@ -62,6 +63,7 @@ export class ReviewCommentsFormService {
       status: new FormControl(reviewCommentsRawValue.status),
       charityHubUser: new FormControl(reviewCommentsRawValue.charityHubUser),
       charityProfile: new FormControl(reviewCommentsRawValue.charityProfile),
+      login: new FormControl(reviewCommentsRawValue.login),
     });
   }
 
