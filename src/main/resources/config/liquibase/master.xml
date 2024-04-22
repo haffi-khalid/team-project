@@ -53,6 +53,8 @@
     <include file="config/liquibase/changelog/20240419_add_image_to_charityhubuser.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240419_added_name_attribute_to_CharityHubUser.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20240421_fix_column_image_type.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240422_added_username_column_to_ReviewComments.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>
 
 

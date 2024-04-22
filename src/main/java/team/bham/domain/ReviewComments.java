@@ -50,6 +50,10 @@ public class ReviewComments implements Serializable {
     @JsonIgnoreProperties(value = { "socialFeed", "reviewComments", "donatorPages", "vacancies", "charityEvents" }, allowSetters = true)
     private CharityProfile charityProfile;
 
+    // New field for login
+    @Column(name = "login")
+    private String login;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -143,6 +147,19 @@ public class ReviewComments implements Serializable {
         return this;
     }
 
+    public String getLogin() {
+        return this.login;
+    }
+
+    public ReviewComments login(String login) {
+        this.setLogin(login);
+        return this;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -171,6 +188,7 @@ public class ReviewComments implements Serializable {
             ", content='" + getContent() + "'" +
             ", timestamp='" + getTimestamp() + "'" +
             ", status='" + getStatus() + "'" +
+            ", login='" + getLogin() + "'" +
             "}";
     }
 }

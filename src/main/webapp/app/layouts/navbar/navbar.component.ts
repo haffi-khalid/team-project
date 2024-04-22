@@ -7,6 +7,10 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
+import { UserService } from '../../entities/user/user.service';
+import { CharityHubUserService } from '../../entities/charity-hub-user/service/charity-hub-user.service';
+import { HttpResponse } from '@angular/common/http';
+import { ICharityHubUser } from '../../entities/charity-hub-user/charity-hub-user.model';
 
 @Component({
   selector: 'jhi-navbar',
@@ -20,12 +24,14 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
+  user?: ICharityHubUser | null;
 
   constructor(
     private loginService: LoginService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    protected charityHubUserService: CharityHubUserService
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -48,6 +54,16 @@ export class NavbarComponent implements OnInit {
     this.isNavbarCollapsed = true;
   }
 
+  navigateToCharityHubUserPage(): void {
+    this.charityHubUserService.findByUser().subscribe((res: HttpResponse<ICharityHubUser>) => (this.user = res.body));
+    if (this.account) {
+      this.router.navigate([`/charity-hub-user/${this.user?.id}/view`]);
+    } else {
+      // Optionally handle the error case
+      console.error('No account ID found for navigation');
+    }
+  }
+
   login(): void {
     this.router.navigate(['/login']);
   }
@@ -61,4 +77,6 @@ export class NavbarComponent implements OnInit {
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
+
+  protected readonly UserService = UserService;
 }

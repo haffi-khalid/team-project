@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import team.bham.domain.ReviewComments;
 import team.bham.repository.ReviewCommentsRepository;
+import team.bham.security.SecurityUtils;
 import team.bham.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -45,12 +46,35 @@ public class ReviewCommentsResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new reviewComments, or with status {@code 400 (Bad Request)} if the reviewComments has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    //    @PostMapping("/review-comments")
+    //    public ResponseEntity<ReviewComments> createReviewComments(@RequestBody ReviewComments reviewComments) throws URISyntaxException {
+    //        log.debug("REST request to save ReviewComments : {}", reviewComments);
+    //        if (reviewComments.getId() != null) {
+    //            throw new BadRequestAlertException("A new reviewComments cannot already have an ID", ENTITY_NAME, "idexists");
+    //        }
+    //        ReviewComments result = reviewCommentsRepository.save(reviewComments);
+    //        return ResponseEntity
+    //            .created(new URI("/api/review-comments/" + result.getId()))
+    //            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+    //            .body(result);
+    //    }
+
     @PostMapping("/review-comments")
     public ResponseEntity<ReviewComments> createReviewComments(@RequestBody ReviewComments reviewComments) throws URISyntaxException {
         log.debug("REST request to save ReviewComments : {}", reviewComments);
+
         if (reviewComments.getId() != null) {
             throw new BadRequestAlertException("A new reviewComments cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        // Retrieve the login of the currently logged-in user.
+        String currentUserLogin = SecurityUtils
+            .getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", ENTITY_NAME, "userloginnotfound"));
+
+        // Set the user login to the reviewComments.
+        reviewComments.setLogin(currentUserLogin);
+
         ReviewComments result = reviewCommentsRepository.save(reviewComments);
         return ResponseEntity
             .created(new URI("/api/review-comments/" + result.getId()))

@@ -21,6 +21,34 @@ public final class SecurityUtils {
      *
      * @return the login of the current user.
      */
+
+    public static Optional<Long> getCurrentUserId() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return Optional
+            .ofNullable(securityContext.getAuthentication())
+            .map(authentication -> {
+                if (authentication.getPrincipal() instanceof UserDetails) {
+                    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                    // Assuming the username can be converted directly to a Long
+                    try {
+                        return Long.parseLong(userDetails.getUsername());
+                    } catch (NumberFormatException e) {
+                        // Handle the case where the username isn't a Long
+                        return null;
+                    }
+                } else if (authentication.getPrincipal() instanceof String) {
+                    try {
+                        // Again, assuming the principal can be converted directly to a Long
+                        return Long.parseLong((String) authentication.getPrincipal());
+                    } catch (NumberFormatException e) {
+                        // Handle the case where the principal isn't a Long
+                        return null;
+                    }
+                }
+                return null;
+            });
+    }
+
     public static Optional<String> getCurrentUserLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         return Optional.ofNullable(extractPrincipal(securityContext.getAuthentication()));
