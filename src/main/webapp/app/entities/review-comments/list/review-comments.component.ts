@@ -1,6 +1,6 @@
 import { ReviewCommentsService } from '../service/review-comments.service';
 import { IReviewComments, NewReviewComments } from '../review-comments.model';
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'app-review-comments',
@@ -8,6 +8,7 @@ import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
   styleUrls: ['./review-comments.component.scss'],
 })
 export class ReviewCommentsComponent implements OnInit {
+  @Input() charityProfileId!: any;
   comments: IReviewComments[] = [];
   newComment: string = '';
   newReply: { [key: number]: string } = {};
@@ -95,6 +96,7 @@ export class ReviewCommentsComponent implements OnInit {
       id: null,
       content: this.newComment,
       parentID: null,
+      charityProfile: this.charityProfileId ? { id: this.charityProfileId } : null,
       // Add other required properties, set to their default values
     };
 
@@ -111,6 +113,7 @@ export class ReviewCommentsComponent implements OnInit {
       id: null,
       content: replyContent,
       parentID: parentCommentId,
+      charityProfile: this.charityProfileId ? { id: this.charityProfileId } : null,
       // Add other required properties, set to their default values
     };
 
