@@ -16,4 +16,7 @@ import team.bham.domain.CharityHubUser;
 public interface CharityHubUserRepository extends JpaRepository<CharityHubUser, Long> {
     @Query("select charityHubUser from CharityHubUser charityHubUser where charityHubUser.user.id=:id")
     Optional<CharityHubUser> findCharityHubUserByUser(@Param("id") Long id);
+
+    @Query("select charityHubUser from CharityHubUser charityHubUser where charityHubUser.username = ?#{authentication.name}")
+    List<CharityHubUser> findByUserIsCurrentUser();
 }
