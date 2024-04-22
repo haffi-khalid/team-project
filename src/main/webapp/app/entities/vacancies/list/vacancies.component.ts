@@ -102,18 +102,18 @@ export class VacanciesComponent implements OnInit {
       }
     }
   }
-  fontScaleIncrease() {
-    this.fontSize += 0.5;
-    this.tableMargin += 3;
-    this.filterWidth += 4;
-    this.filterHeight += 4;
-  }
-  fontScaleDecrease() {
-    this.fontSize -= 0.5;
-    this.tableMargin -= 3;
-    this.filterWidth -= 4;
-    this.filterHeight -= 4;
-  }
+  // fontScaleIncrease() {
+  //   this.fontSize += 0.5;
+  //   this.tableMargin += 3;
+  //   this.filterWidth += 4;
+  //   this.filterHeight += 4;
+  // }
+  // fontScaleDecrease() {
+  //   this.fontSize -= 0.5;
+  //   this.tableMargin -= 3;
+  //   this.filterWidth -= 4;
+  //   this.filterHeight -= 4;
+  // }
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
   }

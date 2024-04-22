@@ -12,6 +12,7 @@
         placeholder="Filter by Society"
         [(ngModel)]="searchText"
         (ngModelChange)="cleanFilterVariables(searchText)"
+        (keydown.enter)="filterResults(searchText)"
       />
       <button class="primary" type="button" (click)="filterResults(searchText)" [ngStyle]="{ 'font-size.rem': fontSize }">Search</button>
     </div>

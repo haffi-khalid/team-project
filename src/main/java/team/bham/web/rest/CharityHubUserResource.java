@@ -166,7 +166,7 @@ public class CharityHubUserResource {
     @GetMapping("/charity-hub-users")
     public List<CharityHubUser> getAllCharityHubUsers() {
         log.debug("REST request to get all CharityHubUsers");
-        return charityHubUserRepository.findAll();
+        return charityHubUserRepository.findByUserIsCurrentUser();
     }
 
     @GetMapping("/charity-hub-user")
