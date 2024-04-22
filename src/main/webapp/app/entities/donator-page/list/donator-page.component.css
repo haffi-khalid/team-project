@@ -343,6 +343,23 @@
 }
 
 @media (max-width: 1000px) {
+  .banner-text-section {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .banner-heading {
+    width: 90%;
+    font-size: 26px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .donate-description,
+  .charity-item {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
   /* Adjust the breakpoint as needed */
   .section-2 {
     flex-direction: column; /* Stack items vertically */
@@ -360,18 +377,30 @@
     margin-right: auto;
   }
 
+  .section-2-headings {
+    font-size: 20px;
+    width: 210px;
+    margin-bottom: 0px;
+  }
+
   .live-tracker-header .btn {
     font-size: 14px; /* Adjust the font size for the refresh list button */
     padding: 8px 12px; /* Adjust padding for the refresh list button */
   }
 
   .live-tracker-header .header-heading {
-    font-size: 26px; /* Adjust the font size for smaller screens */
+    font-size: 20px; /* Adjust the font size for smaller screens */
   }
 
   .text {
-    font-size: 15px; /* Adjust the font size for the text within the articles */
+    font-size: 14px; /* Adjust the font size for the text within the articles */
     text-align: justify;
+    margin-top: 0px;
+    height: fit-content;
+  }
+
+  .text-btn-gap {
+    margin: 0;
   }
 
   .group-donator-section {
@@ -406,7 +435,8 @@
   .text-section-2,
   .text-section-3 {
     width: 80%; /* Adjust width of the text container */
-    margin-top: 20px; /* Add margin between articles */
+    margin-top: 20px;
+    /* Add margin between articles */
   }
 
   .words,
@@ -428,6 +458,10 @@
     line-height: 1.5;
     text-align: justify;
     margin-bottom: 10px;
+    width: 100%;
+  }
+  .section-3-heading {
+    font-size: 25px;
   }
 }
 
