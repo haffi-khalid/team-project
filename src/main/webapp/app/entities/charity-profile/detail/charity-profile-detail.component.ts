@@ -7,8 +7,8 @@ import { CharityProfileService } from '../service/charity-profile.service';
 import { EntityArrayResponseType, VolunteerApplicationsService } from '../../volunteer-applications/service/volunteer-applications.service';
 import { IVolunteerApplications } from '../../volunteer-applications/volunteer-applications.model';
 import { SortService } from '../../../shared/sort/sort.service';
-import { ICharityEvent } from '../../charity-event/charity-event.model';
 import { CharityEventService } from '../../charity-event/service/charity-event.service';
+import { ICharityEvent } from 'app/entities/charity-event/charity-event.model';
 
 @Component({
   selector: 'jhi-charity-profile-detail',
@@ -23,6 +23,7 @@ export class CharityProfileDetailComponent implements OnInit {
   ascending = true;
   acceptedCount: number = 0;
   charityEvents?: ICharityEvent[] | null;
+  charityEvent: ICharityEvent | null = null;
   constructor(
     protected dataUtils: DataUtils,
     protected sortService: SortService,
@@ -40,6 +41,11 @@ export class CharityProfileDetailComponent implements OnInit {
       }
     });
     this.volunteerApplicationCollect();
+    this.activatedRoute.data.subscribe(({ charityEvent }) => {
+      this.charityEvent = charityEvent;
+    });
+    console.log('Charity Event:', this.charityProfile?.charityEvent);
+    console.log('Content Type:', this.charityProfile?.charityEvent?.imagesContentType);
   }
   volunteerApplicationCollect() {
     if (this.charityProfile?.id) {
@@ -55,6 +61,10 @@ export class CharityProfileDetailComponent implements OnInit {
 
   protected fillComponentAttributesFromResponseBody(data: IVolunteerApplications[] | null): IVolunteerApplications[] {
     return data ?? [];
+  }
+
+  handleImageError(event: any) {
+    console.error('Image failed to load:', event);
   }
 
   protected onResponseSuccess(response: EntityArrayResponseType): void {

@@ -168,40 +168,43 @@
             {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}<a> hr</a></span>
           </div>
           <div class="description">{{ charityEvent.description }}</div>
+          <div class="charity-logo" *ngIf="charityEvent.charityProfile">
+            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>
+          </div>
+        </div>
 
-          <!---->
-          <div class="text-end">
-            <div class="charity-logo" *ngIf="charityEvent.charityProfile">
-              <img
-                [src]="'data:' + charityEvent.charityProfile.logoContentType + ';base64,' + charityEvent.charityProfile.logo"
-                alt="Charity Logo"
-                class="charity-logo2"
-              />
-            </div>
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/charity-event', charityEvent.id, 'edit']"
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-                (click)="stopPropagation($event)"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                Edit
-              </button>
+        <!---->
+        <div class="text-end">
+          <div class="charity-logo" *ngIf="charityEvent.charityProfile">
+            <img
+              [src]="'data:' + charityEvent.charityProfile.logoContentType + ';base64,' + charityEvent.charityProfile.logo"
+              alt="Charity Logo"
+              class="charity-logo2"
+            />
+          </div>
+          <div class="btn-group">
+            <button
+              type="submit"
+              [routerLink]="['/charity-event', charityEvent.id, 'edit']"
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              class="btn btn-primary btn-sm"
+              data-cy="entityEditButton"
+              (click)="stopPropagation($event)"
+            >
+              <fa-icon icon="pencil-alt"></fa-icon>
+              Edit
+            </button>
 
-              <button
-                type="submit"
-                (click)="delete(charityEvent); stopPropagation($event)"
-                class="btn btn-danger btn-sm"
-                data-cy="entityDeleteButton"
-                *jhiHasAnyAuthority="'ROLE_ADMIN'"
-              >
-                <fa-icon icon="times"></fa-icon>
-                Delete
-              </button>
-            </div>
+            <button
+              type="submit"
+              (click)="delete(charityEvent); stopPropagation($event)"
+              class="btn btn-danger btn-sm"
+              data-cy="entityDeleteButton"
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+            >
+              <fa-icon icon="times"></fa-icon>
+              Delete
+            </button>
           </div>
         </div>
       </div>
