@@ -19,7 +19,7 @@
         <strong>Date & Time:</strong> {{ selectedEvent.eventTimeDate }}
         <span class="durationModal"> DURATION:{{ selectedEvent.duration }}</span>
       </p>
-      <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>
+      <p class="description-modal"><strong>Descritption: </strong> {{ selectedEvent.description }}</p>
       <div class="charity-logo-Modal" *ngIf="selectedEvent.charityProfile">
         <a [routerLink]="['/charity-profile', selectedEvent.charityProfile.id, 'view']" (click)="stopPropagation($event)">{{
           selectedEvent.charityProfile.charityName
@@ -127,20 +127,22 @@
     </div>
   </h2>
 
-  Charity Logo Filter Section
   <!-- Charity Logo Filter Section -->
+
   <div class="logo-filter-container" *ngIf="uniqueCharityProfiles.length > 0">
+    <h3 class="logo-filter-heading">Explore the Events By Your Favourite Charity</h3>
+
     <div *ngFor="let charityProfile of uniqueCharityProfiles">
       <img
         [src]="'data:' + charityProfile.logoContentType + ';base64,' + charityProfile.logo"
-        alt="Charity Logo"
+        alt="{{ charityProfile.charityName }}"
         class="charity-logo2"
         (click)="onCharityLogoClick($event, charityProfile.id)"
       />
+
+      <span class="charity-profile-name">{{ charityProfile.charityName }}</span>
     </div>
   </div>
-
-  <!-- ... (rest of your template) ... -->
 
   <jhi-alert-error></jhi-alert-error>
 
@@ -166,18 +168,16 @@
             {{ charityEvent.eventTimeDate }} <span class="duration"><a>Duration:</a>{{ charityEvent.duration }}<a> hr</a></span>
           </div>
           <div class="description">{{ charityEvent.description }}</div>
-          <div class="charity-logo" *ngIf="charityEvent.charityProfile">
-            <!--            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }} </a>-->
-            <!--            <img [src]="charityEvent.charityProfile?.logo" alt="Charity Logo" *ngIf="charityEvent.charityProfile" />-->
 
-            <img
-              [src]="'data:' + charityEvent.charityProfile.logoContentType + ';base64,' + charityEvent.charityProfile.logo"
-              alt="Charity Logo"
-              class="charity-logo2"
-            />
-          </div>
-
+          <!---->
           <div class="text-end">
+            <div class="charity-logo" *ngIf="charityEvent.charityProfile">
+              <img
+                [src]="'data:' + charityEvent.charityProfile.logoContentType + ';base64,' + charityEvent.charityProfile.logo"
+                alt="Charity Logo"
+                class="charity-logo2"
+              />
+            </div>
             <div class="btn-group">
               <button
                 type="submit"

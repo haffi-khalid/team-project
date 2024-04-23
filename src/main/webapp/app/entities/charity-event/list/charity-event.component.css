@@ -78,7 +78,7 @@ body {
 /* Event image */
 .event-image {
   width: 100%;
-  height: 350px;
+  height: 250px;
   object-fit: cover;
 }
 
@@ -89,6 +89,19 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+
+  font-size: 20px;
+}
+
+.duration::after {
+  content: '';
+  display: block;
+  height: 1px; /* Height of the line */
+  width: 100%; /* Full width of the line relative to its container */
+  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white line */
+  margin-top: 15px; /* Space above the line */
+  margin-bottom: 15px; /* Space below the line */
 }
 
 .event-name,
@@ -107,7 +120,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   margin-bottom: 20px;
 }
@@ -177,21 +190,74 @@ body {
 .modal-footer {
   background-color: #9d7e5f;
   color: white;
+  border-bottom: 1px solid #ddd;
+  padding: 16px 24px;
 }
 
 .modal-body {
-  background-color: #d2b48c;
+  background-color: #d2b48c; /* Same as event box body */
+  color: Black; /* If you want the text color to be white */
+  border-bottom-left-radius: 12px; /* Match the border-radius of event box */
+  border-bottom-right-radius: 12px;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.25); /* Same shadow as event box */
+  padding: 15px; /* Same padding as event box content */
+  align-items: center; /* Center the content if using flexbox */
+  display: flex; /* If you want to use flexbox as in event box */
+  flex-direction: column; /* Same as event box */
 }
 
-/* Utility classes for buttons */
-.btn-info,
-.btn-secondary,
-.btn-primary {
-  /* Button styling can go here */
+.modal-body .event-image {
+  width: 100%; /* Full width */
+  height: 320px; /* Adjust height to maintain aspect ratio */
+  border-radius: 12px; /* Match the border-radius of event box image */
+  margin-bottom: 20px; /* Space below the image */
+}
+.modal-body .eventModal {
+  font-size: 28px; /* Same as event box title */
+  text-align: center; /* Center the title */
+  margin: 10px 0; /* Space above and below the title */
 }
 
-.fa-icon {
-  /* FontAwesome icon styling */
+.modal-body p {
+  text-align: center; /* Centers the text within the paragraph */
+  margin: 10px 0; /* Provides space above and below */
+  font-weight: bold;
+}
+
+.modal-body .description-modal {
+  font-size: 20px; /* Same as event box description */
+  margin-bottom: 20px; /* Space below the description */
+}
+
+.modal-body .charity-logo-Modal {
+  font-size: 14px; /* Same as event box */
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px; /* Space above the charity name */
+  margin-bottom: 2px; /* Space below the charity name */
+  text-align: center; /* Center the charity name */
+}
+
+/* Modal Description Line */
+.durationModal::after {
+  content: '';
+  display: block;
+  height: 1px; /* Height of the line */
+  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white line */
+  margin-top: 15px; /* Space above the line */
+  margin-bottom: 15px; /* Space below the line */
+}
+
+.btn-close {
+  color: #fff;
+  opacity: 1;
+}
+.btn-close:hover {
+  opacity: 0.8;
+}
+.modal-title {
+  font-weight: bold;
+  font-size: 1.5rem; /* Larger title font */
 }
 
 .searchbar {
@@ -200,6 +266,7 @@ body {
   padding: 6px;
   border: 10px solid #ffffff;
   font-size: 20px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .primary {
@@ -211,13 +278,41 @@ body {
   width: 200px;
   padding: 6px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*media for searchbar*/
+@media (max-width: 1000px) {
+  .searchbar,
+  .primary {
+    width: 150px; /* Smaller width for search input and button */
+    font-size: 16px; /* Smaller font size */
+    padding: 4px; /* Smaller padding */
+    border: 8px solid #ffffff; /* Thinner border */
+  }
 }
 
-.input-group {
-  border: 1px solid black; /* Default border */
-  width: 100%;
-  display: flex;
+@media (max-width: 768px) {
+  /* Adjustments for mobile screens */
+  .searchbar,
+  .primary {
+    width: 100%; /* Full width for search input and button */
+    font-size: 14px; /* Even smaller font size */
+    padding: 4px; /* Consistent padding */
+    border-radius: 50px 0 0 50px; /* Adjusted border-radius for a more rounded look on mobile */
+  }
+
+  .input-group {
+    border: 1px solid black; /* Default border */
+    width: 100%;
+    display: flex;
+  }
+  .primary {
+    border-radius: 0 50px 50px 0; /* Corresponding adjustment for the button */
+  }
 }
+
+/**/
 
 .input-group:focus {
   outline: 2px solid black; /* Outline when focused */
@@ -243,18 +338,59 @@ body {
   gap: 10px; /* Adjust the gap to your preference */
   justify-content: center; /* Center the logos if there is extra space */
   align-items: center; /* Align logos vertically */
+
+  /*add the background tranparency*/
+  background-color: rgba(255, 255, 255, 0.5); /* White background with transparency */
+  border-radius: 15px; /* Rounded corners for the container */
+  padding: 20px; /* Some padding around the logos */
+  margin: 20px 0; /* Add some margin around the entire container */
+}
+.logo-filter-heading {
+  text-align: center; /* Center the text */
+  font-size: 1.5em; /* Increase the font size */
+  color: #333; /* Dark color for the text */
+  width: 100%; /* Full width */
+  margin-bottom: 10px; /* Space below the heading */
 }
 
 .charity-logo2 {
+  border-radius: 50%;
+  /*margin-left: 40px;*/
+  /*margin-right: 40px;*/
+  /*margin-bottom: 40px;*/
+  /*margin-top: 20px;*/
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  /* Additional styles if needed */
+  margin: 0 20px;
 }
 
 .charity-logo2:hover {
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  transform: scale(1.1); /* Slightly enlarge logos on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .charity-logo2.active-filter {
-  border: 2px solid #007bff; /* Example style to indicate active filter */
+  border: 2px solid #007bff;
+}
+
+.charity-profile-name {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #333;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-control {
+  background-color: white;
 }

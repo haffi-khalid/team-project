@@ -38,7 +38,6 @@ export class CharityEventComponent implements OnInit {
 
   charityNameSelector: string = '';
 
-  selectedDateTime: string = '';
   selectedFilter: string = 'dateTime';
   ////pop up for event-box
   //  selectedEvent property to store the selected event
@@ -84,14 +83,6 @@ export class CharityEventComponent implements OnInit {
     // this.filteredEvents = this.charityEvents;
   }
 
-  byteSize(base64String: string): string {
-    return this.dataUtils.byteSize(base64String);
-  }
-
-  openFile(base64String: string, contentType: string | null | undefined): void {
-    return this.dataUtils.openFile(base64String, contentType);
-  }
-
   delete(charityEvent: ICharityEvent): void {
     const modalRef = this.modalService.open(CharityEventDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.charityEvent = charityEvent;
@@ -108,25 +99,12 @@ export class CharityEventComponent implements OnInit {
       });
   }
 
-  // load(): void {
-  //   this.loadFromBackendWithRouteInformations().subscribe({
-  //     next: (res: EntityArrayResponseType) => {
-  //       this.onResponseSuccess(res);
-  //       this.filteredEvents = this.charityEvents;
-  //     },
-  //   });
-  // }
-
   load(): void {
     this.charityEventService.query().subscribe((response: HttpResponse<ICharityEvent[]>) => {
       this.charityEvents = response.body ?? [];
       this.filteredEvents = [...this.charityEvents];
       this.updateUniqueCharityProfiles();
     });
-  }
-
-  navigateToWithComponentValues(): void {
-    this.handleNavigation(this.predicate, this.ascending);
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
@@ -322,12 +300,6 @@ export class CharityEventComponent implements OnInit {
     }
   }
 
-  handleEdit(event: MouseEvent, charityEvent: ICharityEvent): void {
-    event.stopPropagation(); // This should prevent the modal from opening.
-    console.log('Edit button clicked, propagation stopped');
-    this.router.navigate(['/charity-event', charityEvent.id, 'edit']);
-  }
-
   @HostListener('click', ['$event'])
   handleClick(event: MouseEvent): void {
     const targetElement = event.target as HTMLElement;
@@ -353,31 +325,11 @@ export class CharityEventComponent implements OnInit {
 
   // Method to check if logo is already displayed
 
-  isLogoDisplayed(charityProfileId: number | undefined): boolean {
-    return charityProfileId ? this.displayedLogos.has(charityProfileId) : false;
-  }
-
-  // Method to mark logo as displayed
-  markLogoAsDisplayed(charityProfileId: number | undefined): void {
-    if (charityProfileId) {
-      this.displayedLogos.add(charityProfileId);
-    }
-  }
-
-  // Method to remove filters
-  clearFilter(): void {
-    this.activeCharityProfileId = null;
-    this.displayedLogos.clear();
-    this.filteredEvents = [...this.charityEvents]; // Reset to the full list
-  }
-
   onCharityLogoClick(event: MouseEvent, charityProfileId?: number): void {
     if (charityProfileId != null) {
       this.filterEventsByCharity(event, charityProfileId);
     }
   }
-
-  ////
 
   updateUniqueCharityProfiles(): void {
     const charityProfilesMap = new Map<number, ICharityProfile>();
