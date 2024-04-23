@@ -25,15 +25,13 @@ export class ReviewCommentsComponent implements OnInit {
   }
 
   fetchComments(): void {
-    this.reviewCommentsService.query().subscribe((comments: IReviewComments[]) => {
-      this.comments = comments;
-      // Initialize the showReply states
-      comments.forEach(comment => {
+    this.reviewCommentsService.query().subscribe((allComments: IReviewComments[]) => {
+      this.comments = allComments.filter(comment => comment.charityProfile?.id === this.charityProfileId);
+      this.comments.forEach(comment => {
         this.showReply[comment.id] = false;
       });
     });
   }
-
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     let focusableComments: NodeListOf<HTMLElement> = document.querySelectorAll('.comment-entry:not(.reply-entry)');

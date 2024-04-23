@@ -49,9 +49,10 @@ button:focus {
 }
 
 .user-info {
-  .user-id {
-    font-weight: 600;
-    color: #333;
+  .user-name {
+    font-weight: bold; // Make the font bold
+    font-size: 16px; // Increase the font size
+    color: #333; // Assuming you keep the same color
   }
 
   .comment-content {
