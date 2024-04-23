@@ -64,7 +64,7 @@
     <img src="/../../../content/images/download (13).jpeg" alt="Photo 2" class="photo" />
     <img src="/../../../content/images/download (12).jpeg" alt="Photo 3" class="photo" />
   </div>
-  <button type="button" class="btn btn-lg btn-outline" style="color: var(--text-color); border: none" routerLink="/charity-event">
+  <button type="button" class="btn btn-lg btn-outline" style="color: #3b2f1f; border: none" routerLink="/charity-event">
     <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See events...
   </button>
 </div>
@@ -72,7 +72,7 @@
 <div class="container3">
   <h3 class="section-title" style="text-align: center">Help us to meet our goal!</h3>
 
-  <div class="aim" style="margin-top: 20px; color: var(--text-color)">
+  <div class="aim" style="margin-top: 20px; color: #3b2f1f">
     <p>Our aim: {{ charityProfile?.aim }}</p>
   </div>
 
@@ -84,7 +84,7 @@
       <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; Volunteer
     </button>
   </div>
-  <app-review-comments [charityProfileId]="charityProfileId"></app-review-comments>
+  <app-review-comments [charityProfileId]="charityProfileId"> </app-review-comments>
 </div>
 
 <div class="container4" *jhiHasAnyAuthority="'ROLE_ADMIN'">
@@ -92,8 +92,8 @@
   <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
-        <th style="color: var(--text-color)">User ID</th>
-        <th style="color: var(--text-color)">Status</th>
+        <th>User ID</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
@@ -103,8 +103,7 @@
             {{ app.id }}
           </a>
         </td>
-        <td style="color: var(--text-color)">{{ app.volunteerStatus }}</td>
-        <td style="color: var(--text-color)">{{ app.volunteerStatus }}</td>
+        <td>{{ app.volunteerStatus }}</td>
       </tr>
     </tbody>
   </table>
