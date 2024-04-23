@@ -19,8 +19,17 @@
       </div>
       <div class="comment-actions">
         <button (click)="toggleReply(comment.id)" class="reply-button" tabindex="0">Reply</button>
-        <button (click)="deleteComment(comment.id)" class="delete-button" tabindex="0">Delete</button>
-        <button *ngIf="editCommentId !== comment.id" (click)="toggleEdit(comment.id)" class="edit-button" tabindex="0">Edit</button>
+        <button (click)="deleteComment(comment.id)" class="delete-button" tabindex="0" *ngIf="comment.login === account?.login">
+          Delete
+        </button>
+        <button
+          *ngIf="editCommentId !== comment.id && comment.login === account?.login"
+          (click)="toggleEdit(comment.id)"
+          class="edit-button"
+          tabindex="0"
+        >
+          Edit
+        </button>
       </div>
       <div *ngIf="showReply[comment.id]" class="reply-input-section">
         <input

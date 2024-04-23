@@ -1,6 +1,11 @@
 import { ReviewCommentsService } from '../service/review-comments.service';
 import { IReviewComments, NewReviewComments } from '../review-comments.model';
 import { Component, OnInit, HostListener, ElementRef, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/auth/account.model';
 
 @Component({
   selector: 'app-review-comments',
@@ -17,11 +22,30 @@ export class ReviewCommentsComponent implements OnInit {
   editCommentContent: { [key: number]: string } = {};
   currentFocus: HTMLElement | null = null;
   navigatingActions: boolean = false; // New property to track if the user is navigating the comment actions
-
-  constructor(private reviewCommentsService: ReviewCommentsService, private el: ElementRef) {}
+  account: Account | null = null;
+  private readonly destroy$ = new Subject<void>();
+  constructor(
+    private accountService: AccountService,
+    private reviewCommentsService: ReviewCommentsService,
+    private el: ElementRef,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.fetchComments();
+    this.accountService
+      .getAuthenticationState()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(account => (this.account = account));
+  }
+
+  login(): void {
+    this.router.navigate(['/login']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   fetchComments(): void {
