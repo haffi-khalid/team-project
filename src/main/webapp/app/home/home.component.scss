@@ -83,6 +83,23 @@
   cursor: pointer;
 }
 
+@media (max-width: 576px) {
+  .description2 h2 {
+    display: block;
+  }
+
+  .description2 p {
+    display: none;
+  }
+
+  .container6 {
+    .image-container,
+    .image-container-right {
+      height: 150px; /* Adjust height for logos on phone */
+    }
+  }
+}
+
 //
 //.image-container {
 //  flex: 1;
