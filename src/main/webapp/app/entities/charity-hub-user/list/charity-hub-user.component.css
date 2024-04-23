@@ -16,7 +16,7 @@
 .large-button {
   font-size: 3em; /* Large text on button */
   padding: 15px 30px; /* Larger and more comfortable click area */
-  background-color: grey; /* Example blue color, match your theme */
+  background-color: var(--background-color2); /* Example blue color, match your theme */
   color: white;
   border: none;
   border-radius: 8px;

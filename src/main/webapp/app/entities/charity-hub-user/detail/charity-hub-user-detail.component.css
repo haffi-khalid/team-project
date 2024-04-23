@@ -8,17 +8,6 @@
   box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
 }
 
-.profile-pic {
-  margin-left: auto;
-  margin-right: auto;
-  height: 200px;
-  width: 200px;
-  border-radius: 100px;
-  background-image: url('content/images/Haffi.JPG');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .personal-details-section {
   width: 25%;
   display: flex;
@@ -27,6 +16,7 @@
   padding: 25px;
   text-align: left;
   border-right: #d8c3a9 solid 4px;
+  background-color: var(--background-color2);
 }
 
 .name {
@@ -42,6 +32,7 @@
   text-align: left;
   justify-content: center;
   padding-top: 50px;
+  background-color: var(--background-color2);
 }
 
 .detail-row {
@@ -58,8 +49,8 @@
   margin-left: 50px;
   font-size: 20px;
   padding-left: 12px;
-  background-color: white;
-  color: black;
+  background-color: var(--background-color);
+  color: var(--text-color);
   width: 800px;
   position: absolute;
   left: 500px;

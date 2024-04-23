@@ -188,15 +188,15 @@ body {
 /* Modal Styles */
 .modal-header,
 .modal-footer {
-  background-color: #9d7e5f;
+  background-color: var(--background-color2);
   color: white;
   border-bottom: 1px solid #ddd;
   padding: 16px 24px;
 }
 
 .modal-body {
-  background-color: #d2b48c; /* Same as event box body */
-  color: Black; /* If you want the text color to be white */
+  background-color: var(--background-color); /* Same as event box body */
+  color: var(--text-color); /* If you want the text color to be white */
   border-bottom-left-radius: 12px; /* Match the border-radius of event box */
   border-bottom-right-radius: 12px;
   box-shadow: 0 1px 7px rgba(0, 0, 0, 0.25); /* Same shadow as event box */
