@@ -15,7 +15,6 @@ const donatorPageRoute: Routes = [
     data: {
       defaultSort: 'id,' + ASC,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',

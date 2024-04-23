@@ -6,16 +6,17 @@
     </div>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh list</span>
-      </button>
+      <!--      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">-->
+      <!--        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>-->
+      <!--        <span>Refresh list</span>-->
+      <!--      </button>-->
 
       <button
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-fundraising-idea"
         [routerLink]="['/fundraising-idea/new']"
+        *jhiHasAnyAuthority="'ROLE_ADMIN'"
       >
         <fa-icon icon="plus"></fa-icon>
         <span> Add a new Fundraising Idea </span>

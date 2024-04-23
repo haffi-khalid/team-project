@@ -88,6 +88,8 @@ public class SecurityConfiguration {
             .antMatchers("/api/vacancies").permitAll()
             .antMatchers("/api/charity-events").permitAll()
             .antMatchers("/api/charity-hub-user").permitAll()
+            .antMatchers("/api/donator-pages/").permitAll()
+            .antMatchers("/api/fundraising-ideas").permitAll()
             .antMatchers("/api/**").permitAll()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/health/**").permitAll()

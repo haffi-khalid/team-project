@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/config/error.constants';
 import { RegisterService } from './register.service';
+import { success } from 'concurrently/dist/src/defaults';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-register',
@@ -45,11 +47,14 @@ export class RegisterComponent implements AfterViewInit {
     lastName: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
   });
 
-  constructor(private registerService: RegisterService) {}
+  constructor(private registerService: RegisterService, public router: Router) {}
 
   ngAfterViewInit(): void {
     if (this.login) {
       this.login.nativeElement.focus();
+    }
+    if (this.success) {
+      this.router.navigate(['/vacancies']);
     }
   }
 
@@ -64,10 +69,13 @@ export class RegisterComponent implements AfterViewInit {
       this.doNotMatch = true;
     } else {
       this.registerService.save({ login, email, password, firstName, lastName, langKey: 'en' }).subscribe({
-        next: () => (this.success = true),
+        next: () => this.navigate(),
         error: response => this.processError(response),
       });
     }
+  }
+  private navigate() {
+    this.router.navigate(['/']);
   }
 
   private processError(response: HttpErrorResponse): void {

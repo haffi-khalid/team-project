@@ -15,7 +15,6 @@ const fundraisingIdeaRoute: Routes = [
     data: {
       defaultSort: 'id,' + ASC,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
