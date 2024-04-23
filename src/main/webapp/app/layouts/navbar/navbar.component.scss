@@ -79,6 +79,55 @@ Navbar
   }
 }
 
+@media (max-width: 1000px) {
+  .container-fluid {
+    padding: 0px;
+  }
+  .navbar-brand {
+    margin: 0px;
+    height: 20%;
+    width: 20%;
+  }
+  .nav-item {
+    height: 20%;
+    width: 30%;
+    font-size: 7px;
+  }
+  a.nav-link {
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
+  }
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    width: fit-content;
+    margin-left: 10px;
+    column-gap: 5px;
+  }
+
+  .navbar-text {
+    font-size: 16px;
+  }
+
+  .navbar-toggler .fa-bars {
+    display: block;
+  }
+
+  .navbar-toggler .fa-times {
+    display: none;
+  }
+
+  .navbar-toggler.collapsed .fa-bars {
+    display: none;
+  }
+
+  .navbar-toggler.collapsed .fa-times {
+    display: block;
+  }
+}
+
 /* ==========================================================================
 Logo styles
 ========================================================================== */
@@ -87,7 +136,34 @@ Logo styles
   width: 120px;
   display: inline-block;
   vertical-align: middle;
-  background: url('/../../../content/images/output-onlinepngtools.png') no-repeat center center;
+  background: url('../../../content/images/output-onlinepngtools.png') no-repeat center center;
 
   background-size: contain;
+}
+
+@media (max-width: 1000px) {
+  .logo-img {
+    height: 40px;
+    width: 100%;
+    background-size: contain;
+  }
+
+  .dropdown-menu:last-child {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .gap-mobile {
+    margin-top: 0px;
+  }
+  .dropdown-toggle {
+    margin-top: 50px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0px;
+  }
 }
