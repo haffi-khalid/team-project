@@ -7,6 +7,8 @@ import { CharityProfileService } from '../service/charity-profile.service';
 import { EntityArrayResponseType, VolunteerApplicationsService } from '../../volunteer-applications/service/volunteer-applications.service';
 import { IVolunteerApplications } from '../../volunteer-applications/volunteer-applications.model';
 import { SortService } from '../../../shared/sort/sort.service';
+import { ICharityEvent } from '../../charity-event/charity-event.model';
+import { CharityEventService } from '../../charity-event/service/charity-event.service';
 
 @Component({
   selector: 'jhi-charity-profile-detail',
@@ -20,12 +22,14 @@ export class CharityProfileDetailComponent implements OnInit {
   predicate = 'id';
   ascending = true;
   acceptedCount: number = 0;
+  charityEvents?: ICharityEvent[] | null;
   constructor(
     protected dataUtils: DataUtils,
     protected sortService: SortService,
     protected activatedRoute: ActivatedRoute,
     protected volunteerApplicationService: VolunteerApplicationsService,
-    private charityProfileService: CharityProfileService
+    private charityProfileService: CharityProfileService,
+    private charityEventService: CharityEventService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +46,9 @@ export class CharityProfileDetailComponent implements OnInit {
       console.log(this.volunteerApplicationService.getVolunteerApplicationsByCharityAdmin(this.charityProfile.id));
       this.volunteerApplicationService.getVolunteerApplicationsByCharityAdmin(this.charityProfile.id).subscribe(res => {
         this.onResponseSuccess(res);
+        if (this.charityProfileId) {
+          this.charityEventService.findByCharityProfileID(this.charityProfileId).subscribe(res => this.convertCharityEvent(res));
+        }
       });
     }
   }
@@ -69,5 +76,13 @@ export class CharityProfileDetailComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+
+  protected convertCharityEvent(response: EntityArrayResponseType): void {
+    this.charityEvents = this.fillCharityEvent(response.body);
+  }
+
+  protected fillCharityEvent(data: ICharityEvent[] | null): ICharityEvent[] {
+    return data ?? [];
   }
 }

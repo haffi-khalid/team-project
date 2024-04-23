@@ -59,11 +59,11 @@
 <div class="container2">
   <h3 class="section-title" style="text-align: center">Recent Photos</h3>
 
-  <div class="photo-gallery">
-    <img src="/../../../content/images/download (11).jpeg" alt="Photo 1" class="photo" />
-    <img src="/../../../content/images/download (13).jpeg" alt="Photo 2" class="photo" />
-    <img src="/../../../content/images/download (12).jpeg" alt="Photo 3" class="photo" />
-  </div>
+  <ng-template [ngIf]="charityEvents && charityEvents.length > 0">
+    <div class="photo-gallery" *ngFor="let charityEvent of charityEvents">
+      <img [src]="'data:' + charityEvent.imagesContentType + ';base64,' + charityEvent.images" />
+    </div>
+  </ng-template>
   <button type="button" class="btn btn-lg btn-outline" style="color: var(--text-color); border: none" routerLink="/charity-event">
     <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See events...
   </button>

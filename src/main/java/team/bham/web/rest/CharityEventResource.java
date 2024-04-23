@@ -199,6 +199,11 @@ public class CharityEventResource {
         return ResponseUtil.wrapOrNotFound(charityEvent);
     }
 
+    @GetMapping("/charity-events/charityProfile/{id}")
+    public List<CharityEvent> getCharityEventByCharityProfileID(@PathVariable Long id) {
+        return charityEventRepository.findByCharityProfileID(id);
+    }
+
     /**
      * {@code DELETE  /charity-events/:id} : delete the "id" charityEvent.
      *

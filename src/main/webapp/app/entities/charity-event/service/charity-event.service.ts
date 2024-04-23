@@ -64,6 +64,11 @@ export class CharityEventService {
       .get<RestCharityEvent>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
+  findByCharityProfileID(id: number) {
+    return this.http
+      .get<RestCharityEvent[]>(`/api/charity-events/charityProfile/${id}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
