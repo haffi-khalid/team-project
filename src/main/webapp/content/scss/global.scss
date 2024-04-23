@@ -465,6 +465,9 @@ button:hover {
   color: #26190e;
 }
 
+.photo-gallery {
+  align-items: center;
+}
 @media (max-width: 1000px) {
   .purpose-aim {
     flex-direction: column;
@@ -499,6 +502,7 @@ button:hover {
   }
   .circle-container {
     margin: auto;
+    display: flex;
   }
   .photo {
     width: 60%;

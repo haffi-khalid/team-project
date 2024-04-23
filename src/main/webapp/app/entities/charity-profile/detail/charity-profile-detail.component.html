@@ -57,16 +57,21 @@
 </div>
 
 <div class="container2">
-  <h3 class="section-title" style="text-align: center">Recent Photos</h3>
+  <h3 class="section-title" style="text-align: center">Recent Events</h3>
 
   <ng-template [ngIf]="charityEvents && charityEvents.length > 0">
-    <div class="photo-gallery" *ngFor="let charityEvent of charityEvents">
-      <img [src]="'data:' + charityEvent.imagesContentType + ';base64,' + charityEvent.images" />
+    <div class="photo-gallery" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center">
+      <div *ngFor="let charityEvent of charityEvents">
+        <img
+          [src]="'data:' + charityEvent.imagesContentType + ';base64,' + charityEvent.images"
+          style="max-width: 200px; max-height: 120px; width: auto; height: auto"
+        />
+      </div>
     </div>
   </ng-template>
   <button type="button" class="btn btn-lg btn-outline" style="color: var(--text-color); border: none" routerLink="/charity-event"></button>
   <button type="button" class="btn btn-lg btn-outline" style="color: #3b2f1f; border: none" routerLink="/charity-event">
-    <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See events...
+    <fa-icon icon="briefcase" style="font-size: 20px"></fa-icon>&nbsp; See more...
   </button>
 </div>
 
@@ -89,22 +94,22 @@
 </div>
 
 <div class="container4" *jhiHasAnyAuthority="'ROLE_ADMIN'">
-  <h3>Volunteer Applications for {{ charityProfile?.charityName }}</h3>
+  <h3 style="color: var(--text-color)">Volunteer Applications for {{ charityProfile?.charityName }}</h3>
   <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
-        <th>User ID</th>
-        <th>Status</th>
+        <th style="color: var(--text-color)">User ID</th>
+        <th style="color: var(--text-color)">Status</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let app of volunteerApplications">
         <td>
-          <a *ngIf="app.id" [routerLink]="['/volunteer-applications', app.id, 'edit']">
+          <a *ngIf="app.id" [routerLink]="['/volunteer-applications', app.id, 'edit']" style="color: var(--text-color)">
             {{ app.id }}
           </a>
         </td>
-        <td>{{ app.volunteerStatus }}</td>
+        <td style="color: var(--text-color)">{{ app.volunteerStatus }}</td>
       </tr>
     </tbody>
   </table>
