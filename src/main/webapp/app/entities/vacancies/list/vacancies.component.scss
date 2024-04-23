@@ -1,12 +1,14 @@
 .admin-table {
-  //border: 10px solid #ffffff;
+  border: 2px solid #ffffff;
   width: 100%;
-  background-color: #d2b48c;
+  //background-color: #d2b48c;
+  background-color: var(--background-color2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .user-table {
   width: 100%;
-  background-color: #d2b48c;
+  //background-color: #d2b48c;
+  background-color: var(--background-color2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .th {
@@ -90,7 +92,9 @@
   text-align: center;
 }
 tr:first-child th {
-  background-color: #d8c3a9;
+  //background-color: #d8c3a9;
+  background-color: var(--idea-bg-color2);
+  margin-bottom: 5px;
 }
 .text-end {
   width: 100px;

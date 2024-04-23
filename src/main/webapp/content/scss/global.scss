@@ -6,6 +6,24 @@
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
+$light-theme: (
+  background-color: #d8c3a9,
+  text-color: #000000,
+  link-color: #065fd4,
+  error-color: red,
+  primary-color: #9d7e5f,
+  border-color: #ccc,
+);
+
+// Define dark theme variables
+$dark-theme: (
+  background-color: #121212,
+  text-color: #ffffff,
+  link-color: #90caf9,
+  error-color: #ff6b6b,
+  primary-color: #333,
+  border-color: #666,
+);
 
 body,
 h1,
@@ -14,10 +32,47 @@ h3,
 h4 {
   font-weight: 300;
 }
+:root {
+  --background-color: #d8c3a9;
+  --background-color2: #9d7e5f;
+  --idea-bg-color2: #d2b48c;
+  --navbar-bg-color: #d2b48c;
+  --footer-bg-color: #6a553f;
+  --donate-bg-color: #e5bb89;
+  --donate-bg-color-2: #e5bb89;
+  --text-color: #000000; // Dark text
+  --navbar-background-color: #f8f9fa;
+  --navbar-text-color: #000000;
+  --hover-bg-color: darken(#9d7e5f, 5%);
+  --conic-gradient: conic-gradient(#e5bb89 60%, #d8c3a9 40%);
+  --logo-pic: url('../../content/images/output-onlinepngtools.png') no-repeat center center;
+}
+
+// Dark theme variables
+[data-theme='dark'] {
+  --background-color: #121212;
+  --background-color2: #505050;
+  --idea-bg-color2: #505050;
+  --navbar-bg-color: #505050;
+  --footer-bg-color: #222222;
+  --donate-bg-color: #505050;
+  --donate-bg-color-2: #222222;
+  --text-color: #ffffff;
+  --navbar-background-color: #333333;
+  --navbar-text-color: #ffffff;
+  --hover-bg-color: darken(#505050, 5%);
+  --conic-gradient: conic-gradient(black 60%, white 40%);
+  --logo-pic: url('../../content/images/logogosvg.svg') no-repeat center center;
+}
 
 body {
-  background-color: #d8c3a9; /* Change this color to your desired background color */
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
+
+//body {
+//  background-color: #d8c3a9; /* Change this color to your desired background color */
+//}
 
 a:hover {
   /* make sure browsers use the pointer cursor for anchors, even with no href */
@@ -48,7 +103,8 @@ Generic styles
   //padding: 1.5%;
   //margin-top: 20px;
   border: none;
-  background-color: #d8c3a9;
+  //background-color: #d8c3a9;
+  background-color: var(--background-color);
 }
 
 .error {
@@ -74,7 +130,8 @@ Generic styles
 }
 
 .form-control {
-  background-color: #d8c3a9;
+  //background-color: #d8c3a9;
+  background-color: var(--navbar-bg-color);
 }
 
 .readonly {
@@ -240,7 +297,8 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   z-index: 1;
   display: flex;
   justify-content: center;
-  background-color: #9d7e5f;
+  //background-color: #9d7e5f;
+  background-color: var(--background-color2);
   //charityProfile color dont change
 }
 
@@ -312,8 +370,8 @@ button:hover {
   min-height: 50vh;
   position: relative;
   z-index: 1;
-  background-color: #d8c3a9;
-  //charityProfile color dont change
+  //background-color: #d8c3a9;
+  background-color: var(--background-color);
 }
 .container2 button {
   position: absolute;
@@ -329,7 +387,7 @@ button:hover {
   min-height: 50vh;
   position: relative;
   z-index: 1;
-  background-color: #e5bb89;
+  background-color: var(--donate-bg-color);
 }
 .slash {
   position: absolute;
@@ -345,7 +403,7 @@ button:hover {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: conic-gradient(#e5bb89 80%, #d8c3a9 20%);
+  background: var(--conic-gradient);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -356,7 +414,9 @@ button:hover {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: conic-gradient(#e5bb89 60%, #d8c3a9 40%);
+  //background: conic-gradient(#e5bb89 60%, #d8c3a9 40%);
+  //background: conic-gradient(red, 60%, blue, 40%);
+  background: var(--conic-gradient);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -367,7 +427,8 @@ button:hover {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background-color: #9d7e5f;
+  //background-color: #9d7e5f;
+  background-color: var(--background-color2);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -392,5 +453,6 @@ button:hover {
 }
 
 .container4 {
-  background-color: #d8c3a9;
+  background-color: var(--donate-bg-color-2);
+  color: var(--text-color);
 }

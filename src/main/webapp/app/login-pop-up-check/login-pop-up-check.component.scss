@@ -2,9 +2,9 @@
   border-radius: 80px;
   margin-top: 1px;
   margin-left: 1px;
-  background-color: #e5bb89;
+  background-color: var(--background-color2);
   border-color: #ffffff;
-  color: black;
+  color: var(--text-color);
   font-size: 15px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -75,7 +75,7 @@
   background-color: #d8c3a9;
 }
 .modal-body {
-  background-color: #d8c3a9;
+  background-color: var(--background-color);
 }
 .title {
   text-align: center;
@@ -84,7 +84,7 @@
   margin-top: -35px;
 }
 .modal-footer {
-  background-color: #d8c3a9;
+  background-color: var(--background-color2);
 }
 .exitBtn {
   margin-top: -35px;

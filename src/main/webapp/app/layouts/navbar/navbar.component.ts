@@ -33,6 +33,7 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     protected charityHubUserService: CharityHubUserService
   ) {
+    this.loadTheme();
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
     }
@@ -49,7 +50,18 @@ export class NavbarComponent implements OnInit {
       this.account = account;
     });
   }
+  toggleTheme(): void {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  }
 
+  private loadTheme(): void {
+    const storedTheme = localStorage.getItem('theme') || 'light'; // Default to light theme
+    document.body.setAttribute('data-theme', storedTheme);
+  }
   collapseNavbar(): void {
     this.isNavbarCollapsed = true;
   }

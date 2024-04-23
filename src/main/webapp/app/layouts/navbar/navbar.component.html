@@ -65,7 +65,15 @@
             <!--              <span>Home</span>-->
             <!--            </span>-->
           </a>
+
+          <a class="dropdown-item" (click)="collapseNavbar()">
+            <label class="switch">
+              <input type="checkbox" id="theme-toggle" (click)="toggleTheme()" />
+              <span class="slider round"></span>
+            </label>
+          </a>
         </li>
+
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
@@ -214,6 +222,7 @@
                 <span>Charity Event</span>
               </a>
             </li>
+
             <li>
               <a
                 class="dropdown-item"

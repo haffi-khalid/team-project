@@ -1,10 +1,10 @@
 .home {
-  background-color: #d8c3a9;
+  background-color: var(--background-color);
   position: relative; /* Change this color to your desired background color */
 }
 
 .row {
-  background-color: #d8c3a9;
+  background-color: var(--background-color);
 }
 
 .hipster {
@@ -50,7 +50,8 @@
 
 .container6 {
   display: flex;
-  background-color: #9d7e5f;
+  background-color: var(--background-color2);
+  //background-color: #9d7e5f;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   overflow: hidden;
@@ -76,7 +77,7 @@
   &.focus-visible {
     outline: 2px solid blue;
     box-shadow: none; // Remove shadow when hovered or focused
-    background-color: darken(#9d7e5f, 5%); // Darken for hover and focus
+    background-color: var(--hover-bg-color); // Darken for hover and focus
   }
 
   cursor: pointer;

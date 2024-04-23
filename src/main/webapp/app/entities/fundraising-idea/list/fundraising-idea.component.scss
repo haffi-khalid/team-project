@@ -44,6 +44,7 @@
   box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
   margin-bottom: 50px;
   background-color: #fffacd;
+  //background-color: var(--background-color) ;
 }
 
 .event-text-section {
@@ -138,7 +139,9 @@
 .card {
   width: 100%;
   padding: 10px;
-  background-color: #f4e5db;
+  //background-color: #f4e5db;
+  background-color: var(--idea-bg-color2);
+
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -175,7 +178,8 @@
   margin-bottom: 10px;
   width: 600px;
   height: 50px;
-  color: black;
+  //color: black;
+  color: var(--text-color);
   font-weight: bold;
   text-decoration: underline;
 }
@@ -202,8 +206,10 @@ table {
 }
 
 .idea-box {
-  background-color: #000000;
-  color: #d2b48c;
+  //background-color: #000000;
+  background-color: var(--background-color2);
+  //color: #d2b48c;
+  color: var(--text-color);
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -214,7 +220,8 @@ table {
 
 .card-text {
   font-family: Arial, Helvetica, sans-serif;
-  color: #000000;
+  //color: #000000;
+  color: var(--text-color);
 }
 
 .popup-form {
@@ -227,10 +234,15 @@ table {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
+  color: var(--background-color);
 }
-
+.popup-background {
+  background-color: var(--background-color);
+}
 .popup-content {
-  background-color: #fefefe;
+  color: var(--text-color);
+  //background-color: #fefefe;
+  //background-color: red;
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -258,7 +270,7 @@ table {
 
 /* Popup content */
 .popup-content {
-  background-color: white;
+  //background-color: white;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
@@ -320,7 +332,8 @@ th {
 
 /* Popup content */
 .popup-content {
-  background-color: #f4e5db;
+  //background-color: #f4e5db;
+  background-color: var(--background-color);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
