@@ -21,7 +21,9 @@
       </p>
       <p><strong>Descritption: </strong> {{ selectedEvent.description }}</p>
       <div class="charity-logo-Modal" *ngIf="selectedEvent.charityProfile">
-        <a [routerLink]="['/charity-profile', selectedEvent.charityProfile.id, 'view']">{{ selectedEvent.charityProfile.charityName }}</a>
+        <a [routerLink]="['/charity-profile', selectedEvent.charityProfile.id, 'view']" (click)="stopPropagation($event)">{{
+          selectedEvent.charityProfile.charityName
+        }}</a>
       </div>
     </div>
   </div>
@@ -57,31 +59,21 @@
       </div>
 
       <div class="component2">
-        <!--        <div class="search-box">-->
-        <!--          <input type="text" placeholder="Search..." />-->
-        <!--        </div>-->
-        <div class="search-bar-container">
+        <div class="d-flex justify-content-center">
           <input
+            class="searchbar"
             type="text"
             [(ngModel)]="searchTerm"
             placeholder="Search events..."
             (keydown.enter)="searchEvents(searchTerm)"
-            class="form-control"
           />
-          <button type="button" class="btn btn-primary" (click)="searchEvents(searchTerm)">Search</button>
+          <button type="button" class="primary" (click)="searchEvents(searchTerm)">Search</button>
         </div>
       </div>
 
       <div class="component3">
         <div class="filter-container">
-          <select class="mighty-filter" [(ngModel)]="selectedFilter">
-            <option value="none">Choose Filter...</option>
-            <option value="startDate">Start Date</option>
-            <option value="charityName">Charity Name</option>
-          </select>
-
-          <div *ngIf="selectedFilter === 'startDate'" class="inputBox">
-            <label for="field_CharityEventStartDate">Start Date</label>
+          <div class="inputBox">
             <div class="input-group">
               <input
                 id="field_CharityEventStartDate"
@@ -95,6 +87,7 @@
                 [(ngModel)]="dateSelector"
                 (click)="startDate.toggle()"
               />
+
               <button type="button" class="btn btn-secondary" (click)="startDate.toggle()">
                 <fa-icon icon="calendar-alt"></fa-icon>
               </button>
@@ -130,31 +123,24 @@
             </button>
           </div>
         </div>
-
-        <!-- charity-event.component.html -->
-
-        <!-- Container for the date selection -->
-
-        <!-- Button to apply the selected date as a filter -->
-
-        <!--      <div class="component3">-->
-        <!--        <div class="filter-container">-->
-        <!--          <input type="datetime-local" [(ngModel)]="selectedDateTime" class="date-time-picker" />-->
-        <!--          <button class="filter-button" (click)="filterEventsByDateTime()">Filter</button>-->
-        <!--        </div>-->
-
-        <!--      </div>-->
       </div>
     </div>
-
-    <!--    <div class="charity-profile-filter">-->
-
-    <!--         <button class = "charity-logo-button" (click)="filterByCharityProfile(null)">-->
-
-    <!--         </button>-->
-
-    <!--    </div>-->
   </h2>
+
+  Charity Logo Filter Section
+  <!-- Charity Logo Filter Section -->
+  <div class="logo-filter-container" *ngIf="uniqueCharityProfiles.length > 0">
+    <div *ngFor="let charityProfile of uniqueCharityProfiles">
+      <img
+        [src]="'data:' + charityProfile.logoContentType + ';base64,' + charityProfile.logo"
+        alt="Charity Logo"
+        class="charity-logo2"
+        (click)="onCharityLogoClick($event, charityProfile.id)"
+      />
+    </div>
+  </div>
+
+  <!-- ... (rest of your template) ... -->
 
   <jhi-alert-error></jhi-alert-error>
 
@@ -181,33 +167,41 @@
           </div>
           <div class="description">{{ charityEvent.description }}</div>
           <div class="charity-logo" *ngIf="charityEvent.charityProfile">
-            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }}</a>
+            <!--            <a [routerLink]="['/charity-profile', charityEvent.charityProfile.id, 'view']">{{ charityEvent.charityProfile.charityName }} </a>-->
+            <!--            <img [src]="charityEvent.charityProfile?.logo" alt="Charity Logo" *ngIf="charityEvent.charityProfile" />-->
+
+            <img
+              [src]="'data:' + charityEvent.charityProfile.logoContentType + ';base64,' + charityEvent.charityProfile.logo"
+              alt="Charity Logo"
+              class="charity-logo2"
+            />
           </div>
-        </div>
 
-        <div class="text-end">
-          <div class="btn-group">
-            <button
-              type="submit"
-              [routerLink]="['/charity-event', charityEvent.id, 'edit']"
-              *jhiHasAnyAuthority="'ROLE_ADMIN'"
-              class="btn btn-primary btn-sm"
-              data-cy="entityEditButton"
-            >
-              <fa-icon icon="pencil-alt"></fa-icon>
-              <span class="d-none d-md-inline">Edit</span>
-            </button>
+          <div class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/charity-event', charityEvent.id, 'edit']"
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+                (click)="stopPropagation($event)"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                Edit
+              </button>
 
-            <button
-              type="submit"
-              (click)="delete(charityEvent)"
-              class="btn btn-danger btn-sm"
-              data-cy="entityDeleteButton"
-              *jhiHasAnyAuthority="'ROLE_ADMIN'"
-            >
-              <fa-icon icon="times"></fa-icon>
-              <span class="d-none d-md-inline">Delete</span>
-            </button>
+              <button
+                type="submit"
+                (click)="delete(charityEvent); stopPropagation($event)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              >
+                <fa-icon icon="times"></fa-icon>
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>

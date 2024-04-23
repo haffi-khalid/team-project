@@ -3,7 +3,7 @@
   <ng-container *ngFor="let comment of comments; let i = index">
     <div *ngIf="!comment.parentID" class="comment-entry" tabindex="0">
       <div class="user-info">
-        <div class="user-name">Username: {{ comment.login }}</div>
+        <div class="user-name">{{ comment.login }}</div>
         <div *ngIf="editCommentId !== comment.id" class="comment-content">{{ comment.content }}</div>
         <div *ngIf="editCommentId === comment.id" class="edit-input-section">
           <input
@@ -39,7 +39,7 @@
         <ng-container *ngFor="let reply of comments; let j = index">
           <div *ngIf="reply.parentID === comment.id" class="reply-entry" tabindex="0">
             <div class="user-info">
-              <div class="user-name">Username: {{ comment.login }}</div>
+              <div class="user-name">{{ comment.login }}</div>
               <div *ngIf="editCommentId !== reply.id" class="comment-content">{{ reply.content }}</div>
               <div *ngIf="editCommentId === reply.id" class="edit-input-section">
                 <input

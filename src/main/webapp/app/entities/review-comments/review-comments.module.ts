@@ -32,6 +32,8 @@ import { ReviewCommentsRoutingModule } from './route/review-comments-routing.mod
     ReviewCommentsUpdateComponent,
     ReviewCommentsDeleteDialogComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this line to your existing NgModule decorator
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [ReviewCommentsComponent],
+  // Add this line to your existing NgModule decorator
 })
 export class ReviewCommentsModule {}

@@ -45,6 +45,11 @@ export class CharityProfileService {
     return this.http.get<ICharityProfile[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  getCurrentCharityId(): Observable<number> {
+    // Assuming the backend endpoint returns the current charity profile ID
+    return this.http.get<number>('/api/current-charity-id');
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

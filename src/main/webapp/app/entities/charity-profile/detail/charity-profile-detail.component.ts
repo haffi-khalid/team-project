@@ -13,6 +13,7 @@ import { SortService } from '../../../shared/sort/sort.service';
   templateUrl: './charity-profile-detail.component.html',
 })
 export class CharityProfileDetailComponent implements OnInit {
+  charityProfileId: number | undefined;
   charityProfile: ICharityProfile | null = null;
   charityAdminId: number | null = null;
   volunteerApplications?: IVolunteerApplications[] | null;
@@ -23,12 +24,16 @@ export class CharityProfileDetailComponent implements OnInit {
     protected dataUtils: DataUtils,
     protected sortService: SortService,
     protected activatedRoute: ActivatedRoute,
-    protected volunteerApplicationService: VolunteerApplicationsService
+    protected volunteerApplicationService: VolunteerApplicationsService,
+    private charityProfileService: CharityProfileService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ charityProfile }) => {
       this.charityProfile = charityProfile;
+      if (charityProfile) {
+        this.charityProfileId = charityProfile.id; // Set the charityProfileId
+      }
     });
     this.volunteerApplicationCollect();
   }

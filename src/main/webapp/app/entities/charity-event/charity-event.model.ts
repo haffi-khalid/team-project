@@ -9,7 +9,7 @@ export interface ICharityEvent {
   images?: string | null;
   imagesContentType?: string | null;
   duration?: number | null;
-  charityProfile?: Pick<ICharityProfile, 'id' | 'charityName'> | null;
+  charityProfile?: Pick<ICharityProfile, 'id' | 'charityName' | 'logo' | 'logoContentType'> | null;
 }
 
 export type NewCharityEvent = Omit<ICharityEvent, 'id'> & { id: null };

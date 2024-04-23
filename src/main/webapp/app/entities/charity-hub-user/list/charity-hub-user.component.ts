@@ -12,6 +12,7 @@ import { SortService } from 'app/shared/sort/sort.service';
 @Component({
   selector: 'jhi-charity-hub-user',
   templateUrl: './charity-hub-user.component.html',
+  styleUrls: ['./charity-hub-user.component.css'],
 })
 export class CharityHubUserComponent implements OnInit {
   charityHubUsers?: ICharityHubUser[];
@@ -48,6 +49,12 @@ export class CharityHubUserComponent implements OnInit {
           this.onResponseSuccess(res);
         },
       });
+  }
+
+  onKeyPress(event: KeyboardEvent, charityHubUser: ICharityHubUser): void {
+    if (event.key === 'Enter' || event.key === 'Space') {
+      this.router.navigate(['/charity-hub-user', charityHubUser.id, 'view']);
+    }
   }
 
   load(): void {

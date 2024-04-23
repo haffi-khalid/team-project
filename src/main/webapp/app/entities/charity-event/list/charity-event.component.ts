@@ -10,7 +10,6 @@ import { CharityEventDeleteDialogComponent } from '../delete/charity-event-delet
 import { DataUtils } from 'app/core/util/data-util.service';
 import { SortService } from 'app/shared/sort/sort.service';
 
-//
 import { ICharityProfile } from 'app/entities/charity-profile/charity-profile.model';
 import dayjs from 'dayjs/esm';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -23,12 +22,12 @@ import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/htt
   styleUrls: ['./charity-event.component.css'],
 })
 export class CharityEventComponent implements OnInit {
-  searchCharityName: string = '';
+  uniqueCharityProfiles: ICharityProfile[] = [];
 
-  searchEventName: string = '';
   searchTerm: string = '';
 
-  searchQuery: string = '';
+  displayedLogos = new Set<number>();
+  activeCharityProfileId: number | null = null;
   filteredEvents?: ICharityEvent[];
 
   charityEvents: ICharityEvent[] = [];
@@ -109,12 +108,20 @@ export class CharityEventComponent implements OnInit {
       });
   }
 
+  // load(): void {
+  //   this.loadFromBackendWithRouteInformations().subscribe({
+  //     next: (res: EntityArrayResponseType) => {
+  //       this.onResponseSuccess(res);
+  //       this.filteredEvents = this.charityEvents;
+  //     },
+  //   });
+  // }
+
   load(): void {
-    this.loadFromBackendWithRouteInformations().subscribe({
-      next: (res: EntityArrayResponseType) => {
-        this.onResponseSuccess(res);
-        this.filteredEvents = this.charityEvents;
-      },
+    this.charityEventService.query().subscribe((response: HttpResponse<ICharityEvent[]>) => {
+      this.charityEvents = response.body ?? [];
+      this.filteredEvents = [...this.charityEvents];
+      this.updateUniqueCharityProfiles();
     });
   }
 
@@ -313,5 +320,72 @@ export class CharityEventComponent implements OnInit {
         },
       });
     }
+  }
+
+  handleEdit(event: MouseEvent, charityEvent: ICharityEvent): void {
+    event.stopPropagation(); // This should prevent the modal from opening.
+    console.log('Edit button clicked, propagation stopped');
+    this.router.navigate(['/charity-event', charityEvent.id, 'edit']);
+  }
+
+  @HostListener('click', ['$event'])
+  handleClick(event: MouseEvent): void {
+    const targetElement = event.target as HTMLElement;
+    if (!targetElement.closest('.modal')) {
+      // Assuming modal is the class of your modal
+      console.log('Clicked outside modal');
+      event.stopPropagation();
+    }
+  }
+
+  stopPropagation(event: MouseEvent): void {
+    event.stopPropagation();
+    console.log('Propagation stopped for:', event.target);
+  }
+
+  // filter by logo
+
+  filterEventsByCharity(event: MouseEvent, charityProfileId: number): void {
+    event.stopPropagation();
+    this.activeCharityProfileId = charityProfileId;
+    this.filteredEvents = this.charityEvents.filter(charityEvent => charityEvent.charityProfile?.id === charityProfileId);
+  }
+
+  // Method to check if logo is already displayed
+
+  isLogoDisplayed(charityProfileId: number | undefined): boolean {
+    return charityProfileId ? this.displayedLogos.has(charityProfileId) : false;
+  }
+
+  // Method to mark logo as displayed
+  markLogoAsDisplayed(charityProfileId: number | undefined): void {
+    if (charityProfileId) {
+      this.displayedLogos.add(charityProfileId);
+    }
+  }
+
+  // Method to remove filters
+  clearFilter(): void {
+    this.activeCharityProfileId = null;
+    this.displayedLogos.clear();
+    this.filteredEvents = [...this.charityEvents]; // Reset to the full list
+  }
+
+  onCharityLogoClick(event: MouseEvent, charityProfileId?: number): void {
+    if (charityProfileId != null) {
+      this.filterEventsByCharity(event, charityProfileId);
+    }
+  }
+
+  ////
+
+  updateUniqueCharityProfiles(): void {
+    const charityProfilesMap = new Map<number, ICharityProfile>();
+    this.charityEvents.forEach(event => {
+      if (event.charityProfile && !charityProfilesMap.has(event.charityProfile.id)) {
+        charityProfilesMap.set(event.charityProfile.id, event.charityProfile);
+      }
+    });
+    this.uniqueCharityProfiles = Array.from(charityProfilesMap.values());
   }
 }
